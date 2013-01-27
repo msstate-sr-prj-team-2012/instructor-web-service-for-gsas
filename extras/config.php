@@ -21,8 +21,8 @@ require_once(DBOBJECTS . 'Shot.php');
 
 $app = new \Slim\Slim(array(
     'debug' => true,
-    'mode' => 'development'
-    'templates.path' => '/html/'
+    'mode' => 'development',
+    'templates.path' => dirname(__FILE__) . '/../html'
 ));
 
 ?>
