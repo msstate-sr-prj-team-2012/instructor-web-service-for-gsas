@@ -1,0 +1,74 @@
+#containerWood
+{
+	margin:auto;
+	width: 900px;
+	height: 450px;
+	margin-top:6em;
+}
+#containerHybrid
+{
+	margin:auto;
+	width: 900px;
+	height: 450px;
+	margin-top:1em;
+}
+#containerIron
+{
+	margin:auto;
+	width: 900px;
+	height: 450px;
+	margin-top:1em;
+}
+#containerWedge
+{
+	margin:auto;
+	width: 900px;
+	height: 450px;
+	margin-top:1em;
+}
+#bar{
+	width: 90%;
+	height: 700px;
+	margin-top: 6em;
+	margin-left: 5%;
+	border: 2px solid black; 
+}
+#wrapper {
+	width: 850px;
+	height: 600px;
+	float: left;
+	margin-left: 100px;
+	margin-top: 5px;
+}
+#larrow{
+	float:left;
+	margin-top: 23em;
+	margin-left: 10px;
+}
+#rarrow{
+	float:right;
+	margin-top: 23em;
+	margin-right: 10px;
+}
+#hole{
+	margin-left:490px;
+	margin-top: 3em;
+	float:left;
+	align:center;
+}
+#legend{
+	margin-right:100px;
+	float:right;
+	margin-top: 3em;
+	align:center;
+}
+#legendContainer{
+	width: 200px;
+	height: 600px;
+	margin-top: 5px;
+	float: right;
+	margin-right:50px; 	
+}
+p{
+	cursor:pointer;
+}

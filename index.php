@@ -8,6 +8,12 @@ function() use ($app)
 	$app->render('index.html');
 });
 
+$app->get('/test',
+function() use ($app)
+{
+	$app->render('test.html');
+});
+
 $app->run();
 
 ?>
