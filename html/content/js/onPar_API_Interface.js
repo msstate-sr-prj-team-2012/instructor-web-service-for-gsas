@@ -1,7 +1,12 @@
-function ajaxErrorHandler(data, textStatus, xhr)
+function ajaxErrorHandler(data, textStatus)
 {
+	console.log('API Error - entering ajaxErrorHandler');
+	console.log('Returned data: ' + JSON.stringify(data));
+	console.log('TextStatus: ' + textStatus);
+	console.log('Response Status: ' + JSON.stringify(data.status));
+
 	if (textStatus != "success") {
-		switch (xhr.status) {
+		switch (data.status) {
 			// 1xx codes are informational
 			case 100:
 				alert('100 Continue');
@@ -142,4 +147,117 @@ function ajaxErrorHandler(data, textStatus, xhr)
 				break;
 		}
 	}
+}
+
+function Course(data)
+{
+	this.id = null;
+	this.name = null;
+	this.location = null;
+
+	// constructor
+	if (data) this.load(data);
+}
+
+Course.prototype.load = function(data)
+{
+	if (!data) return true;
+
+	$.ajax({
+		accepts: "application/json",
+		async: false,
+		dataType: "json",
+		url: "http://shadowrealm.cse.msstate.edu/gsas/API/courses/" + data.toString(),
+		type: "GET",
+		username: "cse3213",
+		password: "test",
+		success: function(data, textStatus, xhr) {
+			if (data.status = 204) {
+				alert('This course does not exist.');
+			} else {
+				alert(JSON.stringify(data));
+			}
+		},
+		error: function(data, textStatus, xhr) {
+			ajaxErrorHandler(data, textStatus, xhr);
+		}
+	});
+}
+
+Course.prototype.save = function()
+{
+	if (this.id) {
+		// update
+		$.ajax({
+			accepts: "application/json",
+			async: false,
+			dataType: "json",
+			url: "http://shadowrealm.cse.msstate.edu/gsas/API/courses/" + this.id.toString(),
+			type: "POST",
+			username: "cse3213",
+			password: "test",
+			contentType: "application/json",
+			data: this.export(),
+			success: function(data, textStatus, xhr) {
+				alert(JSON.stringify(data));
+			},
+			error: function(data, textStatus, xhr) {
+				ajaxErrorHandler(data, textStatus, xhr);
+			}
+		});
+	} else {
+		// insert
+		$.ajax({
+			accepts: "application/json",
+			async: false,
+			dataType: "json",
+			url: "http://shadowrealm.cse.msstate.edu/gsas/API/courses/",
+			type: "POST",
+			username: "cse3213",
+			password: "test",
+			contentType: "application/json",
+			data: this.export(),
+			success: function(data, textStatus, xhr) {
+				alert(JSON.stringify(data));
+			},
+			error: function(data, textStatus, xhr) {
+				ajaxErrorHandler(data, textStatus, xhr);
+			}
+		});
+	}
+}
+
+Course.prototype.delete() = function()
+{
+	if (!this.id) return false;
+
+	$.ajax({
+			accepts: "application/json",
+			async: false,
+			dataType: "json",
+			url: "http://shadowrealm.cse.msstate.edu/gsas/API/courses/" + this.id.toString(),
+			type: "POST",
+			username: "cse3213",
+			password: "test",
+			success: function(data, textStatus, xhr) {
+				alert(JSON.stringify(data));
+			},
+			error: function(data, textStatus, xhr) {
+				ajaxErrorHandler(data, textStatus, xhr);
+			}
+		});
+}
+
+Course.prototype.export() = function()
+{
+	var courseObject = 
+	{"course":
+		{
+			"id": this.id,
+			"name": this.name,
+			"location": this.location
+		}
+	};
+
+	return courseObject;
 }
