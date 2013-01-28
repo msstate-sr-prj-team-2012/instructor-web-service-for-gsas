@@ -151,6 +151,7 @@ function ajaxErrorHandler(data, textStatus)
 
 function Course(data)
 {
+	console.log('New Course with data: ' + data.toString());
 	this.id = null;
 	this.name = null;
 	this.location = null;
@@ -161,6 +162,7 @@ function Course(data)
 
 Course.prototype.load = function(data)
 {
+	console.log('Course load with data: ' + data.toString());
 	if (!data) return true;
 
 	$.ajax({
@@ -186,8 +188,10 @@ Course.prototype.load = function(data)
 
 Course.prototype.save = function()
 {
+	console.log('Course save');
 	if (this.id) {
 		// update
+		console.log('Course update for id: ' + this.id.toString());
 		$.ajax({
 			accepts: "application/json",
 			async: false,
@@ -207,6 +211,7 @@ Course.prototype.save = function()
 		});
 	} else {
 		// insert
+		console.log('Course insert');
 		$.ajax({
 			accepts: "application/json",
 			async: false,
@@ -229,6 +234,7 @@ Course.prototype.save = function()
 
 Course.prototype.delete() = function()
 {
+	console.log('Course delete for id: ' + this.id.toString());
 	if (!this.id) return false;
 
 	$.ajax({
@@ -250,6 +256,7 @@ Course.prototype.delete() = function()
 
 Course.prototype.export() = function()
 {
+	console.log('Course Export');
 	var courseObject = 
 	{"course":
 		{

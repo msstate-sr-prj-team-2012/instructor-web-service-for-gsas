@@ -3,134 +3,23 @@
             <head>
                     <meta http-equiv="content-type" content="text/html; charset=utf-8" />	
                     <title>Table</title>
-                    <link rel="stylesheet" type="text/css" href="content/css/ColVis.css" />
-                    <link rel="stylesheet" type="text/css" href="content/css/demo_page.css" />
-                    <link rel="stylesheet" type="text/css" href="content/css/demo_table.css" />
-                    <link rel="stylesheet" type="text/css" href="content/css/graph.css" />
-                    <link rel="stylesheet" type="text/css" href="content/css/index.css" />
-                    <link rel="stylesheet" type="text/css" href="content/css/map.css" />
-                    <link rel="stylesheet" type="text/css" href="content/css/menu.css" />
-                    <link rel="stylesheet" type="text/css" href="content/css/TableTools_JUI.css" />
-                    <link rel="stylesheet" type="text/css" href="content/css/TableTools.css" />
+                    <link rel="stylesheet" type="text/css" href="html/content/css/ColVis.css" />
+                    <link rel="stylesheet" type="text/css" href="html/content/css/demo_page.css" />
+                    <link rel="stylesheet" type="text/css" href="html/content/css/demo_table.css" />
+                    <link rel="stylesheet" type="text/css" href="html/content/css/graph.css" />
+                    <link rel="stylesheet" type="text/css" href="html/content/css/index.css" />
+                    <link rel="stylesheet" type="text/css" href="html/content/css/map.css" />
+                    <link rel="stylesheet" type="text/css" href="html/content/css/menu.css" />
+                    <link rel="stylesheet" type="text/css" href="html/content/css/TableTools_JUI.css" />
+                    <link rel="stylesheet" type="text/css" href="html/content/css/TableTools.css" />
                     
-                    <script type="text/javascript" charset="utf-8" src="content/js/ColVis.js"></script>
-                    <script type="text/javascript" src="content/js/jquery1.8.1.js"></script>
-                    <script type="text/javascript" language="javascript" src="content/js/jquery.dataTables.js"></script>
-                    <script type="text/javascript" charset="utf-8" src="content/js/ColVis.js"></script>
-                    <script type="text/javascript" charset="utf-8" src="content/js/ZeroClipboard.js"></script>
-                    <script type="text/javascript" src="content/js/TableTools.js"></script>
+                    <script type="text/javascript" charset="utf-8" src="html/content/js/ColVis.js"></script>
+                    <script type="text/javascript" src="html/content/js/jquery1.8.1.js"></script>
+                    <script type="text/javascript" language="javascript" src="html/content/js/jquery.dataTables.js"></script>
+                    <script type="text/javascript" charset="utf-8" src="html/content/js/ColVis.js"></script>
+                    <script type="text/javascript" charset="utf-8" src="html/content/js/ZeroClipboard.js"></script>
+                    <script type="text/javascript" src="html/content/js/TableTools.js"></script>
                     <script type="text/javascript" charset="utf-8">
-                    function Course (data)
-                    {
-                        this.data = typeof data !== 'undefined' ? this.load(data) : null;
-
-                        this._id = null;
-                        this._name = null;
-                        this._location = null;
-
-                        this.load = function(data) {
-                            $.ajax({
-                                url: "shadowrealm.cse.msstate.edu/API/courses/" + data.toString(),
-                                type: "GET",
-                                username: "cse3213",
-                                password: "test",
-                                success: function (result) {
-                                    this.ID(result.course.id);
-                                    this.name(result.course.name);
-                                    this.location(result.course.location);
-                                },
-                                error: function () {
-                                    // find better error handling
-                                    alert('An error occured while accessing the API. Please try again');
-                                }
-                            });
-                        };
-
-                        this.ID = function(id) {
-                            if (typeof id !== 'undefined') {
-                                this._id = id;
-                            } else {
-                                return this._id;
-                            }
-                        };
-
-                        this.name = function(name) {
-                            if (typeof name !== 'undefined') {
-                                this._name = name;
-                            } else {
-                                return this._name;
-                            }
-                        };
-
-                        this.location = function(location) {
-                            if (typeof location !== 'undefined') {
-                                this._location = location;
-                            } else {
-                                return this._location;
-                            }
-                        };
-
-                        this.save = function() {
-                            if (this.ID()) {
-                                // update
-                                $.ajax({
-                                    url: "shadowrealm.cse.msstate.edu/API/courses/" + data.toString(),
-                                    type: "POST",
-                                    username: "cse3213",
-                                    password: "test",
-                                    data: {'course':{'id':this.ID(),'name':this.name(),'location':this.loacation()}},
-                                    success: function (result) {
-                                        this.ID(result.course.id);
-                                        this.name(result.course.name);
-                                        this.location(result.course.location);
-                                    },
-                                    error: function () {
-                                        // find better error handling
-                                        alert('An error occured while accessing the API. Please try again');
-                                    }
-                                });
-                            } else {
-                                // insert
-                                $.ajax({
-                                    url: "shadowrealm.cse.msstate.edu/API/courses/",
-                                    type: "POST",
-                                    username: "cse3213",
-                                    password: "test",
-                                    data: {'course':{'id':this.ID(),'name':this.name(),'location':this.loacation()}},
-                                    success: function (result) {
-                                        this.ID(result.course.id);
-                                        this.name(result.course.name);
-                                        this.location(result.course.location);
-                                    },
-                                    error: function () {
-                                        // find better error handling
-                                        alert('An error occured while accessing the API. Please try again');
-                                    }
-                                });
-                            }
-                        };
-
-                        this.del = function() {
-                            if (this.ID()) {
-                                $.ajax({
-                                    url: "shadowrealm.cse.msstate.edu/API/courses/destroy" + data.toString(),
-                                    type: "POST",
-                                    username: "cse3213",
-                                    password: "test",
-                                    success: function (result) {
-                                        this.ID(result.course.id);
-                                        this.name(result.course.name);
-                                        this.location(result.course.location);
-                                    },
-                                    error: function () {
-                                        // find better error handling
-                                        alert('An error occured while accessing the API. Please try again');
-                                    }
-                                });
-                            }
-                        }
-                    }
-
                     function testAjax()
                     {
                         var course = new Course(1);
