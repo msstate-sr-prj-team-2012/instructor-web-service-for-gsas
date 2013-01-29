@@ -1246,7 +1246,7 @@ Hole.prototype.export = function()
 {
 	console.log('Hole Export');
 
-	var shots = {[]};
+	var shots = [];
 
 	s = this.shots();
 
@@ -1850,7 +1850,7 @@ Round.prototype.export = function()
 {
 	console.log('Round Export');
 
-	var holes = {[]};
+	var holes = [];
 
 	var h = this.holes();
 
@@ -1904,70 +1904,70 @@ function RoundGetAll(data)
 						var r = new Round();
 
 						// round data
-						r.ID(data.round.id);
+						r.ID(data.rounds[i].round.id);
 						
 						// create a new user for the user attribute
 						var u = new User();
-						u.ID(data.round.user.user.id);
-						u.memberID(data.round.user.user.memberID);
-						u.nickname(data.round.user.user.nickname);
-						u.name(data.round.user.user.name);
-						u.email(data.round.user.user.email);
-						u.stat(data.round.user.user.stats);
+						u.ID(data.rounds[i].round.user.user.id);
+						u.memberID(data.rounds[i].round.user.user.memberID);
+						u.nickname(data.rounds[i].round.user.user.nickname);
+						u.name(data.rounds[i].round.user.user.name);
+						u.email(data.rounds[i].round.user.user.email);
+						u.stat(data.rounds[i].round.user.user.stats);
 						r.user(u);
 
 						// create a new course for the course attribute
 						var c = new Course();
-						c.ID(data.round.course.course.id);
-						c.name(data.round.course.course.name);
-						c.location(data.round.course.course.location);
+						c.ID(data.rounds[i].round.course.course.id);
+						c.name(data.rounds[i].round.course.course.name);
+						c.location(data.rounds[i].round.course.course.location);
 						r.course(c);
 
-						r.totalScore(data.round.totalScore);
-						r.teeID(data.round.teeID);
-						r.startTime(data.round.startTime);
+						r.totalScore(data.rounds[i].round.totalScore);
+						r.teeID(data.rounds[i].round.teeID);
+						r.startTime(data.rounds[i].round.startTime);
 
 						var holes = new Array();
 
 						// loop through all holes
-						for (var i = 0; i < data.round.holes.length; i++) {
+						for (var j = 0; j < data.round.holes.length; j++) {
 							var h = new Hole();
-							h.ID(data.round.holes[i].hole.id);
-							h.roundID(data.round.holes[i].hole.roundID);
-							h.holeScore(data.round.holes[i].hole.holeScore);
-							h.FIR(data.round.holes[i].hole.FIR);
-							h.GIR(data.round.holes[i].hole.GIR);
-							h.putts(data.round.holes[i].hole.putts);
-							h.distance(data.round.holes[i].hole.distance);
-							h.par(data.round.holes[i].hole.par);
-							h.holeNumber(data.round.holes[i].hole.holeNumber);
-							h.firstRefLat(data.round.holes[i].hole.firstRefLat);
-							h.firstRefLong(data.round.holes[i].hole.firstRefLong);
-							h.secondRefLat(data.round.holes[i].hole.secondRefLat);
-							h.secondRefLong(data.round.holes[i].hole.secondRefLong);
-							h.thirdRefLat(data.round.holes[i].hole.thirdRefLat);
-							h.thirdRefLong(data.round.holes[i].hole.thirdRefLong);
-							h.firstRefX(data.round.holes[i].hole.firstRefX);
-							h.firstRefY(data.round.holes[i].hole.firstRefY);
-							h.secondRefX(data.round.holes[i].hole.secondReX);
-							h.secondRefY(data.round.holes[i].hole.secondRefY);
-							h.thirdRefX(data.round.holes[i].hole.thirdRefX);
-							h.thirdRefY(data.round.holes[i].hole.thirdRefY);
+							h.ID(data.rounds[i].round.holes[j].hole.id);
+							h.roundID(data.rounds[i].round.holes[j].hole.roundID);
+							h.holeScore(data.rounds[i].round.holes[j].hole.holeScore);
+							h.FIR(data.rounds[i].round.holes[j].hole.FIR);
+							h.GIR(data.rounds[i].round.holes[j].hole.GIR);
+							h.putts(data.rounds[i].round.holes[j].hole.putts);
+							h.distance(data.rounds[i].round.holes[j].hole.distance);
+							h.par(data.rounds[i].round.holes[j].hole.par);
+							h.holeNumber(data.rounds[i].round.holes[j].hole.holeNumber);
+							h.firstRefLat(data.rounds[i].round.holes[j].hole.firstRefLat);
+							h.firstRefLong(data.rounds[i].round.holes[j].hole.firstRefLong);
+							h.secondRefLat(data.rounds[i].round.holes[j].hole.secondRefLat);
+							h.secondRefLong(data.rounds[i].round.holes[j].hole.secondRefLong);
+							h.thirdRefLat(data.rounds[i].round.holes[j].hole.thirdRefLat);
+							h.thirdRefLong(data.rounds[i].round.holes[j].hole.thirdRefLong);
+							h.firstRefX(data.rounds[i].round.holes[j].hole.firstRefX);
+							h.firstRefY(data.rounds[i].round.holes[j].hole.firstRefY);
+							h.secondRefX(data.rounds[i].round.holes[j].hole.secondReX);
+							h.secondRefY(data.rounds[i].round.holes[j].hole.secondRefY);
+							h.thirdRefX(data.rounds[i].round.holes[j].hole.thirdRefX);
+							h.thirdRefY(data.rounds[i].round.holes[j].hole.thirdRefY);
 
 							var shots = new Array();
 
-							for (var j = 0; j < data.round.holes[i].hole.shots.length; j++) {
+							for (var k = 0; k < data.round.holes[i].hole.shots.length; k++) {
 								var s = new Shot();
-								s.ID(data.round.holes[i].hole.shots[j].shot.id);
-								s.holeID(data.round.holes[i].hole.shots[j].shot.holeID);
-								s.club(data.round.holes[i].hole.shots[j].shot.club);
-								s.shotNumber(data.round.holes[i].hole.shots[j].shot.shotNumber);
-								s.aimLatitude(data.round.holes[i].hole.shots[j].shot.aimLatitude);
-								s.aimLongitude(data.round.holes[i].hole.shots[j].shot.aimLongitude);
-								s.startLatitude(data.round.holes[i].hole.shots[j].shot.startLatitude);
-								s.startLongitude(data.round.holes[i].hole.shots[j].shot.startLongitude);
-								s.endLatitude(data.round.holes[i].hole.shots[j].shot.endLatitude);
-								s.endLongitude(data.round.holes[i].hole.shots[j].shot.endLongitude);
+								s.ID(data.rounds[i].round.holes[j].hole.shots[k].shot.id);
+								s.holeID(data.rounds[i].round.holes[j].hole.shots[k].shot.holeID);
+								s.club(data.rounds[i].round.holes[j].hole.shots[k].shot.club);
+								s.shotNumber(data.rounds[i].round.holes[j].hole.shots[k].shot.shotNumber);
+								s.aimLatitude(data.rounds[i].round.holes[j].hole.shots[k].shot.aimLatitude);
+								s.aimLongitude(data.rounds[i].round.holes[j].hole.shots[k].shot.aimLongitude);
+								s.startLatitude(data.rounds[i].round.holes[j].hole.shots[k].shot.startLatitude);
+								s.startLongitude(data.rounds[i].round.holes[j].hole.shots[k].shot.startLongitude);
+								s.endLatitude(data.rounds[i].round.holes[j].hole.shots[k].shot.endLatitude);
+								s.endLongitude(data.rounds[i].round.holes[j].hole.shots[k].shot.endLongitude);
 
 								shots.push(s);
 							}
@@ -2004,70 +2004,70 @@ function RoundGetAll(data)
 					var r = new Round();
 
 					// round data
-					r.ID(data.round.id);
+					r.ID(data.rounds[i].round.id);
 					
 					// create a new user for the user attribute
 					var u = new User();
-					u.ID(data.round.user.user.id);
-					u.memberID(data.round.user.user.memberID);
-					u.nickname(data.round.user.user.nickname);
-					u.name(data.round.user.user.name);
-					u.email(data.round.user.user.email);
-					u.stat(data.round.user.user.stats);
+					u.ID(data.rounds[i].round.user.user.id);
+					u.memberID(data.rounds[i].round.user.user.memberID);
+					u.nickname(data.rounds[i].round.user.user.nickname);
+					u.name(data.rounds[i].round.user.user.name);
+					u.email(data.rounds[i].round.user.user.email);
+					u.stat(data.rounds[i].round.user.user.stats);
 					r.user(u);
 
 					// create a new course for the course attribute
 					var c = new Course();
-					c.ID(data.round.course.course.id);
-					c.name(data.round.course.course.name);
-					c.location(data.round.course.course.location);
+					c.ID(data.rounds[i].round.course.course.id);
+					c.name(data.rounds[i].round.course.course.name);
+					c.location(data.rounds[i].round.course.course.location);
 					r.course(c);
 
-					r.totalScore(data.round.totalScore);
-					r.teeID(data.round.teeID);
-					r.startTime(data.round.startTime);
+					r.totalScore(data.rounds[i].round.totalScore);
+					r.teeID(data.rounds[i].round.teeID);
+					r.startTime(data.rounds[i].round.startTime);
 
 					var holes = new Array();
 
 					// loop through all holes
-					for (var i = 0; i < data.round.holes.length; i++) {
+					for (var j = 0; j < data.round.holes.length; j++) {
 						var h = new Hole();
-						h.ID(data.round.holes[i].hole.id);
-						h.roundID(data.round.holes[i].hole.roundID);
-						h.holeScore(data.round.holes[i].hole.holeScore);
-						h.FIR(data.round.holes[i].hole.FIR);
-						h.GIR(data.round.holes[i].hole.GIR);
-						h.putts(data.round.holes[i].hole.putts);
-						h.distance(data.round.holes[i].hole.distance);
-						h.par(data.round.holes[i].hole.par);
-						h.holeNumber(data.round.holes[i].hole.holeNumber);
-						h.firstRefLat(data.round.holes[i].hole.firstRefLat);
-						h.firstRefLong(data.round.holes[i].hole.firstRefLong);
-						h.secondRefLat(data.round.holes[i].hole.secondRefLat);
-						h.secondRefLong(data.round.holes[i].hole.secondRefLong);
-						h.thirdRefLat(data.round.holes[i].hole.thirdRefLat);
-						h.thirdRefLong(data.round.holes[i].hole.thirdRefLong);
-						h.firstRefX(data.round.holes[i].hole.firstRefX);
-						h.firstRefY(data.round.holes[i].hole.firstRefY);
-						h.secondRefX(data.round.holes[i].hole.secondReX);
-						h.secondRefY(data.round.holes[i].hole.secondRefY);
-						h.thirdRefX(data.round.holes[i].hole.thirdRefX);
-						h.thirdRefY(data.round.holes[i].hole.thirdRefY);
+						h.ID(data.rounds[i].round.holes[j].hole.id);
+						h.roundID(data.rounds[i].round.holes[j].hole.roundID);
+						h.holeScore(data.rounds[i].round.holes[j].hole.holeScore);
+						h.FIR(data.rounds[i].round.holes[j].hole.FIR);
+						h.GIR(data.rounds[i].round.holes[j].hole.GIR);
+						h.putts(data.rounds[i].round.holes[j].hole.putts);
+						h.distance(data.rounds[i].round.holes[j].hole.distance);
+						h.par(data.rounds[i].round.holes[j].hole.par);
+						h.holeNumber(data.rounds[i].round.holes[j].hole.holeNumber);
+						h.firstRefLat(data.rounds[i].round.holes[j].hole.firstRefLat);
+						h.firstRefLong(data.rounds[i].round.holes[j].hole.firstRefLong);
+						h.secondRefLat(data.rounds[i].round.holes[j].hole.secondRefLat);
+						h.secondRefLong(data.rounds[i].round.holes[j].hole.secondRefLong);
+						h.thirdRefLat(data.rounds[i].round.holes[j].hole.thirdRefLat);
+						h.thirdRefLong(data.rounds[i].round.holes[j].hole.thirdRefLong);
+						h.firstRefX(data.rounds[i].round.holes[j].hole.firstRefX);
+						h.firstRefY(data.rounds[i].round.holes[j].hole.firstRefY);
+						h.secondRefX(data.rounds[i].round.holes[j].hole.secondReX);
+						h.secondRefY(data.rounds[i].round.holes[j].hole.secondRefY);
+						h.thirdRefX(data.rounds[i].round.holes[j].hole.thirdRefX);
+						h.thirdRefY(data.rounds[i].round.holes[j].hole.thirdRefY);
 
 						var shots = new Array();
 
-						for (var j = 0; j < data.round.holes[i].hole.shots.length; j++) {
+						for (var k = 0; k < data.round.holes[i].hole.shots.length; k++) {
 							var s = new Shot();
-							s.ID(data.round.holes[i].hole.shots[j].shot.id);
-							s.holeID(data.round.holes[i].hole.shots[j].shot.holeID);
-							s.club(data.round.holes[i].hole.shots[j].shot.club);
-							s.shotNumber(data.round.holes[i].hole.shots[j].shot.shotNumber);
-							s.aimLatitude(data.round.holes[i].hole.shots[j].shot.aimLatitude);
-							s.aimLongitude(data.round.holes[i].hole.shots[j].shot.aimLongitude);
-							s.startLatitude(data.round.holes[i].hole.shots[j].shot.startLatitude);
-							s.startLongitude(data.round.holes[i].hole.shots[j].shot.startLongitude);
-							s.endLatitude(data.round.holes[i].hole.shots[j].shot.endLatitude);
-							s.endLongitude(data.round.holes[i].hole.shots[j].shot.endLongitude);
+							s.ID(data.rounds[i].round.holes[j].hole.shots[k].shot.id);
+							s.holeID(data.rounds[i].round.holes[j].hole.shots[k].shot.holeID);
+							s.club(data.rounds[i].round.holes[j].hole.shots[k].shot.club);
+							s.shotNumber(data.rounds[i].round.holes[j].hole.shots[k].shot.shotNumber);
+							s.aimLatitude(data.rounds[i].round.holes[j].hole.shots[k].shot.aimLatitude);
+							s.aimLongitude(data.rounds[i].round.holes[j].hole.shots[k].shot.aimLongitude);
+							s.startLatitude(data.rounds[i].round.holes[j].hole.shots[k].shot.startLatitude);
+							s.startLongitude(data.rounds[i].round.holes[j].hole.shots[k].shot.startLongitude);
+							s.endLatitude(data.rounds[i].round.holes[j].hole.shots[k].shot.endLatitude);
+							s.endLongitude(data.rounds[i].round.holes[j].hole.shots[k].shot.endLongitude);
 
 							shots.push(s);
 						}
