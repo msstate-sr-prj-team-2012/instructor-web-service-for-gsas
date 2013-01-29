@@ -354,6 +354,8 @@ Course.prototype.delete = function()
 			thisCourse.ID(data.course.id);
 			thisCourse.name(data.course.name);
 			thisCourse.location(data.course.location);
+
+			ret = true;
 		},
 		error: function(data, textStatus, xhr) {
 			console.log('Course delete failure');
@@ -670,6 +672,8 @@ User.prototype.delete = function()
 			thisUser.name(data.user.name);
 			thisUser.email(data.user.email);
 			thisUser.stats(data.user.stats);
+
+			ret = true;
 		},
 		error: function(data, textStatus, xhr) {
 			console.log('User delete failure');
@@ -735,4 +739,1354 @@ function UserGetAll()
 	});
 
 	return users;
+}
+
+/****************************************************************************
+ *
+ *
+ * Shot
+ *
+ *
+ ****************************************************************************/
+
+function Shot()
+{
+
+	console.log('New Shot');
+
+	this._id = null;
+	this._holeID = null;
+	this._club = null;
+	this._shotNumber = null;
+	this._aimLatitude = null;
+	this._aimLongitude = null;
+	this._startLatitude = null;
+	this._startLongitude = null;
+	this._endLatitude = null;
+	this._endLongitude = null;
+}
+
+Shot.prototype.ID = function(data)
+{
+	if (typeof(data) === 'undefined') data = null;
+
+	if (data) {
+		console.log('Setting Shot id');
+		this._id = data;
+	} else {
+		console.log('Getting Shot id');
+		return this._id;
+	}
+}
+
+Shot.prototype.holeID = function(data)
+{
+	if (typeof(data) === 'undefined') data = null;
+
+	if (data) {
+		console.log('Setting Shot holeID');
+		this._holeID = data;
+	} else {
+		console.log('Getting Shot holeID');
+		return this._holeID;
+	}
+}
+
+Shot.prototype.club = function(data)
+{
+	if (typeof(data) === 'undefined') data = null;
+
+	if (data) {
+		console.log('Setting Shot club');
+		this._club = data;
+	} else {
+		console.log('Getting Shot club');
+		return this._club;
+	}
+}
+
+Shot.prototype.shotNumber = function(data)
+{
+	if (typeof(data) === 'undefined') data = null;
+
+	if (data) {
+		console.log('Setting Shot shotNumber');
+		this._shotNumber = data;
+	} else {
+		console.log('Getting Shot shotNumber');
+		return this._shotNumber;
+	}
+}
+
+Shot.prototype.aimLatitude = function(data)
+{
+	if (typeof(data) === 'undefined') data = null;
+
+	if (data) {
+		console.log('Setting Shot aimLatitude');
+		this._aimLatitude = data;
+	} else {
+		console.log('Getting Shot aimLatitude');
+		return this._aimLatitude;
+	}
+}
+
+Shot.prototype.aimLongitude = function(data)
+{
+	if (typeof(data) === 'undefined') data = null;
+
+	if (data) {
+		console.log('Setting Shot aimLongitude');
+		this._aimLongitude = data;
+	} else {
+		console.log('Getting Shot aimLongitude');
+		return this._aimLongitude;
+	}
+}
+
+Shot.prototype.startLatitude = function(data)
+{
+	if (typeof(data) === 'undefined') data = null;
+
+	if (data) {
+		console.log('Setting Shot startLatitude');
+		this._startLatitude = data;
+	} else {
+		console.log('Getting Shot startLatitude');
+		return this._startLatitude;
+	}
+}
+
+Shot.prototype.startLongitude = function(data)
+{
+	if (typeof(data) === 'undefined') data = null;
+
+	if (data) {
+		console.log('Setting Shot startLongitude');
+		this._startLongitude = data;
+	} else {
+		console.log('Getting Shot startLongitude');
+		return this._startLongitude;
+	}
+}
+
+Shot.prototype.endLatitude = function(data)
+{
+	if (typeof(data) === 'undefined') data = null;
+
+	if (data) {
+		console.log('Setting Shot endLatitude');
+		this._endLatitude = data;
+	} else {
+		console.log('Getting Shot endLatitude');
+		return this._endLatitude;
+	}
+}
+
+Shot.prototype.endLongitude = function(data)
+{
+	if (typeof(data) === 'undefined') data = null;
+
+	if (data) {
+		console.log('Setting Shot endLongitude');
+		this._endLongitude = data;
+	} else {
+		console.log('Getting Shot endLongitude');
+		return this._endLongitude;
+	}
+}
+
+Shot.prototype.export = function()
+{
+	console.log('Shot Export');
+	var shotObject = 
+	{"shot":
+		{
+			"id": this.ID(),
+			"holeID": this.holeID(),
+			"club": this.club(),
+			"shotNumber": this.shotNumber(),
+			"aimLatitude": this.aimLatitude(),
+			"aimLongitude": this.aimLongitude(),
+			"startLatitude": this.startLatitude(),
+			"startLongitude": this.startLongitude(),
+			"endLatitude": this.endLatitude(),
+			"endLongitude": this.endLongitude()
+		}
+	};
+
+	console.log(JSON.stringify(shotObject));
+
+	return shotObject;
+}
+
+/****************************************************************************
+ *
+ *
+ * Hole
+ *
+ *
+ ****************************************************************************/
+
+function Hole()
+{
+	console.log('New Hole');
+
+	this._id = null;
+	this._roundID = null;
+	this._holeScore = null;
+	this._FIR = null;
+	this._GIR = null;
+	this._putts = null;
+	this._distance = null;
+	this._par = null;
+	this._holeNumber = null;
+	this._firstRefLat = null;
+	this._firstRefLong = null;
+	this._secondRefLat = null;
+	this._secondRefLong = null;
+	this._thirdRefLat = null;
+	this._thirdRefLong = null;
+	this._firstRefX = null;
+	this._firstRefY = null;
+	this._secondRefX = null;
+	this._secondRefY = null;
+	this._thirdRefX = null;
+	this._thirdRefY = null;
+	this._shots = null;
+}
+
+Hole.prototype.ID = function(data)
+{
+	if (typeof(data) === 'undefined') data = null;
+
+	if (data) {
+		console.log('Setting Hole id');
+		this._id = data;
+	} else {
+		console.log('Getting Hole id');
+		return this._id;
+	}
+}
+
+Hole.prototype.roundID = function(data)
+{
+	if (typeof(data) === 'undefined') data = null;
+
+	if (data) {
+		console.log('Setting Hole roundID');
+		this._roundID = data;
+	} else {
+		console.log('Getting Hole roundID');
+		return this._roundID;
+	}
+}
+
+Hole.prototype.holeScore = function(data)
+{
+	if (typeof(data) === 'undefined') data = null;
+
+	if (data) {
+		console.log('Setting Hole holeScore');
+		this._holeScore = data;
+	} else {
+		console.log('Getting Hole holeScore');
+		return this._holeScore;
+	}
+}
+
+Hole.prototype.FIR = function(data)
+{
+	if (typeof(data) === 'undefined') data = null;
+
+	if (data) {
+		console.log('Setting Hole FIR');
+		this._FIR = data;
+	} else {
+		console.log('Getting Hole FIR');
+		return this._FIR;
+	}
+}
+
+Hole.prototype.GIR = function(data)
+{
+	if (typeof(data) === 'undefined') data = null;
+
+	if (data) {
+		console.log('Setting Hole GIR');
+		this._GIR = data;
+	} else {
+		console.log('Getting Hole GIR');
+		return this._GIR;
+	}
+}
+
+Hole.prototype.putts = function(data)
+{
+	if (typeof(data) === 'undefined') data = null;
+
+	if (data) {
+		console.log('Setting Hole putts');
+		this._putts = data;
+	} else {
+		console.log('Getting Hole putts');
+		return this._putts;
+	}
+}
+
+Hole.prototype.distance = function(data)
+{
+	if (typeof(data) === 'undefined') data = null;
+
+	if (data) {
+		console.log('Setting Hole distance');
+		this._distance = data;
+	} else {
+		console.log('Getting Hole distance');
+		return this._distance;
+	}
+}
+
+Hole.prototype.par = function(data)
+{
+	if (typeof(data) === 'undefined') data = null;
+
+	if (data) {
+		console.log('Setting Hole par');
+		this._par = data;
+	} else {
+		console.log('Getting Hole par');
+		return this._par;
+	}
+}
+
+Hole.prototype.holeNumber = function(data)
+{
+	if (typeof(data) === 'undefined') data = null;
+
+	if (data) {
+		console.log('Setting Hole holeNumber');
+		this._holeNumber = data;
+	} else {
+		console.log('Getting Hole holeNumber');
+		return this._holeNumber;
+	}
+}
+
+Hole.prototype.firstRefLat = function(data)
+{
+	if (typeof(data) === 'undefined') data = null;
+
+	if (data) {
+		console.log('Setting Hole firstRefLat');
+		this._firstRefLat = data;
+	} else {
+		console.log('Getting Hole firstRefLat');
+		return this._firstRefLat;
+	}
+}
+
+Hole.prototype.firstRefLong = function(data)
+{
+	if (typeof(data) === 'undefined') data = null;
+
+	if (data) {
+		console.log('Setting Hole firstRefLong');
+		this._firstRefLong = data;
+	} else {
+		console.log('Getting Hole firstRefLong');
+		return this._firstRefLong;
+	}
+}
+
+Hole.prototype.secondRefLat = function(data)
+{
+	if (typeof(data) === 'undefined') data = null;
+
+	if (data) {
+		console.log('Setting Hole secondRefLat');
+		this._secondRefLat = data;
+	} else {
+		console.log('Getting Hole secondRefLat');
+		return this._secondRefLat;
+	}
+}
+
+Hole.prototype.secondRefLong = function(data)
+{
+	if (typeof(data) === 'undefined') data = null;
+
+	if (data) {
+		console.log('Setting Hole secondRefLong');
+		this._secondRefLong = data;
+	} else {
+		console.log('Getting Hole secondRefLong');
+		return this._secondRefLong;
+	}
+}
+
+Hole.prototype.thirdRefLat = function(data)
+{
+	if (typeof(data) === 'undefined') data = null;
+
+	if (data) {
+		console.log('Setting Hole thirdRefLat');
+		this._thirdRefLat = data;
+	} else {
+		console.log('Getting Hole thirdRefLat');
+		return this._thirdRefLat;
+	}
+}
+
+Hole.prototype.thirdRefLong = function(data)
+{
+	if (typeof(data) === 'undefined') data = null;
+
+	if (data) {
+		console.log('Setting Hole thirdRefLong');
+		this._thirdRefLong = data;
+	} else {
+		console.log('Getting Hole thirdRefLong');
+		return this._thirdRefLong;
+	}
+}
+
+Hole.prototype.firstRefX = function(data)
+{
+	if (typeof(data) === 'undefined') data = null;
+
+	if (data) {
+		console.log('Setting Hole firstRefX');
+		this._firstRefX = data;
+	} else {
+		console.log('Getting Hole firstRefX');
+		return this._firstRefX;
+	}
+}
+
+Hole.prototype.firstRefY = function(data)
+{
+	if (typeof(data) === 'undefined') data = null;
+
+	if (data) {
+		console.log('Setting Hole firstRefY');
+		this._firstRefY = data;
+	} else {
+		console.log('Getting Hole firstRefY');
+		return this._firstRefY;
+	}
+}
+
+Hole.prototype.secondRefX = function(data)
+{
+	if (typeof(data) === 'undefined') data = null;
+
+	if (data) {
+		console.log('Setting Hole secondRefX');
+		this._secondRefX = data;
+	} else {
+		console.log('Getting Hole secondRefX');
+		return this._secondRefX;
+	}
+}
+
+Hole.prototype.secondRefY = function(data)
+{
+	if (typeof(data) === 'undefined') data = null;
+
+	if (data) {
+		console.log('Setting Hole secondRefY');
+		this._secondRefY = data;
+	} else {
+		console.log('Getting Hole secondRefY');
+		return this._secondRefY;
+	}
+}
+
+Hole.prototype.thirdRefX = function(data)
+{
+	if (typeof(data) === 'undefined') data = null;
+
+	if (data) {
+		console.log('Setting Hole thirdRefX');
+		this._thirdRefX = data;
+	} else {
+		console.log('Getting Hole thirdRefX');
+		return this._thirdRefX;
+	}
+}
+
+Hole.prototype.thirdRefY = function(data)
+{
+	if (typeof(data) === 'undefined') data = null;
+
+	if (data) {
+		console.log('Setting Hole thirdRefY');
+		this._thirdRefY = data;
+	} else {
+		console.log('Getting Hole thirdRefY');
+		return this._thirdRefY;
+	}
+}
+
+Hole.prototype.shots = function(data)
+{
+	if (typeof(data) === 'undefined') data = null;
+
+	if (data) {
+		console.log('Setting Hole shots');
+		this._shots = data;
+	} else {
+		console.log('Getting Hole shots');
+		return this._shots;
+	}
+}
+
+Hole.prototype.export = function()
+{
+	console.log('Hole Export');
+
+	var shots = {[]};
+
+	s = this.shots();
+
+	for (var i = 0; i < this.s.length; i++) {
+		shots.push(s[i].export());
+	}
+
+	var holeObject = 
+	{"hole":
+		{
+			"id": this.ID(),
+			"roundID": this.holeID(),
+			"holeScore": this.holescore(),
+			"FIR": this.FIR(),
+			"GIR": this.GIR(),
+			"putts": this.putts(),
+			"distance": this.distance(),
+			"par": this.par(),
+			"holeNumber": this.holeNumber(),
+			"firstRefLat": this.firstRefLat(),
+			"firstRefLong": this.firstRefLong(),
+			"secondRefLat": this.secondRefLat(),
+			"secondRefLong": this.secondRefLong(),
+			"thirdRefLat": this.thirdRefLat(),
+			"thirdRefLong": this.thirdRefLong(),
+			"firstRefX": this.firstRefX(),
+			"firstRefY": this.firstRefY(),
+			"secondRefX": this.secondRefX(),
+			"secondRefY": this.secondRefY(),
+			"thirdRefX": this.thirdRefX(),
+			"thirdRefY": this.thirdRefY(),
+			"shots": shots
+		}
+	};
+
+	console.log(JSON.stringify(holeObject));
+
+	return holeObject;
+}
+
+/****************************************************************************
+ *
+ *
+ * Round
+ *
+ *
+ ****************************************************************************/
+
+function Round(data)
+{
+	if (typeof(data) === 'undefined') data = null;
+
+	if (data) {
+		console.log('New Round with data: ' + data.toString());
+	} else {
+		console.log('New Round with no data');
+	}
+
+	this._id = null;
+	this._user = null;
+	this._course = null;
+	this._totalScore = null;
+	this._teeID = null;
+	this._startTime = null;
+	this._holes = null;
+
+	// constructor
+	if (data) this.load(data);
+}
+
+Round.prototype.ID = function(data)
+{
+	if (typeof(data) === 'undefined') data = null;
+
+	if (data) {
+		console.log('Setting Round id');
+		this._id = data;
+	} else {
+		console.log('Getting Round id');
+		return this._id;
+	}
+}
+
+Round.prototype.user = function(data)
+{
+	if (typeof(data) === 'undefined') data = null;
+
+	if (data) {
+		console.log('Setting Round User');
+		this._user = data;
+	} else {
+		console.log('Getting Round User');
+		return this._user;
+	}
+}
+
+Round.prototype.course = function(data)
+{
+	if (typeof(data) === 'undefined') data = null;
+
+	if (data) {
+		console.log('Setting Round Course');
+		this._course = data;
+	} else {
+		console.log('Getting Round Course');
+		return this._course;
+	}
+}
+
+Round.prototype.totalScore = function(data)
+{
+	if (typeof(data) === 'undefined') data = null;
+
+	if (data) {
+		console.log('Setting Round totalScore');
+		this._totalScore = data;
+	} else {
+		console.log('Getting Round totalScore');
+		return this._totalScore;
+	}
+}
+
+Round.prototype.teeID = function(data)
+{
+	if (typeof(data) === 'undefined') data = null;
+
+	if (data) {
+		console.log('Setting Round teeID');
+		this._teeID = data;
+	} else {
+		console.log('Getting Round teeID');
+		return this._teeID;
+	}
+}
+
+Round.prototype.startTime = function(data)
+{
+	if (typeof(data) === 'undefined') data = null;
+
+	if (data) {
+		console.log('Setting Round startTime');
+		this._startTime = data;
+	} else {
+		console.log('Getting Round startTime');
+		return this._startTime;
+	}
+}
+
+Round.prototype.holes = function(data)
+{
+	if (typeof(data) === 'undefined') data = null;
+
+	if (data) {
+		console.log('Setting Round holes');
+		this._holes = data;
+	} else {
+		console.log('Getting Round holes');
+		return this._holes;
+	}
+}
+
+Round.prototype.load = function(data)
+{
+	console.log('Round load with data: ' + data.toString());
+	if (!data) return true;
+
+	var thisRound = this;
+	var ret = true;
+
+	$.ajax({
+		accepts: "application/json",
+		async: false,
+		dataType: "json",
+		url: "/API/rounds/" + data.toString(),
+		type: "GET",
+		username: defines.API_USERNAME,
+		password: defines.API_PASSWORD,
+		success: function(data, textStatus, xhr) {
+			if (xhr.status == 204) {
+				console.log('Round Loading - Nonexistent Round');
+				ret = false;
+				alert('This round does not exist.');
+			} else {
+				console.log('Round Loading Success');
+
+				// round data
+				thisRound.ID(data.round.id);
+				
+				// create a new user for the user attribute
+				var u = new User();
+				u.ID(data.round.user.user.id);
+				u.memberID(data.round.user.user.memberID);
+				u.nickname(data.round.user.user.nickname);
+				u.name(data.round.user.user.name);
+				u.email(data.round.user.user.email);
+				u.stat(data.round.user.user.stats);
+				thisRound.user(u);
+
+				// create a new course for the course attribute
+				var c = new Course();
+				c.ID(data.round.course.course.id);
+				c.name(data.round.course.course.name);
+				c.location(data.round.course.course.location);
+				thisRound.course(c);
+
+				thisRound.totalScore(data.round.totalScore);
+				thisRound.teeID(data.round.teeID);
+				thisRound.startTime(data.round.startTime);
+
+				var holes = new Array();
+
+				// loop through all holes
+				for (var i = 0; i < data.round.holes.length; i++) {
+					var h = new Hole();
+					h.ID(data.round.holes[i].hole.id);
+					h.roundID(data.round.holes[i].hole.roundID);
+					h.holeScore(data.round.holes[i].hole.holeScore);
+					h.FIR(data.round.holes[i].hole.FIR);
+					h.GIR(data.round.holes[i].hole.GIR);
+					h.putts(data.round.holes[i].hole.putts);
+					h.distance(data.round.holes[i].hole.distance);
+					h.par(data.round.holes[i].hole.par);
+					h.holeNumber(data.round.holes[i].hole.holeNumber);
+					h.firstRefLat(data.round.holes[i].hole.firstRefLat);
+					h.firstRefLong(data.round.holes[i].hole.firstRefLong);
+					h.secondRefLat(data.round.holes[i].hole.secondRefLat);
+					h.secondRefLong(data.round.holes[i].hole.secondRefLong);
+					h.thirdRefLat(data.round.holes[i].hole.thirdRefLat);
+					h.thirdRefLong(data.round.holes[i].hole.thirdRefLong);
+					h.firstRefX(data.round.holes[i].hole.firstRefX);
+					h.firstRefY(data.round.holes[i].hole.firstRefY);
+					h.secondRefX(data.round.holes[i].hole.secondReX);
+					h.secondRefY(data.round.holes[i].hole.secondRefY);
+					h.thirdRefX(data.round.holes[i].hole.thirdRefX);
+					h.thirdRefY(data.round.holes[i].hole.thirdRefY);
+
+					var shots = new Array();
+
+					for (var j = 0; j < data.round.holes[i].hole.shots.length; j++) {
+						var s = new Shot();
+						s.ID(data.round.holes[i].hole.shots[j].shot.id);
+						s.holeID(data.round.holes[i].hole.shots[j].shot.holeID);
+						s.club(data.round.holes[i].hole.shots[j].shot.club);
+						s.shotNumber(data.round.holes[i].hole.shots[j].shot.shotNumber);
+						s.aimLatitude(data.round.holes[i].hole.shots[j].shot.aimLatitude);
+						s.aimLongitude(data.round.holes[i].hole.shots[j].shot.aimLongitude);
+						s.startLatitude(data.round.holes[i].hole.shots[j].shot.startLatitude);
+						s.startLongitude(data.round.holes[i].hole.shots[j].shot.startLongitude);
+						s.endLatitude(data.round.holes[i].hole.shots[j].shot.endLatitude);
+						s.endLongitude(data.round.holes[i].hole.shots[j].shot.endLongitude);
+
+						shots.push(s);
+					}
+
+					h.shots(shots);
+					holes.push(h);
+				}
+
+				thisRound.holes(holes);
+
+				ret = true;
+			}
+		},
+		error: function(data, textStatus, xhr) {
+			console.log('Round Loading Error');
+			ret = false;
+			ajaxErrorHandler(data, textStatus, xhr);
+		}
+	});
+
+	return ret;
+}
+
+Round.prototype.save = function()
+{
+	console.log('Round save');
+
+	var thisRound = this;
+	var ret = true;
+
+	if (this.ID()) {
+		// update
+		console.log('ROund update for id: ' + this.ID());
+		$.ajax({
+			accepts: "application/json",
+			async: false,
+			dataType: "json",
+			url: "/API/rounds/" + this.ID(),
+			type: "POST",
+			username: defines.API_USERNAME,
+			password: defines.API_PASSWORD,
+			contentType: "application/json",
+			data: JSON.stringify(this.export()),
+			success: function(data, textStatus, xhr) {
+				if (xhr.status == 204) {
+					console.log('Round Update - Nonexistent Round');
+					ret = false;
+					alert('This round does not exist.');
+				} else {
+					console.log('Round Update Succeess');
+					// round data
+					thisRound.ID(data.round.id);
+					
+					// create a new user for the user attribute
+					var u = new User();
+					u.ID(data.round.user.user.id);
+					u.memberID(data.round.user.user.memberID);
+					u.nickname(data.round.user.user.nickname);
+					u.name(data.round.user.user.name);
+					u.email(data.round.user.user.email);
+					u.stat(data.round.user.user.stats);
+					thisRound.user(u);
+
+					// create a new course for the course attribute
+					var c = new Course();
+					c.ID(data.round.course.course.id);
+					c.name(data.round.course.course.name);
+					c.location(data.round.course.course.location);
+					thisRound.course(c);
+
+					thisRound.totalScore(data.round.totalScore);
+					thisRound.teeID(data.round.teeID);
+					thisRound.startTime(data.round.startTime);
+
+					var holes = new Array();
+
+					// loop through all holes
+					for (var i = 0; i < data.round.holes.length; i++) {
+						var h = new Hole();
+						h.ID(data.round.holes[i].hole.id);
+						h.roundID(data.round.holes[i].hole.roundID);
+						h.holeScore(data.round.holes[i].hole.holeScore);
+						h.FIR(data.round.holes[i].hole.FIR);
+						h.GIR(data.round.holes[i].hole.GIR);
+						h.putts(data.round.holes[i].hole.putts);
+						h.distance(data.round.holes[i].hole.distance);
+						h.par(data.round.holes[i].hole.par);
+						h.holeNumber(data.round.holes[i].hole.holeNumber);
+						h.firstRefLat(data.round.holes[i].hole.firstRefLat);
+						h.firstRefLong(data.round.holes[i].hole.firstRefLong);
+						h.secondRefLat(data.round.holes[i].hole.secondRefLat);
+						h.secondRefLong(data.round.holes[i].hole.secondRefLong);
+						h.thirdRefLat(data.round.holes[i].hole.thirdRefLat);
+						h.thirdRefLong(data.round.holes[i].hole.thirdRefLong);
+						h.firstRefX(data.round.holes[i].hole.firstRefX);
+						h.firstRefY(data.round.holes[i].hole.firstRefY);
+						h.secondRefX(data.round.holes[i].hole.secondReX);
+						h.secondRefY(data.round.holes[i].hole.secondRefY);
+						h.thirdRefX(data.round.holes[i].hole.thirdRefX);
+						h.thirdRefY(data.round.holes[i].hole.thirdRefY);
+
+						var shots = new Array();
+
+						for (var j = 0; j < data.round.holes[i].hole.shots.length; j++) {
+							var s = new Shot();
+							s.ID(data.round.holes[i].hole.shots[j].shot.id);
+							s.holeID(data.round.holes[i].hole.shots[j].shot.holeID);
+							s.club(data.round.holes[i].hole.shots[j].shot.club);
+							s.shotNumber(data.round.holes[i].hole.shots[j].shot.shotNumber);
+							s.aimLatitude(data.round.holes[i].hole.shots[j].shot.aimLatitude);
+							s.aimLongitude(data.round.holes[i].hole.shots[j].shot.aimLongitude);
+							s.startLatitude(data.round.holes[i].hole.shots[j].shot.startLatitude);
+							s.startLongitude(data.round.holes[i].hole.shots[j].shot.startLongitude);
+							s.endLatitude(data.round.holes[i].hole.shots[j].shot.endLatitude);
+							s.endLongitude(data.round.holes[i].hole.shots[j].shot.endLongitude);
+
+							shots.push(s);
+						}
+
+						h.shots(shots);
+						holes.push(h);
+					}
+
+					thisRound.holes(holes);
+
+					ret = true;
+				}
+			},
+			error: function(data, textStatus, xhr) {
+				console.log('Round Update Error');
+				ret = false;
+				ajaxErrorHandler(data, textStatus, xhr);
+			}
+		});
+	} else {
+		// insert
+		console.log('Round insert');
+		$.ajax({
+			accepts: "application/json",
+			async: false,
+			dataType: "json",
+			url: "/API/rounds/",
+			type: "POST",
+			username: defines.API_USERNAME,
+			password: defines.API_PASSWORD,
+			contentType: "application/json",
+			data: JSON.stringify(this.export()),
+			success: function(data, textStatus, xhr) {
+				console.log('User Insert Success');
+				
+				// round data
+				thisRound.ID(data.round.id);
+				
+				// create a new user for the user attribute
+				var u = new User();
+				u.ID(data.round.user.user.id);
+				u.memberID(data.round.user.user.memberID);
+				u.nickname(data.round.user.user.nickname);
+				u.name(data.round.user.user.name);
+				u.email(data.round.user.user.email);
+				u.stat(data.round.user.user.stats);
+				thisRound.user(u);
+
+				// create a new course for the course attribute
+				var c = new Course();
+				c.ID(data.round.course.course.id);
+				c.name(data.round.course.course.name);
+				c.location(data.round.course.course.location);
+				thisRound.course(c);
+
+				thisRound.totalScore(data.round.totalScore);
+				thisRound.teeID(data.round.teeID);
+				thisRound.startTime(data.round.startTime);
+
+				var holes = new Array();
+
+				// loop through all holes
+				for (var i = 0; i < data.round.holes.length; i++) {
+					var h = new Hole();
+					h.ID(data.round.holes[i].hole.id);
+					h.roundID(data.round.holes[i].hole.roundID);
+					h.holeScore(data.round.holes[i].hole.holeScore);
+					h.FIR(data.round.holes[i].hole.FIR);
+					h.GIR(data.round.holes[i].hole.GIR);
+					h.putts(data.round.holes[i].hole.putts);
+					h.distance(data.round.holes[i].hole.distance);
+					h.par(data.round.holes[i].hole.par);
+					h.holeNumber(data.round.holes[i].hole.holeNumber);
+					h.firstRefLat(data.round.holes[i].hole.firstRefLat);
+					h.firstRefLong(data.round.holes[i].hole.firstRefLong);
+					h.secondRefLat(data.round.holes[i].hole.secondRefLat);
+					h.secondRefLong(data.round.holes[i].hole.secondRefLong);
+					h.thirdRefLat(data.round.holes[i].hole.thirdRefLat);
+					h.thirdRefLong(data.round.holes[i].hole.thirdRefLong);
+					h.firstRefX(data.round.holes[i].hole.firstRefX);
+					h.firstRefY(data.round.holes[i].hole.firstRefY);
+					h.secondRefX(data.round.holes[i].hole.secondReX);
+					h.secondRefY(data.round.holes[i].hole.secondRefY);
+					h.thirdRefX(data.round.holes[i].hole.thirdRefX);
+					h.thirdRefY(data.round.holes[i].hole.thirdRefY);
+
+					var shots = new Array();
+
+					for (var j = 0; j < data.round.holes[i].hole.shots.length; j++) {
+						var s = new Shot();
+						s.ID(data.round.holes[i].hole.shots[j].shot.id);
+						s.holeID(data.round.holes[i].hole.shots[j].shot.holeID);
+						s.club(data.round.holes[i].hole.shots[j].shot.club);
+						s.shotNumber(data.round.holes[i].hole.shots[j].shot.shotNumber);
+						s.aimLatitude(data.round.holes[i].hole.shots[j].shot.aimLatitude);
+						s.aimLongitude(data.round.holes[i].hole.shots[j].shot.aimLongitude);
+						s.startLatitude(data.round.holes[i].hole.shots[j].shot.startLatitude);
+						s.startLongitude(data.round.holes[i].hole.shots[j].shot.startLongitude);
+						s.endLatitude(data.round.holes[i].hole.shots[j].shot.endLatitude);
+						s.endLongitude(data.round.holes[i].hole.shots[j].shot.endLongitude);
+
+						shots.push(s);
+					}
+
+					h.shots(shots);
+					holes.push(h);
+				}
+
+				thisRound.holes(holes);
+				ret = true;
+			},
+			error: function(data, textStatus, xhr) {
+				console.log('Round Insert Error');
+				ret = false;
+				ajaxErrorHandler(data, textStatus, xhr);
+			}
+		});
+	}
+
+	return ret;
+}
+
+Round.prototype.delete = function()
+{
+	console.log('Round delete for id: ' + this.ID());
+	
+	if (!this.ID()) return false;
+
+	var thisUser = this;
+	var ret = true;
+
+	$.ajax({
+		accepts: "application/json",
+		async: false,
+		dataType: "json",
+		url: "/API/rounds/destroy/" + this.ID(),
+		type: "POST",
+		username: defines.API_USERNAME,
+		password: defines.API_PASSWORD,
+		success: function(data, textStatus, xhr) {
+			if (xhr.status == 204) {
+				console.log('Round Delete - Nonexistent Round');
+				ret = false;
+				alert('This round does not exist');
+			}
+			console.log('Round delete success');
+			
+			// round data
+			thisRound.ID(data.round.id);
+			
+			// create a new user for the user attribute
+			var u = new User();
+			u.ID(data.round.user.user.id);
+			u.memberID(data.round.user.user.memberID);
+			u.nickname(data.round.user.user.nickname);
+			u.name(data.round.user.user.name);
+			u.email(data.round.user.user.email);
+			u.stat(data.round.user.user.stats);
+			thisRound.user(u);
+
+			// create a new course for the course attribute
+			var c = new Course();
+			c.ID(data.round.course.course.id);
+			c.name(data.round.course.course.name);
+			c.location(data.round.course.course.location);
+			thisRound.course(c);
+
+			thisRound.totalScore(data.round.totalScore);
+			thisRound.teeID(data.round.teeID);
+			thisRound.startTime(data.round.startTime);
+
+			var holes = new Array();
+
+			// loop through all holes
+			for (var i = 0; i < data.round.holes.length; i++) {
+				var h = new Hole();
+				h.ID(data.round.holes[i].hole.id);
+				h.roundID(data.round.holes[i].hole.roundID);
+				h.holeScore(data.round.holes[i].hole.holeScore);
+				h.FIR(data.round.holes[i].hole.FIR);
+				h.GIR(data.round.holes[i].hole.GIR);
+				h.putts(data.round.holes[i].hole.putts);
+				h.distance(data.round.holes[i].hole.distance);
+				h.par(data.round.holes[i].hole.par);
+				h.holeNumber(data.round.holes[i].hole.holeNumber);
+				h.firstRefLat(data.round.holes[i].hole.firstRefLat);
+				h.firstRefLong(data.round.holes[i].hole.firstRefLong);
+				h.secondRefLat(data.round.holes[i].hole.secondRefLat);
+				h.secondRefLong(data.round.holes[i].hole.secondRefLong);
+				h.thirdRefLat(data.round.holes[i].hole.thirdRefLat);
+				h.thirdRefLong(data.round.holes[i].hole.thirdRefLong);
+				h.firstRefX(data.round.holes[i].hole.firstRefX);
+				h.firstRefY(data.round.holes[i].hole.firstRefY);
+				h.secondRefX(data.round.holes[i].hole.secondReX);
+				h.secondRefY(data.round.holes[i].hole.secondRefY);
+				h.thirdRefX(data.round.holes[i].hole.thirdRefX);
+				h.thirdRefY(data.round.holes[i].hole.thirdRefY);
+
+				var shots = new Array();
+
+				for (var j = 0; j < data.round.holes[i].hole.shots.length; j++) {
+					var s = new Shot();
+					s.ID(data.round.holes[i].hole.shots[j].shot.id);
+					s.holeID(data.round.holes[i].hole.shots[j].shot.holeID);
+					s.club(data.round.holes[i].hole.shots[j].shot.club);
+					s.shotNumber(data.round.holes[i].hole.shots[j].shot.shotNumber);
+					s.aimLatitude(data.round.holes[i].hole.shots[j].shot.aimLatitude);
+					s.aimLongitude(data.round.holes[i].hole.shots[j].shot.aimLongitude);
+					s.startLatitude(data.round.holes[i].hole.shots[j].shot.startLatitude);
+					s.startLongitude(data.round.holes[i].hole.shots[j].shot.startLongitude);
+					s.endLatitude(data.round.holes[i].hole.shots[j].shot.endLatitude);
+					s.endLongitude(data.round.holes[i].hole.shots[j].shot.endLongitude);
+
+					shots.push(s);
+				}
+
+				h.shots(shots);
+				holes.push(h);
+			}
+
+			thisRound.holes(holes);
+
+			ret = true;
+		},
+		error: function(data, textStatus, xhr) {
+			console.log('Round delete failure');
+			ret = false;
+			ajaxErrorHandler(data, textStatus, xhr);
+		}
+	});
+
+	return ret;
+}
+
+Round.prototype.export = function()
+{
+	console.log('Round Export');
+
+	var holes = {[]};
+
+	var h = this.holes();
+
+	for (var i = 0; i < h.length; i++) {
+		holes.push(h[i].export());
+	}
+
+	var roundObject = 
+	{"round":
+		{
+			"id": this.ID(),
+			"user": this.user().export(),
+			"course": this.course().export(),
+			"totalScore": this.totalScore(),
+			"teeID": this.teeID(),
+			"startTime": this.startTime(),
+			"holes": holes
+		}
+	};
+
+	console.log(JSON.stringify(roundObject));
+
+	return roundObject;
+}
+
+function RoundGetAll(data)
+{
+	if (typeof(data) === 'undefined') data = null;
+
+	var rounds = new Array();
+
+	if (data) {
+		console.log('Get All Rounds By User');
+
+		$.ajax({
+			accepts: "application/json",
+			async: false,
+			dataType: "json",
+			url: "/API/rounds/user/" + data.toString,
+			type: "GET",
+			username: defines.API_USERNAME,
+			password: defines.API_PASSWORD,
+			success: function(data, textStatus, xhr) {
+				if (xhr.status == 204) {
+					console.log('Round Get All By User - Nonexistent User');
+					ret = false;
+					alert('This user does not exist');
+				} else {
+					console.log('Round Get All By User Success');
+					for (var i = 0; i < data.rounds.length; i++) {
+						var r = new Round();
+
+						// round data
+						r.ID(data.round.id);
+						
+						// create a new user for the user attribute
+						var u = new User();
+						u.ID(data.round.user.user.id);
+						u.memberID(data.round.user.user.memberID);
+						u.nickname(data.round.user.user.nickname);
+						u.name(data.round.user.user.name);
+						u.email(data.round.user.user.email);
+						u.stat(data.round.user.user.stats);
+						r.user(u);
+
+						// create a new course for the course attribute
+						var c = new Course();
+						c.ID(data.round.course.course.id);
+						c.name(data.round.course.course.name);
+						c.location(data.round.course.course.location);
+						r.course(c);
+
+						r.totalScore(data.round.totalScore);
+						r.teeID(data.round.teeID);
+						r.startTime(data.round.startTime);
+
+						var holes = new Array();
+
+						// loop through all holes
+						for (var i = 0; i < data.round.holes.length; i++) {
+							var h = new Hole();
+							h.ID(data.round.holes[i].hole.id);
+							h.roundID(data.round.holes[i].hole.roundID);
+							h.holeScore(data.round.holes[i].hole.holeScore);
+							h.FIR(data.round.holes[i].hole.FIR);
+							h.GIR(data.round.holes[i].hole.GIR);
+							h.putts(data.round.holes[i].hole.putts);
+							h.distance(data.round.holes[i].hole.distance);
+							h.par(data.round.holes[i].hole.par);
+							h.holeNumber(data.round.holes[i].hole.holeNumber);
+							h.firstRefLat(data.round.holes[i].hole.firstRefLat);
+							h.firstRefLong(data.round.holes[i].hole.firstRefLong);
+							h.secondRefLat(data.round.holes[i].hole.secondRefLat);
+							h.secondRefLong(data.round.holes[i].hole.secondRefLong);
+							h.thirdRefLat(data.round.holes[i].hole.thirdRefLat);
+							h.thirdRefLong(data.round.holes[i].hole.thirdRefLong);
+							h.firstRefX(data.round.holes[i].hole.firstRefX);
+							h.firstRefY(data.round.holes[i].hole.firstRefY);
+							h.secondRefX(data.round.holes[i].hole.secondReX);
+							h.secondRefY(data.round.holes[i].hole.secondRefY);
+							h.thirdRefX(data.round.holes[i].hole.thirdRefX);
+							h.thirdRefY(data.round.holes[i].hole.thirdRefY);
+
+							var shots = new Array();
+
+							for (var j = 0; j < data.round.holes[i].hole.shots.length; j++) {
+								var s = new Shot();
+								s.ID(data.round.holes[i].hole.shots[j].shot.id);
+								s.holeID(data.round.holes[i].hole.shots[j].shot.holeID);
+								s.club(data.round.holes[i].hole.shots[j].shot.club);
+								s.shotNumber(data.round.holes[i].hole.shots[j].shot.shotNumber);
+								s.aimLatitude(data.round.holes[i].hole.shots[j].shot.aimLatitude);
+								s.aimLongitude(data.round.holes[i].hole.shots[j].shot.aimLongitude);
+								s.startLatitude(data.round.holes[i].hole.shots[j].shot.startLatitude);
+								s.startLongitude(data.round.holes[i].hole.shots[j].shot.startLongitude);
+								s.endLatitude(data.round.holes[i].hole.shots[j].shot.endLatitude);
+								s.endLongitude(data.round.holes[i].hole.shots[j].shot.endLongitude);
+
+								shots.push(s);
+							}
+
+							h.shots(shots);
+							holes.push(h);
+						}
+
+						r.holes(holes);
+					}
+
+					rounds.push(r);
+				}
+			},
+			error: function(data, textStatus, xhr) {
+				console.log('User Get All Error');
+				ajaxErrorHandler(data, textStatus, xhr);
+			}
+		});
+	} else {
+		console.log('Get All Rounds');
+
+		$.ajax({
+			accepts: "application/json",
+			async: false,
+			dataType: "json",
+			url: "/API/rounds/",
+			type: "GET",
+			username: defines.API_USERNAME,
+			password: defines.API_PASSWORD,
+			success: function(data, textStatus, xhr) {
+				console.log('Round Get All By User Success');
+				for (var i = 0; i < data.rounds.length; i++) {
+					var r = new Round();
+
+					// round data
+					r.ID(data.round.id);
+					
+					// create a new user for the user attribute
+					var u = new User();
+					u.ID(data.round.user.user.id);
+					u.memberID(data.round.user.user.memberID);
+					u.nickname(data.round.user.user.nickname);
+					u.name(data.round.user.user.name);
+					u.email(data.round.user.user.email);
+					u.stat(data.round.user.user.stats);
+					r.user(u);
+
+					// create a new course for the course attribute
+					var c = new Course();
+					c.ID(data.round.course.course.id);
+					c.name(data.round.course.course.name);
+					c.location(data.round.course.course.location);
+					r.course(c);
+
+					r.totalScore(data.round.totalScore);
+					r.teeID(data.round.teeID);
+					r.startTime(data.round.startTime);
+
+					var holes = new Array();
+
+					// loop through all holes
+					for (var i = 0; i < data.round.holes.length; i++) {
+						var h = new Hole();
+						h.ID(data.round.holes[i].hole.id);
+						h.roundID(data.round.holes[i].hole.roundID);
+						h.holeScore(data.round.holes[i].hole.holeScore);
+						h.FIR(data.round.holes[i].hole.FIR);
+						h.GIR(data.round.holes[i].hole.GIR);
+						h.putts(data.round.holes[i].hole.putts);
+						h.distance(data.round.holes[i].hole.distance);
+						h.par(data.round.holes[i].hole.par);
+						h.holeNumber(data.round.holes[i].hole.holeNumber);
+						h.firstRefLat(data.round.holes[i].hole.firstRefLat);
+						h.firstRefLong(data.round.holes[i].hole.firstRefLong);
+						h.secondRefLat(data.round.holes[i].hole.secondRefLat);
+						h.secondRefLong(data.round.holes[i].hole.secondRefLong);
+						h.thirdRefLat(data.round.holes[i].hole.thirdRefLat);
+						h.thirdRefLong(data.round.holes[i].hole.thirdRefLong);
+						h.firstRefX(data.round.holes[i].hole.firstRefX);
+						h.firstRefY(data.round.holes[i].hole.firstRefY);
+						h.secondRefX(data.round.holes[i].hole.secondReX);
+						h.secondRefY(data.round.holes[i].hole.secondRefY);
+						h.thirdRefX(data.round.holes[i].hole.thirdRefX);
+						h.thirdRefY(data.round.holes[i].hole.thirdRefY);
+
+						var shots = new Array();
+
+						for (var j = 0; j < data.round.holes[i].hole.shots.length; j++) {
+							var s = new Shot();
+							s.ID(data.round.holes[i].hole.shots[j].shot.id);
+							s.holeID(data.round.holes[i].hole.shots[j].shot.holeID);
+							s.club(data.round.holes[i].hole.shots[j].shot.club);
+							s.shotNumber(data.round.holes[i].hole.shots[j].shot.shotNumber);
+							s.aimLatitude(data.round.holes[i].hole.shots[j].shot.aimLatitude);
+							s.aimLongitude(data.round.holes[i].hole.shots[j].shot.aimLongitude);
+							s.startLatitude(data.round.holes[i].hole.shots[j].shot.startLatitude);
+							s.startLongitude(data.round.holes[i].hole.shots[j].shot.startLongitude);
+							s.endLatitude(data.round.holes[i].hole.shots[j].shot.endLatitude);
+							s.endLongitude(data.round.holes[i].hole.shots[j].shot.endLongitude);
+
+							shots.push(s);
+						}
+
+						h.shots(shots);
+						holes.push(h);
+					}
+
+					r.holes(holes);
+				}
+
+				rounds.push(r);
+			},
+			error: function(data, textStatus, xhr) {
+				console.log('User Get All Error');
+				ajaxErrorHandler(data, textStatus, xhr);
+			}
+		});
+	}
+
+	return rounds;
 }
