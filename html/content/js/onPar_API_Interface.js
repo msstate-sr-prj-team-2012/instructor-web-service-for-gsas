@@ -151,19 +151,67 @@ function ajaxErrorHandler(data, textStatus)
 
 function Course(data)
 {
-	console.log('New Course with data: ' + data.toString());
-	this.id = null;
-	this.name = null;
-	this.location = null;
+	if (typeof(data) === 'undefined') data = null;
+
+	if (data) {
+		console.log('New Course with data: ' + data.toString());
+	} else {
+		console.log('New Course with no data');
+	}
+
+	this._id = null;
+	this._name = null;
+	this._location = null;
 
 	// constructor
 	if (data) this.load(data);
+}
+
+Course.prototype.ID = function(data)
+{
+	if (typeof(data) === 'undefined') data = null;
+
+	if (data) {
+		console.log('Setting Course id');
+		this._id = data;
+	} else {
+		console.log('Getting Course id');
+		return this._id;
+	}
+}
+
+Course.prototype.name = function(data)
+{
+	if (typeof(data) === 'undefined') data = null;
+
+	if (data) {
+		console.log('Setting Course name');
+		this._name = data;
+	} else {
+		console.log('Getting Course name');
+		return this._name;
+	}
+}
+
+Course.prototype.location = function(data)
+{
+	if (typeof(data) === 'undefined') data = null;
+
+	if (data) {
+		console.log('Setting Course location');
+		this._location = data;
+	} else {
+		console.log('Getting Course location');
+		return this._location;
+	}
 }
 
 Course.prototype.load = function(data)
 {
 	console.log('Course load with data: ' + data.toString());
 	if (!data) return true;
+
+	var thisCourse = this;
 
 	$.ajax({
 		accepts: "application/json",
@@ -174,13 +222,18 @@ Course.prototype.load = function(data)
 		username: "cse3213",
 		password: "test",
 		success: function(data, textStatus, xhr) {
-			if (data.status = 204) {
+			if (xhr.status == 204) {
+				console.log('Course Loading - Nonexistent Course');
 				alert('This course does not exist.');
 			} else {
-				alert(JSON.stringify(data));
+				console.log('Course Loading Success');
+				thisCourse.ID(data.course.id);
+				thisCourse.name(data.course.name);
+				thisCourse.location(data.course.location);
 			}
 		},
 		error: function(data, textStatus, xhr) {
+			console.log('Course Loading Error');
 			ajaxErrorHandler(data, textStatus, xhr);
 		}
 	});
@@ -189,6 +242,9 @@ Course.prototype.load = function(data)
 Course.prototype.save = function()
 {
 	console.log('Course save');
+
+	var thisCourse = this;
+
 	if (this.id) {
 		// update
 		console.log('Course update for id: ' + this.id.toString());
@@ -201,11 +257,15 @@ Course.prototype.save = function()
 			username: "cse3213",
 			password: "test",
 			contentType: "application/json",
-			data: this.export(),
+			data: JSON.stringify(this.export()),
 			success: function(data, textStatus, xhr) {
-				alert(JSON.stringify(data));
+				console.log('Course Update Succeess');
+				thisCourse.ID(data.course.id);
+				thisCourse.name(data.course.name);
+				thisCourse.location(data.course.location);
 			},
 			error: function(data, textStatus, xhr) {
+				console.log('Course Update Error');
 				ajaxErrorHandler(data, textStatus, xhr);
 			}
 		});
@@ -221,18 +281,22 @@ Course.prototype.save = function()
 			username: "cse3213",
 			password: "test",
 			contentType: "application/json",
-			data: this.export(),
+			data: JSON.stringify(this.export()),
 			success: function(data, textStatus, xhr) {
-				alert(JSON.stringify(data));
+				console.log('Course Insert Success');
+				thisCourse.ID(data.course.id);
+				thisCourse.name(data.course.name);
+				thisCourse.location(data.course.location);
 			},
 			error: function(data, textStatus, xhr) {
+				console.log('Course Insert Error');
 				ajaxErrorHandler(data, textStatus, xhr);
 			}
 		});
 	}
 }
 
-Course.prototype.delete() = function()
+Course.prototype.delete = function()
 {
 	console.log('Course delete for id: ' + this.id.toString());
 	if (!this.id) return false;
@@ -246,25 +310,31 @@ Course.prototype.delete() = function()
 			username: "cse3213",
 			password: "test",
 			success: function(data, textStatus, xhr) {
-				alert(JSON.stringify(data));
+				console.log('Course delete success');
+				thisCourse.ID(data.course.id);
+				thisCourse.name(data.course.name);
+				thisCourse.location(data.course.location);
 			},
 			error: function(data, textStatus, xhr) {
+				console.log('Course delete failure');
 				ajaxErrorHandler(data, textStatus, xhr);
 			}
 		});
 }
 
-Course.prototype.export() = function()
+Course.prototype.export = function()
 {
 	console.log('Course Export');
 	var courseObject = 
 	{"course":
 		{
-			"id": this.id,
-			"name": this.name,
-			"location": this.location
+			"id": this.ID(),
+			"name": this.name(),
+			"location": this.location()
 		}
 	};
+
+	console.log(JSON.stringify(courseObject));
 
 	return courseObject;
 }
