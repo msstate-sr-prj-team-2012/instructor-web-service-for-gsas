@@ -1,3 +1,7 @@
+var defines = {}
+defines.API_USERNAME = 'cse3213';
+defines.API_PASSWORD = 'test';
+
 function ajaxErrorHandler(data, textStatus)
 {
 	console.log('API Error - entering ajaxErrorHandler');
@@ -218,10 +222,10 @@ Course.prototype.load = function(data)
 		accepts: "application/json",
 		async: false,
 		dataType: "json",
-		url: "http://shadowrealm.cse.msstate.edu/gsas/API/courses/" + data.toString(),
+		url: "/API/courses/" + data.toString(),
 		type: "GET",
-		username: "cse3213",
-		password: "test",
+		username: defines.API_USERNAME,
+		password: defines.API_PASSWORD,
 		success: function(data, textStatus, xhr) {
 			if (xhr.status == 204) {
 				console.log('Course Loading - Nonexistent Course');
@@ -259,10 +263,10 @@ Course.prototype.save = function()
 			accepts: "application/json",
 			async: false,
 			dataType: "json",
-			url: "http://shadowrealm.cse.msstate.edu/gsas/API/courses/" + this.ID(),
+			url: "/API/courses/" + this.ID(),
 			type: "POST",
-			username: "cse3213",
-			password: "test",
+			username: defines.API_USERNAME,
+			password: defines.API_PASSWORD,
 			contentType: "application/json",
 			data: JSON.stringify(this.export()),
 			success: function(data, textStatus, xhr) {
@@ -291,10 +295,10 @@ Course.prototype.save = function()
 			accepts: "application/json",
 			async: false,
 			dataType: "json",
-			url: "http://shadowrealm.cse.msstate.edu/gsas/API/courses/",
+			url: "/API/courses/",
 			type: "POST",
-			username: "cse3213",
-			password: "test",
+			username: defines.API_USERNAME,
+			password: defines.API_PASSWORD,
 			contentType: "application/json",
 			data: JSON.stringify(this.export()),
 			success: function(data, textStatus, xhr) {
@@ -328,10 +332,10 @@ Course.prototype.delete = function()
 		accepts: "application/json",
 		async: false,
 		dataType: "json",
-		url: "http://shadowrealm.cse.msstate.edu/gsas/API/courses/destroy/" + this.ID(),
+		url: "/API/courses/destroy/" + this.ID(),
 		type: "POST",
-		username: "cse3213",
-		password: "test",
+		username: defines.API_USERNAME,
+		password: defines.API_PASSWORD,
 		success: function(data, textStatus, xhr) {
 			if (xhr.status == 204) {
 				console.log('Course Delete - Nonexistent Course');
@@ -380,10 +384,10 @@ function CourseGetAll()
 		accepts: "application/json",
 		async: false,
 		dataType: "json",
-		url: "http://shadowrealm.cse.msstate.edu/gsas/API/courses/",
+		url: "/API/courses/",
 		type: "GET",
-		username: "cse3213",
-		password: "test",
+		username: defines.API_USERNAME,
+		password: defines.API_PASSWORD,
 		success: function(data, textStatus, xhr) {
 			console.log('Course Get All Success');
 			for (var i = 0; i < data.courses.length; i++) {
