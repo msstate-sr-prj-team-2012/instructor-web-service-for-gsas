@@ -509,6 +509,19 @@ User.prototype.email = function(data)
 	}
 }
 
+User.prototype.stats = function(data)
+{
+	if (typeof(data) === 'undefined') data = null;
+
+	if (data) {
+		console.log('Setting User stats');
+		this._stats = data;
+	} else {
+		console.log('Getting User stats');
+		return this._stats;
+	}
+}
+
 User.prototype.load = function(data)
 {
 	console.log('User load with data: ' + data.toString());
