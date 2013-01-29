@@ -245,14 +245,14 @@ Course.prototype.save = function()
 
 	var thisCourse = this;
 
-	if (this.id) {
+	if (this.ID()) {
 		// update
-		console.log('Course update for id: ' + this.id.toString());
+		console.log('Course update for id: ' + this.ID());
 		$.ajax({
 			accepts: "application/json",
 			async: false,
 			dataType: "json",
-			url: "http://shadowrealm.cse.msstate.edu/gsas/API/courses/" + this.id.toString(),
+			url: "http://shadowrealm.cse.msstate.edu/gsas/API/courses/" + this.ID(),
 			type: "POST",
 			username: "cse3213",
 			password: "test",
@@ -298,14 +298,17 @@ Course.prototype.save = function()
 
 Course.prototype.delete = function()
 {
-	console.log('Course delete for id: ' + this.id.toString());
-	if (!this.id) return false;
+	console.log('Course delete for id: ' + this.ID());
+	
+	if (!this.ID()) return false;
+
+	var thisCourse = this;
 
 	$.ajax({
 			accepts: "application/json",
 			async: false,
 			dataType: "json",
-			url: "http://shadowrealm.cse.msstate.edu/gsas/API/courses/" + this.id.toString(),
+			url: "http://shadowrealm.cse.msstate.edu/gsas/API/courses/destroy/" + this.ID(),
 			type: "POST",
 			username: "cse3213",
 			password: "test",
