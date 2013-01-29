@@ -1442,7 +1442,7 @@ Round.prototype.load = function(data)
 				u.nickname(data.round.user.user.nickname);
 				u.name(data.round.user.user.name);
 				u.email(data.round.user.user.email);
-				u.stat(data.round.user.user.stats);
+				u.stats(data.round.user.user.stats);
 				thisRound.user(u);
 
 				// create a new course for the course attribute
@@ -1557,7 +1557,7 @@ Round.prototype.save = function()
 					u.nickname(data.round.user.user.nickname);
 					u.name(data.round.user.user.name);
 					u.email(data.round.user.user.email);
-					u.stat(data.round.user.user.stats);
+					u.stats(data.round.user.user.stats);
 					thisRound.user(u);
 
 					// create a new course for the course attribute
@@ -1657,7 +1657,7 @@ Round.prototype.save = function()
 				u.nickname(data.round.user.user.nickname);
 				u.name(data.round.user.user.name);
 				u.email(data.round.user.user.email);
-				u.stat(data.round.user.user.stats);
+				u.stats(data.round.user.user.stats);
 				thisRound.user(u);
 
 				// create a new course for the course attribute
@@ -1769,7 +1769,7 @@ Round.prototype.delete = function()
 			u.nickname(data.round.user.user.nickname);
 			u.name(data.round.user.user.name);
 			u.email(data.round.user.user.email);
-			u.stat(data.round.user.user.stats);
+			u.stats(data.round.user.user.stats);
 			thisRound.user(u);
 
 			// create a new course for the course attribute
@@ -1913,7 +1913,7 @@ function RoundGetAll(data)
 						u.nickname(data.rounds[i].round.user.user.nickname);
 						u.name(data.rounds[i].round.user.user.name);
 						u.email(data.rounds[i].round.user.user.email);
-						u.stat(data.rounds[i].round.user.user.stats);
+						u.stats(data.rounds[i].round.user.user.stats);
 						r.user(u);
 
 						// create a new course for the course attribute
@@ -2013,7 +2013,7 @@ function RoundGetAll(data)
 					u.nickname(data.rounds[i].round.user.user.nickname);
 					u.name(data.rounds[i].round.user.user.name);
 					u.email(data.rounds[i].round.user.user.email);
-					u.stat(data.rounds[i].round.user.user.stats);
+					u.stats(data.rounds[i].round.user.user.stats);
 					r.user(u);
 
 					// create a new course for the course attribute
