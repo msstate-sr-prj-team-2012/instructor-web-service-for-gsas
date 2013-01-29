@@ -692,6 +692,7 @@ User.prototype.export = function()
 			"nickname": this.nickname(),
 			"name": this.name(),
 			"email": this.email(),
+			"stats": this.stats()
 		}
 	};
 
