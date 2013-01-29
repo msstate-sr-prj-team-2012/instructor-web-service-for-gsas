@@ -153,6 +153,14 @@ function ajaxErrorHandler(data, textStatus)
 	}
 }
 
+/****************************************************************************
+ *
+ *
+ * Course
+ *
+ *
+ ****************************************************************************/
+
 function Course(data)
 {
 	if (typeof(data) === 'undefined') data = null;
@@ -405,4 +413,312 @@ function CourseGetAll()
 	});
 
 	return courses;
+}
+
+/****************************************************************************
+ *
+ *
+ * User
+ *
+ *
+ ****************************************************************************/
+
+function User(data)
+{
+	if (typeof(data) === 'undefined') data = null;
+
+	if (data) {
+		console.log('New User with data: ' + data.toString());
+	} else {
+		console.log('New User with no data');
+	}
+
+	this._id = null;
+	this._memberID = null;
+	this._nickname = null;
+	this._name = null;
+	this._email = null;
+	this._stats = null;
+
+	// constructor
+	if (data) this.load(data);
+}
+
+User.prototype.ID = function(data)
+{
+	if (typeof(data) === 'undefined') data = null;
+
+	if (data) {
+		console.log('Setting User id');
+		this._id = data;
+	} else {
+		console.log('Getting User id');
+		return this._id;
+	}
+}
+
+User.prototype.memberID = function(data)
+{
+	if (typeof(data) === 'undefined') data = null;
+
+	if (data) {
+		console.log('Setting User memberID');
+		this._memberID = data;
+	} else {
+		console.log('Getting User memberID');
+		return this._memberID;
+	}
+}
+
+User.prototype.nickname = function(data)
+{
+	if (typeof(data) === 'undefined') data = null;
+
+	if (data) {
+		console.log('Setting User nickname');
+		this._nickname = data;
+	} else {
+		console.log('Getting User nickname');
+		return this._nickname;
+	}
+}
+
+User.prototype.name = function(data)
+{
+	if (typeof(data) === 'undefined') data = null;
+
+	if (data) {
+		console.log('Setting User name');
+		this._name = data;
+	} else {
+		console.log('Getting User name');
+		return this._name;
+	}
+}
+
+User.prototype.email = function(data)
+{
+	if (typeof(data) === 'undefined') data = null;
+
+	if (data) {
+		console.log('Setting User email');
+		this._email = data;
+	} else {
+		console.log('Getting User email');
+		return this._email;
+	}
+}
+
+User.prototype.load = function(data)
+{
+	console.log('User load with data: ' + data.toString());
+	if (!data) return true;
+
+	var thisUser = this;
+	var ret = true;
+
+	$.ajax({
+		accepts: "application/json",
+		async: false,
+		dataType: "json",
+		url: "/API/users/" + data.toString(),
+		type: "GET",
+		username: defines.API_USERNAME,
+		password: defines.API_PASSWORD,
+		success: function(data, textStatus, xhr) {
+			if (xhr.status == 204) {
+				console.log('User Loading - Nonexistent User');
+				ret = false;
+				alert('This user does not exist.');
+			} else {
+				console.log('User Loading Success');
+				thisUser.ID(data.user.id);
+				thisUser.memberID(data.user.memberID);
+				thisUser.nickname(data.user.nickname);
+				thisUser.name(data.user.name);
+				thisUser.email(data.user.email);
+				thisUser.stats(data.user.stats);
+				ret = true;
+			}
+		},
+		error: function(data, textStatus, xhr) {
+			console.log('User Loading Error');
+			ret = false;
+			ajaxErrorHandler(data, textStatus, xhr);
+		}
+	});
+
+	return ret;
+}
+
+User.prototype.save = function()
+{
+	console.log('User save');
+
+	var thisUser = this;
+	var ret = true;
+
+	if (this.ID()) {
+		// update
+		console.log('User update for id: ' + this.ID());
+		$.ajax({
+			accepts: "application/json",
+			async: false,
+			dataType: "json",
+			url: "/API/users/" + this.ID(),
+			type: "POST",
+			username: defines.API_USERNAME,
+			password: defines.API_PASSWORD,
+			contentType: "application/json",
+			data: JSON.stringify(this.export()),
+			success: function(data, textStatus, xhr) {
+				if (xhr.status == 204) {
+					console.log('User Update - Nonexistent User');
+					ret = false;
+					alert('This user does not exist.');
+				} else {
+					console.log('User Update Succeess');
+					thisUser.ID(data.user.id);
+					thisUser.memberID(data.user.memberID);
+					thisUser.nickname(data.user.nickname);
+					thisUser.name(data.user.name);
+					thisUser.email(data.user.email);
+					thisUser.stats(data.user.stats);
+					ret = true;
+				}
+			},
+			error: function(data, textStatus, xhr) {
+				console.log('User Update Error');
+				ret = false;
+				ajaxErrorHandler(data, textStatus, xhr);
+			}
+		});
+	} else {
+		// insert
+		console.log('User insert');
+		$.ajax({
+			accepts: "application/json",
+			async: false,
+			dataType: "json",
+			url: "/API/users/",
+			type: "POST",
+			username: defines.API_USERNAME,
+			password: defines.API_PASSWORD,
+			contentType: "application/json",
+			data: JSON.stringify(this.export()),
+			success: function(data, textStatus, xhr) {
+				console.log('User Insert Success');
+				thisUser.ID(data.user.id);
+				thisUser.memberID(data.user.memberID);
+				thisUser.nickname(data.user.nickname);
+				thisUser.name(data.user.name);
+				thisUser.email(data.user.email);
+				thisUser.stats(data.user.stats);
+				ret = true;
+			},
+			error: function(data, textStatus, xhr) {
+				console.log('User Insert Error');
+				ret = false;
+				ajaxErrorHandler(data, textStatus, xhr);
+			}
+		});
+	}
+
+	return ret;
+}
+
+User.prototype.delete = function()
+{
+	console.log('User delete for id: ' + this.ID());
+	
+	if (!this.ID()) return false;
+
+	var thisUser = this;
+	var ret = true;
+
+	$.ajax({
+		accepts: "application/json",
+		async: false,
+		dataType: "json",
+		url: "/API/users/destroy/" + this.ID(),
+		type: "POST",
+		username: defines.API_USERNAME,
+		password: defines.API_PASSWORD,
+		success: function(data, textStatus, xhr) {
+			if (xhr.status == 204) {
+				console.log('User Delete - Nonexistent User');
+				ret = false;
+				alert('This user does not exist');
+			}
+			console.log('User delete success');
+			thisUser.ID(data.user.id);
+			thisUser.memberID(data.user.memberID);
+			thisUser.nickname(data.user.nickname);
+			thisUser.name(data.user.name);
+			thisUser.email(data.user.email);
+			thisUser.stats(data.user.stats);
+		},
+		error: function(data, textStatus, xhr) {
+			console.log('User delete failure');
+			ret = false;
+			ajaxErrorHandler(data, textStatus, xhr);
+		}
+	});
+
+	return ret;
+}
+
+User.prototype.export = function()
+{
+	console.log('User Export');
+	var userObject = 
+	{"user":
+		{
+			"id": this.ID(),
+			"memberID": this.memberID(),
+			"nickname": this.nickname(),
+			"name": this.name(),
+			"email": this.email(),
+		}
+	};
+
+	console.log(JSON.stringify(userObject));
+
+	return userObject;
+}
+
+function UserGetAll()
+{
+	console.log('Getting all Users');
+
+	var users = new Array();
+
+	$.ajax({
+		accepts: "application/json",
+		async: false,
+		dataType: "json",
+		url: "/API/users/",
+		type: "GET",
+		username: defines.API_USERNAME,
+		password: defines.API_PASSWORD,
+		success: function(data, textStatus, xhr) {
+			console.log('User Get All Success');
+			for (var i = 0; i < data.users.length; i++) {
+				var u = new User();
+				u.ID(data.users[i].user.id);
+				u.memberID(data.users[i].user.memberID);
+				u.nickname(data.users[i].user.nickname);
+				u.name(data.users[i].user.name);
+				u.email(data.users[i].user.email);
+				u.stats(data.users[i].user.stats);
+				users.push(u);
+			}
+		},
+		error: function(data, textStatus, xhr) {
+			console.log('User Get All Error');
+			ajaxErrorHandler(data, textStatus, xhr);
+		}
+	});
+
+	return users;
 }
