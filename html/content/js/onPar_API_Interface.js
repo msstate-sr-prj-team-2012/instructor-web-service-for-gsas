@@ -1509,7 +1509,7 @@ Round.prototype.load = function(data)
 			} else {
 				console.log('Round Loading Success');
 
-				this.loadByJSON(data);
+				thisRound.loadByJSON(data);
 
 				ret = true;
 			}
@@ -1533,7 +1533,7 @@ Round.prototype.save = function()
 
 	if (this.ID()) {
 		// update
-		console.log('ROund update for id: ' + this.ID());
+		console.log('Round update for id: ' + this.ID());
 		$.ajax({
 			accepts: "application/json",
 			async: false,
@@ -1552,7 +1552,7 @@ Round.prototype.save = function()
 				} else {
 					console.log('Round Update Succeess');
 					
-					this.loadByJSON(data);
+					thisRound.loadByJSON(data);
 
 					ret = true;
 				}
@@ -1579,7 +1579,7 @@ Round.prototype.save = function()
 			success: function(data, textStatus, xhr) {
 				console.log('User Insert Success');
 				
-				this.loadByJSON(data);
+				thisRound.loadByJSON(data);
 
 				ret = true;
 			},
@@ -1616,12 +1616,13 @@ Round.prototype.delete = function()
 				console.log('Round Delete - Nonexistent Round');
 				ret = false;
 				alert('This round does not exist');
-			}
-			console.log('Round delete success');
-			
-			this.loadByJSON(data);
+			} else {
+				console.log('Round delete success');
+				
+				thisRound.loadByJSON(data);
 
-			ret = true;
+				ret = true;
+			}
 		},
 		error: function(data, textStatus, xhr) {
 			console.log('Round delete failure');
