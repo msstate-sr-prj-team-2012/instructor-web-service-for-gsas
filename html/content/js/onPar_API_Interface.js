@@ -1496,7 +1496,7 @@ Round.prototype.delete = function()
 	
 	if (!this.ID()) return false;
 
-	var thisUser = this;
+	var thisRound = this;
 	var ret = true;
 
 	$.ajax({
