@@ -1677,7 +1677,7 @@ function RoundGetAll(data)
 			accepts: "application/json",
 			async: false,
 			dataType: "json",
-			url: "/API/rounds/user/" + data.toString,
+			url: "/API/rounds/user/" + data.toString(),
 			type: "GET",
 			username: defines.API_USERNAME,
 			password: defines.API_PASSWORD,
