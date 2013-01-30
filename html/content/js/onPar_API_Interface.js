@@ -909,7 +909,7 @@ function Hole()
 	this._secondRefY = null;
 	this._thirdRefX = null;
 	this._thirdRefY = null;
-	this._shots = null;
+	this._shots = new Array();
 }
 
 Hole.prototype.ID = function(data)
@@ -1221,7 +1221,7 @@ function Round(data)
 	this._totalScore = null;
 	this._teeID = null;
 	this._startTime = null;
-	this._holes = null;
+	this._holes = new Array();
 
 	// constructor
 	if (data) this.load(data);
