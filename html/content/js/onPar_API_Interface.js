@@ -1250,7 +1250,7 @@ Hole.prototype.export = function()
 
 	s = this.shots();
 
-	for (var i = 0; i < this.s.length; i++) {
+	for (var i = 0; i < s.length; i++) {
 		shots.push(s[i].export());
 	}
 
@@ -1258,8 +1258,8 @@ Hole.prototype.export = function()
 	{"hole":
 		{
 			"id": this.ID(),
-			"roundID": this.holeID(),
-			"holeScore": this.holescore(),
+			"roundID": this.RoundID(),
+			"holeScore": this.holeScore(),
 			"FIR": this.FIR(),
 			"GIR": this.GIR(),
 			"putts": this.putts(),
@@ -1408,6 +1408,83 @@ Round.prototype.holes = function(data)
 	}
 }
 
+Round.prototype.loadByJSON = function(data)
+{
+	this.ID(data.round.id);
+					
+	// create a new user for the user attribute
+	var u = new User();
+	u.ID(data.round.user.user.id);
+	u.memberID(data.round.user.user.memberID);
+	u.nickname(data.round.user.user.nickname);
+	u.name(data.round.user.user.name);
+	u.email(data.round.user.user.email);
+	u.stats(data.round.user.user.stats);
+	this.user(u);
+
+	// create a new course for the course attribute
+	var c = new Course();
+	c.ID(data.round.course.course.id);
+	c.name(data.round.course.course.name);
+	c.location(data.round.course.course.location);
+	this.course(c);
+
+	this.totalScore(data.round.totalScore);
+	this.teeID(data.round.teeID);
+	this.startTime(data.round.startTime);
+
+	var holes = new Array();
+
+	// loop through all holes
+	for (var i = 0; i < data.round.holes.length; i++) {
+		var h = new Hole();
+		h.ID(data.round.holes[i].hole.id);
+		h.roundID(data.round.holes[i].hole.roundID);
+		h.holeScore(data.round.holes[i].hole.holeScore);
+		h.FIR(data.round.holes[i].hole.FIR);
+		h.GIR(data.round.holes[i].hole.GIR);
+		h.putts(data.round.holes[i].hole.putts);
+		h.distance(data.round.holes[i].hole.distance);
+		h.par(data.round.holes[i].hole.par);
+		h.holeNumber(data.round.holes[i].hole.holeNumber);
+		h.firstRefLat(data.round.holes[i].hole.firstRefLat);
+		h.firstRefLong(data.round.holes[i].hole.firstRefLong);
+		h.secondRefLat(data.round.holes[i].hole.secondRefLat);
+		h.secondRefLong(data.round.holes[i].hole.secondRefLong);
+		h.thirdRefLat(data.round.holes[i].hole.thirdRefLat);
+		h.thirdRefLong(data.round.holes[i].hole.thirdRefLong);
+		h.firstRefX(data.round.holes[i].hole.firstRefX);
+		h.firstRefY(data.round.holes[i].hole.firstRefY);
+		h.secondRefX(data.round.holes[i].hole.secondReX);
+		h.secondRefY(data.round.holes[i].hole.secondRefY);
+		h.thirdRefX(data.round.holes[i].hole.thirdRefX);
+		h.thirdRefY(data.round.holes[i].hole.thirdRefY);
+
+		var shots = new Array();
+
+		for (var j = 0; j < data.round.holes[i].hole.shots.length; j++) {
+			var s = new Shot();
+			s.ID(data.round.holes[i].hole.shots[j].shot.id);
+			s.holeID(data.round.holes[i].hole.shots[j].shot.holeID);
+			s.club(data.round.holes[i].hole.shots[j].shot.club);
+			s.shotNumber(data.round.holes[i].hole.shots[j].shot.shotNumber);
+			s.aimLatitude(data.round.holes[i].hole.shots[j].shot.aimLatitude);
+			s.aimLongitude(data.round.holes[i].hole.shots[j].shot.aimLongitude);
+			s.startLatitude(data.round.holes[i].hole.shots[j].shot.startLatitude);
+			s.startLongitude(data.round.holes[i].hole.shots[j].shot.startLongitude);
+			s.endLatitude(data.round.holes[i].hole.shots[j].shot.endLatitude);
+			s.endLongitude(data.round.holes[i].hole.shots[j].shot.endLongitude);
+
+			shots.push(s);
+		}
+
+		h.shots(shots);
+		holes.push(h);
+	}
+
+	this.holes(holes);
+}
+
 Round.prototype.load = function(data)
 {
 	console.log('Round load with data: ' + data.toString());
@@ -1432,80 +1509,7 @@ Round.prototype.load = function(data)
 			} else {
 				console.log('Round Loading Success');
 
-				// round data
-				thisRound.ID(data.round.id);
-				
-				// create a new user for the user attribute
-				var u = new User();
-				u.ID(data.round.user.user.id);
-				u.memberID(data.round.user.user.memberID);
-				u.nickname(data.round.user.user.nickname);
-				u.name(data.round.user.user.name);
-				u.email(data.round.user.user.email);
-				u.stats(data.round.user.user.stats);
-				thisRound.user(u);
-
-				// create a new course for the course attribute
-				var c = new Course();
-				c.ID(data.round.course.course.id);
-				c.name(data.round.course.course.name);
-				c.location(data.round.course.course.location);
-				thisRound.course(c);
-
-				thisRound.totalScore(data.round.totalScore);
-				thisRound.teeID(data.round.teeID);
-				thisRound.startTime(data.round.startTime);
-
-				var holes = new Array();
-
-				// loop through all holes
-				for (var i = 0; i < data.round.holes.length; i++) {
-					var h = new Hole();
-					h.ID(data.round.holes[i].hole.id);
-					h.roundID(data.round.holes[i].hole.roundID);
-					h.holeScore(data.round.holes[i].hole.holeScore);
-					h.FIR(data.round.holes[i].hole.FIR);
-					h.GIR(data.round.holes[i].hole.GIR);
-					h.putts(data.round.holes[i].hole.putts);
-					h.distance(data.round.holes[i].hole.distance);
-					h.par(data.round.holes[i].hole.par);
-					h.holeNumber(data.round.holes[i].hole.holeNumber);
-					h.firstRefLat(data.round.holes[i].hole.firstRefLat);
-					h.firstRefLong(data.round.holes[i].hole.firstRefLong);
-					h.secondRefLat(data.round.holes[i].hole.secondRefLat);
-					h.secondRefLong(data.round.holes[i].hole.secondRefLong);
-					h.thirdRefLat(data.round.holes[i].hole.thirdRefLat);
-					h.thirdRefLong(data.round.holes[i].hole.thirdRefLong);
-					h.firstRefX(data.round.holes[i].hole.firstRefX);
-					h.firstRefY(data.round.holes[i].hole.firstRefY);
-					h.secondRefX(data.round.holes[i].hole.secondReX);
-					h.secondRefY(data.round.holes[i].hole.secondRefY);
-					h.thirdRefX(data.round.holes[i].hole.thirdRefX);
-					h.thirdRefY(data.round.holes[i].hole.thirdRefY);
-
-					var shots = new Array();
-
-					for (var j = 0; j < data.round.holes[i].hole.shots.length; j++) {
-						var s = new Shot();
-						s.ID(data.round.holes[i].hole.shots[j].shot.id);
-						s.holeID(data.round.holes[i].hole.shots[j].shot.holeID);
-						s.club(data.round.holes[i].hole.shots[j].shot.club);
-						s.shotNumber(data.round.holes[i].hole.shots[j].shot.shotNumber);
-						s.aimLatitude(data.round.holes[i].hole.shots[j].shot.aimLatitude);
-						s.aimLongitude(data.round.holes[i].hole.shots[j].shot.aimLongitude);
-						s.startLatitude(data.round.holes[i].hole.shots[j].shot.startLatitude);
-						s.startLongitude(data.round.holes[i].hole.shots[j].shot.startLongitude);
-						s.endLatitude(data.round.holes[i].hole.shots[j].shot.endLatitude);
-						s.endLongitude(data.round.holes[i].hole.shots[j].shot.endLongitude);
-
-						shots.push(s);
-					}
-
-					h.shots(shots);
-					holes.push(h);
-				}
-
-				thisRound.holes(holes);
+				this.loadByJSON(data);
 
 				ret = true;
 			}
@@ -1547,80 +1551,8 @@ Round.prototype.save = function()
 					alert('This round does not exist.');
 				} else {
 					console.log('Round Update Succeess');
-					// round data
-					thisRound.ID(data.round.id);
 					
-					// create a new user for the user attribute
-					var u = new User();
-					u.ID(data.round.user.user.id);
-					u.memberID(data.round.user.user.memberID);
-					u.nickname(data.round.user.user.nickname);
-					u.name(data.round.user.user.name);
-					u.email(data.round.user.user.email);
-					u.stats(data.round.user.user.stats);
-					thisRound.user(u);
-
-					// create a new course for the course attribute
-					var c = new Course();
-					c.ID(data.round.course.course.id);
-					c.name(data.round.course.course.name);
-					c.location(data.round.course.course.location);
-					thisRound.course(c);
-
-					thisRound.totalScore(data.round.totalScore);
-					thisRound.teeID(data.round.teeID);
-					thisRound.startTime(data.round.startTime);
-
-					var holes = new Array();
-
-					// loop through all holes
-					for (var i = 0; i < data.round.holes.length; i++) {
-						var h = new Hole();
-						h.ID(data.round.holes[i].hole.id);
-						h.roundID(data.round.holes[i].hole.roundID);
-						h.holeScore(data.round.holes[i].hole.holeScore);
-						h.FIR(data.round.holes[i].hole.FIR);
-						h.GIR(data.round.holes[i].hole.GIR);
-						h.putts(data.round.holes[i].hole.putts);
-						h.distance(data.round.holes[i].hole.distance);
-						h.par(data.round.holes[i].hole.par);
-						h.holeNumber(data.round.holes[i].hole.holeNumber);
-						h.firstRefLat(data.round.holes[i].hole.firstRefLat);
-						h.firstRefLong(data.round.holes[i].hole.firstRefLong);
-						h.secondRefLat(data.round.holes[i].hole.secondRefLat);
-						h.secondRefLong(data.round.holes[i].hole.secondRefLong);
-						h.thirdRefLat(data.round.holes[i].hole.thirdRefLat);
-						h.thirdRefLong(data.round.holes[i].hole.thirdRefLong);
-						h.firstRefX(data.round.holes[i].hole.firstRefX);
-						h.firstRefY(data.round.holes[i].hole.firstRefY);
-						h.secondRefX(data.round.holes[i].hole.secondReX);
-						h.secondRefY(data.round.holes[i].hole.secondRefY);
-						h.thirdRefX(data.round.holes[i].hole.thirdRefX);
-						h.thirdRefY(data.round.holes[i].hole.thirdRefY);
-
-						var shots = new Array();
-
-						for (var j = 0; j < data.round.holes[i].hole.shots.length; j++) {
-							var s = new Shot();
-							s.ID(data.round.holes[i].hole.shots[j].shot.id);
-							s.holeID(data.round.holes[i].hole.shots[j].shot.holeID);
-							s.club(data.round.holes[i].hole.shots[j].shot.club);
-							s.shotNumber(data.round.holes[i].hole.shots[j].shot.shotNumber);
-							s.aimLatitude(data.round.holes[i].hole.shots[j].shot.aimLatitude);
-							s.aimLongitude(data.round.holes[i].hole.shots[j].shot.aimLongitude);
-							s.startLatitude(data.round.holes[i].hole.shots[j].shot.startLatitude);
-							s.startLongitude(data.round.holes[i].hole.shots[j].shot.startLongitude);
-							s.endLatitude(data.round.holes[i].hole.shots[j].shot.endLatitude);
-							s.endLongitude(data.round.holes[i].hole.shots[j].shot.endLongitude);
-
-							shots.push(s);
-						}
-
-						h.shots(shots);
-						holes.push(h);
-					}
-
-					thisRound.holes(holes);
+					this.loadByJSON(data);
 
 					ret = true;
 				}
@@ -1647,80 +1579,8 @@ Round.prototype.save = function()
 			success: function(data, textStatus, xhr) {
 				console.log('User Insert Success');
 				
-				// round data
-				thisRound.ID(data.round.id);
-				
-				// create a new user for the user attribute
-				var u = new User();
-				u.ID(data.round.user.user.id);
-				u.memberID(data.round.user.user.memberID);
-				u.nickname(data.round.user.user.nickname);
-				u.name(data.round.user.user.name);
-				u.email(data.round.user.user.email);
-				u.stats(data.round.user.user.stats);
-				thisRound.user(u);
+				this.loadByJSON(data);
 
-				// create a new course for the course attribute
-				var c = new Course();
-				c.ID(data.round.course.course.id);
-				c.name(data.round.course.course.name);
-				c.location(data.round.course.course.location);
-				thisRound.course(c);
-
-				thisRound.totalScore(data.round.totalScore);
-				thisRound.teeID(data.round.teeID);
-				thisRound.startTime(data.round.startTime);
-
-				var holes = new Array();
-
-				// loop through all holes
-				for (var i = 0; i < data.round.holes.length; i++) {
-					var h = new Hole();
-					h.ID(data.round.holes[i].hole.id);
-					h.roundID(data.round.holes[i].hole.roundID);
-					h.holeScore(data.round.holes[i].hole.holeScore);
-					h.FIR(data.round.holes[i].hole.FIR);
-					h.GIR(data.round.holes[i].hole.GIR);
-					h.putts(data.round.holes[i].hole.putts);
-					h.distance(data.round.holes[i].hole.distance);
-					h.par(data.round.holes[i].hole.par);
-					h.holeNumber(data.round.holes[i].hole.holeNumber);
-					h.firstRefLat(data.round.holes[i].hole.firstRefLat);
-					h.firstRefLong(data.round.holes[i].hole.firstRefLong);
-					h.secondRefLat(data.round.holes[i].hole.secondRefLat);
-					h.secondRefLong(data.round.holes[i].hole.secondRefLong);
-					h.thirdRefLat(data.round.holes[i].hole.thirdRefLat);
-					h.thirdRefLong(data.round.holes[i].hole.thirdRefLong);
-					h.firstRefX(data.round.holes[i].hole.firstRefX);
-					h.firstRefY(data.round.holes[i].hole.firstRefY);
-					h.secondRefX(data.round.holes[i].hole.secondReX);
-					h.secondRefY(data.round.holes[i].hole.secondRefY);
-					h.thirdRefX(data.round.holes[i].hole.thirdRefX);
-					h.thirdRefY(data.round.holes[i].hole.thirdRefY);
-
-					var shots = new Array();
-
-					for (var j = 0; j < data.round.holes[i].hole.shots.length; j++) {
-						var s = new Shot();
-						s.ID(data.round.holes[i].hole.shots[j].shot.id);
-						s.holeID(data.round.holes[i].hole.shots[j].shot.holeID);
-						s.club(data.round.holes[i].hole.shots[j].shot.club);
-						s.shotNumber(data.round.holes[i].hole.shots[j].shot.shotNumber);
-						s.aimLatitude(data.round.holes[i].hole.shots[j].shot.aimLatitude);
-						s.aimLongitude(data.round.holes[i].hole.shots[j].shot.aimLongitude);
-						s.startLatitude(data.round.holes[i].hole.shots[j].shot.startLatitude);
-						s.startLongitude(data.round.holes[i].hole.shots[j].shot.startLongitude);
-						s.endLatitude(data.round.holes[i].hole.shots[j].shot.endLatitude);
-						s.endLongitude(data.round.holes[i].hole.shots[j].shot.endLongitude);
-
-						shots.push(s);
-					}
-
-					h.shots(shots);
-					holes.push(h);
-				}
-
-				thisRound.holes(holes);
 				ret = true;
 			},
 			error: function(data, textStatus, xhr) {
@@ -1759,80 +1619,7 @@ Round.prototype.delete = function()
 			}
 			console.log('Round delete success');
 			
-			// round data
-			thisRound.ID(data.round.id);
-			
-			// create a new user for the user attribute
-			var u = new User();
-			u.ID(data.round.user.user.id);
-			u.memberID(data.round.user.user.memberID);
-			u.nickname(data.round.user.user.nickname);
-			u.name(data.round.user.user.name);
-			u.email(data.round.user.user.email);
-			u.stats(data.round.user.user.stats);
-			thisRound.user(u);
-
-			// create a new course for the course attribute
-			var c = new Course();
-			c.ID(data.round.course.course.id);
-			c.name(data.round.course.course.name);
-			c.location(data.round.course.course.location);
-			thisRound.course(c);
-
-			thisRound.totalScore(data.round.totalScore);
-			thisRound.teeID(data.round.teeID);
-			thisRound.startTime(data.round.startTime);
-
-			var holes = new Array();
-
-			// loop through all holes
-			for (var i = 0; i < data.round.holes.length; i++) {
-				var h = new Hole();
-				h.ID(data.round.holes[i].hole.id);
-				h.roundID(data.round.holes[i].hole.roundID);
-				h.holeScore(data.round.holes[i].hole.holeScore);
-				h.FIR(data.round.holes[i].hole.FIR);
-				h.GIR(data.round.holes[i].hole.GIR);
-				h.putts(data.round.holes[i].hole.putts);
-				h.distance(data.round.holes[i].hole.distance);
-				h.par(data.round.holes[i].hole.par);
-				h.holeNumber(data.round.holes[i].hole.holeNumber);
-				h.firstRefLat(data.round.holes[i].hole.firstRefLat);
-				h.firstRefLong(data.round.holes[i].hole.firstRefLong);
-				h.secondRefLat(data.round.holes[i].hole.secondRefLat);
-				h.secondRefLong(data.round.holes[i].hole.secondRefLong);
-				h.thirdRefLat(data.round.holes[i].hole.thirdRefLat);
-				h.thirdRefLong(data.round.holes[i].hole.thirdRefLong);
-				h.firstRefX(data.round.holes[i].hole.firstRefX);
-				h.firstRefY(data.round.holes[i].hole.firstRefY);
-				h.secondRefX(data.round.holes[i].hole.secondReX);
-				h.secondRefY(data.round.holes[i].hole.secondRefY);
-				h.thirdRefX(data.round.holes[i].hole.thirdRefX);
-				h.thirdRefY(data.round.holes[i].hole.thirdRefY);
-
-				var shots = new Array();
-
-				for (var j = 0; j < data.round.holes[i].hole.shots.length; j++) {
-					var s = new Shot();
-					s.ID(data.round.holes[i].hole.shots[j].shot.id);
-					s.holeID(data.round.holes[i].hole.shots[j].shot.holeID);
-					s.club(data.round.holes[i].hole.shots[j].shot.club);
-					s.shotNumber(data.round.holes[i].hole.shots[j].shot.shotNumber);
-					s.aimLatitude(data.round.holes[i].hole.shots[j].shot.aimLatitude);
-					s.aimLongitude(data.round.holes[i].hole.shots[j].shot.aimLongitude);
-					s.startLatitude(data.round.holes[i].hole.shots[j].shot.startLatitude);
-					s.startLongitude(data.round.holes[i].hole.shots[j].shot.startLongitude);
-					s.endLatitude(data.round.holes[i].hole.shots[j].shot.endLatitude);
-					s.endLongitude(data.round.holes[i].hole.shots[j].shot.endLongitude);
-
-					shots.push(s);
-				}
-
-				h.shots(shots);
-				holes.push(h);
-			}
-
-			thisRound.holes(holes);
+			this.loadByJSON(data);
 
 			ret = true;
 		},
@@ -1903,83 +1690,10 @@ function RoundGetAll(data)
 					for (var i = 0; i < data.rounds.length; i++) {
 						var r = new Round();
 
-						// round data
-						r.ID(data.rounds[i].round.id);
-						
-						// create a new user for the user attribute
-						var u = new User();
-						u.ID(data.rounds[i].round.user.user.id);
-						u.memberID(data.rounds[i].round.user.user.memberID);
-						u.nickname(data.rounds[i].round.user.user.nickname);
-						u.name(data.rounds[i].round.user.user.name);
-						u.email(data.rounds[i].round.user.user.email);
-						u.stats(data.rounds[i].round.user.user.stats);
-						r.user(u);
+						r.loadByJSON(data.rounds[i]);
 
-						// create a new course for the course attribute
-						var c = new Course();
-						c.ID(data.rounds[i].round.course.course.id);
-						c.name(data.rounds[i].round.course.course.name);
-						c.location(data.rounds[i].round.course.course.location);
-						r.course(c);
-
-						r.totalScore(data.rounds[i].round.totalScore);
-						r.teeID(data.rounds[i].round.teeID);
-						r.startTime(data.rounds[i].round.startTime);
-
-						var holes = new Array();
-
-						// loop through all holes
-						for (var j = 0; j < data.rounds[i].round.holes.length; j++) {
-							var h = new Hole();
-							h.ID(data.rounds[i].round.holes[j].hole.id);
-							h.roundID(data.rounds[i].round.holes[j].hole.roundID);
-							h.holeScore(data.rounds[i].round.holes[j].hole.holeScore);
-							h.FIR(data.rounds[i].round.holes[j].hole.FIR);
-							h.GIR(data.rounds[i].round.holes[j].hole.GIR);
-							h.putts(data.rounds[i].round.holes[j].hole.putts);
-							h.distance(data.rounds[i].round.holes[j].hole.distance);
-							h.par(data.rounds[i].round.holes[j].hole.par);
-							h.holeNumber(data.rounds[i].round.holes[j].hole.holeNumber);
-							h.firstRefLat(data.rounds[i].round.holes[j].hole.firstRefLat);
-							h.firstRefLong(data.rounds[i].round.holes[j].hole.firstRefLong);
-							h.secondRefLat(data.rounds[i].round.holes[j].hole.secondRefLat);
-							h.secondRefLong(data.rounds[i].round.holes[j].hole.secondRefLong);
-							h.thirdRefLat(data.rounds[i].round.holes[j].hole.thirdRefLat);
-							h.thirdRefLong(data.rounds[i].round.holes[j].hole.thirdRefLong);
-							h.firstRefX(data.rounds[i].round.holes[j].hole.firstRefX);
-							h.firstRefY(data.rounds[i].round.holes[j].hole.firstRefY);
-							h.secondRefX(data.rounds[i].round.holes[j].hole.secondReX);
-							h.secondRefY(data.rounds[i].round.holes[j].hole.secondRefY);
-							h.thirdRefX(data.rounds[i].round.holes[j].hole.thirdRefX);
-							h.thirdRefY(data.rounds[i].round.holes[j].hole.thirdRefY);
-
-							var shots = new Array();
-
-							for (var k = 0; k < data.rounds[i].round.holes[j].hole.shots.length; k++) {
-								var s = new Shot();
-								s.ID(data.rounds[i].round.holes[j].hole.shots[k].shot.id);
-								s.holeID(data.rounds[i].round.holes[j].hole.shots[k].shot.holeID);
-								s.club(data.rounds[i].round.holes[j].hole.shots[k].shot.club);
-								s.shotNumber(data.rounds[i].round.holes[j].hole.shots[k].shot.shotNumber);
-								s.aimLatitude(data.rounds[i].round.holes[j].hole.shots[k].shot.aimLatitude);
-								s.aimLongitude(data.rounds[i].round.holes[j].hole.shots[k].shot.aimLongitude);
-								s.startLatitude(data.rounds[i].round.holes[j].hole.shots[k].shot.startLatitude);
-								s.startLongitude(data.rounds[i].round.holes[j].hole.shots[k].shot.startLongitude);
-								s.endLatitude(data.rounds[i].round.holes[j].hole.shots[k].shot.endLatitude);
-								s.endLongitude(data.rounds[i].round.holes[j].hole.shots[k].shot.endLongitude);
-
-								shots.push(s);
-							}
-
-							h.shots(shots);
-							holes.push(h);
-						}
-
-						r.holes(holes);
+						rounds.push(r);
 					}
-
-					rounds.push(r);
 				}
 			},
 			error: function(data, textStatus, xhr) {
@@ -1999,87 +1713,14 @@ function RoundGetAll(data)
 			username: defines.API_USERNAME,
 			password: defines.API_PASSWORD,
 			success: function(data, textStatus, xhr) {
-				console.log('Round Get All By User Success');
+				console.log('Round Get All Success');
 				for (var i = 0; i < data.rounds.length; i++) {
 					var r = new Round();
 
-					// round data
-					r.ID(data.rounds[i].round.id);
-					
-					// create a new user for the user attribute
-					var u = new User();
-					u.ID(data.rounds[i].round.user.user.id);
-					u.memberID(data.rounds[i].round.user.user.memberID);
-					u.nickname(data.rounds[i].round.user.user.nickname);
-					u.name(data.rounds[i].round.user.user.name);
-					u.email(data.rounds[i].round.user.user.email);
-					u.stats(data.rounds[i].round.user.user.stats);
-					r.user(u);
+					r.loadByJSON(data.rounds[i]);
 
-					// create a new course for the course attribute
-					var c = new Course();
-					c.ID(data.rounds[i].round.course.course.id);
-					c.name(data.rounds[i].round.course.course.name);
-					c.location(data.rounds[i].round.course.course.location);
-					r.course(c);
-
-					r.totalScore(data.rounds[i].round.totalScore);
-					r.teeID(data.rounds[i].round.teeID);
-					r.startTime(data.rounds[i].round.startTime);
-
-					var holes = new Array();
-
-					// loop through all holes
-					for (var j = 0; j < data.rounds[i].round.holes.length; j++) {
-						var h = new Hole();
-						h.ID(data.rounds[i].round.holes[j].hole.id);
-						h.roundID(data.rounds[i].round.holes[j].hole.roundID);
-						h.holeScore(data.rounds[i].round.holes[j].hole.holeScore);
-						h.FIR(data.rounds[i].round.holes[j].hole.FIR);
-						h.GIR(data.rounds[i].round.holes[j].hole.GIR);
-						h.putts(data.rounds[i].round.holes[j].hole.putts);
-						h.distance(data.rounds[i].round.holes[j].hole.distance);
-						h.par(data.rounds[i].round.holes[j].hole.par);
-						h.holeNumber(data.rounds[i].round.holes[j].hole.holeNumber);
-						h.firstRefLat(data.rounds[i].round.holes[j].hole.firstRefLat);
-						h.firstRefLong(data.rounds[i].round.holes[j].hole.firstRefLong);
-						h.secondRefLat(data.rounds[i].round.holes[j].hole.secondRefLat);
-						h.secondRefLong(data.rounds[i].round.holes[j].hole.secondRefLong);
-						h.thirdRefLat(data.rounds[i].round.holes[j].hole.thirdRefLat);
-						h.thirdRefLong(data.rounds[i].round.holes[j].hole.thirdRefLong);
-						h.firstRefX(data.rounds[i].round.holes[j].hole.firstRefX);
-						h.firstRefY(data.rounds[i].round.holes[j].hole.firstRefY);
-						h.secondRefX(data.rounds[i].round.holes[j].hole.secondReX);
-						h.secondRefY(data.rounds[i].round.holes[j].hole.secondRefY);
-						h.thirdRefX(data.rounds[i].round.holes[j].hole.thirdRefX);
-						h.thirdRefY(data.rounds[i].round.holes[j].hole.thirdRefY);
-
-						var shots = new Array();
-
-						for (var k = 0; k < data.rounds[i].round.holes[j].hole.shots.length; k++) {
-							var s = new Shot();
-							s.ID(data.rounds[i].round.holes[j].hole.shots[k].shot.id);
-							s.holeID(data.rounds[i].round.holes[j].hole.shots[k].shot.holeID);
-							s.club(data.rounds[i].round.holes[j].hole.shots[k].shot.club);
-							s.shotNumber(data.rounds[i].round.holes[j].hole.shots[k].shot.shotNumber);
-							s.aimLatitude(data.rounds[i].round.holes[j].hole.shots[k].shot.aimLatitude);
-							s.aimLongitude(data.rounds[i].round.holes[j].hole.shots[k].shot.aimLongitude);
-							s.startLatitude(data.rounds[i].round.holes[j].hole.shots[k].shot.startLatitude);
-							s.startLongitude(data.rounds[i].round.holes[j].hole.shots[k].shot.startLongitude);
-							s.endLatitude(data.rounds[i].round.holes[j].hole.shots[k].shot.endLatitude);
-							s.endLongitude(data.rounds[i].round.holes[j].hole.shots[k].shot.endLongitude);
-
-							shots.push(s);
-						}
-
-						h.shots(shots);
-						holes.push(h);
-					}
-
-					r.holes(holes);
+					rounds.push(r);	
 				}
-
-				rounds.push(r);
 			},
 			error: function(data, textStatus, xhr) {
 				console.log('User Get All Error');
