@@ -184,10 +184,8 @@ Course.prototype.ID = function(data)
 	if (typeof(data) === 'undefined') data = null;
 
 	if (data) {
-		console.log('Setting Course id');
 		this._id = data;
 	} else {
-		console.log('Getting Course id');
 		return this._id;
 	}
 }
@@ -197,10 +195,8 @@ Course.prototype.name = function(data)
 	if (typeof(data) === 'undefined') data = null;
 
 	if (data) {
-		console.log('Setting Course name');
 		this._name = data;
 	} else {
-		console.log('Getting Course name');
 		return this._name;
 	}
 }
@@ -210,10 +206,8 @@ Course.prototype.location = function(data)
 	if (typeof(data) === 'undefined') data = null;
 
 	if (data) {
-		console.log('Setting Course location');
 		this._location = data;
 	} else {
-		console.log('Getting Course location');
 		return this._location;
 	}
 }
@@ -379,8 +373,6 @@ Course.prototype.export = function()
 		}
 	};
 
-	console.log(JSON.stringify(courseObject));
-
 	return courseObject;
 }
 
@@ -451,10 +443,8 @@ User.prototype.ID = function(data)
 	if (typeof(data) === 'undefined') data = null;
 
 	if (data) {
-		console.log('Setting User id');
 		this._id = data;
 	} else {
-		console.log('Getting User id');
 		return this._id;
 	}
 }
@@ -464,10 +454,8 @@ User.prototype.memberID = function(data)
 	if (typeof(data) === 'undefined') data = null;
 
 	if (data) {
-		console.log('Setting User memberID');
 		this._memberID = data;
 	} else {
-		console.log('Getting User memberID');
 		return this._memberID;
 	}
 }
@@ -477,10 +465,8 @@ User.prototype.nickname = function(data)
 	if (typeof(data) === 'undefined') data = null;
 
 	if (data) {
-		console.log('Setting User nickname');
 		this._nickname = data;
 	} else {
-		console.log('Getting User nickname');
 		return this._nickname;
 	}
 }
@@ -490,10 +476,8 @@ User.prototype.name = function(data)
 	if (typeof(data) === 'undefined') data = null;
 
 	if (data) {
-		console.log('Setting User name');
 		this._name = data;
 	} else {
-		console.log('Getting User name');
 		return this._name;
 	}
 }
@@ -503,10 +487,8 @@ User.prototype.email = function(data)
 	if (typeof(data) === 'undefined') data = null;
 
 	if (data) {
-		console.log('Setting User email');
 		this._email = data;
 	} else {
-		console.log('Getting User email');
 		return this._email;
 	}
 }
@@ -516,10 +498,8 @@ User.prototype.stats = function(data)
 	if (typeof(data) === 'undefined') data = null;
 
 	if (data) {
-		console.log('Setting User stats');
 		this._stats = data;
 	} else {
-		console.log('Getting User stats');
 		return this._stats;
 	}
 }
@@ -700,8 +680,6 @@ User.prototype.export = function()
 		}
 	};
 
-	console.log(JSON.stringify(userObject));
-
 	return userObject;
 }
 
@@ -771,10 +749,8 @@ Shot.prototype.ID = function(data)
 	if (typeof(data) === 'undefined') data = null;
 
 	if (data) {
-		console.log('Setting Shot id');
 		this._id = data;
 	} else {
-		console.log('Getting Shot id');
 		return this._id;
 	}
 }
@@ -784,10 +760,8 @@ Shot.prototype.holeID = function(data)
 	if (typeof(data) === 'undefined') data = null;
 
 	if (data) {
-		console.log('Setting Shot holeID');
 		this._holeID = data;
 	} else {
-		console.log('Getting Shot holeID');
 		return this._holeID;
 	}
 }
@@ -797,10 +771,8 @@ Shot.prototype.club = function(data)
 	if (typeof(data) === 'undefined') data = null;
 
 	if (data) {
-		console.log('Setting Shot club');
 		this._club = data;
 	} else {
-		console.log('Getting Shot club');
 		return this._club;
 	}
 }
@@ -810,10 +782,8 @@ Shot.prototype.shotNumber = function(data)
 	if (typeof(data) === 'undefined') data = null;
 
 	if (data) {
-		console.log('Setting Shot shotNumber');
 		this._shotNumber = data;
 	} else {
-		console.log('Getting Shot shotNumber');
 		return this._shotNumber;
 	}
 }
@@ -823,10 +793,8 @@ Shot.prototype.aimLatitude = function(data)
 	if (typeof(data) === 'undefined') data = null;
 
 	if (data) {
-		console.log('Setting Shot aimLatitude');
 		this._aimLatitude = data;
 	} else {
-		console.log('Getting Shot aimLatitude');
 		return this._aimLatitude;
 	}
 }
@@ -836,10 +804,8 @@ Shot.prototype.aimLongitude = function(data)
 	if (typeof(data) === 'undefined') data = null;
 
 	if (data) {
-		console.log('Setting Shot aimLongitude');
 		this._aimLongitude = data;
 	} else {
-		console.log('Getting Shot aimLongitude');
 		return this._aimLongitude;
 	}
 }
@@ -849,10 +815,8 @@ Shot.prototype.startLatitude = function(data)
 	if (typeof(data) === 'undefined') data = null;
 
 	if (data) {
-		console.log('Setting Shot startLatitude');
 		this._startLatitude = data;
 	} else {
-		console.log('Getting Shot startLatitude');
 		return this._startLatitude;
 	}
 }
@@ -862,10 +826,8 @@ Shot.prototype.startLongitude = function(data)
 	if (typeof(data) === 'undefined') data = null;
 
 	if (data) {
-		console.log('Setting Shot startLongitude');
 		this._startLongitude = data;
 	} else {
-		console.log('Getting Shot startLongitude');
 		return this._startLongitude;
 	}
 }
@@ -875,10 +837,8 @@ Shot.prototype.endLatitude = function(data)
 	if (typeof(data) === 'undefined') data = null;
 
 	if (data) {
-		console.log('Setting Shot endLatitude');
 		this._endLatitude = data;
 	} else {
-		console.log('Getting Shot endLatitude');
 		return this._endLatitude;
 	}
 }
@@ -888,10 +848,8 @@ Shot.prototype.endLongitude = function(data)
 	if (typeof(data) === 'undefined') data = null;
 
 	if (data) {
-		console.log('Setting Shot endLongitude');
 		this._endLongitude = data;
 	} else {
-		console.log('Getting Shot endLongitude');
 		return this._endLongitude;
 	}
 }
@@ -914,8 +872,6 @@ Shot.prototype.export = function()
 			"endLongitude": this.endLongitude()
 		}
 	};
-
-	console.log(JSON.stringify(shotObject));
 
 	return shotObject;
 }
@@ -961,10 +917,8 @@ Hole.prototype.ID = function(data)
 	if (typeof(data) === 'undefined') data = null;
 
 	if (data) {
-		console.log('Setting Hole id');
 		this._id = data;
 	} else {
-		console.log('Getting Hole id');
 		return this._id;
 	}
 }
@@ -974,10 +928,8 @@ Hole.prototype.roundID = function(data)
 	if (typeof(data) === 'undefined') data = null;
 
 	if (data) {
-		console.log('Setting Hole roundID');
 		this._roundID = data;
 	} else {
-		console.log('Getting Hole roundID');
 		return this._roundID;
 	}
 }
@@ -987,10 +939,8 @@ Hole.prototype.holeScore = function(data)
 	if (typeof(data) === 'undefined') data = null;
 
 	if (data) {
-		console.log('Setting Hole holeScore');
 		this._holeScore = data;
 	} else {
-		console.log('Getting Hole holeScore');
 		return this._holeScore;
 	}
 }
@@ -1000,10 +950,8 @@ Hole.prototype.FIR = function(data)
 	if (typeof(data) === 'undefined') data = null;
 
 	if (data) {
-		console.log('Setting Hole FIR');
 		this._FIR = data;
 	} else {
-		console.log('Getting Hole FIR');
 		return this._FIR;
 	}
 }
@@ -1013,10 +961,8 @@ Hole.prototype.GIR = function(data)
 	if (typeof(data) === 'undefined') data = null;
 
 	if (data) {
-		console.log('Setting Hole GIR');
 		this._GIR = data;
 	} else {
-		console.log('Getting Hole GIR');
 		return this._GIR;
 	}
 }
@@ -1026,10 +972,8 @@ Hole.prototype.putts = function(data)
 	if (typeof(data) === 'undefined') data = null;
 
 	if (data) {
-		console.log('Setting Hole putts');
 		this._putts = data;
 	} else {
-		console.log('Getting Hole putts');
 		return this._putts;
 	}
 }
@@ -1039,10 +983,8 @@ Hole.prototype.distance = function(data)
 	if (typeof(data) === 'undefined') data = null;
 
 	if (data) {
-		console.log('Setting Hole distance');
 		this._distance = data;
 	} else {
-		console.log('Getting Hole distance');
 		return this._distance;
 	}
 }
@@ -1052,10 +994,8 @@ Hole.prototype.par = function(data)
 	if (typeof(data) === 'undefined') data = null;
 
 	if (data) {
-		console.log('Setting Hole par');
 		this._par = data;
 	} else {
-		console.log('Getting Hole par');
 		return this._par;
 	}
 }
@@ -1065,10 +1005,8 @@ Hole.prototype.holeNumber = function(data)
 	if (typeof(data) === 'undefined') data = null;
 
 	if (data) {
-		console.log('Setting Hole holeNumber');
 		this._holeNumber = data;
 	} else {
-		console.log('Getting Hole holeNumber');
 		return this._holeNumber;
 	}
 }
@@ -1078,10 +1016,8 @@ Hole.prototype.firstRefLat = function(data)
 	if (typeof(data) === 'undefined') data = null;
 
 	if (data) {
-		console.log('Setting Hole firstRefLat');
 		this._firstRefLat = data;
 	} else {
-		console.log('Getting Hole firstRefLat');
 		return this._firstRefLat;
 	}
 }
@@ -1091,10 +1027,8 @@ Hole.prototype.firstRefLong = function(data)
 	if (typeof(data) === 'undefined') data = null;
 
 	if (data) {
-		console.log('Setting Hole firstRefLong');
 		this._firstRefLong = data;
 	} else {
-		console.log('Getting Hole firstRefLong');
 		return this._firstRefLong;
 	}
 }
@@ -1104,10 +1038,8 @@ Hole.prototype.secondRefLat = function(data)
 	if (typeof(data) === 'undefined') data = null;
 
 	if (data) {
-		console.log('Setting Hole secondRefLat');
 		this._secondRefLat = data;
 	} else {
-		console.log('Getting Hole secondRefLat');
 		return this._secondRefLat;
 	}
 }
@@ -1117,10 +1049,8 @@ Hole.prototype.secondRefLong = function(data)
 	if (typeof(data) === 'undefined') data = null;
 
 	if (data) {
-		console.log('Setting Hole secondRefLong');
 		this._secondRefLong = data;
 	} else {
-		console.log('Getting Hole secondRefLong');
 		return this._secondRefLong;
 	}
 }
@@ -1130,10 +1060,8 @@ Hole.prototype.thirdRefLat = function(data)
 	if (typeof(data) === 'undefined') data = null;
 
 	if (data) {
-		console.log('Setting Hole thirdRefLat');
 		this._thirdRefLat = data;
 	} else {
-		console.log('Getting Hole thirdRefLat');
 		return this._thirdRefLat;
 	}
 }
@@ -1143,10 +1071,8 @@ Hole.prototype.thirdRefLong = function(data)
 	if (typeof(data) === 'undefined') data = null;
 
 	if (data) {
-		console.log('Setting Hole thirdRefLong');
 		this._thirdRefLong = data;
 	} else {
-		console.log('Getting Hole thirdRefLong');
 		return this._thirdRefLong;
 	}
 }
@@ -1156,10 +1082,8 @@ Hole.prototype.firstRefX = function(data)
 	if (typeof(data) === 'undefined') data = null;
 
 	if (data) {
-		console.log('Setting Hole firstRefX');
 		this._firstRefX = data;
 	} else {
-		console.log('Getting Hole firstRefX');
 		return this._firstRefX;
 	}
 }
@@ -1169,10 +1093,8 @@ Hole.prototype.firstRefY = function(data)
 	if (typeof(data) === 'undefined') data = null;
 
 	if (data) {
-		console.log('Setting Hole firstRefY');
 		this._firstRefY = data;
 	} else {
-		console.log('Getting Hole firstRefY');
 		return this._firstRefY;
 	}
 }
@@ -1182,10 +1104,8 @@ Hole.prototype.secondRefX = function(data)
 	if (typeof(data) === 'undefined') data = null;
 
 	if (data) {
-		console.log('Setting Hole secondRefX');
 		this._secondRefX = data;
 	} else {
-		console.log('Getting Hole secondRefX');
 		return this._secondRefX;
 	}
 }
@@ -1195,10 +1115,8 @@ Hole.prototype.secondRefY = function(data)
 	if (typeof(data) === 'undefined') data = null;
 
 	if (data) {
-		console.log('Setting Hole secondRefY');
 		this._secondRefY = data;
 	} else {
-		console.log('Getting Hole secondRefY');
 		return this._secondRefY;
 	}
 }
@@ -1208,10 +1126,8 @@ Hole.prototype.thirdRefX = function(data)
 	if (typeof(data) === 'undefined') data = null;
 
 	if (data) {
-		console.log('Setting Hole thirdRefX');
 		this._thirdRefX = data;
 	} else {
-		console.log('Getting Hole thirdRefX');
 		return this._thirdRefX;
 	}
 }
@@ -1221,10 +1137,8 @@ Hole.prototype.thirdRefY = function(data)
 	if (typeof(data) === 'undefined') data = null;
 
 	if (data) {
-		console.log('Setting Hole thirdRefY');
 		this._thirdRefY = data;
 	} else {
-		console.log('Getting Hole thirdRefY');
 		return this._thirdRefY;
 	}
 }
@@ -1234,10 +1148,8 @@ Hole.prototype.shots = function(data)
 	if (typeof(data) === 'undefined') data = null;
 
 	if (data) {
-		console.log('Setting Hole shots');
 		this._shots = data;
 	} else {
-		console.log('Getting Hole shots');
 		return this._shots;
 	}
 }
@@ -1282,8 +1194,6 @@ Hole.prototype.export = function()
 		}
 	};
 
-	console.log(JSON.stringify(holeObject));
-
 	return holeObject;
 }
 
@@ -1322,10 +1232,8 @@ Round.prototype.ID = function(data)
 	if (typeof(data) === 'undefined') data = null;
 
 	if (data) {
-		console.log('Setting Round id');
 		this._id = data;
 	} else {
-		console.log('Getting Round id');
 		return this._id;
 	}
 }
@@ -1335,10 +1243,8 @@ Round.prototype.user = function(data)
 	if (typeof(data) === 'undefined') data = null;
 
 	if (data) {
-		console.log('Setting Round User');
 		this._user = data;
 	} else {
-		console.log('Getting Round User');
 		return this._user;
 	}
 }
@@ -1348,10 +1254,8 @@ Round.prototype.course = function(data)
 	if (typeof(data) === 'undefined') data = null;
 
 	if (data) {
-		console.log('Setting Round Course');
 		this._course = data;
 	} else {
-		console.log('Getting Round Course');
 		return this._course;
 	}
 }
@@ -1361,10 +1265,8 @@ Round.prototype.totalScore = function(data)
 	if (typeof(data) === 'undefined') data = null;
 
 	if (data) {
-		console.log('Setting Round totalScore');
 		this._totalScore = data;
 	} else {
-		console.log('Getting Round totalScore');
 		return this._totalScore;
 	}
 }
@@ -1374,10 +1276,8 @@ Round.prototype.teeID = function(data)
 	if (typeof(data) === 'undefined') data = null;
 
 	if (data) {
-		console.log('Setting Round teeID');
 		this._teeID = data;
 	} else {
-		console.log('Getting Round teeID');
 		return this._teeID;
 	}
 }
@@ -1387,10 +1287,8 @@ Round.prototype.startTime = function(data)
 	if (typeof(data) === 'undefined') data = null;
 
 	if (data) {
-		console.log('Setting Round startTime');
 		this._startTime = data;
 	} else {
-		console.log('Getting Round startTime');
 		return this._startTime;
 	}
 }
@@ -1400,10 +1298,8 @@ Round.prototype.holes = function(data)
 	if (typeof(data) === 'undefined') data = null;
 
 	if (data) {
-		console.log('Setting Round holes');
 		this._holes = data;
 	} else {
-		console.log('Getting Round holes');
 		return this._holes;
 	}
 }
