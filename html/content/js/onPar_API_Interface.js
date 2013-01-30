@@ -1258,7 +1258,7 @@ Hole.prototype.export = function()
 	{"hole":
 		{
 			"id": this.ID(),
-			"roundID": this.RoundID(),
+			"roundID": this.roundID(),
 			"holeScore": this.holeScore(),
 			"FIR": this.FIR(),
 			"GIR": this.GIR(),
