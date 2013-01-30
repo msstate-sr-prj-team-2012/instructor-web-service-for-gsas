@@ -1956,7 +1956,7 @@ function RoundGetAll(data)
 
 							var shots = new Array();
 
-							for (var k = 0; k < data.round.holes[i].hole.shots.length; k++) {
+							for (var k = 0; k < data.rounds[i].round.holes[j].hole.shots.length; k++) {
 								var s = new Shot();
 								s.ID(data.rounds[i].round.holes[j].hole.shots[k].shot.id);
 								s.holeID(data.rounds[i].round.holes[j].hole.shots[k].shot.holeID);
@@ -2056,7 +2056,7 @@ function RoundGetAll(data)
 
 						var shots = new Array();
 
-						for (var k = 0; k < data.round.holes[i].hole.shots.length; k++) {
+						for (var k = 0; k < data.rounds[i].round.holes[j].hole.shots.length; k++) {
 							var s = new Shot();
 							s.ID(data.rounds[i].round.holes[j].hole.shots[k].shot.id);
 							s.holeID(data.rounds[i].round.holes[j].hole.shots[k].shot.holeID);
