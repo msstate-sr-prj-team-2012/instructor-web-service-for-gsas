@@ -1930,7 +1930,7 @@ function RoundGetAll(data)
 						var holes = new Array();
 
 						// loop through all holes
-						for (var j = 0; j < data.round.holes.length; j++) {
+						for (var j = 0; j < data.rounds[i].round.holes.length; j++) {
 							var h = new Hole();
 							h.ID(data.rounds[i].round.holes[j].hole.id);
 							h.roundID(data.rounds[i].round.holes[j].hole.roundID);
@@ -2030,7 +2030,7 @@ function RoundGetAll(data)
 					var holes = new Array();
 
 					// loop through all holes
-					for (var j = 0; j < data.round.holes.length; j++) {
+					for (var j = 0; j < data.rounds[i].round.holes.length; j++) {
 						var h = new Hole();
 						h.ID(data.rounds[i].round.holes[j].hole.id);
 						h.roundID(data.rounds[i].round.holes[j].hole.roundID);
