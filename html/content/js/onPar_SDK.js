@@ -1,6 +1,34 @@
 var defines = {}
 defines.API_USERNAME = 'cse3213';
 defines.API_PASSWORD = 'test';
+defines.AGGIES = 1;
+defines.MAROONS = 2;
+defines.COWBELLS = 3;
+defines.TIPS = 4;
+defines.DRIVER = 1;
+defines.THREE_WOOD = 2;
+defines.FOUR_WOOD = 3;
+defines.FIVE_WOOD = 4;
+defines.SEVEN_WOOD = 5;
+defines.NINE_WOOD = 6;
+defines.TWO_HYBRID = 7;
+defines.THREE_HYBRID = 8;
+defines.FOUR_HYBRID = 9;
+defines.FIVE_HYBRID = 10;
+defines.SIX_HYBRID = 11;
+defines.TWO_IRON = 12;
+defines.THREE_IRON = 13;
+defines.FOUR_IRON = 14;
+defines.FIVE_IRON = 15;
+defines.SIX_IRON = 16;
+defines.SEVEN_IRON = 17;
+defines.EIGHT_IRON = 18;
+defines.NINE_IRON = 19;
+defines.PW = 20;
+defines.AW = 21;
+defines.SW = 22;
+defines.LW = 23;
+defines.HLW = 24;
 
 function ajaxErrorHandler(data, textStatus)
 {
@@ -231,7 +259,7 @@ Course.prototype.load = function(data)
 		success: function(data, textStatus, xhr) {
 			if (xhr.status == 204) {
 				console.log('Course Loading - Nonexistent Course');
-				ret = false;
+				ret = null;
 				alert('This course does not exist.');
 			} else {
 				console.log('Course Loading Success');
@@ -243,7 +271,7 @@ Course.prototype.load = function(data)
 		},
 		error: function(data, textStatus, xhr) {
 			console.log('Course Loading Error');
-			ret = false;
+			ret = null;
 			ajaxErrorHandler(data, textStatus, xhr);
 		}
 	});
@@ -321,7 +349,7 @@ Course.prototype.save = function()
 	return ret;
 }
 
-Course.prototype.delete = function()
+Course.prototype.del = function()
 {
 	console.log('Course delete for id: ' + this.ID());
 	
@@ -422,7 +450,7 @@ function User(data)
 	if (typeof(data) === 'undefined') data = null;
 
 	if (data) {
-		console.log('New User with data: ' + data.toString());
+		console.log('New User with data: ' + data);
 	} else {
 		console.log('New User with no data');
 	}
@@ -506,25 +534,34 @@ User.prototype.stats = function(data)
 
 User.prototype.load = function(data)
 {
-	console.log('User load with data: ' + data.toString());
+	console.log('User load with data: ' + data);
 	if (!data) return true;
 
 	var thisUser = this;
 	var ret = true;
+	var constructMethod = data;
 
 	$.ajax({
 		accepts: "application/json",
 		async: false,
 		dataType: "json",
-		url: "/API/users/" + data.toString(),
+		url: "/API/users/" + data,
 		type: "GET",
 		username: defines.API_USERNAME,
 		password: defines.API_PASSWORD,
 		success: function(data, textStatus, xhr) {
 			if (xhr.status == 204) {
 				console.log('User Loading - Nonexistent User');
-				ret = false;
-				alert('This user does not exist.');
+				ret = null;
+				if ( typeof(constructMethod) === 'String') {
+					if (constructMethod.indexOf('@') != -1) {
+						alert('Invalid Email');
+					} else {
+						alert('Invalid Member ID');
+					}
+				} else {
+					alert('Invalid User ID');
+				}
 			} else {
 				console.log('User Loading Success');
 				thisUser.ID(data.user.id);
@@ -538,7 +575,7 @@ User.prototype.load = function(data)
 		},
 		error: function(data, textStatus, xhr) {
 			console.log('User Loading Error');
-			ret = false;
+			ret = null;
 			ajaxErrorHandler(data, textStatus, xhr);
 		}
 	});
@@ -622,7 +659,7 @@ User.prototype.save = function()
 	return ret;
 }
 
-User.prototype.delete = function()
+User.prototype.del = function()
 {
 	console.log('User delete for id: ' + this.ID());
 	
@@ -1400,7 +1437,7 @@ Round.prototype.load = function(data)
 		success: function(data, textStatus, xhr) {
 			if (xhr.status == 204) {
 				console.log('Round Loading - Nonexistent Round');
-				ret = false;
+				ret = null;
 				alert('This round does not exist.');
 			} else {
 				console.log('Round Loading Success');
@@ -1412,7 +1449,7 @@ Round.prototype.load = function(data)
 		},
 		error: function(data, textStatus, xhr) {
 			console.log('Round Loading Error');
-			ret = false;
+			ret = null;
 			ajaxErrorHandler(data, textStatus, xhr);
 		}
 	});
@@ -1490,7 +1527,7 @@ Round.prototype.save = function()
 	return ret;
 }
 
-Round.prototype.delete = function()
+Round.prototype.del = function()
 {
 	console.log('Round delete for id: ' + this.ID());
 	

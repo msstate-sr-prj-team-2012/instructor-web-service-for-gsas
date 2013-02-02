@@ -21,7 +21,7 @@
  *
  */
 
-require_once(dirname(__FILE__) . '/../../extras/config.php');
+require_once('../../config.php');
 $app->add(new \Slim\Middleware\HttpBasicAuth(API_USERNAME, API_PASSWORD));
 
 /**
