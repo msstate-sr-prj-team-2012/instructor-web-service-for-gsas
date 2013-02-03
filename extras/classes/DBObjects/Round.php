@@ -1,25 +1,107 @@
 <?php
+/**
+ * OnPar - Fall 2012 software engineering senior design project at Mississippi
+ *         State University.
+ *
+ * @author  Fall 2012 Senior Design Team
+ * @version 1.0
+ * @package OnPar
+ */
+
+/**
+ * Class DBObject
+ * @package API
+ * @author  Kevin Benton
+ * @version 1.0
+ *
+ * Child class of DBObject. Each Round represents a row in the round database
+ * table.
+ *
+ * USAGE
+ *
+ * // for a new Round not currently in the database
+ * $round = new Round();
+ *
+ * // for a Round currently in the database
+ * $round = new Round($roundID);
+ *          OR
+ * $round = new Round($roundData);
+ *
+ */
 
 class Round
     extends DBObject
 {
+/**
+ * user - the User playing this Round
+ *
+ * @var User
+ */
     private $_user;
+
+/**
+ * course - the Course this ROund is be played at
+ *
+ * @var Course
+ */
     private $_course;
+
+/**
+ * teeID - the tee the User is playing from
+ *
+ * @var int
+ */
     private $_teeID;
+
+/**
+ * totalScore - the score the User records on this Round
+ *
+ * @var int
+ */
     private $_totalScore = null;
+
+/**
+ * startTime - the timestamp of the start of the Round. 
+ *
+ * @var String
+ */
     private $_startTime;
 
+/**
+ * holes - an array holding all the Holes for this Round
+ *
+ * @var Array
+ */
     private $_holes = array();
 
+/**
+ * constructor - overrides DBObject::__construct()
+ *               Instantiates a Round object
+ *
+ * @param   null    $data
+ * @param   int     $data
+ * @param   Array   $data
+ */
     public function  __construct($data = null)
     {
+        // Instantiate a DBObject with 'shot' as the database table
         parent::__construct('round');
 
+        // Check to see if any data is passed into the constructor.
+        // If there is, load the Round object from that data.
+        // Passed in data can be an integer ID representing the auto incremented
+        // ID of the database row or an associative array with variable names as
+        // keys and values of what the variables should be set to as values.
         if (!empty($data)) {
             $this->load($data);
         }
     }
 
+/**
+ *
+ * Accessors/Mutators
+ *
+ */
     public function user($data = null)
     {
         if (!empty($data)) {
@@ -79,22 +161,38 @@ class Round
         $this->_holes[] = $data;
     }
 
+/**
+ * load - overrides DBObject::load($id)
+ *        Loads a Round object with from an integer ID or an associative array.
+ *
+ * @param   int     $data
+ * @param   Array   $data
+ *
+ * @return  bool
+ */
     public function load($data)
     {
+        // if no data gets passed in, return without setting any class variables
         if (empty($data)) return true;
 
+        // If it is not an array passed in, it is the ID
+        // Load the Round from the database by using DBObject's load function.
+        // Set the $data array to the first result
         if (!is_array($data)) {
             $data = parent::load($data);
 
             if (!empty($data)) {
                 $data = $data[0];
 
-                // load holes
+                // load holes from the database with the Rounds's
+                // ID as the foreign key roundID
                 $results = self::$db->select('hole',
                     'roundID = :id',
                     array(':id' => $this->ID())
                 );
 
+                // loop through the results and create a new Hole
+                // object for each result
                 $holes = array();
                 foreach ($results as $result) {
                     $hole = new Hole($result['holeID']);
@@ -107,6 +205,9 @@ class Round
             }
         }
 
+        // Here, there was either an array passed in or an array was formed when 
+        // data was loaded from the database row
+        // Set the attributes from the array
         $this->ID($data['roundID']);
         $this->user(new User($data['userID']));
         $this->course(new Course($data['courseID']));
@@ -117,8 +218,14 @@ class Round
         $this->holes($data['holes']);
     }
 
+/**
+ * Saves a Round to the database
+ *
+ * @return bool
+ */
     public function save()
     {
+        // make an Array from the attributes of this Shot
         $params = array(
             'userID'     => $this->user()->ID(),
             'courseID'   => $this->course()->ID(),
@@ -127,7 +234,9 @@ class Round
             'startTime'  => $this->startTime(),
         );
 
-        // have to save round before saving holes
+        // call DBObject::saveToDB and either insert or update the Round.
+        // Keep the return value of DBObject::saveToDB to check for inserting
+        // Hole.
         $check = parent::saveToDB($params);
 
         // first delete all holes belonging to this round
@@ -142,9 +251,16 @@ class Round
             $hole->save();
         }
 
+        // return the status of the Hole save.
         return $check;
     }
 
+/**
+ * export - creates an associative array representing this object 
+ *          to be used for JSON encoding.
+ *
+ * @return Array
+ */
     public function export()
     {
         $data = array();
@@ -165,6 +281,16 @@ class Round
         return $data;
     }
 
+/**
+ * getAll - obtains all the Shot objects in the database.
+ *          If a User ID is passed in, obtain all the Shot's
+ *          for that User.
+ *
+ * @param   null    $userID
+ * @param   int     $userID
+ *
+ * @return Array
+ */
     public static function getAll($userID = null)
     {
         if (!empty($userID)) {
