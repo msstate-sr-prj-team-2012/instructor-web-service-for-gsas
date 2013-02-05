@@ -30,155 +30,10 @@ defines.SW = 22;
 defines.LW = 23;
 defines.HLW = 24;
 
-function ajaxErrorHandler(data, textStatus)
+function ajaxErrorHandler(f, data, textStatus, xhr)
 {
-	console.log('API Error - entering ajaxErrorHandler');
-	console.log('Returned data: ' + JSON.stringify(data));
-	console.log('TextStatus: ' + textStatus);
-	console.log('Response Status: ' + JSON.stringify(data.status));
-
-	if (textStatus != "success") {
-		switch (data.status) {
-			// 1xx codes are informational
-			case 100:
-				alert('100 Continue');
-				break;
-			case 101:
-				alert('101 Switching Protocols');
-				break;
-
-			// the next few 2xx codes will never be recognized as an error
-			case 200:
-				alert('200 OK');
-				break;
-			case 201:
-				alert('201 Created');
-				break;
-			case 202:
-				alert('202 Accepted');
-				break;
-			case 203:
-				alert('203 Non-Authoritative Information');
-				break;
-			case 204:
-				alert('204 No Content');
-				break;
-			case 205:
-				alert('205 Reset Connection');
-				break;
-			case 206:
-				alert('206 Partial Content');
-				break;
-
-			// 3xx Redirection
-			case 300:
-				alert('300 Multiple Choices');
-				break;
-			case 301:
-				alert('301 Moved Permanently');
-				break;
-			case 302:
-				alert('302 Found');
-				break;
-			case 303:
-				alert('303 See Other');
-				break;
-			case 304:
-				alert('304 Not Modified');
-				break;
-			case 305:
-				alert('305 Use Proxy');
-				break;
-			case 306:
-				alert('306 (Unused)');
-				break;
-			case 307:
-				alert('307 Temporary Redirect')
-				break;
-
-			// 4xx Client Errors
-			case 400:
-				alert('400 Bad Request');
-				break;
-			case 401:
-				alert('401 Unauthorized');
-				break;
-			case 402:
-				alert('402 Payment Required');
-				break;
-			case 403:
-				alert('403 Forbidden');
-				break;
-			case 404:
-				alert('404 Not Found');
-				break;
-			case 405:
-				alert('405 Method Not Allowed');
-				break;
-			case 406:
-				alert('406 Not Acceptable');
-				break;
-			case 407:
-				alert('407 Proxy Authentication Required');
-				break;
-			case 408:
-				alert('408 Request Timeout');
-				break;
-			case 409:
-				alert('409 Conflict');
-				break;
-			case 410:
-				alert('410 Gone');
-				break;
-			case 411:
-				alert('411 Length Required');
-				break;
-			case 412:
-				alert('412 Precondition Failed');
-				break;
-			case 413:
-				alert('413 Request Entity Too Large');
-				break;
-			case 414:
-				alert('414 Request-URI Too Long');
-				break;
-			case 415:
-				alert('415 Unsupported Media Type');
-				break;
-			case 416:
-				alert('416 Requested Range Not Satisfiable');
-				break;
-			case 417:
-				alert('417 Expectation Failed');
-				break;
-			case 422:
-				alert('422 Unproccessable Entity');
-				break;
-			case 423:
-				alert('423 Locked');
-				break;
-
-			// Server Errors 5xx
-			case 500:
-				alert('500 Internal Server Error');
-				break;
-			case 501:
-				alert('501 Not Implemented');
-				break;
-			case 502:
-				alert('502 Bad Gateway');
-				break;
-			case 503:
-				alert('503 Service Unavailable');
-				break;
-			case 504:
-				alert('504 Gateway Timeout');
-				break;
-			case 505:
-				alert('505 HTTP Version Not Supported');
-				break;
-		}
-	}
+	// eventually send an email to report the error
+	('Unknown error from function ' + f + ' that returned status code: ' + xhr.status + '. Email Kevin and report this error');
 }
 
 /****************************************************************************
@@ -192,12 +47,6 @@ function ajaxErrorHandler(data, textStatus)
 function Course(data)
 {
 	if (typeof(data) === 'undefined') data = null;
-
-	if (data) {
-		console.log('New Course with data: ' + data.toString());
-	} else {
-		console.log('New Course with no data');
-	}
 
 	this._id = null;
 	this._name = null;
@@ -242,7 +91,6 @@ Course.prototype.location = function(data)
 
 Course.prototype.load = function(data)
 {
-	console.log('Course load with data: ' + data.toString());
 	if (!data) return true;
 
 	var thisCourse = this;
@@ -258,11 +106,9 @@ Course.prototype.load = function(data)
 		password: defines.API_PASSWORD,
 		success: function(data, textStatus, xhr) {
 			if (xhr.status == 204) {
-				console.log('Course Loading - Nonexistent Course');
 				ret = null;
 				alert('This course does not exist.');
 			} else {
-				console.log('Course Loading Success');
 				thisCourse.ID(data.course.id);
 				thisCourse.name(data.course.name);
 				thisCourse.location(data.course.location);
@@ -270,9 +116,8 @@ Course.prototype.load = function(data)
 			}
 		},
 		error: function(data, textStatus, xhr) {
-			console.log('Course Loading Error');
 			ret = null;
-			ajaxErrorHandler(data, textStatus, xhr);
+			ajaxErrorHandler('courseLoad', data, textStatus, xhr);
 		}
 	});
 
@@ -281,14 +126,11 @@ Course.prototype.load = function(data)
 
 Course.prototype.save = function()
 {
-	console.log('Course save');
-
 	var thisCourse = this;
 	var ret = true;
 
 	if (this.ID()) {
 		// update
-		console.log('Course update for id: ' + this.ID());
 		$.ajax({
 			accepts: "application/json",
 			async: false,
@@ -301,11 +143,9 @@ Course.prototype.save = function()
 			data: JSON.stringify(this.export()),
 			success: function(data, textStatus, xhr) {
 				if (xhr.status == 204) {
-					console.log('Course Update - Nonexistent Course');
 					ret = false;
 					alert('This course does not exist.');
 				} else {
-					console.log('Course Update Succeess');
 					thisCourse.ID(data.course.id);
 					thisCourse.name(data.course.name);
 					thisCourse.location(data.course.location);
@@ -313,14 +153,12 @@ Course.prototype.save = function()
 				}
 			},
 			error: function(data, textStatus, xhr) {
-				console.log('Course Update Error');
 				ret = false;
-				ajaxErrorHandler(data, textStatus, xhr);
+				ajaxErrorHandler('courseSave', data, textStatus, xhr);
 			}
 		});
 	} else {
 		// insert
-		console.log('Course insert');
 		$.ajax({
 			accepts: "application/json",
 			async: false,
@@ -332,16 +170,14 @@ Course.prototype.save = function()
 			contentType: "application/json",
 			data: JSON.stringify(this.export()),
 			success: function(data, textStatus, xhr) {
-				console.log('Course Insert Success');
 				thisCourse.ID(data.course.id);
 				thisCourse.name(data.course.name);
 				thisCourse.location(data.course.location);
 				ret = true;
 			},
 			error: function(data, textStatus, xhr) {
-				console.log('Course Insert Error');
 				ret = false;
-				ajaxErrorHandler(data, textStatus, xhr);
+				ajaxErrorHandler('courseSave', data, textStatus, xhr);
 			}
 		});
 	}
@@ -350,9 +186,7 @@ Course.prototype.save = function()
 }
 
 Course.prototype.del = function()
-{
-	console.log('Course delete for id: ' + this.ID());
-	
+{	
 	if (!this.ID()) return false;
 
 	var thisCourse = this;
@@ -368,11 +202,9 @@ Course.prototype.del = function()
 		password: defines.API_PASSWORD,
 		success: function(data, textStatus, xhr) {
 			if (xhr.status == 204) {
-				console.log('Course Delete - Nonexistent Course');
 				ret = false;
 				alert('This Course does not exist');
 			}
-			console.log('Course delete success');
 			thisCourse.ID(data.course.id);
 			thisCourse.name(data.course.name);
 			thisCourse.location(data.course.location);
@@ -380,9 +212,8 @@ Course.prototype.del = function()
 			ret = true;
 		},
 		error: function(data, textStatus, xhr) {
-			console.log('Course delete failure');
 			ret = false;
-			ajaxErrorHandler(data, textStatus, xhr);
+			ajaxErrorHandler('courseDelete', data, textStatus, xhr);
 		}
 	});
 
@@ -391,7 +222,6 @@ Course.prototype.del = function()
 
 Course.prototype.export = function()
 {
-	console.log('Course Export');
 	var courseObject = 
 	{"course":
 		{
@@ -406,8 +236,6 @@ Course.prototype.export = function()
 
 function CourseGetAll()
 {
-	console.log('Getting all Courses');
-
 	var courses = new Array();
 
 	$.ajax({
@@ -419,7 +247,6 @@ function CourseGetAll()
 		username: defines.API_USERNAME,
 		password: defines.API_PASSWORD,
 		success: function(data, textStatus, xhr) {
-			console.log('Course Get All Success');
 			for (var i = 0; i < data.courses.length; i++) {
 				var c = new Course();
 				c.ID(data.courses[i].course.id);
@@ -429,8 +256,7 @@ function CourseGetAll()
 			}
 		},
 		error: function(data, textStatus, xhr) {
-			console.log('Course Get All Error');
-			ajaxErrorHandler(data, textStatus, xhr);
+			ajaxErrorHandler('courseGetAll', data, textStatus, xhr);
 		}
 	});
 
@@ -448,12 +274,6 @@ function CourseGetAll()
 function User(data)
 {
 	if (typeof(data) === 'undefined') data = null;
-
-	if (data) {
-		console.log('New User with data: ' + data);
-	} else {
-		console.log('New User with no data');
-	}
 
 	this._id = null;
 	this._memberID = null;
@@ -534,7 +354,6 @@ User.prototype.stats = function(data)
 
 User.prototype.load = function(data)
 {
-	console.log('User load with data: ' + data);
 	if (!data) return true;
 
 	var thisUser = this;
@@ -551,7 +370,6 @@ User.prototype.load = function(data)
 		password: defines.API_PASSWORD,
 		success: function(data, textStatus, xhr) {
 			if (xhr.status == 204) {
-				console.log('User Loading - Nonexistent User');
 				ret = null;
 				if ( typeof(constructMethod) === 'string') {
 					if (constructMethod.indexOf('@') != -1) {
@@ -563,7 +381,6 @@ User.prototype.load = function(data)
 					alert('Invalid User ID');
 				}
 			} else {
-				console.log('User Loading Success');
 				thisUser.ID(data.user.id);
 				thisUser.memberID(data.user.memberID);
 				thisUser.nickname(data.user.nickname);
@@ -574,9 +391,8 @@ User.prototype.load = function(data)
 			}
 		},
 		error: function(data, textStatus, xhr) {
-			console.log('User Loading Error');
 			ret = null;
-			ajaxErrorHandler(data, textStatus, xhr);
+			ajaxErrorHandler('userLoad', data, textStatus, xhr);
 		}
 	});
 
@@ -585,14 +401,11 @@ User.prototype.load = function(data)
 
 User.prototype.save = function()
 {
-	console.log('User save');
-
 	var thisUser = this;
 	var ret = true;
 
 	if (this.ID()) {
 		// update
-		console.log('User update for id: ' + this.ID());
 		$.ajax({
 			accepts: "application/json",
 			async: false,
@@ -605,11 +418,9 @@ User.prototype.save = function()
 			data: JSON.stringify(this.export()),
 			success: function(data, textStatus, xhr) {
 				if (xhr.status == 204) {
-					console.log('User Update - Nonexistent User');
 					ret = false;
 					alert('This user does not exist.');
 				} else {
-					console.log('User Update Succeess');
 					thisUser.ID(data.user.id);
 					thisUser.memberID(data.user.memberID);
 					thisUser.nickname(data.user.nickname);
@@ -620,14 +431,12 @@ User.prototype.save = function()
 				}
 			},
 			error: function(data, textStatus, xhr) {
-				console.log('User Update Error');
 				ret = false;
-				ajaxErrorHandler(data, textStatus, xhr);
+				ajaxErrorHandler('userSave', data, textStatus, xhr);
 			}
 		});
 	} else {
 		// insert
-		console.log('User insert');
 		$.ajax({
 			accepts: "application/json",
 			async: false,
@@ -639,7 +448,6 @@ User.prototype.save = function()
 			contentType: "application/json",
 			data: JSON.stringify(this.export()),
 			success: function(data, textStatus, xhr) {
-				console.log('User Insert Success');
 				thisUser.ID(data.user.id);
 				thisUser.memberID(data.user.memberID);
 				thisUser.nickname(data.user.nickname);
@@ -649,9 +457,8 @@ User.prototype.save = function()
 				ret = true;
 			},
 			error: function(data, textStatus, xhr) {
-				console.log('User Insert Error');
 				ret = false;
-				ajaxErrorHandler(data, textStatus, xhr);
+				ajaxErrorHandler('userSave', data, textStatus, xhr);
 			}
 		});
 	}
@@ -660,9 +467,7 @@ User.prototype.save = function()
 }
 
 User.prototype.del = function()
-{
-	console.log('User delete for id: ' + this.ID());
-	
+{	
 	if (!this.ID()) return false;
 
 	var thisUser = this;
@@ -678,11 +483,9 @@ User.prototype.del = function()
 		password: defines.API_PASSWORD,
 		success: function(data, textStatus, xhr) {
 			if (xhr.status == 204) {
-				console.log('User Delete - Nonexistent User');
 				ret = false;
 				alert('This user does not exist');
 			}
-			console.log('User delete success');
 			thisUser.ID(data.user.id);
 			thisUser.memberID(data.user.memberID);
 			thisUser.nickname(data.user.nickname);
@@ -693,9 +496,8 @@ User.prototype.del = function()
 			ret = true;
 		},
 		error: function(data, textStatus, xhr) {
-			console.log('User delete failure');
 			ret = false;
-			ajaxErrorHandler(data, textStatus, xhr);
+			ajaxErrorHandler('userDelete', data, textStatus, xhr);
 		}
 	});
 
@@ -704,7 +506,6 @@ User.prototype.del = function()
 
 User.prototype.export = function()
 {
-	console.log('User Export');
 	var userObject = 
 	{"user":
 		{
@@ -722,8 +523,6 @@ User.prototype.export = function()
 
 function UserGetAll()
 {
-	console.log('Getting all Users');
-
 	var users = new Array();
 
 	$.ajax({
@@ -735,7 +534,6 @@ function UserGetAll()
 		username: defines.API_USERNAME,
 		password: defines.API_PASSWORD,
 		success: function(data, textStatus, xhr) {
-			console.log('User Get All Success');
 			for (var i = 0; i < data.users.length; i++) {
 				var u = new User();
 				u.ID(data.users[i].user.id);
@@ -748,8 +546,7 @@ function UserGetAll()
 			}
 		},
 		error: function(data, textStatus, xhr) {
-			console.log('User Get All Error');
-			ajaxErrorHandler(data, textStatus, xhr);
+			ajaxErrorHandler('userGetAll', data, textStatus, xhr);
 		}
 	});
 
@@ -766,9 +563,6 @@ function UserGetAll()
 
 function Shot()
 {
-
-	console.log('New Shot');
-
 	this._id = null;
 	this._holeID = null;
 	this._club = null;
@@ -893,7 +687,6 @@ Shot.prototype.endLongitude = function(data)
 
 Shot.prototype.export = function()
 {
-	console.log('Shot Export');
 	var shotObject = 
 	{"shot":
 		{
@@ -923,8 +716,6 @@ Shot.prototype.export = function()
 
 function Hole()
 {
-	console.log('New Hole');
-
 	this._id = null;
 	this._roundID = null;
 	this._holeScore = null;
@@ -1193,8 +984,6 @@ Hole.prototype.shots = function(data)
 
 Hole.prototype.export = function()
 {
-	console.log('Hole Export');
-
 	var shots = [];
 
 	s = this.shots();
@@ -1245,12 +1034,6 @@ Hole.prototype.export = function()
 function Round(data)
 {
 	if (typeof(data) === 'undefined') data = null;
-
-	if (data) {
-		console.log('New Round with data: ' + data.toString());
-	} else {
-		console.log('New Round with no data');
-	}
 
 	this._id = null;
 	this._user = null;
@@ -1420,7 +1203,6 @@ Round.prototype.loadByJSON = function(data)
 
 Round.prototype.load = function(data)
 {
-	console.log('Round load with data: ' + data.toString());
 	if (!data) return true;
 
 	var thisRound = this;
@@ -1436,21 +1218,17 @@ Round.prototype.load = function(data)
 		password: defines.API_PASSWORD,
 		success: function(data, textStatus, xhr) {
 			if (xhr.status == 204) {
-				console.log('Round Loading - Nonexistent Round');
 				ret = null;
 				alert('This round does not exist.');
 			} else {
-				console.log('Round Loading Success');
-
 				thisRound.loadByJSON(data);
 
 				ret = true;
 			}
 		},
 		error: function(data, textStatus, xhr) {
-			console.log('Round Loading Error');
 			ret = null;
-			ajaxErrorHandler(data, textStatus, xhr);
+			ajaxErrorHandler('roundLoad', data, textStatus, xhr);
 		}
 	});
 
@@ -1459,14 +1237,11 @@ Round.prototype.load = function(data)
 
 Round.prototype.save = function()
 {
-	console.log('Round save');
-
 	var thisRound = this;
 	var ret = true;
 
 	if (this.ID()) {
 		// update
-		console.log('Round update for id: ' + this.ID());
 		$.ajax({
 			accepts: "application/json",
 			async: false,
@@ -1479,26 +1254,21 @@ Round.prototype.save = function()
 			data: JSON.stringify(this.export()),
 			success: function(data, textStatus, xhr) {
 				if (xhr.status == 204) {
-					console.log('Round Update - Nonexistent Round');
 					ret = false;
 					alert('This round does not exist.');
 				} else {
-					console.log('Round Update Succeess');
-					
 					thisRound.loadByJSON(data);
 
 					ret = true;
 				}
 			},
 			error: function(data, textStatus, xhr) {
-				console.log('Round Update Error');
 				ret = false;
-				ajaxErrorHandler(data, textStatus, xhr);
+				ajaxErrorHandler('roundSave', data, textStatus, xhr);
 			}
 		});
 	} else {
 		// insert
-		console.log('Round insert');
 		$.ajax({
 			accepts: "application/json",
 			async: false,
@@ -1510,16 +1280,13 @@ Round.prototype.save = function()
 			contentType: "application/json",
 			data: JSON.stringify(this.export()),
 			success: function(data, textStatus, xhr) {
-				console.log('User Insert Success');
-				
 				thisRound.loadByJSON(data);
 
 				ret = true;
 			},
 			error: function(data, textStatus, xhr) {
-				console.log('Round Insert Error');
 				ret = false;
-				ajaxErrorHandler(data, textStatus, xhr);
+				ajaxErrorHandler('roundSave', data, textStatus, xhr);
 			}
 		});
 	}
@@ -1528,9 +1295,7 @@ Round.prototype.save = function()
 }
 
 Round.prototype.del = function()
-{
-	console.log('Round delete for id: ' + this.ID());
-	
+{	
 	if (!this.ID()) return false;
 
 	var thisRound = this;
@@ -1546,21 +1311,17 @@ Round.prototype.del = function()
 		password: defines.API_PASSWORD,
 		success: function(data, textStatus, xhr) {
 			if (xhr.status == 204) {
-				console.log('Round Delete - Nonexistent Round');
 				ret = false;
 				alert('This round does not exist');
 			} else {
-				console.log('Round delete success');
-				
 				thisRound.loadByJSON(data);
 
 				ret = true;
 			}
 		},
 		error: function(data, textStatus, xhr) {
-			console.log('Round delete failure');
 			ret = false;
-			ajaxErrorHandler(data, textStatus, xhr);
+			ajaxErrorHandler('roundDelete', data, textStatus, xhr);
 		}
 	});
 
@@ -1569,8 +1330,6 @@ Round.prototype.del = function()
 
 Round.prototype.export = function()
 {
-	console.log('Round Export');
-
 	var holes = [];
 
 	var h = this.holes();
@@ -1592,8 +1351,6 @@ Round.prototype.export = function()
 		}
 	};
 
-	console.log(JSON.stringify(roundObject));
-
 	return roundObject;
 }
 
@@ -1604,8 +1361,6 @@ function RoundGetAll(data)
 	var rounds = new Array();
 
 	if (data) {
-		console.log('Get All Rounds By User');
-
 		$.ajax({
 			accepts: "application/json",
 			async: false,
@@ -1616,11 +1371,9 @@ function RoundGetAll(data)
 			password: defines.API_PASSWORD,
 			success: function(data, textStatus, xhr) {
 				if (xhr.status == 204) {
-					console.log('Round Get All By User - Nonexistent User');
 					ret = false;
 					alert('This user does not exist');
 				} else {
-					console.log('Round Get All By User Success');
 					for (var i = 0; i < data.rounds.length; i++) {
 						var r = new Round();
 
@@ -1631,13 +1384,10 @@ function RoundGetAll(data)
 				}
 			},
 			error: function(data, textStatus, xhr) {
-				console.log('User Get All Error');
-				ajaxErrorHandler(data, textStatus, xhr);
+				ajaxErrorHandler('roundGetAllByUser', data, textStatus, xhr);
 			}
 		});
 	} else {
-		console.log('Get All Rounds');
-
 		$.ajax({
 			accepts: "application/json",
 			async: false,
@@ -1647,7 +1397,6 @@ function RoundGetAll(data)
 			username: defines.API_USERNAME,
 			password: defines.API_PASSWORD,
 			success: function(data, textStatus, xhr) {
-				console.log('Round Get All Success');
 				for (var i = 0; i < data.rounds.length; i++) {
 					var r = new Round();
 
@@ -1657,8 +1406,7 @@ function RoundGetAll(data)
 				}
 			},
 			error: function(data, textStatus, xhr) {
-				console.log('User Get All Error');
-				ajaxErrorHandler(data, textStatus, xhr);
+				ajaxErrorHandler('roundGetAll', data, textStatus, xhr);
 			}
 		});
 	}
