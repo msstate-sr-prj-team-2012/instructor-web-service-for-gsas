@@ -1,39 +1,85 @@
 <!DOCTYPE html>
-<html>
+<html lang="en">
 <head>
-	<meta http-equiv="Content-Type" content="html; charset=us-ascii">
-	<link rel="stylesheet" type="css" href="content/css/menu.css">
-	<link rel="stylesheet" type="css" href="content/css/index.css">
-
-	<title>Golf Visualizations User</title>
-	<script type="text/javascript" src="content/js/jquery1.8.1.js"></script>
-	<script type="text/javascript" src="content/js/functions.js"></script>
-	<script type="text/javascript">
-		function load()
-		{
-			//needs revising
-			console.log($("#input").val());
-			$.ajax({
-				url: "getData.php",
-				type: "POST",
-				data: {id:$("#input").val()},
-				success: function (result)
-				{
-					location.href="data-table.html";
-				}
-			}); 
-		}
-	</script>
+    <title>onPar - home</title>
+    <meta charset="utf-8">
+    <link rel="icon" type="image/ico" href="http://shadowrealm.cse.msstate.edu/favicon.ico">
+    <link rel="stylesheet" type="text/css" media="screen" href="html/content/css/style.css">
+    <link rel="stylesheet" type="text/css" media="screen" href="html/content/css/menu.css">
+    
+    <script type="text/javascript" src="html/content/js/jquery1.8.1.js"></script>
+    <script type="text/javascript" src="html/content/js/session.js"></script>
+    <script type="text/javascript" src="html/content/js/select_golfer.js"></script>
+    
 </head>
-
 <body>
+     
+<div id="page-wrap">
 
-<script type="text/javascript">menu()</script>
+    
+        <!--==============================header=================================-->
 
-<div class="options" id="id">
-		<h3>Golf ID</h3>
-                <input id="input" type="text"></input>
-                <button onclick="load();">Submit</button>
-	</div>
+       <header> 
+
+            <img src="html/content/images/logo.png" alt="" class="site-logo">
+            <h1> onPar </h1>
+
+
+            <div class="organization-logo">
+              <img src="html/content/images/2008_MSU_logo_web_text_mont.png" alt="">
+            </div>
+
+            <nav>
+                <ul>
+                    <li class="selected_tab"><a href="/">home</a></li>
+                    <li><a>graphs</a>
+                      <ul>
+                          <li><a href="/vector">vector</a></li>
+                          <li><a href="/bar">bar</a></li>
+                      </ul>
+                    </li>
+                    <li><a href="/map">maps</a></li>
+                    <li><a href="/table">table</a></li>
+                </ul>    
+            </nav>
+
+
+        </header>
+
+        <!--==============================content================================-->
+
+        <div class="content">
+            
+            <div class="homepage"> 
+                
+                <img src="html/content/images/iphone.png" alt="">
+                
+                <h1>please ensure all golfer information <br/>
+                is uploaded before continuing</h1>
+                          
+                <div class="select">
+                    choose a search option below to begin evaluating<br/><br/>                
+                        <select id="selectList">
+                          <option value="" disabled selected>select golfer...</option>
+                        </select>                   
+                    or 
+                        <input type="text" id="golferID" placeholder="enter golfer id...">
+                </div>
+    
+            </div>
+            
+        </div>
+
+
+
+
+        <!--==============================footer=================================-->
+ 
+        <footer>
+            2013 onPar 
+        </footer>
+
+</div>
+    
 </body>
 </html>

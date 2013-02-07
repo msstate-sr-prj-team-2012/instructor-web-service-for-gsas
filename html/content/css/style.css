@@ -1,0 +1,209 @@
+
+
+
+
+/*<!--==============================all=================================-->*/
+
+
+@font-face 
+{
+    font-family: 'TeXGyreAdventorRegular';
+    src: url('../fonts/texgyreadventor-regular-webfont.eot');
+    src: url('../fonts/texgyreadventor-regular-webfont.eot?#iefix') format('embedded-opentype'),
+         url('../fonts/texgyreadventor-regular-webfont.woff') format('woff'),
+         url('../fonts/texgyreadventor-regular-webfont.ttf') format('truetype'),
+         url('../fonts/texgyreadventor-regular-webfont.svg#TeXGyreAdventorRegular') format('svg');
+    font-weight: normal;
+    font-style: normal;
+
+}
+root 
+{ 
+    display: block;
+}
+* 
+{
+    margin: 0;
+    padding: 0;
+}
+body 
+{
+    font: 13px/25px Century Gothic, 'TeXGyreAdventorRegular', sans-serif;
+    font-weight: 100;
+    text-align:center;
+    background: #f7f7f0;
+    /*background-image:url('../images/background.png');*/
+    /*background-image:url('../images/stripe.png');*/
+    /*background: #610B0B;*/
+    /*background: #FAFAFA;*/
+    
+}
+#page-wrap 
+{
+    min-width: 780px;
+    max-width: 1200px;
+    margin: 10px auto;
+}
+.content
+{
+    position: relative;
+    text-align: center;
+    width: 100%;
+    height: auto;
+    top: 50px;
+    min-height: 600px;
+    /*box-shadow: 10px 10px 50px #5E5E5E;*/
+    border: 3px transparent solid;
+    border-top-color:#660000;
+    /*border-radius:40px;*/
+    /*border: 3px #660000 solid;*/
+    /*box-shadow: 10px 10px 70px #660000 ;*/
+
+}
+li.selected_tab a, #nav li.selected_tab a
+{ 
+    color:#fff; 
+    background: #660000;
+}
+li:hover > a, li:hover 
+{
+    transition: background .3s linear;
+    -webkit-transition: background .3s linear;
+    -moz-transition: background .3s linear;
+    -o-transition: background .3s linear;
+}
+
+
+
+
+/*<!--==============================header=================================-->*/
+
+
+header 
+{
+    position:relative;
+    text-align: center;
+    height:90px;
+    margin-top: 30px;
+}
+header h1 
+{
+    position:absolute;
+    left:65px;
+    margin:16px 0 16px 0;
+    /*color:#fff;*/
+    color: #848484;
+    font-size:55px;
+    padding-top:15px;
+    font-weight:100;
+}
+.site-logo
+{
+    position: absolute;
+    top:0;
+    left:10px;
+    height:70px;
+    width:50px;
+    padding:10px;
+
+}
+.organization-logo
+{
+    position: absolute;
+    padding: 10px;
+    top: 10px;
+    right: 0;
+}
+
+
+
+
+/*<!--==============================footer=================================-->*/
+
+
+footer 
+{
+    text-align: right;
+    /*color: #fff;*/
+    color: #660000;
+    position: relative;
+    bottom: -70px;
+    margin-right:20px;
+    padding-bottom: 30px;
+}
+footer a
+{
+    display: inline-block;
+    /*color:#fff;*/
+    color:#660000;
+    text-decoration:none;
+    padding:0 20px 0 20px;
+}
+
+
+
+/*<!--==============================home=================================-->*/
+
+.homepage
+{
+    position: relative;
+    padding: 0;
+    margin: 50px auto;
+    width: 780px;
+    color: #848484;
+}
+.homepage img
+{
+    position: absolute;
+    top:20px;
+    left:0px;
+}
+.homepage h1
+{
+    position: absolute;
+    top: 50px;
+    left: 230px;
+    width: 600px;
+    text-align: left;
+    font-size: 35px;
+    color: #848484;
+    line-height: 50px;
+    font-weight: 100;
+}
+.select
+{
+    position: absolute;
+    top:180px;
+    left:230px;
+
+}
+.select input[type="text"]
+{
+    font: 13px Century Gothic, 'TeXGyreAdventorRegular', sans-serif;
+    width: 600px;
+    height: 30px;
+    color: #848484;
+    margin-bottom: 20px;
+    padding-left:10px;
+    float:left;
+}
+.select select
+{
+    font: 13px Century Gothic, 'TeXGyreAdventorRegular', sans-serif;
+    width: 100%;
+    height: 34px;
+    color: #848484;
+    float:left;
+    padding-left:10px;
+}
+.select input[type="Submit"]
+{
+    color: #660000;
+    font-weight: bold;
+    width: 30px;
+    height: 30px;
+    cursor: pointer;
+}
+::-webkit-input-placeholder { color:#848484; }
+::-moz-placeholder { color:#848484; } /* firefox 19+ */
+input:-moz-placeholder { color:#848484; }
