@@ -1,0 +1,178 @@
+<!--session_start();
+if(isset($_SESSION['rounds']) && isset($_SESSION['refGps']) && isset($_SESSION['refPx']))
+{  
+    $round = $_SESSION['rounds'];
+    $holeGps = $_SESSION['refGps'];
+    $holePx = $_SESSION['refPx'];
+    !-->
+	
+    <!DOCTYPE html>
+    <html>
+    <head>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+    <link rel="stylesheet" type="text/css" href="content/css/menu.css" />
+    <link rel="stylesheet" type="text/css" href="content/css/graph.css" />
+    <title>Golf Visualizations User</title>
+    <script type="text/javascript" src="content/js/jquery.svg.js"></script>
+    <script type="text/javascript" src="content/js/json2.js"></script>
+    <script type="text/javascript" src="content/js/jquery.qtip-1.0.0-rc3.min.js"></script>
+    <script type="text/javascript" src="content/js/graphFunctions.js"></script>
+    <script type="text/javascript" src="content/js/jquery1.8.1.js"></script>
+	<script type="text/javascript" src="hcontent/js/functions.js"></script>
+	<script type = "text/javascript" >
+    // stroke data
+    var holesGps = ' . makeRefs($holeGps) . ';
+    var holesPx = ' . makeRefs($holePx) . ';
+    var hits = ' . getAllShots($round) . ';   
+    var clubs = [
+            ["Driver", "3 Wood", "4 Wood", "5 Wood", "7 Wood", "9 Wood"], //Triangle
+            ["2 Hybrid", "3 Hybrid", "4 Hybrid", "5 Hybrid", "6 Hybrid"], // Square
+            ["2 Iron", "3 Iron", "4 Iron", "5 Iron", "6 Iron", "7 Iron", // Circle
+            "8 Iron", "9 Iron"],
+            ["Pitching Wedge", "Approach Wedge", "Sand Wedge", "Lob Wedge", // Diamond
+            "High Lob Wedge"]
+    ];
+    
+    $(document).ready(
+    
+    function() {
+            $("#wrapper").svg();
+            $("#legendContainer").svg();
+    
+            svg = $("#wrapper").svg("get");
+            svgL = $("#legendContainer").svg("get");
+    
+            var settings = {
+                    hits: hits,
+                    holesGps: holesGps,
+                    holesPx: holesPx,
+                    clubs: clubs,
+                    svg: svg,
+                    width: $("#wrapper").width(),
+                    height: $("#wrapper").height(),
+                    svgL: svgL,
+                    widthL: $("#legendContainer").width(),
+                    heightL: $("#legendContainer").height()
+                };
+            init(settings);	
+    });
+    </script>
+	<script type="text/javascript">
+		function getAllShots(rs)
+		{
+			var holeAr = [[],[],[],[],[],[],[],[],[],[],[],[],[],[],[],[],[],[]];
+			var data = '';
+			for(var i =0; i < rs.length; i++)
+			{
+				var r = rs[i]["round"];
+				if(r["holes"].length > 0)
+				{
+					var rh = r["holes"];
+					for(var j =0; j < rh.length; j++)
+					{
+						r = rh[j]["hole"];
+						if(r["shots"].length > 0)
+						{
+							var rc = r["shots"];
+							for(var k = 0; k < rc.length; k++)
+							{
+								r = rc[k]["shot"];
+					
+								var q = holeAr[j];
+									
+								data = "[" + r["startLatitude"] + "," + r["startLongitude"] + "," + r["aimLatitude"] + "," + r["aimLongitude"] + "," + r["endLatitude"] + "," + r["endLongitude"] + "," + r["club"] + "\"]";
+								array_push(q, data);
+								holeAr[j] = q;
+							}
+							
+						}
+					}
+				}
+			}
+			
+			var str = '';
+			data = '';
+			for(var d = 0; d < holeAr.length; d++)
+			{
+				var h = holeAr[d];
+				if(count(h) > 0)
+				{
+					data = "[";
+					for(var f = 0; f < h.length; f++)
+					{
+						data += h[f] + ",";
+					}
+					data.substr(0, data.length) . "]";
+					str += (data + ",");
+				}
+			}
+			str = "[" + str.substr(0, str.length) + "]";
+			return str;
+		}
+
+		function createShot(rs)
+		{
+			data = ' ';
+			for(var i = 0; i < rs.length; i++)
+			{
+				var r = rs[i]["shot"];
+				data += "[" + r["startLatitude"] + "," + r["startLongitude"] + "," + r["aimLatitude"] + "," + r["aimLongitude"] + "," + r["endLatitude"] + "," + r["endLongitude"] + ",\"" + r["club"] + "\"],";
+			}
+			data = data.substr(0, data.length);
+			return data;
+		}
+
+		function createHole(rs)
+		{
+			var data = "[";
+
+			for(var i = 0; i < rs.length; i++)
+			{
+				var r = rs[i]["hole"];
+				if(r["shots"].length > 0)
+					data += createShot(r["shots"]) + ",";
+			}
+			$data = data.substr(0, data.length) + "]";
+			 
+			return data;
+		}                           
+		function createRound(rs)
+		{
+			var data = "[";
+		   
+			for(var i =0; i < rs.length; i++)
+			{
+				var r = rs[i]["round"];
+				if(r["holes"].length > 0)
+					data += createHole(r["holes"]) + ",";
+			}
+			data = data.substr(0, data.length) + "]";
+			return data;
+		}
+		function makeRefs(ref)
+		{
+			var data = "[";
+			$.each(ref, function(index, r) {
+			{
+				data += "[[" + r[0][0] " "," " r[0][1] + "],[" + r[1][0] + "," + r[1][1] + "],[" + r[2][0] + "," + r[2][1] + "]],";
+			});
+			data = data.substr(0, data.length) + "]";
+			return data;
+		}
+	</script>
+    </head>
+    <body>
+            <script type="text/javascript">menu();</script>
+            <h1 id="hole">Hole 1</h1>
+            <h1 id="legend">Legend</h1>
+            <div id="wrapper"></div>
+            <div id="legendContainer"></div>
+    </body>
+    </html>
+<!--}
+else
+{
+    echo 'No round data';
+    header('Location: index.php');
+}
+?>!-->

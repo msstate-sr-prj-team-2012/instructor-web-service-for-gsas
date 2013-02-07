@@ -1,0 +1,335 @@
+<script type="text/javascript">
+function getAllShots(rs)
+{
+	var holeAr = [[],[],[],[],[],[],[],[],[],[],[],[],[],[],[],[],[],[]];
+	var data = '';
+	for(var i = 0; i < rs.length; i++)
+    {
+		var r = rs[i]["round"];
+        if(r["holes"].length > 0)
+        {
+			var rh = r["holes"];
+			for(var j = 0; j < rh.length; j++)
+			{
+				r = rh[j]["hole"];
+				if(r["shots"].length > 0)
+				{
+					var rc = r["shots"];
+					for(var k = 0; k < rc.length; k++)
+					{
+						r = rc[k]["shot"];
+			
+						var q = holeAr[j];
+							
+						data = '[' + r["startLatitude"] + ',' + r["startLongitude"] + ',' + r["aimLatitude"] + ',' + r["aimLongitude"] + ',' + r["endLatitude"] + ',' + r["endLongitude"] + ",\"" + r["club"] + "\"]";
+						array_push(q, data);
+						holeAr[j] = q;
+					}
+					
+				}
+			}
+		}
+	}
+	
+	var str = '';
+	var data = '';
+	for(var d = 0; d < holeAr.length; d++)
+	{
+		var h = holeAr[d];
+		if(h.length > 0)
+		{
+			data = '[';
+			for(var f = 0; f < h.length; f++)
+			{
+				data += (h[f] + ',');
+			}
+			data = data.substr(0, data.length) + ']';
+			str += (data + ',');
+		}
+	}
+	str = '[' + str.substr(0, data.length) + ']';
+	return str;
+}
+function createShot(rs)
+{
+    var data = '';
+    for(var i = 0; i < rs.length; i++)
+    {
+        var r = rs[i]["shot"];
+		data += '[' + r["startLatitude"] + ',' + r["startLongitude"] + ',' + r["endLatitude"] + ',' + r["endLongitude"] + "],";
+    }
+    data = data.substr(0, data.length);
+    return data;
+}
+
+function createHole(rs)
+{
+    var data = '[';
+
+    for(var i = 0; i < rs.length; i++)
+    {
+		var r = rs[i]["hole"];
+        if(r["shots"].length > 0)
+			data += (createShot(r["shots"]) + ',');
+    }
+    data = data.substr(0, data.length) + ']';
+     
+    return data;
+}                           
+function createRound(rs)
+{
+    var data = "[";
+   
+    for(var i = 0; i < rs.length; i++)
+    {
+        var r = rs[i]["round"];
+        if(r['holes'].length > 0)
+            data += createHole(r["holes"]) + ',';
+    }
+    data = data.substr(0, data.length) + ']';
+    return data;
+}
+function makeRefs(ref)
+{
+    var data = '[';
+    
+	/*
+	foreach ($ref as $r)
+    {
+        $data = $data . '[[' . $r[0][0] . ',' . $r[0][1] . '],[' . $r[1][0] . ',' . $r[1][1] . '],[' . $r[2][0] . ',' . $r[2][1] . ']],';
+    }
+    */
+	
+	data = data.substr(0, data.length) + ']';
+    return data;
+}
+</script>
+<!--
+session_start();
+if(isset($_SESSION['rounds']) && isset($_SESSION['refGps']) && isset($_SESSION['refPx']))
+{  
+    $round = $_SESSION['rounds'];
+    $holeGps = $_SESSION['refGps'];
+    $holePx = $_SESSION['refPx'];
+    <!-->
+    <!DOCTYPE html>
+    <html>
+            <head>
+                    <title>Golf Visualizations</title>
+                    <link rel="stylesheet" type="text/css" href="content/css/menu.css" />
+                    <link rel="stylesheet" type="text/css" href="content/css/map.css" />
+                    <script type="text/javascript" src="content/js/jquery1.8.1.js"></script>
+                    <script type="text/javascript" src="content/js/jquery.qtip-1.0.0-rc3.min.js"></script>
+                    <script type="text/javascript" src="content/js/jquery.svg.js"></script>
+                    <script type="text/javascript">
+                            var holesGps = ' . makeRefs($holeGps) . ';
+                            var holesPx = ' . makeRefs($holePx) . ';
+                            var hits = ' . getAllShots($round) . ';  
+                            var svg;
+                            var mapRound;
+                            var mapHole;
+                            var maxRound;
+                            
+                            $(document).ready(function() {
+                                    
+                                    $("#map_canvas").svg();
+                                    svg = $("#map_canvas").svg("get");
+                                    // Set the starting round to the first one
+                                    mapRound = 0;
+                                    mapHole = 1;
+                                  //  maxRound = startAr.length;
+                                    
+                                    addData();
+                                    
+                                    $("#map_canvas").children().attr("id","canvas")
+                                    
+                                    $("*.overlay[title]").qtip({
+                                            position: {
+                                               corner: {
+                                                  target: "topRight",
+                                                  tooltip: "bottomLeft"
+                                               }
+                                            },
+                                            style: {
+                                               name: "cream",
+                                               padding: "7px 13px",
+                                               width: {
+                                                  max: 210,
+                                                  min: 0
+                                               },
+                                               tip: true
+                                            }
+                                    });
+                                    
+                            });
+    
+                            function addData()
+                            {
+                                // Only testing it for 1 hole
+                                //for (i = 0; i < holesGps.length; i++)
+                                for (i = 0; i < 1; i++)
+                                {
+                                    var start = holesGps[i][0];
+                                    var end = holesGps[i][1];
+                                    var center = holesGps[i][2];
+                            
+                                    var startpx = holesPx[i][0];
+                                    var endpx = holesPx[i][1];
+                                    var centerpx = holesPx[i][2];
+                            
+                                    var a = Math.abs(end[0] - start[0]);
+                                    var ab = Math.abs(end[1] - start[1]);
+                            
+                                    var b = Math.abs(center[0] - end[0]);
+                                    var bb = Math.abs(center[1] - end[1]);
+                            
+                                    var c = Math.abs(center[0] - start[0]);
+                                    var cb = Math.abs(center[1] - start[1]);
+                            
+                                    var a1 = Math.abs(endpx[0] - startpx[0]);
+                                    var ab1 = Math.abs(endpx[1] - startpx[1]);
+                            
+                                    var b1 = Math.abs(centerpx[0] - endpx[0]);
+                                    var bb1 = Math.abs(centerpx[1] - endpx[1]);
+                            
+                                    var c1 = Math.abs(centerpx[0] - startpx[0]);
+                                    var cb1 = Math.abs(centerpx[1] - startpx[1]);
+                            
+                                    var scaleXa = (a1 / a);
+                                    var scaleXb = (b1 / b);
+                                    var scaleXc = (c1 / c);
+                            
+                                    var scaleYa = (ab1 / ab);
+                                    var scaleYb = (bb1 / bb);
+                                    var scaleYc = (cb1 / cb);
+                            
+                                    var scaleX = (scaleXa + scaleXb + scaleXc) / 3;
+                                    var scaleY = (scaleYa + scaleYb + scaleYc) / 3;
+                            
+                                    if (hits[i] != null) {
+                                        // Hit
+                                        for (j = 0; j < hits[i].length; j++) {
+                                            var hit = hits[i][j];
+                                            var slat = hit[0];
+                                            var slng = hit[1];
+                                            var alat = hit[2];
+                                            var alng = hit[3];
+                                            console.log(Math.abs((alat - slat) * scaleY));
+                                            console.log(Math.abs((alng - slng) * scaleX));
+                                            var y = 530 - Math.abs((alat - slat) * scaleY);
+                                            var x = 149 - Math.abs((alng - slng) * scaleX);
+                                            console.log(scaleX + " " + scaleY + " " + x + " " + y);
+                                            msg = "Shot " + (j+1) + " -> Lat: " + alat + " Lng: " + alng;
+                                            
+                                            drawPoints(y,x,msg);
+                                            svg.line(slng*scaleX, slat*scaleY, x, y, {strokeWidth:5,stroke:"green"});
+                                        }
+                                    }
+                                }
+                            }
+                            function drawPoints(y, x,msg) {
+                                    var id = "x:"+x+"y:"+y;
+                                    
+                                    svg.circle(x, y, 8, {
+                                            id: id,
+                                            fill: "green",
+                                            stroke: "black",
+                                            strokeWidth: .000001
+                                    });
+                                    
+                                    $(svg.getElementById("x:"+x+"y:"+y)).attr("title", msg);
+                                    $(svg.getElementById("x:"+x+"y:"+y)).attr("class", "overlay");
+                                    
+                            }
+                            
+                            function roundNumber(num, dec) {
+                                    var result = Math.round(num * Math.pow(10, dec)) / Math.pow(10, dec);
+                                    return result;
+                            }
+                            
+                            function changeToHole(hole)
+                            {
+                                    if(hole == -1 && mapHole != 1)
+                                    {
+                                            mapHole--;
+                                            $("#canvas").css("background","url(\"img/holes/hole" + mapHole + ".png\")");
+                                            $("#h"+mapHole).attr("selected","true");
+                                    }
+                                    else if(hole == -2  && mapHole != 18)
+                                    {
+                                            mapHole++;
+                                            $("#canvas").css("background","url(\"img/holes/hole" + mapHole + ".png\")");
+                                            $("#h"+mapHole).attr("selected","true");
+                                    }
+                                    else if(hole > 0)
+                                    {
+                                            mapHole = hole;
+                                            $("#canvas").css("background","url(\"img/holes/hole" + hole + ".png\")");
+                                    }
+                            }
+                            function changeToRound(rd)
+                            {
+                                    if(rd == -1 && mapRound != 0)
+                                    {
+                                            mapRound--;
+                                            $("#r"+mapRound).attr("selected","true");
+                                    }
+                                    else if(rd == -2 && mapRound != maxRound)
+                                    {
+                                            mapRound++;
+                                            console.log(mapRound);
+                                            $("#r"+mapRound).attr("selected","true");
+                                    }
+                                    else if(rd > 1)
+                                    {
+                                            mapRound = rd;
+                                    }
+                            }
+                    </script>
+            </head>
+            <body>
+            
+            <script type="text/javascript">menu();</script>
+            <!--<div class="change" id="roundChange">
+                            <span class="children" ><input class="img" type="image" src="img/nextHoleLeft.png" onclick="changeToRound(-1);"></input></span>
+                            <span class="children" ><select onchange="changeToRound(this.value);"></span>
+                                            <option id="r0" value="0">Round 1</option>
+                                            <option id="r1" value="1">Round 2</option>
+                                            <option id="r2" value="2">Round 3</option>
+                                    </select>
+                            <span class="children"><input class="img" type="image" src="img/nextHoleRight.png" onclick="changeToRound(-2);"></input></span>
+                    </div>
+                    <div class="change" id="holeChange">
+                            <span class="children"><input class="img" type="image" src="img/nextHoleLeft.png" onclick="changeToHole(-1);"></input></span>
+                            <span class="children"><select onchange="changeToHole(this.value);"></span>
+                                            <option id="h1" value="1">Hole 1</option>
+                                            <option id="h2" value="2">Hole 2</option>
+                                            <option id="h3" value="3">Hole 3</option>
+                                            <option id="h4" value="4">Hole 4</option>
+                                            <option id="h5" value="5">Hole 5</option>
+                                            <option id="h6" value="6">Hole 6</option>
+                                            <option id="h7" value="7">Hole 7</option>
+                                            <option id="h8" value="8">Hole 8</option>
+                                            <option id="h9" value="9">Hole 9</option>
+                                            <option id="h10" value="10">Hole 10</option>
+                                            <option id="h11" value="11">Hole 11</option>
+                                            <option id="h12" value="12">Hole 12</option>
+                                            <option id="h13" value="13">Hole 13</option>
+                                            <option id="h14" value="14">Hole 14</option>
+                                            <option id="h15" value="15">Hole 15</option>
+                                            <option id="h16" value="16">Hole 16</option>
+                                            <option id="h17" value="17">Hole 17</option>
+                                            <option id="h18" value="18">Hole 18</option>
+                                    </select>
+                            <span class="children"><input class="img" type="image" src="img/nextHoleRight.png" onclick="changeToHole(-2);"></input></span>
+                    </div>-->
+                    <div id="map_canvas"></div>
+            </body>
+    </html>
+
+<!--else
+{
+    echo 'No round data';
+    header('Location: index.php');
+}
+?>!-->
