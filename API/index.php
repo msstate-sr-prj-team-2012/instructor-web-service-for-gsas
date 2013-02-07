@@ -26,9 +26,9 @@ $app->add(new \Slim\Middleware\HttpBasicAuth(API_USERNAME, API_PASSWORD));
 
 
 /**
- * URI: /courses
+ * URI: /
  * METHOD: GET
- * Response: list all courses in the database
+ * Response: list all courses in the database - default
  *
  * SUCCESS RETURN CODE: 200 - OK
  * FAILURE RETURN POSSIBILITIES:
