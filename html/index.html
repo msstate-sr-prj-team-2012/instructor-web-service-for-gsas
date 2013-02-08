@@ -1,15 +1,16 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
+
     <title>onPar - home</title>
     <meta charset="utf-8">
     <link rel="icon" type="image/ico" href="http://shadowrealm.cse.msstate.edu/favicon.ico">
     <link rel="stylesheet" type="text/css" media="screen" href="html/content/css/style.css">
     <link rel="stylesheet" type="text/css" media="screen" href="html/content/css/menu.css">
-    
     <script type="text/javascript" src="html/content/js/jquery1.8.1.js"></script>
-    <script type="text/javascript" src="html/content/js/session.js"></script>
-    <script type="text/javascript" src="html/content/js/select_golfer.js"></script>
+    <script type="text/javascript" src="html/content/js/onPar_SDK.js"></script>
+    <script type="text/javascript" src="html/content/js/select_golfer.js"></script> 
+    <script> $(document).ready(function(){createHomeMenu();});  </script>
     
 </head>
 <body>
@@ -29,18 +30,7 @@
               <img src="html/content/images/2008_MSU_logo_web_text_mont.png" alt="">
             </div>
 
-            <nav>
-                <ul>
-                    <li class="selected_tab"><a href="/">home</a></li>
-                    <li><a>graphs</a>
-                      <ul>
-                          <li><a href="/vector">vector</a></li>
-                          <li><a href="/bar">bar</a></li>
-                      </ul>
-                    </li>
-                    <li><a href="/map">maps</a></li>
-                    <li><a href="/table">table</a></li>
-                </ul>    
+            <nav id="nav">
             </nav>
 
 

@@ -136,7 +136,7 @@ nav ul ul li{ box-shadow: 10px 10px 10px #585858 ; }
 /*<!--==============================currently_viewing=================================-->*/
 
 
-.currently_viewing
+#currently_viewing
 {
     position: relative;
     bottom: -154px;
@@ -145,7 +145,7 @@ nav ul ul li{ box-shadow: 10px 10px 10px #585858 ; }
     text-align: center;
     width: 300px;
 }
-.currently_viewing span
+#currently_viewing span
 {
     color: #000;
 }

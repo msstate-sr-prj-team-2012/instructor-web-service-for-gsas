@@ -1,0 +1,84 @@
+<!DOCTYPE html>
+<html>
+<head>
+    
+    <title>onPar - bar graph</title>
+    <link rel="icon" type="image/ico" href="http://shadowrealm.cse.msstate.edu/favicon.ico">
+    <link rel="stylesheet" type="text/css" media="screen" href="html/content/css/style.css">
+    <link rel="stylesheet" type="text/css" media="screen" href="html/content/css/menu.css">
+    <script type="text/javascript" src="html/content/js/jquery1.8.1.js"></script>
+    <script type="text/javascript" src="html/content/js/onPar_SDK.js"></script>
+    <script type="text/javascript" src="html/content/js/select_golfer.js"></script>
+    <script> $(document).ready(function(){createRoundsMenu(); currentlyViewing();});  </script>
+    
+</head>
+
+<body>
+
+<div id="page-wrap">
+
+    
+    <!--==============================header=================================-->
+
+   <header> 
+
+        <img src="html/content/images/logo.png" alt="" class="site-logo">
+        <h1> onPar </h1>
+
+
+        <div class="organization-logo">
+          <img src="html/content/images/2008_MSU_logo_web_text_mont.png" alt="">
+        </div>
+
+         <nav id="nav">  
+         </nav>
+
+
+
+         <ul id="change_golfer">
+            <li><a>change golfer ?</a>
+              <ul>
+                  <li> 
+                        <input type="text" id="golferID" placeholder="enter golfer id...">
+                  </li>
+                  <li>                       
+                        <select id="selectList">
+                            <option value="" disabled selected>select golfer...</option>
+                        </select>
+                  </li>
+              </ul>
+            </li>
+        </ul>
+
+            <div id="currently_viewing"></div>
+
+
+   </header>
+       
+    
+    <!--==============================content================================-->
+    
+    <div class="content">
+        <br/><br/><br/>
+        Please choose up to 10 rounds you wish to evaluate.<br/><br/>
+        
+        <input type="checkbox" value="1"> date 1 <br/>
+        <input type="checkbox" value="2"> date 2 <br/>
+        <input type="checkbox" value="3"> date 3 <br/>
+        <input type="checkbox" value="4"> date 4 <br/>
+
+        <button id="submit">Submit</button>
+        
+    </div>
+    
+    
+    <!--==============================footer=================================-->
+
+    <footer>
+        2013 onPar 
+    </footer>  
+
+</div>
+
+</body>
+</html>

@@ -1,0 +1,153 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>onPar - maps</title>
+    <link rel="icon" type="image/ico" href="http://shadowrealm.cse.msstate.edu/favicon.ico">
+    <link rel="stylesheet" type="text/css" media="screen" href="html/content/css/style.css">
+    <link rel="stylesheet" type="text/css" media="screen" href="html/content/css/menu.css">
+    <link rel="stylesheet" type="text/css" media="screen" href="html/content/css/maps.css"> 
+    <script type="text/javascript" src="html/content/js/jquery1.8.1.js"></script>
+    <script type="text/javascript" src="html/content/js/onPar_SDK.js"></script>
+    <script type="text/javascript" src="html/content/js/select_golfer.js"></script>
+    <script type="text/javascript" src="html/content/js/maps.js"></script> 
+    <script> $(document).ready(function(){currentlyViewing();}); </script>
+</head>
+
+<body>
+
+<div id="page-wrap">
+
+    
+    <!--==============================header=================================-->
+
+   <header> 
+
+        <img src="html/content/images/logo.png" alt="" class="site-logo">
+        <h1> onPar </h1>
+
+
+        <div class="organization-logo">
+          <img src="html/content/images/2008_MSU_logo_web_text_mont.png" alt="">
+        </div>
+
+        <nav>
+            <ul>
+                <li><a href="/">home</a></li>
+                <li><a href="/rounds">rounds</a></li>
+                <li><a href="/table">table</a></li>
+                <li><a>graphs</a>
+                  <ul>
+                      <li><a href="/vector">spread</a></li>
+                      <li><a href="/bar">distance</a></li>
+                  </ul>
+                </li>
+                <li class="selected_tab"><a href="/map">maps</a></li>        
+            </ul>    
+         </nav>
+
+
+           <ul id="change_golfer">
+                <li><a>change golfer ?</a>
+                  <ul>
+                      <li> 
+                            <input type="text" id="golferID" placeholder="enter golfer id...">
+                      </li>
+                      <li>                       
+                            <select id="selectList">
+                                <option value="" disabled selected>select golfer...</option>
+                            </select>
+                      </li>
+                  </ul>
+                </li>
+            </ul>
+
+            <div id="currently_viewing"></div>
+
+
+   </header>
+
+        <!--==============================content================================-->
+        <div class="content">
+            <div class="map_content">
+
+                <div class="view_tabs">
+                    <ul>
+                        <li id="v1" class="selected_tab">satellite</li>
+                        <li id="v2">drawing</li>
+                    </ul>      
+                </div>
+
+
+                <div class="hole_title">holes</div>
+
+
+                <div class="hole_tabs">
+                    <ul>
+                        <li id="h1" class="selected_tab">1</li>
+                        <li id="h2">2</li>
+                        <li id="h3">3</li>
+                        <li id="h4">4</li>
+                        <li id="h5">5</li>
+                        <li id="h6">6</li>
+                        <li id="h7">7</li>
+                        <li id="h8">8</li>
+                        <li id="h9">9</li>
+                        <li id="h10">10</li>
+                        <li id="h11">11</li>
+                        <li id="h12">12</li>
+                        <li id="h13">13</li>
+                        <li id="h14">14</li>
+                        <li id="h15">15</li>
+                        <li id="h16">16</li>
+                        <li id="h17">17</li>
+                        <li id="h18">18</li>        
+                    </ul>
+                </div>    
+
+
+                <div class="round_title">rounds</div>
+
+
+                <div class="round_tabs">
+                    <ul>
+                        <li id="r1" class="selected_tab">1</li>
+                        <li id="r2">2</li>
+                        <li id="r3">3</li>
+                        <li id="r4">4</li>
+                    </ul>
+                </div>
+
+
+                <div class="par">
+                    <ul>
+                        <li>par:</li>
+                        <li>score:</li>
+                    </ul>
+                </div>
+
+
+                <div class="map_image">
+                    <img id="image" src="html/content/images/holes/hole1_map.PNG" alt=""> 
+                </div>
+
+
+            </div>
+        </div>
+
+        <!--==============================footer=================================-->
+ 
+        <footer>
+            2013 onPar 
+        </footer>
+  
+
+
+
+</div>
+    
+
+
+
+
+</body>
+</html>

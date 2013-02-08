@@ -1,4 +1,4 @@
-
+// only needed in map page to switch between images
 
 $(document).ready(function() {
     $(".hole_tabs li").click(function() {
@@ -24,11 +24,11 @@ function changeToHole(hole)
     document.getElementById("h"+mapHole).className = "";
     if(mapView == 1)
     {
-        document.getElementById("image").src="images/holes/hole"+hole+"_map.PNG";
+        document.getElementById("image").src="html/content/images/holes/hole"+hole+"_map.PNG";
     }
     if(mapView == 2)
     {
-        document.getElementById("image").src="images/holes/hole"+hole+".PNG";
+        document.getElementById("image").src="html/content/images/holes/hole"+hole+".PNG";
     }
     document.getElementById("h"+hole).className += ' selected_tab';
     mapHole = hole;          
@@ -47,12 +47,12 @@ function changeView(view)
     if(view == 'satellite')
     {
         view = 1;
-        document.getElementById("image").src="images/holes/hole"+mapHole+"_map.PNG";
+        document.getElementById("image").src="html/content/images/holes/hole"+mapHole+"_map.PNG";
     }  
     if(view == 'drawing')
     {
         view = 2;
-        document.getElementById("image").src="images/holes/hole"+mapHole+".PNG";
+        document.getElementById("image").src="html/content/images/holes/hole"+mapHole+".PNG";
     }
     document.getElementById("v"+view).className += ' selected_tab'; 
     mapView = view;
