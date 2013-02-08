@@ -7,6 +7,7 @@ $(document).ready(function()
     // select field: stores name and id
     $("#selectList").change(function()
     {
+        localStorage.removeItem('rounds');
         localStorage['name'] = $(this).text();
         localStorage['id'] = $(this).val();
         document.location.href = '/rounds';
@@ -19,8 +20,9 @@ $(document).ready(function()
         if (e.which == 13) 
         {
             e.preventDefault();
-
+            
             var u = new User($(this).val());
+            localStorage.removeItem('rounds');
             localStorage['name'] = u.name();
             localStorage['id'] = u.ID();         
             document.location.href = '/rounds';       
