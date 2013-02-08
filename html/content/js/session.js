@@ -1,3 +1,6 @@
+// file to act as sessions
+// FILE IS OBSOLETE AND UNUSED
+// EVERYTHING HAS BEEN REWORKED INTO select_golfer.js
 
 $(document).ready(function() {
     $("#submit").click(function() {
@@ -6,14 +9,10 @@ $(document).ready(function() {
 });
 
 
-var memberName = '';
-var memberID = '';   
-var roundArray = [];
-
 function setMember(id, name) 
 {    
-    memberID = id;
-    memberName = name;
+    localStorage['id'] = id;
+    localStorage['name'] = name;
 }
 function setRounds(rounds)
 {
@@ -21,16 +20,17 @@ function setRounds(rounds)
     for (var i=0;i<rounds.length;i++)
 	if (rounds[i].checked)
             roundArray.push(rounds[i].value);
+    localStorage['rounds'] = roundArray;
 }
 function getMemberName()
 {
-    return memberName;
+    return localStorage['name'];
 }
 function getMemberID()
 {
-    return memberID;
+    return localStorage['id'];
 }
 function getRounds()
 {
-    return roundArray;
+    return localStorage['rounds'];
 }
