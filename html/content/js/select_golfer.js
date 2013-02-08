@@ -42,6 +42,8 @@ $(document).ready(function()
 
     });
     
+    populateSelectField();
+    
 });
 
 
@@ -148,15 +150,22 @@ function createRoundsMenu()
 function currentlyViewing()
 {
     var memberName = localStorage['name']; 
-    if(memberName != undefined)
+    var rounds = localStorage['rounds'];
+    if(memberName === undefined && rounds === undefined)
+    {
+        document.location.href = '/';
+    }
+    else if(rounds === undefined)
+    {
+         document.location.href = '/rounds';
+    }
+        
+    else
     {
         var currently_viewing = document.getElementById("currently_viewing");
         currently_viewing.innerHTML= "<span>currently viewing:</span>" + memberName;
     }
-    else
-    {
-        document.location.href = '/';
-    }
+
 }
 
 
