@@ -150,16 +150,10 @@ function createRoundsMenu()
 function currentlyViewing()
 {
     var memberName = localStorage['name']; 
-    var rounds = localStorage['rounds'];
-    if(memberName === undefined && rounds === undefined)
+    if(memberName === undefined)
     {
         document.location.href = '/';
-    }
-    else if(rounds === undefined)
-    {
-         document.location.href = '/rounds';
-    }
-        
+    }        
     else
     {
         var currently_viewing = document.getElementById("currently_viewing");
