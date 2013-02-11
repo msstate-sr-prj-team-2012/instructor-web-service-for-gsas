@@ -432,7 +432,18 @@ User.prototype.save = function()
 			},
 			error: function(data, textStatus, xhr) {
 				ret = false;
-				ajaxErrorHandler('userSave', data, textStatus, xhr);
+				if (xhr.status == 412) {
+					// memberID and email violate ICs
+					alert('MemberID and email already taken.');
+				} else if (xhr.status == 406) {
+					// memberID IC violation
+					alert('MemberID is already taken.');
+				} else if (xhr.status == 409) {
+					// email IC violation
+					alert('Email is already taken.');
+				} else {
+					ajaxErrorHandler('userSave', data, textStatus, xhr);
+				}
 			}
 		});
 	} else {
@@ -458,7 +469,18 @@ User.prototype.save = function()
 			},
 			error: function(data, textStatus, xhr) {
 				ret = false;
-				ajaxErrorHandler('userSave', data, textStatus, xhr);
+				if (xhr.status == 412) {
+					// memberID and email violate ICs
+					alert('MemberID and email already taken.');
+				} else if (xhr.status == 406) {
+					// memberID IC violation
+					alert('MemberID is already taken.');
+				} else if (xhr.status == 409) {
+					// email IC violation
+					alert('Email is already taken.');
+				} else {
+					ajaxErrorHandler('userSave', data, textStatus, xhr);
+				}
 			}
 		});
 	}
@@ -1352,6 +1374,57 @@ Round.prototype.export = function()
 	};
 
 	return roundObject;
+}
+
+function RoundGetAllTest(data)
+{
+	if (typeof(data) === 'undefined') data = null;
+
+	this.rounds = new Array();
+	this.nextPage = 1;
+
+	if (data) {
+		this.userID = data;
+		this.url = "http://shadowrealm.cse.msstate.edu/API-Dev/rounds/user/" + this.userID + "/";
+		this.next();
+	} else {
+		this.userID = null;
+		this.url = "http://shadowrealm.cse.msstate.edu/API-Dev/rounds/all/";
+		this.next();
+	}
+}
+
+RoundGetAllTest.prototype.next = function(data)
+{
+	if (typeof(data) === 'undefined') return false;
+
+	if (this.nextPage) {
+		var self = this;
+
+		$.ajax({
+			accepts: "application/json",
+			async: false,
+			dataType: "json",
+			url: this.url + this.nextPage,
+			type: "GET",
+			username: defines.API_USERNAME,
+			password: defines.API_PASSWORD,
+			success: function(data, textStatus, xhr) {
+				for (var i = 0; i < data.rounds.length; i++) {
+					var r = new Round();
+					r.ID(data.rounds[i].id);
+					r.startTime(data.rounds[i].startTime);
+
+					self.rounds.push(r);
+				}
+
+				self.nextPage = data.nextPage;
+			},
+			error: function(data, textStatus, xhr) {
+				ajaxErrorHandler('roundGetAllByUser', data, textStatus, xhr);
+			}
+		});
+	}
 }
 
 function RoundGetAll(data)
