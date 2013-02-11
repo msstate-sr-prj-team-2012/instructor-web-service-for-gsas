@@ -1376,7 +1376,7 @@ Round.prototype.export = function()
 	return roundObject;
 }
 
-function RoundGetAllTest(data)
+function RoundGetAll(data)
 {
 	if (typeof(data) === 'undefined') data = null;
 
@@ -1394,7 +1394,7 @@ function RoundGetAllTest(data)
 	}
 }
 
-RoundGetAllTest.prototype.next = function()
+RoundGetAll.prototype.next = function()
 {
 	if (this.nextPage) {
 		var self = this;
