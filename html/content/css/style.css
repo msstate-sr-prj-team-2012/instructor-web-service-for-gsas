@@ -171,7 +171,6 @@ footer a
     position: absolute;
     top:180px;
     left:230px;
-
 }
 .select input[type="text"]
 {
@@ -218,8 +217,8 @@ input:-moz-placeholder { color:#848484; }
 button
 {
     font: 13px Century Gothic, 'TeXGyreAdventorRegular', sans-serif;
-    width: 90px;
-    height: 35px;
+    width: 100px;
+    height: 30px;
     position: relative;
     bottom: -30px;
 }
@@ -332,7 +331,7 @@ nav ul ul li{ box-shadow: 10px 10px 10px #585858 ; }
 #change_golfer li:hover ul li {width: 99%;}
 #change_golfer ul li{float:none;}
 #change_golfer ul a{white-space:nowrap;}
-#change_golfer li:hover ul{visibility: visible; left:-25px; }
+#change_golfer li:hover ul{visibility: visible; left:-35px; }
 #change_golfer li:hover > a{color: #fff; background: #660000;}
 #change_golfer ul li
 { 
@@ -343,19 +342,19 @@ nav ul ul li{ box-shadow: 10px 10px 10px #585858 ; }
 }
 #change_golfer input[type="text"]
 {
-    width: 170px;
+    width: 185px;
     height: 22px;
     color: #848484;
-    font: 12px 'TeXGyreAdventorRegular', sans-serif;
+    font: 11px 'TeXGyreAdventorRegular', sans-serif;
     padding-left:5px;
     border: none;
 }
 #change_golfer select
 {
-    width: 185px;
+    width: 200px;
     height: 22px;
     color: #848484;
-    font: 12px 'TeXGyreAdventorRegular', sans-serif;
+    font: 11px 'TeXGyreAdventorRegular', sans-serif;
     padding-left:5px;
     border: none;
 }

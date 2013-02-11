@@ -7,7 +7,9 @@
     <script type="text/javascript" src="html/content/js/jquery1.8.1.js"></script>
     <script type="text/javascript" src="html/content/js/onPar_SDK.js"></script>
     <script type="text/javascript" src="html/content/js/onPar_functions.js"></script>
-    <script> $(document).ready(function(){createRoundsMenu(); currentlyViewing(); populateRounds();});  </script>
+    <script> 
+        $(document).ready(function(){createRoundsMenu(); currenlyViewing(); var rounds = new Rounds(); });  
+    </script> 
 </head>
 
 <body>
@@ -36,13 +38,13 @@
             <li><a>change golfer ?</a>
               <ul>
                   <li> 
-                        <input type="text" id="golferID" placeholder="enter golfer id...">
+                        <input type="text" id="input_field" placeholder="enter user id, member id, or email..." >
                   </li>
                   <li>                       
-                        <select id="selectList">
+                        <select id="select_field">
                             <option value="" disabled selected>select golfer...</option>
                         </select>
-                  </li>
+                  </li> 
               </ul>
             </li>
         </ul>
@@ -61,10 +63,9 @@
         <div id="date_list">
         </div>
         
-        <button id="submit">submit</button>
-
-        
-        
+        <div id="buttons">
+        </div>
+ 
     </div>
     
     

@@ -2,16 +2,16 @@
 $(document).ready(function() 
 { 
       
-    $("#selectList").change(function()
+    $("#select_field").change(function()
     {
         localStorage.removeItem('rounds');
-        localStorage.setItem('name',$(this).text());
-        localStorage.setItem('id', $(this).val());
+        localStorage.setItem('userName',$(this).text());
+        localStorage.setItem('userID', $(this).val());
         document.location.href = defines.BASE_PATH + '/rounds';
     });
     
     
-    $("#golferID").keypress(function(e) 
+    $("#input_field").keypress(function(e) 
     {
         if (e.which == 13) 
         {
@@ -19,9 +19,9 @@ $(document).ready(function()
             
             var u = new User($(this).val());
             localStorage.removeItem('rounds');
-            localStorage.setItem('name', u.name());
-            localStorage.setItem('id',u.ID());       
-            document.location.href = defines.BASE_PATH + '/rounds';             
+            localStorage.setItem('userName', u.name());
+            localStorage.setItem('userID',u.ID());       
+            document.location.href = defines.BASE_PATH + '/rounds';          
         }
     });
     
@@ -31,11 +31,17 @@ $(document).ready(function()
         var rounds = [];
         $("input:checkbox:checked").each(function()
         {
-            var round = new Round($(this).val());
-            rounds.push(round);
+            rounds.push(new Round($(this).val()));
         })
         localStorage.setObject('rounds',rounds);
-        document.location.href = defines.BASE_PATH + "/table";
+        document.location.href = defines.BASE_PATH + '/table';
+    });
+    
+    
+    $("#more").click(function() 
+    {
+        rounds.roundsClass.next();
+        rounds.output();
     });
 
 
@@ -48,18 +54,17 @@ $(document).ready(function()
         
 
     
-    /* conditional statements to show which functions are executed
+    /* conditional statements determine which functions are executed
      * pathnames need to be verified
      * 
-    var pathname = window.location.pathname;
-    if(pathname === '/')
+    if(window.location.pathname; === '/')
     {
         createHomeMenu();
     }
-    if(pathname === '/rounds')
+    if(window.location.pathname; === '/rounds')
     {
         createRoundsMenu();
-        populateRounds();
+        var rounds = new Rounds();
         currentlyViewing();
     }
     else
@@ -80,10 +85,7 @@ function populateSelectField()
     var users = UserGetAll();
     for(var i = 0; i < users.length; i++)
     {
-        var u = users[i];
-        var memberName = u.name();
-        var id = u.ID();
-        document.getElementById("selectList").add(new Option(memberName, id));
+        document.getElementById("select_field").add(new Option(users[i].name(), users[i].ID()));
     }
 }
 
@@ -91,20 +93,19 @@ function populateSelectField()
 
 function createHomeMenu()
 {
-    var memberName = localStorage.getItem('name');
-    var rounds = localStorage.getItem('rounds');
-    var nav = document.getElementById("nav")
+    var memberName = localStorage.getItem('userName');
+    var rounds = localStorage.getObject('rounds');
     
     if(rounds === null && memberName === null)
     {
-        nav.innerHTML=
+        document.getElementById("nav").innerHTML=
         "<ul>\n" +
             "<li class=\"selected_tab\"><a href=\"/\">home</a></li>\n" +
         "</ul>\n";
     }
     else if(rounds === null)
     {
-        nav.innerHTML=
+        document.getElementById("nav").innerHTML=
         "<ul>\n" +
             "<li class=\"selected_tab\"><a href=\"/\">home</a></li>\n" +
             "<li><a href=\"/rounds\">rounds</a></li>\n" +
@@ -112,7 +113,7 @@ function createHomeMenu()
     }
     else
     {
-        nav.innerHTML=
+        document.getElementById("nav").innerHTML=
         "<ul>\n" +
             "<li class=\"selected_tab\"><a href=\"/\">home</a></li>\n" +
             "<li><a href=\"/rounds\">rounds</a></li>\n" +
@@ -131,13 +132,10 @@ function createHomeMenu()
 
 
 function createRoundsMenu()
-{
-    var rounds = localStorage.getItem('rounds');
-    var nav = document.getElementById("nav")
-    
-    if(rounds === null)
+{   
+    if(localStorage.getObject('rounds') === null)
     {
-        nav.innerHTML=
+        document.getElementById("nav").innerHTML=
         "<ul>\n" +
             "<li><a href=\"/\">home</a></li>\n" +
             "<li class=\"selected_tab\"><a href=\"/rounds\">rounds</a></li>\n" +
@@ -145,7 +143,7 @@ function createRoundsMenu()
     }
     else
     {
-        nav.innerHTML=
+        document.getElementById("nav").innerHTML=
         "<ul>\n" +
             "<li><a href=\"/\">home</a></li>\n" +
             "<li class=\"selected_tab\"><a href=\"/rounds\">rounds</a></li>\n" +
@@ -162,72 +160,78 @@ function createRoundsMenu()
 } 
 
 
-
-function currentlyViewing()
-{
-    var memberName = localStorage.getItem('name'); 
-    if(memberName === null)
-    {
-        document.location.href = '/';
-    }        
-    else
-    {
-        var currently_viewing = document.getElementById("currently_viewing");
-        currently_viewing.innerHTML= "<span>currently viewing:</span>" + memberName;
-    }
-
-}
-
-
-
-function populateRounds()
-{
-    var roundsClass = new RoundGetAll(localStorage.getItem('id'));
-    var roundsArray = roundsClass.rounds;
-    
-    var html = '';
-    for(var i = 0; i < roundsArray.length; i++) 
-    {
-        var r = roundsArray[i]; 
-        var id = r.rid;
-        var date = r.startTime;
-        html += "<input type=\"checkbox\" value='" +id+ "'> " + date + "<br/>\n";
-    }
-
-    while(roundsClass.nextPage) 
-    { 
-        roundsClass = roundsClass.next();
-        roundsArray = roundsClass.rounds;
-        for(i = 0; i < roundsArray.length; i++)
-        {
-            r = roundsArray[i];
-            id = r.rid;
-            date = r.startTime;
-            html += "<input type=\"checkbox\" value='" +id+ "'> " + date + "<br/>\n";
-        }
-    }
-    
-    document.getElementById("date_list").innerHTML = html;
-}
-
-
-
 function createRoundTabs()
 {
     var rounds = localStorage.getObject('rounds');
     var html = '<ul>\n';
     for (var i = 0; i < rounds.length; i++)
     {
-        var r = rounds[i];
-        var rid = r.rid;
-        var date = r.startTime;
-        html += "<li id=\'" + rid + "'\">" + date + "</li>\n";
+        html += "<li id=\'" + rounds[i].ID() + "'\">" + rounds[i].startTime() + "</li>\n";
     }
     html += "</ul>\n";
     document.getElementByClassName("round_tabs").innerHTML = html;
 }
 
 
+function currentlyViewing()
+{
+    var memberName = localStorage.getItem('userName');
+    if(memberName === null)
+    {
+        document.location.href = defines.BASE_PATH + '/';
+    }        
+    else
+    {
+        document.getElementById("currently_viewing").innerHTML= "<span>currently viewing:</span>" + memberName;
+    }
+
+}
+
+/****************************************************************************
+ *
+ * Rounds
+ *
+ ****************************************************************************/
+
+function Rounds()
+{
+    this.roundClass = new RoundGetAll(localStorage.getItem('userID'));
+    this.output();
+}
+
+
+rounds.prototype.output = function()
+{
+    var html = '';
+    for (var i = 0; i < this.roundClass.rounds.length; i++) 
+    {
+        html += "<input type=\"checkbox\" value='" + this.roundClass.rounds[i].ID() + "'>" +          
+            this.roundClass.rounds[i].startTime() + "<br/>\n";
+    }
+    $("#date_list").append(html);
+    this.show();
+}
+
+
+rounds.prototype.show = function()
+{
+    if (this.roundClass.nextPage) 
+    {
+        document.getElementById('buttons').innerHTML = 
+            "<button id=\"submit\">submit</button><button id=\"more\">view more</button>";
+    }
+    else
+    {
+        document.getElementById('buttons').innerHTML = "<button id=\"submit\">submit</button>";
+    }
+}
+
+
+/****************************************************************************
+ *
+ * Storage
+ *
+ ****************************************************************************/
 
 Storage.prototype.setObject = function(key, value) 
 {
