@@ -559,11 +559,7 @@ function UserGetAll()
 			for (var i = 0; i < data.users.length; i++) {
 				var u = new User();
 				u.ID(data.users[i].user.id);
-				u.memberID(data.users[i].user.memberID);
-				u.nickname(data.users[i].user.nickname);
 				u.name(data.users[i].user.name);
-				u.email(data.users[i].user.email);
-				u.stats(data.users[i].user.stats);
 				users.push(u);
 			}
 		},
