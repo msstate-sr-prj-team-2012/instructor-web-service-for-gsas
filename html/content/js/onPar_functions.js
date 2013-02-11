@@ -182,15 +182,31 @@ function currentlyViewing()
 
 function populateRounds()
 {
-    var rounds = new RoundGetAll(localStorage.getItem('id'));
+    var roundsClass = new RoundGetAll(localStorage.getItem('id'));
+    var roundsArray = roundsClass.rounds;
+    
     var html = '';
-    for(var i = 0; i < rounds.length; i++)
+    for(var i = 0; i < roundsArray.length; i++) 
     {
-        var r = rounds[i];
+        var r = roundsArray[i]; 
         var id = r.rid;
         var date = r.startTime;
         html += "<input type=\"checkbox\" value='" +id+ "'> " + date + "<br/>\n";
     }
+
+    while(roundsClass.nextPage) 
+    { 
+        roundsClass = roundsClass.next();
+        roundsArray = roundsClass.rounds;
+        for(i = 0; i < roundsArray.length; i++)
+        {
+            r = roundsArray[i];
+            id = r.rid;
+            date = r.startTime;
+            html += "<input type=\"checkbox\" value='" +id+ "'> " + date + "<br/>\n";
+        }
+    }
+    
     document.getElementById("date_list").innerHTML = html;
 }
 
