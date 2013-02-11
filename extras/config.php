@@ -12,6 +12,7 @@ require_once(dirname(__FILE__) . "/defines.php");
 require_once(SD_CLASSES . 'DB.php');
 
 require_once(CLASSES . 'DBObject.php');
+require_once(CLASSES . 'Stats.php');
 
 require_once(DBOBJECTS . 'Course.php');
 require_once(DBOBJECTS . 'User.php');

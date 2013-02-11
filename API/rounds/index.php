@@ -34,8 +34,8 @@ $app->add(new \Slim\Middleware\HttpBasicAuth(API_USERNAME, API_PASSWORD));
  *      5xx - Server Errors
  *
  */
-$app->get('/',
-function() use ($app)
+$app->get('/all/:page',
+function($page) use ($app)
 {
     // check for get variables
     $req = $app->request();
@@ -43,22 +43,51 @@ function() use ($app)
     // get the app's response object
     $res = $app->response();
 
-    // set the status code
-    $res->status(200);
+    if ($page < 1) {
+        // return a 204 for no content
+        $res->status(204);
+        $array = $res->finalize();
+    } else {
+        // get all the rounds
+        $rounds = Round::getAll();
 
-    // set the body
-    $rounds = Round::getAll();
-    $data['rounds'] = array();
-    foreach ($rounds as $r) {
-        $data['rounds'][] = $r->export();
+        // determine start and finish based on page number
+        $page == 1 ? $start = 0 : $start = (($page - 1) * 10);
+        $finish = $start + 10;
+
+        // check to make sure we can fill up this page
+        if (count($rounds) < $finish) {
+            $finish = count($rounds);
+        }
+
+        // start to set the body
+        $data['rounds'] = array();
+
+        $current = $start;
+        while ($current < $finish) {
+            $ids = array();
+            $ids['id'] = $rounds[$current]->ID();
+            $ids['startTime'] = $rounds[$current]->startTime();
+            $data['rounds'][] = $ids;
+
+            $current++;
+        }
+
+        // if there are still more, put an integer with the
+        // next page number. If not, set it to null
+        count($rounds) > $finish ? $data['nextPage'] = $page + 1 : $data['nextPage'] = null;
+
+        $res->write(json_encode($data));
+
+        // set the status code
+        $res->status(200);
+
+        // set the content type
+        $res['Content-Type'] = 'application/json';
+
+        // finalize the response
+        $array = $res->finalize();
     }
-    $res->write(json_encode($data));
-
-    // set the content type
-    $res['Content-Type'] = 'application/json';
-
-    // finalize the response
-    $array = $res->finalize();
 });
 
 /**
@@ -110,8 +139,8 @@ function($id) use ($app) {
  *      5xx - Server Errors
  *
  */
-$app->get('/user/:id',
-function($id) use ($app) {
+$app->get('/user/:id/:page',
+function($id, $page) use ($app) {
     // get the app's response object
     $res = $app->response();
 
@@ -123,15 +152,39 @@ function($id) use ($app) {
         $res->status(204);
         $array = $res->finalize();
     } else {
-        // set the body
+        // get all the rounds
         $rounds = Round::getAll($user->ID());
-        $data['rounds'] = array();
-        foreach ($rounds as $r) {
-            $data['rounds'][] = $r->export();
+
+        // determine start and finish based on page number
+        $page == 1 ? $start = 0 : $start = (($page - 1) * 10);
+        $finish = $start + 10;
+
+        // check to make sure we can fill up this page
+        if (count($rounds) < $finish) {
+            $finish = count($rounds);
         }
 
-        $res->status(200);
+        // start to set the body
+        $data['rounds'] = array();
+
+        $current = $start;
+        while ($current < $finish) {
+            $ids = array();
+            $ids['id'] = $rounds[$current]->ID();
+            $ids['startTime'] = $rounds[$current]->startTime();
+            $data['rounds'][] = $ids;
+
+            $current++;
+        }
+
+        // if there are still more, put an integer with the
+        // next page number. If not, set it to null
+        count($rounds) > $finish ? $data['nextPage'] = $page + 1 : $data['nextPage'] = null;
+
         $res->write(json_encode($data));
+
+        // set the status code
+        $res->status(200);
 
         // set the content type
         $res['Content-Type'] = 'application/json';
@@ -155,6 +208,9 @@ function($id) use ($app) {
 $app->post('/',
 function() use ($app)
 {
+    // get the instance of the DB 
+    $db = DB::getInstance();
+
     // get the request object
     $req = $app->request();
     
@@ -222,6 +278,9 @@ function() use ($app)
             // save the round to the DB
             // adds holes and shots
             if ($round->save()) {
+                // commit the DB changes
+                $db->commit();
+
                 // set the status code
                 // 201 - created
                 $res->status(201);
@@ -237,6 +296,9 @@ function() use ($app)
                 // finalize the response
                 $array = $res->finalize();
             } else {
+                // roll back the DB changes
+                $db->rollBack();
+
                 // problem with the save function
                 // return 500 - server error
                 $res->status(500);
@@ -293,6 +355,9 @@ function($id) use ($app)
                 $res->status(204);
                 $array = $res->finalize();
             } else {
+                // get the instance of the DB 
+                $db = DB::getInstance();
+
                 $round->user(new User($data['user']['user']['id']));
                 $round->course(new Course($data['course']['course']['id']));
                 $round->totalScore($data['totalScore']);
@@ -334,6 +399,9 @@ function($id) use ($app)
                 // save the round to the DB
                 // adds holes and shots
                 if ($round->save()) {
+                    // commit the changes
+                    $db->commit();
+
                     // set the status code
                     // 200 - ok
                     $res->status(200);
@@ -349,6 +417,9 @@ function($id) use ($app)
                     // finalize the response
                     $array = $res->finalize();
                 } else {
+                    // roll back the changes
+                    $db->rollBack();
+
                     // problem with the save function
                     // return 500 - server error
                     $res->status(500);
@@ -389,8 +460,14 @@ function($id) use ($app)
         $res->status(204);
         $array = $res->finalize();
     } else {
+        // get the instance of the DB 
+        $db = DB::getInstance();
+    
         // delete the round to from DB
         if ($round->delete()) {
+            // commit the DB changes
+            $db->commit();
+
             // set the status code
             // 200 - ok
             $res->status(200);
@@ -404,6 +481,9 @@ function($id) use ($app)
             // finalize the response
             $array = $res->finalize();
         } else {
+            // roll back the DB changes
+            $db->rollBack();
+            
             // problem with the delete function
             // return a 500 - server error
             $res->status(500);

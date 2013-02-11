@@ -64,7 +64,7 @@ class Course
         // Passed in data can be an integer ID representing the auto incremented
         // ID of the database row or an associative array with variable names as
         // keys and values of what the variables should be set to as values.
-        if (!empty($data)) {
+        if (!is_null($data)) {
             $this->load($data);
         }
     }
@@ -76,7 +76,7 @@ class Course
  */
     public function name($data = null)
     {
-        if (!empty($data)) {
+        if (!is_null($data)) {
             $this->_name = $data;
         } else {
             return $this->_name;
@@ -85,7 +85,7 @@ class Course
 
     public function location($data = null)
     {
-        if (!empty($data)) {
+        if (!is_null($data)) {
             $this->_location = $data;
         } else {
             return $this->_location;
@@ -104,7 +104,7 @@ class Course
     public function load($data)
     {
         // if no data gets passed in, return without setting any class variables
-        if (empty($data)) return true;
+        if (is_null($data)) return true;
 
         // If it is not an array passed in, it is the ID
         // Load the Course from the database by using DBObject's load function.

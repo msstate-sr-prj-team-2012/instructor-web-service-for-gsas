@@ -88,8 +88,12 @@ class DBObject
  */
     public function ID($data = null)
     {
-        if (!empty($data)) {
-            $this->_id = (int)$data;
+        if (!is_null($data)) {
+            if ($data === 0) {
+                $this->_id = null;
+            } else {
+                $this->_id = (int)$data;
+            }
         } else {
             return (int)$this->_id;
         }
@@ -97,7 +101,7 @@ class DBObject
 
     private function object($data = null)
     {
-        if (!empty($data)) {
+        if (!is_null($data)) {
             $this->_object = $data;
         } else {
             return $this->_object;
@@ -106,7 +110,7 @@ class DBObject
 
     private function objectID($data = null)
     {
-        if (!empty($data)) {
+        if (!is_null($data)) {
             $this->_objectID = $data;
         } else {
             return $this->_objectID;
@@ -154,6 +158,8 @@ class DBObject
  */
     protected function saveToDB($params)
     {
+        self::$db->beginTransaction();
+
         // Check for an existing ID, if one, update the database row
         if ($this->ID()) {
             // obtain the objectID for use in the WHERE clause of the UPDATE statement
@@ -191,6 +197,8 @@ class DBObject
  */
     public function delete()
     {
+        self::$db->beginTransaction();
+        
         // if there is no ID, there is nothing to delete from the database, return false
         if (!$this->ID()) return false;
 
@@ -202,6 +210,8 @@ class DBObject
             "$objectID = :id",
             array(':id' => $this->ID())
         );
+
+        $this->ID(0);
 
         return !$ok;
     }

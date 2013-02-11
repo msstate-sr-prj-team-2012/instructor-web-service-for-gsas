@@ -92,7 +92,7 @@ class Round
         // Passed in data can be an integer ID representing the auto incremented
         // ID of the database row or an associative array with variable names as
         // keys and values of what the variables should be set to as values.
-        if (!empty($data)) {
+        if (!is_null($data)) {
             $this->load($data);
         }
     }
@@ -104,7 +104,7 @@ class Round
  */
     public function user($data = null)
     {
-        if (!empty($data)) {
+        if (!is_null($data)) {
             $this->_user = $data;
         } else {
             return $this->_user;
@@ -113,7 +113,7 @@ class Round
 
     public function course($data = null)
     {
-        if (!empty($data)) {
+        if (!is_null($data)) {
             $this->_course = $data;
         } else {
             return $this->_course;
@@ -122,7 +122,7 @@ class Round
 
     public function totalScore($data = null)
     {
-        if (!empty($data)) {
+        if (!is_null($data)) {
             $this->_totalScore = (int)$data;
         } else {
             return (int)$this->_totalScore;
@@ -131,7 +131,7 @@ class Round
 
     public function teeID($data = null)
     {
-        if (!empty($data)) {
+        if (!is_null($data)) {
             $this->_teeID = (int)$data;
         } else {
             return (int)$this->_teeID;
@@ -140,7 +140,7 @@ class Round
 
     public function startTime($data = null)
     {
-        if (!empty($data)) {
+        if (!is_null($data)) {
             $this->_startTime = $data;
         } else {
             return $this->_startTime;
@@ -149,7 +149,7 @@ class Round
 
     public function holes($data = null)
     {
-        if (!empty($data)) {
+        if (!is_null($data)) {
             $this->_holes = $data;
         } else {
             return $this->_holes;
@@ -173,7 +173,7 @@ class Round
     public function load($data)
     {
         // if no data gets passed in, return without setting any class variables
-        if (empty($data)) return true;
+        if (is_null($data)) return true;
 
         // If it is not an array passed in, it is the ID
         // Load the Round from the database by using DBObject's load function.
@@ -225,6 +225,8 @@ class Round
  */
     public function save()
     {
+        if ($this->ID()) $this->delete();
+
         // make an Array from the attributes of this Shot
         $params = array(
             'userID'     => $this->user()->ID(),
@@ -239,17 +241,36 @@ class Round
         // Hole.
         $check = parent::saveToDB($params);
 
-        // first delete all holes belonging to this round
-        self::$db->delete('hole',
-            'roundID = :id',
-            array(':id' => $this->ID())
-        );
+        if ($check) {
+            // first delete all holes belonging to this round
+            self::$db->delete('hole', 
+                'roundID = :id', 
+                array(':id' => $this->ID())
+            );
 
-        // now save each hole to the DB with the new round ID
-        foreach ($this->holes() as $hole) {
-            $hole->roundID($this->ID());
-            $hole->save();
+            // now save each hole to the DB with the new round ID
+            foreach ($this->holes() as $hole) {
+                // since all holes were just deleted,
+                // if a Hole has an ID, set it to null
+                // so it doesn't try to update a nonexistent
+                // Hole
+                if ($this->ID()) $hole->ID(0);
+
+                $hole->roundID($this->ID());
+                
+                // check if the hole saved properly
+                // if it didn't turn the check to false
+                // and break from the loop
+                $warn = $hole->save();
+                if (!$warn) {
+                    $check = false;
+                    break;
+                }
+            }
         }
+
+        // update the User's stats
+        $this->user()->stats()->save();
 
         // return the status of the Hole save.
         return $check;
@@ -293,13 +314,16 @@ class Round
  */
     public static function getAll($userID = null)
     {
-        if (!empty($userID)) {
+        if (!is_null($userID)) {
             $db = DB::getInstance();
 
-            $results = $db->select('round', 
-                'userID = :id', 
-                array(':id' => $userID)
-            );
+            $SQL = 'SELECT * 
+                FROM round
+                WHERE userID = :id
+                ORDER BY startTime DESC
+            ';
+
+            $results = $db->run($SQL, array(':id' => $userID));
 
             $rounds = array();
 

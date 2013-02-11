@@ -109,6 +109,9 @@ function($id) use ($app) {
 $app->post('/',
 function() use ($app)
 {
+    // get the instance of the DB 
+    $db = DB::getInstance();
+
     // get the request object
     $req = $app->request();
 
@@ -143,6 +146,9 @@ function() use ($app)
                 $course->location($data['location']);
 
                 if ($course->save()) {
+                    // commit the DB changes
+                    $db->commit();
+
                     // set the status code
                     // 201 - created
                     $res->status(201);
@@ -156,6 +162,9 @@ function() use ($app)
                     // finalize the response
                     $array = $res->finalize();
                 } else {
+                    // roll back the DB changes
+                    $db->rollBack();
+
                     // problem with the save function
                     // return a 500 - server error
                     $res->status(500);
@@ -219,10 +228,16 @@ function($id) use ($app)
                     $res->status(204);
                     $array = $res->finalize();
                 } else {
+                    // get the instance of the DB 
+                    $db = DB::getInstance();
+
                     $course->name($data['name']);
                     $course->location($data['location']);
 
                     if ($course->save()) {
+                        // commit the DB changes
+                        $db->commit();
+
                         // set the status code
                         $res->status(200);
 
@@ -235,6 +250,9 @@ function($id) use ($app)
                         // finalize the response
                         $array = $res->finalize();
                     } else {
+                        // roll back the DB changes
+                        $db->rollBack();
+
                         // problem with the save function
                         // return 500 - server error
                         $res->status(500);
@@ -277,8 +295,14 @@ function($id) use ($app)
         $res->status(204);
         $array = $res->finalize();
     } else {
+        // get the instance of the DB 
+        $db = DB::getInstance();
+
         // delete the course to from DB
         if ($course->delete()) {
+            // commit the DB changes
+            $db->commit();
+
             // set the status code
             // 200 - ok
             $res->status(200);
@@ -292,6 +316,9 @@ function($id) use ($app)
             // finalize the response
             $array = $res->finalize();
         } else {
+            // roll back the DB changes
+            $db->rollBack();
+            
             // problem with the delete function
             // return a 500 - server error
             $res->status(500);

@@ -36,6 +36,8 @@ class DB extends PDO {
 	private $errorCallbackFunction;
 	private $errorMsgFormat;
 
+	private $activeTransaction = false;
+
 	private static $instance;
 
 	public function __construct() {
@@ -204,6 +206,30 @@ class DB extends PDO {
 			$bind[":update_$field"] = $info[$field];
 		
 		return $this->run($sql, $bind);
+	}
+
+	public function beginTransaction() 
+	{
+	    if ($this->activeTransaction) {
+	        return false;
+	    } else {
+	        $this->activeTransaction = parent::beginTransaction();
+	        return $this->activeTransaction;
+	    }
+	}
+
+	public function commit() 
+	{
+		$check = parent::commit();
+		if ($check) $this->activeTransaction = false;
+		return $check;
+	}
+
+	public function rollBack()
+	{
+		$check = parent::rollBack();
+		if ($check) $this->activeTransaction = false;
+		return $check;
 	}
 }	
 ?>

@@ -115,7 +115,7 @@ class Shot
         // Passed in data can be an integer ID representing the auto incremented
         // ID of the database row or an associative array with variable names as
         // keys and values of what the variables should be set to as values.
-        if (!empty($data)) {
+        if (!is_null($data)) {
             $this->load($data);
         }
     }
@@ -127,7 +127,7 @@ class Shot
  */
     public function holeID($data = null)
     {
-        if (!empty($data)) {
+        if (!is_null($data)) {
             $this->_holeID = (int)$data;
         } else {
             return (int)$this->_holeID;
@@ -136,7 +136,7 @@ class Shot
 
     public function club($data = null)
     {
-        if (!empty($data)) {
+        if (!is_null($data)) {
             $this->_club = (int)$data;
         } else {
             return (int)$this->_club;
@@ -145,7 +145,7 @@ class Shot
 
     public function shotNumber($data = null)
     {
-        if (!empty($data)) {
+        if (!is_null($data)) {
             $this->_shotNumber = (int)$data;
         } else {
             return (int)$this->_shotNumber;
@@ -154,7 +154,7 @@ class Shot
 
     public function aimLatitude($data = null)
     {
-        if (!empty($data)) {
+        if (!is_null($data)) {
             $this->_aimLatitude = (float)$data;
         } else {
             return (float)$this->_aimLatitude;
@@ -163,7 +163,7 @@ class Shot
 
     public function aimLongitude($data = null)
     {
-        if (!empty($data)) {
+        if (!is_null($data)) {
             $this->_aimLongitude = (float)$data;
         } else {
             return (float)$this->_aimLongitude;
@@ -172,7 +172,7 @@ class Shot
 
     public function startLatitude($data = null)
     {
-        if (!empty($data)) {
+        if (!is_null($data)) {
             $this->_startLatitude = (float)$data;
         } else {
             return (float)$this->_startLatitude;
@@ -181,7 +181,7 @@ class Shot
 
     public function startLongitude($data = null)
     {
-        if (!empty($data)) {
+        if (!is_null($data)) {
             $this->_startLongitude = (float)$data;
         } else {
             return (float)$this->_startLongitude;
@@ -190,7 +190,7 @@ class Shot
 
     public function endLatitude($data = null)
     {
-        if (!empty($data)) {
+        if (!is_null($data)) {
             $this->_endLatitude = (float)$data;
         } else {
             return (float)$this->_endLatitude;
@@ -199,7 +199,7 @@ class Shot
 
     public function endLongitude($data = null)
     {
-        if (!empty($data)) {
+        if (!is_null($data)) {
             $this->_endLongitude = (float)$data;
         } else {
             return (float)$this->_endLongitude;
@@ -218,7 +218,7 @@ class Shot
     public function load($data)
     {
         // if no data gets passed in, return without setting any class variables
-        if (empty($data)) return true;
+        if (is_null($data)) return true;
 
         // If it is not an array passed in, it is the ID
         // Load the Shot from the database by using DBObject's load function.
@@ -309,7 +309,7 @@ class Shot
  */
     public static function getAll($userID = null)
     {
-        if (!empty($userID)) {
+        if (!is_null($userID)) {
             $rounds = Round::getAll($userID);
 
             $shots = array();

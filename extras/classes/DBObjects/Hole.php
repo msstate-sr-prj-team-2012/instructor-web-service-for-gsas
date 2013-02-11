@@ -259,7 +259,7 @@ class Hole
  */ 
     public function roundID($data = null)
     {
-        if (!empty($data)) {
+        if (!is_null($data)) {
             $this->_roundID = (int)$data;
         } else {
             return (int)$this->_roundID;
@@ -268,7 +268,7 @@ class Hole
 
     public function holeNumber($data = null)
     {
-        if (!empty($data)) {
+        if (!is_null($data)) {
             $this->_holeNumber = (int)$data;
         } else {
             return (int)$this->_holeNumber;
@@ -277,7 +277,7 @@ class Hole
 
     public function holeScore($data = null)
     {
-        if (!empty($data)) {
+        if (!is_null($data)) {
             $this->_holeScore = (int)$data;
         } else {
             return (int)$this->_holeScore;
@@ -286,7 +286,7 @@ class Hole
 
     public function FIR($data = null)
     {
-        if (!empty($data)) {
+        if (!is_null($data)) {
             $this->_FIR = (bool)$data;
         } else {
             return (bool)$this->_FIR;
@@ -295,7 +295,7 @@ class Hole
 
     public function GIR($data = null)
     {
-        if (!empty($data)) {
+        if (!is_null($data)) {
             $this->_GIR = (bool)$data;
         } else {
             return (bool)$this->_GIR;
@@ -304,7 +304,7 @@ class Hole
 
     public function putts($data = null)
     {
-        if (!empty($data)) {
+        if (!is_null($data)) {
             $this->_putts = (int)$data;
         } else {
             return (int)$this->_putts;
@@ -313,7 +313,7 @@ class Hole
 
     public function shots($data = null)
     {
-        if (!empty($data)) {
+        if (!is_null($data)) {
             $this->_shots = $data;
         } else {
             return $this->_shots;
@@ -327,7 +327,7 @@ class Hole
 
     public function distance($data = null)
     {
-        if (!empty($data)) {
+        if (!is_null($data)) {
             $this->_distance = (int)$data;
         } else {
             return (int)$this->_distance;
@@ -336,7 +336,7 @@ class Hole
 
     public function par($data = null)
     {
-        if (!empty($data)) {
+        if (!is_null($data)) {
             $this->_par = (int)$data;
         } else {
             return (int)$this->_par;
@@ -345,7 +345,7 @@ class Hole
 
     public function firstRefLat($data = null)
     {
-        if (!empty($data)) {
+        if (!is_null($data)) {
             $this->_firstRefLat = (float)$data;
         } else {
             return (float)$this->_firstRefLat;
@@ -354,7 +354,7 @@ class Hole
 
     public function firstRefLong($data = null)
     {
-        if (!empty($data)) {
+        if (!is_null($data)) {
             $this->_firstRefLong = (float)$data;
         } else {
             return (float)$this->_firstRefLong;
@@ -363,7 +363,7 @@ class Hole
 
     public function secondRefLat($data = null)
     {
-        if (!empty($data)) {
+        if (!is_null($data)) {
             $this->_secondRefLat = (float)$data;
         } else {
             return (float)$this->_secondRefLat;
@@ -372,7 +372,7 @@ class Hole
 
     public function secondRefLong($data = null)
     {
-        if (!empty($data)) {
+        if (!is_null($data)) {
             $this->_secondRefLong = (float)$data;
         } else {
             return (float)$this->_secondRefLong;
@@ -381,7 +381,7 @@ class Hole
 
     public function thirdRefLat($data = null)
     {
-        if (!empty($data)) {
+        if (!is_null($data)) {
             $this->_thirdRefLat = (float)$data;
         } else {
             return (float)$this->_thirdRefLat;
@@ -390,7 +390,7 @@ class Hole
 
     public function thirdRefLong($data = null)
     {
-        if (!empty($data)) {
+        if (!is_null($data)) {
             $this->_thirdRefLong = (float)$data;
         } else {
             return (float)$this->_thirdRefLong;
@@ -399,7 +399,7 @@ class Hole
 
     public function firstRefX($data = null)
     {
-        if (!empty($data)) {
+        if (!is_null($data)) {
             $this->_firstRefX = (int)$data;
         } else {
             return (int)$this->_firstRefX;
@@ -408,7 +408,7 @@ class Hole
 
     public function firstRefY($data = null)
     {
-        if (!empty($data)) {
+        if (!is_null($data)) {
             $this->_firstRefY = (int)$data;
         } else {
             return (int)$this->_firstRefY;
@@ -417,7 +417,7 @@ class Hole
 
     public function secondRefX($data = null)
     {
-        if (!empty($data)) {
+        if (!is_null($data)) {
             $this->_secondRefX = (int)$data;
         } else {
             return (int)$this->_secondRefX;
@@ -426,7 +426,7 @@ class Hole
 
     public function secondRefY($data = null)
     {
-        if (!empty($data)) {
+        if (!is_null($data)) {
             $this->_secondRefY = (int)$data;
         } else {
             return (int)$this->_secondRefY;
@@ -435,7 +435,7 @@ class Hole
 
     public function thirdRefX($data = null)
     {
-        if (!empty($data)) {
+        if (!is_null($data)) {
             $this->_thirdRefX = (int)$data;
         } else {
             return (int)$this->_thirdRefX;
@@ -444,7 +444,7 @@ class Hole
 
     public function thirdRefY($data = null)
     {
-        if (!empty($data)) {
+        if (!is_null($data)) {
             $this->_thirdRefY = (int)$data;
         } else {
             return (int)$this->_thirdRefY;
@@ -463,7 +463,7 @@ class Hole
     public function load($data)
     {
         // if no data gets passed in, return without setting any class variables
-        if (empty($data)) return true;
+        if (is_null($data)) return true;
 
         // If it is not an array passed in, it is the ID
         // Load the Hole from the database by using DBObject's load function.
@@ -576,16 +576,32 @@ class Hole
         // Shots.
         $check = parent::saveToDB($params);
 
-        // first delete all shots belonging to this whole
-        self::$db->delete('shot', 
-            'holeID = :id', 
-            array(':id' => $this->ID())
-        );
+        if ($check) {
+            // first delete all shots belonging to this hole
+            self::$db->delete('shot', 
+                'holeID = :id', 
+                array(':id' => $this->ID())
+            );
 
-        // now save each shot to the DB with the new holeID
-        foreach ($this->shots() as $shot) {
-            $shot->holeID($this->ID());
-            $shot->save();
+            // now save each shot to the DB with the new holeID
+            foreach ($this->shots() as $shot) {
+                // since all shots were just deleted,
+                // if a shot has an ID, set it to null
+                // so it doesn't try to update a nonexistent
+                // shot
+                if ($shot->ID()) $shot->ID(0);
+
+                $shot->holeID($this->ID());
+                
+                // check to see if the shot saved
+                // if one doesn't, return false after breaking
+                // from the loop
+                $warn = $shot->save();
+                if (!$warn) {
+                    $check = false;
+                    break;
+                }
+            }
         }
 
         // return the status of the Hole save.
@@ -664,7 +680,7 @@ class Hole
  */
     public static function getAll($userID = null)
     {
-        if (!empty($userID)) {
+        if (!is_null($userID)) {
             $rounds = Round::getAll($userID);
 
             $holes = array();

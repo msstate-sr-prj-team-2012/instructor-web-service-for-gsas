@@ -47,7 +47,10 @@ function() use ($app)
     $users = User::getAll();
     $data['users'] = array();
     foreach ($users as $u) {
-        $data['users'][] = $u->export();
+        $ids = array();
+        $ids['id'] = $u->ID();
+        $ids['name'] = $u->name();
+        $data['users'][] = $ids;
     }
     $res->write(json_encode($data));
 
@@ -109,6 +112,9 @@ function($id) use ($app) {
 $app->post('/',
 function() use ($app)
 {
+    // get the instance of the DB 
+    $db = DB::getInstance();
+
     // get the request object
     $req = $app->request();
     
@@ -138,31 +144,76 @@ function() use ($app)
                 $res->status(400);
                 $array = $res->finalize();
             } else {
-                // create a new User
-                $user = new User();
-                $user->memberID($data['memberID']);
-                $user->nickname($data['nickname']);
-                $user->name($data['name']);
-                $user->email($data['email']);
-                
-                // save the user to the DB
-                if ($user->save()) {
-                    // set the status code to 201 - created
-                    $res->status(201);
-                    
-                    // set the body
-                    $res->write(json_encode($user->export()));
-                    
-                    // set the content type
-                    $res['Content-Type'] = 'application/json';
+                $memberIDCheck = true;
+                $emailCheck = true;
 
-                    // finalize the response
+                if ($data['memberID']) {
+                    $user = new User($data['memberID']);
+                    if ($user->ID()) {
+                        // the memberID already exists
+                        $memberIDCheck = false;
+                    }
+                    $user = null;
+                }
+
+                if ($data['email']) {
+                    $user = new User($data['email']);
+                    if ($user->ID()) {
+                        // the memberID already exists
+                        $emailCheck = false;
+                    }
+                    $user = null;
+                }
+
+                if (!$memberIDCheck && !$emailCheck) {
+                    // return a 412 for email and memberID IC failure
+                    $res->status(412);
                     $array = $res->finalize();
                 } else {
-                    // problem with save function
-                    // return 500 - server error
-                    $res->status(500);
-                    $array = $res->finalize();
+                    if (!$memberIDCheck) {
+                        // return a 406 for memberID IC failure
+                        $res->status(406);
+                        $array = $res->finalize();
+                    } else {
+                        if (!$emailCheck) {
+                            // return a 409 for email IC failure
+                            $res->status(409);
+                            $array = $res->finalize();
+                        } else {
+                            // create a new User
+                            $user = new User();
+                            $user->memberID($data['memberID']);
+                            $user->nickname($data['nickname']);
+                            $user->name($data['name']);
+                            $user->email($data['email']);
+                            
+                            // save the user to the DB
+                            if ($user->save()) {
+                                // commit the DB changes
+                                $db->commit();
+
+                                // set the status code to 201 - created
+                                $res->status(201);
+                                
+                                // set the body
+                                $res->write(json_encode($user->export()));
+                                
+                                // set the content type
+                                $res['Content-Type'] = 'application/json';
+
+                                // finalize the response
+                                $array = $res->finalize();
+                            } else {
+                                // roll back the DB changes
+                                $db->rollBack();
+
+                                // problem with save function
+                                // return 500 - server error
+                                $res->status(500);
+                                $array = $res->finalize();
+                            }
+                        }
+                    }
                 }
             }
         }
@@ -221,29 +272,84 @@ function($id) use ($app)
                     $res->status(204);
                     $array = $res->finalize();
                 } else {
-                    $user->memberID($data['memberID']);
-                    $user->nickname($data['nickname']);
-                    $user->name($data['name']);
-                    $user->email($data['email']);
+                    $memberIDCheck = true;
+                    $emailCheck = true;
 
-                    // save the user to the DB
-                    if ($user->save()) {
-                        // set the status code to 200 - ok
-                        $res->status(200);
+                    if ($data['memberID']) {
+                        $userM = new User($data['memberID']);
+                        if ($userM->ID()) {
+                            // the memberID already exists
+                            // check to see if it's the same ID as the User
+                            // that's being updated
+                            if($userM->ID() !== $user->ID()) {
+                                // return 406 for not acceptable
+                                $memberIDCheck = false;
+                            }
+                        }
+                        $userM = null;
+                    }
 
-                        // set the body
-                        $res->write(json_encode($user->export()));
+                    if ($data['email']) {
+                        $userE = new User($data['email']);
+                        if ($userE->ID()) {
+                            // the memberID already exists
+                            // check to see if it's the same ID as the User
+                            // that's being updated
+                            if($userE->ID() !== $user->ID()) {
+                                // return 406 for not acceptable
+                                $emailCheck = false;
+                            }
+                        }
+                        $userE = null;
+                    }
 
-                        // set the content type
-                        $res['Content-Type'] = 'application/json';
-
-                        // finalize the response
+                    if (!$memberIDCheck && !$emailCheck) {
+                        // return a 412 for email and memberID IC failure
+                        $res->status(412);
                         $array = $res->finalize();
                     } else {
-                        // problem with save function
-                        // return 500 - server error
-                        $res->status(500);
-                        $array = $res->finalize();
+                        if (!$memberIDCheck) {
+                            // return a 406 for memberID IC failure
+                            $res->status(406);
+                            $array = $res->finalize();
+                        } else {
+                            if (!$emailCheck) {
+                                // return a 409 for email IC failure
+                                $res->status(409);
+                                $array = $res->finalize();
+                            } else {
+                                $user->memberID($data['memberID']);
+                                $user->nickname($data['nickname']);
+                                $user->name($data['name']);
+                                $user->email($data['email']);
+                                
+                                // save the user to the DB
+                                if ($user->save()) {
+                                    // commit the DB changes
+                                    $db->commit();
+
+                                    // set the status code to 201 - created
+                                    $res->status(201);
+                                    
+                                    // set the body
+                                    $res->write(json_encode($user->export()));
+                                    
+                                    // set the content type
+                                    $res['Content-Type'] = 'application/json';
+
+                                    // finalize the response
+                                    $array = $res->finalize();
+                                } else {
+                                    // roll back the DB changes
+                                    $db->rollBack();
+
+                                    // problem with save function
+                                    // return 500 - server error
+                                    $res->status(500);
+                                    $array = $res->finalize();
+                                }
+                            }
+                        }
                     }
                 }
             }
@@ -282,8 +388,14 @@ function($id) use ($app)
         $res->status(204);
         $array = $res->finalize();
     } else {
+        // get the instance of the DB 
+        $db = DB::getInstance();
+    
         // delete the user to from DB
         if ($user->delete()) {
+            // commit the changes to the DB
+            $db->commit();
+
             // set the status code
             // 200 - ok
             $res->status(200);
@@ -297,6 +409,9 @@ function($id) use ($app)
             // finalize the response
             $array = $res->finalize();
         } else {
+            // roll back the DB changes
+            $db->rollBack();
+            
             // problem with the delete function
             // return a 500 - server error
             $res->status(500);
