@@ -558,8 +558,8 @@ function UserGetAll()
 		success: function(data, textStatus, xhr) {
 			for (var i = 0; i < data.users.length; i++) {
 				var u = new User();
-				u.ID(data.users[i].user.id);
-				u.name(data.users[i].user.name);
+				u.ID(data.users[i].id);
+				u.name(data.users[i].name);
 				users.push(u);
 			}
 		},
