@@ -8,16 +8,22 @@ function() use ($app)
 	$app->render('index.html');
 });
 
-$app->get('/',
+$app->get('/rounds',
 function() use ($app)
 {
 	$app->render('rounds.html');
 });
 
-$app->get('/',
+$app->get('/map',
 function() use ($app)
 {
 	$app->render('maps.html');
+});
+
+$app->get('/table',
+function() use ($app)
+{
+	$app->render('data-table.html');
 });
 
 $app->run();

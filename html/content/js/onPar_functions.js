@@ -7,7 +7,7 @@ $(document).ready(function()
         localStorage.removeItem('rounds');
         localStorage.setItem('name',$(this).text());
         localStorage.setItem('id', $(this).val());
-        document.location.href = '/rounds';
+        document.location.href = defines.BASE_PATH + '/rounds';
     });
     
     
@@ -21,7 +21,7 @@ $(document).ready(function()
             localStorage.removeItem('rounds');
             localStorage.setItem('name', u.name());
             localStorage.setItem('id',u.ID());       
-            document.location.href = '/rounds';             
+            document.location.href = defines.BASE_PATH + '/rounds';             
         }
     });
     
@@ -35,7 +35,7 @@ $(document).ready(function()
             rounds.push(round);
         })
         localStorage.setObject('rounds',rounds);
-        document.location.href = "/table";
+        document.location.href = defines.BASE_PATH + "/table";
     });
 
 
