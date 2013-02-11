@@ -1,13 +1,13 @@
 <!DOCTYPE html>
 <html>
-<head>  
-    <title>onPar - rounds</title>
+<head> 
+    <title>onPar - bar graph</title>
     <link rel="icon" type="image/ico" href="http://shadowrealm.cse.msstate.edu/favicon.ico">
     <link rel="stylesheet" type="text/css" media="screen" href="html/content/css/style.css">
+    <link rel="stylesheet" type="text/css" href="html/content/css/bar_graph.css" />
     <script type="text/javascript" src="html/content/js/jquery1.8.1.js"></script>
-    <script type="text/javascript" src="html/content/js/onPar_SDK.js"></script>
-    <script type="text/javascript" src="html/content/js/onPar_functions.js"></script>
-    <script> $(document).ready(function(){createRoundsMenu(); currentlyViewing(); populateRounds();});  </script>
+    <script type="text/javascript" src="html/content/js/onPar_functions.js"></script> 
+    <script type="text/javascript" src="html/content/js/bar_graph.js"></script>
 </head>
 
 <body>
@@ -27,9 +27,20 @@
           <img src="html/content/images/2008_MSU_logo_web_text_mont.png" alt="">
         </div>
 
-         <nav id="nav">  
+        <nav>
+            <ul>
+                <li><a href="/">home</a></li>
+                <li><a href="/rounds">rounds</a></li>
+                <li><a href="/table">table</a></li>
+                <li class="selected_tab"><a>graphs</a>
+                  <ul>
+                      <li><a href="/vector">spread</a></li>
+                      <li><a href="/bar">distance</a></li>
+                  </ul>
+                </li>
+                <li><a href="/map">maps</a></li>        
+            </ul>    
          </nav>
-
 
 
          <ul id="change_golfer">
@@ -56,15 +67,27 @@
     <!--==============================content================================-->
     
     <div class="content">
-        <br/><br/>please choose up to 10 rounds you wish to evaluate.<br/><br/>
-        
-        <div id="date_list">
-        </div>
-        
-        <button id="submit">submit</button>
+        <div class="graph_content">
 
-        
-        
+            <div class="view_tabs">
+                <ul>
+                    <li id="v1" class="selected_tab">wood</li>
+                    <li id="v2">hybrid</li>
+                    <li id="v3">iron</li>
+                    <li id="v4">wedge</li>           
+                </ul>      
+            </div>
+            
+            <div class="round_title">rounds</div>
+            
+            <div class="round_tabs">
+            </div>
+
+
+            <div id="graphContainer"></div>
+
+
+        </div>
     </div>
     
     

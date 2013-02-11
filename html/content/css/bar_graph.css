@@ -35,7 +35,7 @@
     top: -29px;
     left: 10px;
 }
-.view_tabs ul
+.view_tabs ul, .round_tabs ul
 {
     list-style-type:none;
     overflow:hidden;  
@@ -51,6 +51,38 @@
     font-size:13px;
     color: #660000;
 }
+.round_tabs li
+{
+    width: 30px;
+    margin: 1px;
+    font-size: 13px;
+    color: #660000;
+}
+.round_title
+{
+    position: absolute;
+    top: 40%;
+    left: -13%;
+    font-size: 13px;
+    font-weight: bold;
+    /* rotate left 90 */
+    -webkit-transform: rotate(-90deg);
+    -moz-transform: rotate(-90deg);   
+    -o-transform: rotate(-90deg);
+    /*    for IE -> */ 
+    filter: progid:DXImageTransform.Microsoft.BasicImage(rotation=3);
+}
+.round_tabs
+{
+    position: absolute;
+    left: -34px;
+    top: 10px;
+}
+
+
+
+
+
 #containerWood, #containerIron, #containerHybrid, #containerWedge 
 {
     display: block;
