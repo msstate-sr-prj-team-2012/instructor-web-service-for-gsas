@@ -1,6 +1,7 @@
 var defines = {}
 defines.API_USERNAME = 'cse3213';
 defines.API_PASSWORD = 'test';
+defines.BASE_PATH = '/gsas';
 defines.AGGIES = 1;
 defines.MAROONS = 2;
 defines.COWBELLS = 3;
