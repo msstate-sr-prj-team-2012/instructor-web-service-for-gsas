@@ -1385,19 +1385,17 @@ function RoundGetAllTest(data)
 
 	if (data) {
 		this.userID = data;
-		this.url = "http://shadowrealm.cse.msstate.edu/API-Dev/rounds/user/" + this.userID + "/";
+		this.url = "API/rounds/user/" + this.userID + "/";
 		this.next();
 	} else {
 		this.userID = null;
-		this.url = "http://shadowrealm.cse.msstate.edu/API-Dev/rounds/all/";
+		this.url = "API/rounds/all/";
 		this.next();
 	}
 }
 
-RoundGetAllTest.prototype.next = function(data)
+RoundGetAllTest.prototype.next = function()
 {
-	if (typeof(data) === 'undefined') return false;
-
 	if (this.nextPage) {
 		var self = this;
 
@@ -1425,64 +1423,4 @@ RoundGetAllTest.prototype.next = function(data)
 			}
 		});
 	}
-}
-
-function RoundGetAll(data)
-{
-	if (typeof(data) === 'undefined') data = null;
-
-	var rounds = new Array();
-
-	if (data) {
-		$.ajax({
-			accepts: "application/json",
-			async: false,
-			dataType: "json",
-			url: "API/rounds/user/" + data,
-			type: "GET",
-			username: defines.API_USERNAME,
-			password: defines.API_PASSWORD,
-			success: function(data, textStatus, xhr) {
-				if (xhr.status == 204) {
-					ret = false;
-					alert('This user does not exist');
-				} else {
-					for (var i = 0; i < data.rounds.length; i++) {
-						var r = new Round();
-
-						r.loadByJSON(data.rounds[i]);
-
-						rounds.push(r);
-					}
-				}
-			},
-			error: function(data, textStatus, xhr) {
-				ajaxErrorHandler('roundGetAllByUser', data, textStatus, xhr);
-			}
-		});
-	} else {
-		$.ajax({
-			accepts: "application/json",
-			async: false,
-			dataType: "json",
-			url: "API/rounds/",
-			type: "GET",
-			username: defines.API_USERNAME,
-			password: defines.API_PASSWORD,
-			success: function(data, textStatus, xhr) {
-				for (var i = 0; i < data.rounds.length; i++) {
-					var r = new Round();
-
-					r.loadByJSON(data.rounds[i]);
-
-					rounds.push(r);	
-				}
-			},
-			error: function(data, textStatus, xhr) {
-				ajaxErrorHandler('roundGetAll', data, textStatus, xhr);
-			}
-		});
-	}
-
-	return rounds;
 }
