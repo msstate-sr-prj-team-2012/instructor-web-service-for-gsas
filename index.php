@@ -23,7 +23,19 @@ function() use ($app)
 $app->get('/table',
 function() use ($app)
 {
-	$app->render('data-table.html');
+	$app->render('data_table.html');
+});
+
+$app->get('/spread',
+function() use ($app)
+{
+	$app->render('vector_graph.html');
+});
+
+$app->get('/distance',
+function() use ($app)
+{
+	$app->render('bar_graph.html');
 });
 
 $app->run();

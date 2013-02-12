@@ -1,9 +1,10 @@
 <!DOCTYPE html>
 <html>
-<head>  
-    <title>onPar - rounds</title>
+<head>
+    <title>onPar - spread</title>
     <link rel="icon" type="image/ico" href="http://shadowrealm.cse.msstate.edu/favicon.ico">
     <link rel="stylesheet" type="text/css" media="screen" href="html/content/css/style.css">
+    <link rel="stylesheet" type="text/css" media="screen" href="html/content/css/maps.css"> 
     <script type="text/javascript" src="html/content/js/jquery1.8.1.js"></script>
     <script type="text/javascript" src="html/content/js/onPar_SDK.js"></script>
     <script type="text/javascript" src="html/content/js/onPar_functions.js"></script>
@@ -18,15 +19,27 @@
 
    <header> 
 
-        <img src="html/content/images/logo.png" alt="" class="site-logo">
+        <img src="images/logo.png" alt="" class="site-logo">
         <h1> onPar </h1>
 
 
         <div class="organization-logo">
-          <img src="html/content/images/2008_MSU_logo_web_text_mont.png" alt="">
+          <img src="images/2008_MSU_logo_web_text_mont.png" alt="">
         </div>
 
-         <nav id="nav">  
+        <nav>
+            <ul>
+                <li><a href="/">home</a></li>
+                <li><a href="/rounds">rounds</a></li>
+                <li><a href="/table">table</a></li>
+                <li class="selected_tab"><a>graphs</a>
+                  <ul>
+                      <li><a href="/vector">spread</a></li>
+                      <li><a href="/bar">distance</a></li>
+                  </ul>
+                </li>
+                <li><a href="/map">maps</a></li>        
+            </ul>    
          </nav>
 
 
@@ -41,7 +54,7 @@
                         <select id="select_field">
                             <option value="" disabled selected>select golfer...</option>
                         </select>
-                  </li> 
+                  </li>
               </ul>
             </li>
         </ul>
@@ -55,14 +68,7 @@
     <!--==============================content================================-->
     
     <div class="content">
-        <br/><br/>please choose up to 10 rounds you wish to evaluate.<br/><br/>
-        
-        <div id="date_list">
-        </div>
-        
-        <div id="buttons">
-        </div>
- 
+
     </div>
     
     

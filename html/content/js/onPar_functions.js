@@ -22,7 +22,7 @@ $(document).ready(function()
                 return;
             }            
             var u = new User($(this).val());
-            if(u === '')
+            if(u === null || u === '')
             {
                 alert("Invalid member id or email.\n Please try again.");
                 return;
@@ -59,11 +59,11 @@ $(document).ready(function()
     });
     
 
-//    $(document).on("click", "#more", function()
-//    {
-//        rounds.roundsClass.next();
-//        rounds.output();
-//    });
+    $(document).on("click", "#more", function()
+    {
+        rounds.roundsClass.next();
+        rounds.output();
+    });
 
 
     if(typeof(Storage) === "undefined")
@@ -74,27 +74,23 @@ $(document).ready(function()
     }
         
 
-    
-    /* conditional statements determine which functions are executed
-     * pathnames need to be verified
-     * 
-    if(window.location.pathname; === '/')
+    var rounds;
+    if(window.location.pathname === '/gsas/')
     {
         createHomeMenu();
     }
-    if(window.location.pathname; === '/rounds')
+    if(window.location.pathname === '/gsas/rounds')
     {
-        createRoundsMenu();
-        var rounds = new Rounds();
+        createRoundsMenu();     
         currentlyViewing();
+        rounds = new Rounds();
     }
     else
     {
         createRoundTabs();
         currentlyViewing();
-    }*/
+    }
    populateSelectField();
-    
     
     
 });
@@ -109,7 +105,6 @@ function populateSelectField()
         document.getElementById("select_field").add(new Option(users[i].name, users[i].ID));
     }
 }
-
 
 
 function createHomeMenu()
@@ -149,7 +144,6 @@ function createHomeMenu()
         "</ul>\n";
     }
 } 
-
 
 
 function createRoundsMenu()
@@ -203,7 +197,7 @@ function currentlyViewing()
     }        
     else
     {
-        document.getElementById("currently_viewing").innerHTML= "<span>currently viewing:</span>" + memberName;
+        document.getElementById("currently_viewing").innerHTML= "<span>currently viewing: </span>" + memberName;
     }
 
 }
@@ -226,8 +220,8 @@ Rounds.prototype.output = function()
     var html = '';
     for (var i = 0; i < this.roundClass.rounds.length; i++) 
     {
-        html += "<input type=\"checkbox\" value='" + this.roundClass.rounds[i].ID + "'>" +          
-            this.roundClass.rounds[i].startTime + "<br/>\n";
+        html += "<label><input type=\"checkbox\" value='" + this.roundClass.rounds[i].ID + "'> " +          
+            this.roundClass.rounds[i].startTime + "</label><br/>\n";
     }
     $("#date_list").append(html);
     this.show();
@@ -239,19 +233,12 @@ Rounds.prototype.show = function()
     if (this.roundClass.nextPage) 
     {
         document.getElementById('buttons').innerHTML = 
-            "<button id=\"submit\">submit</button><button id=\"more\ onclick=\"more(rounds)\">view more</button>";
+            "<button id=\"submit\">submit</button><button id=\"more\">view more</button>";
     }
     else
     {
         document.getElementById('buttons').innerHTML = "<button id=\"submit\">submit</button>";
     }
-}
-
-
-function more(rounds)
-{
-    rounds.roundClass.next();
-    rounds.output();
 }
 
 

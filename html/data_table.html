@@ -1,17 +1,17 @@
 <!DOCTYPE html>
-<html>
-<head>  
-    <title>onPar - rounds</title>
+<html lang="en">
+<head>
+    <title>onPar - table</title>
     <link rel="icon" type="image/ico" href="http://shadowrealm.cse.msstate.edu/favicon.ico">
     <link rel="stylesheet" type="text/css" media="screen" href="html/content/css/style.css">
+    <link rel="stylesheet" type="text/css" media="screen" href="html/content/css/maps.css"> 
     <script type="text/javascript" src="html/content/js/jquery1.8.1.js"></script>
     <script type="text/javascript" src="html/content/js/onPar_SDK.js"></script>
     <script type="text/javascript" src="html/content/js/onPar_functions.js"></script>
 </head>
-
 <body>
-
-<div id="page-wrap">
+    
+ <div id="page-wrap">
 
     
     <!--==============================header=================================-->
@@ -26,9 +26,19 @@
           <img src="html/content/images/2008_MSU_logo_web_text_mont.png" alt="">
         </div>
 
-         <nav id="nav">  
+         <nav>
+            <ul>
+                <li><a href="index.html">home</a></li>
+                <li><a>graphs</a>
+                  <ul>
+                      <li><a href="vector_graph.html">vector</a></li>
+                      <li><a href="bar_graph.html">bar</a></li>
+                  </ul>
+                </li>
+                <li><a href="maps.html">maps</a></li>
+                <li class="selected_tab"><a href="data_table.html">table</a></li>
+            </ul>    
          </nav>
-
 
 
          <ul id="change_golfer">
@@ -41,7 +51,7 @@
                         <select id="select_field">
                             <option value="" disabled selected>select golfer...</option>
                         </select>
-                  </li> 
+                  </li>
               </ul>
             </li>
         </ul>
@@ -50,29 +60,26 @@
 
 
    </header>
-       
-    
-    <!--==============================content================================-->
-    
-    <div class="content">
-        <br/><br/>please choose up to 10 rounds you wish to evaluate.<br/><br/>
-        
-        <div id="date_list">
+
+        <!--==============================content================================-->
+
+        <div class="content">
+
         </div>
-        
-        <div id="buttons">
-        </div>
+
+
+        <!--==============================footer=================================-->
  
-    </div>
-    
-    
-    <!--==============================footer=================================-->
+        <footer>
+            2013 onPar 
+        </footer>
 
-    <footer>
-        2013 onPar 
-    </footer>  
+</div>   
+ 
 
-</div>
+
+
+
 
 </body>
 </html>
