@@ -19,8 +19,8 @@ $(document).ready(function()
             
             var u = new User($(this).val());
             localStorage.removeItem('rounds');
-            localStorage.setItem('userName', u.name());
-            localStorage.setItem('userID',u.ID());       
+            localStorage.setItem('userName', u.name);
+            localStorage.setItem('userID',u.ID);       
             document.location.href = defines.BASE_PATH + '/rounds';          
         }
     });
