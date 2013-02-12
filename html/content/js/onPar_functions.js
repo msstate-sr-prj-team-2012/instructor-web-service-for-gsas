@@ -5,11 +5,8 @@ $(document).ready(function()
     $("#select_field").change(function()
     {
         localStorage.removeItem('rounds');
-
-        var u = new User($(this).val());
-
-        localStorage.setItem('userName', u.name());
-        localStorage.setItem('userID', u.ID());
+        localStorage.setItem('userName', $("option[value='" + $(this).val() + "']").text());
+        localStorage.setItem('userID', $(this).val());
         document.location.href = defines.BASE_PATH + '/rounds';
     });
     
