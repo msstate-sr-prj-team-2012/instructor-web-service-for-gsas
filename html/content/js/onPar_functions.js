@@ -250,7 +250,7 @@ Rounds.prototype.show = function()
 
 function more(rounds)
 {
-    rounds.roundsClass.next();
+    rounds.roundClass.next();
     rounds.output();
 }
 
