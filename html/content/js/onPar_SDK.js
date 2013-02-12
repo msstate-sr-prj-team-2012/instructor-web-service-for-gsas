@@ -625,14 +625,14 @@ Round.prototype.loadByJSON = function(data)
 	u.name = data.round.user.user.name;
 	u.email = data.round.user.user.email;
 	u.stats = data.round.user.user.stats;
-	this.user(u);
+	this.user = u;
 
 	// create a new course for the course attribute
 	var c = new Course();
 	c.ID = data.round.course.course.id;
 	c.name = data.round.course.course.name;
 	c.location = data.round.course.course.location;
-	this.course(c);
+	this.course = c;
 
 	this.totalScore = data.round.totalScore;
 	this.teeID = data.round.teeID;
