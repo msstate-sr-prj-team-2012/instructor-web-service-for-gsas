@@ -187,7 +187,7 @@ function createRoundTabs()
     var html = '<ul>\n';
     for (var i = 0; i < rounds.length; i++)
     {
-        html += "<li id=\'" + rounds[i].ID() + "'\">" + rounds[i].startTime() + "</li>\n";
+        html += "<li id=\'" + rounds[i].ID + "'\">" + rounds[i].startTime + "</li>\n";
     }
     html += "</ul>\n";
     document.getElementByClassName("round_tabs").innerHTML = html;
@@ -226,8 +226,8 @@ Rounds.prototype.output = function()
     var html = '';
     for (var i = 0; i < this.roundClass.rounds.length; i++) 
     {
-        html += "<input type=\"checkbox\" value='" + this.roundClass.rounds[i].ID() + "'>" +          
-            this.roundClass.rounds[i].startTime() + "<br/>\n";
+        html += "<input type=\"checkbox\" value='" + this.roundClass.rounds[i].ID + "'>" +          
+            this.roundClass.rounds[i].startTime + "<br/>\n";
     }
     $("#date_list").append(html);
     this.show();
