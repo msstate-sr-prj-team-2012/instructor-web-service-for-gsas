@@ -106,7 +106,7 @@ function populateSelectField()
     var users = UserGetAll();
     for(var i = 0; i < users.length; i++)
     {
-        document.getElementById("select_field").add(new Option(users[i].name(), users[i].ID()));
+        document.getElementById("select_field").add(new Option(users[i].name, users[i].ID));
     }
 }
 
