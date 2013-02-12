@@ -16,8 +16,17 @@ $(document).ready(function()
         if (e.which == 13) 
         {
             e.preventDefault();
-            
+            if($(this).val() === '') 
+            {
+                alert("Please enter a member id or email.");
+                return;
+            }            
             var u = new User($(this).val());
+            if(u === '')
+            {
+                alert("Invalid member id or email.\n Please try again.");
+                return;
+            }
             localStorage.removeItem('rounds');
             localStorage.setItem('userName', u.name);
             localStorage.setItem('userID',u.ID);       
@@ -28,6 +37,18 @@ $(document).ready(function()
 
     $(document).on("click", "#submit", function()
     {
+        if($("input:checkbox:checked").length === 0)
+        {
+            alert("Please select at least one date to continue.");
+            return;
+        }
+        if($("input:checkbox:checked").length > 10)
+        {
+            alert("You have selected " + $("input:checkbox:checked").length + " rounds.\n" +
+            "A maximum of 10 rounds is allowed.");
+            return;
+        }
+        
         var rounds = [];
         $("input:checkbox:checked").each(function()
         {
@@ -37,7 +58,7 @@ $(document).ready(function()
         document.location.href = defines.BASE_PATH + '/table';
     });
     
-    
+    var rounds = '';
     $(document).on("click", "#more", function()
     {
         rounds.roundsClass.next();
