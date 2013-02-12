@@ -5,8 +5,11 @@ $(document).ready(function()
     $("#select_field").change(function()
     {
         localStorage.removeItem('rounds');
-        localStorage.setItem('userName',$(this).text());
-        localStorage.setItem('userID', $(this).val());
+
+        var u = new User($(this).val());
+
+        localStorage.setItem('userName', u.name());
+        localStorage.setItem('userID', u.ID());
         document.location.href = defines.BASE_PATH + '/rounds';
     });
     
@@ -200,7 +203,7 @@ function Rounds()
 }
 
 
-rounds.prototype.output = function()
+Rounds.prototype.output = function()
 {
     var html = '';
     for (var i = 0; i < this.roundClass.rounds.length; i++) 
@@ -213,7 +216,7 @@ rounds.prototype.output = function()
 }
 
 
-rounds.prototype.show = function()
+Rounds.prototype.show = function()
 {
     if (this.roundClass.nextPage) 
     {
