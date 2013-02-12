@@ -58,12 +58,12 @@ $(document).ready(function()
         document.location.href = defines.BASE_PATH + '/table';
     });
     
-    var rounds = '';
-    $(document).on("click", "#more", function()
-    {
-        rounds.roundsClass.next();
-        rounds.output();
-    });
+
+//    $(document).on("click", "#more", function()
+//    {
+//        rounds.roundsClass.next();
+//        rounds.output();
+//    });
 
 
     if(typeof(Storage) === "undefined")
@@ -239,12 +239,19 @@ Rounds.prototype.show = function()
     if (this.roundClass.nextPage) 
     {
         document.getElementById('buttons').innerHTML = 
-            "<button id=\"submit\">submit</button><button id=\"more\">view more</button>";
+            "<button id=\"submit\">submit</button><button id=\"more\ onclick=\"more(rounds)\">view more</button>";
     }
     else
     {
         document.getElementById('buttons').innerHTML = "<button id=\"submit\">submit</button>";
     }
+}
+
+
+function more(rounds)
+{
+    rounds.roundsClass.next();
+    rounds.output();
 }
 
 
