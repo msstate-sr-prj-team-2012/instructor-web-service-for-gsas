@@ -26,7 +26,7 @@ $(document).ready(function()
     });
     
 
-    $("#submit").click(function() 
+    $(document).on("click", "#submit", function()
     {
         var rounds = [];
         $("input:checkbox:checked").each(function()
@@ -38,7 +38,7 @@ $(document).ready(function()
     });
     
     
-    $("#more").click(function() 
+    $(document).on("click", "#more", function()
     {
         rounds.roundsClass.next();
         rounds.output();
