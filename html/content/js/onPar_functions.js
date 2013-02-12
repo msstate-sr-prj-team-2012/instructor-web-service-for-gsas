@@ -1,4 +1,5 @@
 
+var roundsClass;
 $(document).ready(function() 
 { 
       
@@ -61,8 +62,8 @@ $(document).ready(function()
 
     $(document).on("click", "#more", function()
     {
-        rounds.roundsClass.next();
-        rounds.output();
+        roundsClass.roundObjects.next();
+        roundsClass.output();
     });
 
 
@@ -74,7 +75,6 @@ $(document).ready(function()
     }
         
 
-    var rounds;
     if(window.location.pathname === '/gsas/')
     {
         createHomeMenu();
@@ -83,7 +83,7 @@ $(document).ready(function()
     {
         createRoundsMenu();     
         currentlyViewing();
-        rounds = new Rounds();
+        roundsClass = new Rounds();
     }
     else
     {
@@ -210,7 +210,7 @@ function currentlyViewing()
 
 function Rounds()
 {
-    this.roundClass = new RoundGetAll(localStorage.getItem('userID'));
+    this.roundObjects = new RoundGetAll(localStorage.getItem('userID'));
     this.output();
 }
 
@@ -218,10 +218,10 @@ function Rounds()
 Rounds.prototype.output = function()
 {
     var html = '';
-    for (var i = 0; i < this.roundClass.rounds.length; i++) 
+    for (var i = 0; i < this.roundObjects.rounds.length; i++) 
     {
-        html += "<label><input type=\"checkbox\" value='" + this.roundClass.rounds[i].ID + "'> " +          
-            this.roundClass.rounds[i].startTime + "</label><br/>\n";
+        html += "<label><input type=\"checkbox\" value='" + this.roundObjects.rounds[i].ID + "'> " +          
+            this.roundObjects.rounds[i].startTime + "</label><br/>\n";
     }
     $("#date_list").append(html);
     this.show();
@@ -230,7 +230,7 @@ Rounds.prototype.output = function()
 
 Rounds.prototype.show = function()
 {
-    if (this.roundClass.nextPage) 
+    if (this.roundObjects.nextPage) 
     {
         document.getElementById('buttons').innerHTML = 
             "<button id=\"submit\">submit</button><button id=\"more\">view more</button>";
