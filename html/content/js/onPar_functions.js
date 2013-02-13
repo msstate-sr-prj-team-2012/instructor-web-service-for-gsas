@@ -177,28 +177,36 @@ function createHomeMenu()
 
 function createRoundsMenu()
 {   
+    var home = defines.BASE_PATH + "/";
+    var rounds = defines.BASE_PATH + "/rounds";
+
     if(localStorage.getObject('rounds') === null)
     {
         document.getElementById("nav").innerHTML=
         "<ul>\n" +
-            "<li><a href=\"/\">home</a></li>\n" +
-            "<li class=\"selected_tab\"><a href=\"/rounds\">rounds</a></li>\n" +
+            "<li><a href=\"" + home + "\">home</a></li>\n" +
+            "<li class=\"selected_tab\"><a href=\"" + rounds + "\">rounds</a></li>\n" +
         "</ul>\n";
     }
     else
     {
+        var table = defines.BASE_PATH + "/table";
+        var spread = defines.BASE_PATH + "/spread";
+        var distance = defines.BASE_PATH + "/distance";
+        var map = defines.BASE_PATH + "/maps";
+
         document.getElementById("nav").innerHTML=
         "<ul>\n" +
-            "<li><a href=\"/\">home</a></li>\n" +
-            "<li class=\"selected_tab\"><a href=\"/rounds\">rounds</a></li>\n" +
-            "<li><a href=\"/table\">table</a></li>\n" +
+            "<li><a href=\"" + home + "\">home</a></li>\n" +
+            "<li class=\"selected_tab\"><a href=\"" + rounds + "\">rounds</a></li>\n" +
+            "<li><a href=\"" + table + "\">table</a></li>\n" +
             "<li><a>graphs</a>\n" +
                 "<ul>\n" +
-                    "<li><a href=\"/spread\">spread</a></li>\n" +
-                    "<li><a href=\"/distance\">distance</a></li>\n" +
+                    "<li><a href=\"" + spread + "\">spread</a></li>\n" +
+                    "<li><a href=\"" + distance + "\">distance</a></li>\n" +
                 "</ul>\n" +
             "</li>\n" +
-            "<li><a href=\"/map\">maps</a></li>\n" +
+            "<li><a href=\"" + map + "\">maps</a></li>\n" +
         "</ul>\n";
     }
 } 
