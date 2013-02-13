@@ -131,37 +131,45 @@ function createHomeMenu()
     var memberName = localStorage.getItem('userName');
     var rounds = localStorage.getObject('rounds');
 
-    var basePath = defines.BASE_PATH;
+    var home = defines.BASE_PATH + "/";
     
     if(rounds === null && memberName === null)
     {
         document.getElementById("nav").innerHTML=
         "<ul>\n" +
-            "<li class=\"selected_tab\"><a href=\"" + basePath + "/\">home</a></li>\n" +
+            "<li class=\"selected_tab\"><a href=\"" + home + "\">home</a></li>\n" +
         "</ul>\n";
     }
     else if(rounds === null)
     {
+        var rounds = defines.BASE_PATH + "/rounds";
+
         document.getElementById("nav").innerHTML=
         "<ul>\n" +
-            "<li class=\"selected_tab\"><a href=\"" + basePath + "/\">home</a></li>\n" +
-            "<li><a href=\"" + basePath + "/rounds\">rounds</a></li>\n" +
+            "<li class=\"selected_tab\"><a href=\"" + home + "\">home</a></li>\n" +
+            "<li><a href=\"" + rounds + "\">rounds</a></li>\n" +
         "</ul>\n";
     }
     else
     {
+        var rounds = defines.BASE_PATH + "/rounds";
+        var table = defines.BASE_PATH + "/table";
+        var spread = defines.BASE_PATH + "/spread";
+        var distance = defines.BASE_PATH + "/distance";
+        var map = defines.BASE_PATH + "/maps";
+
         document.getElementById("nav").innerHTML=
         "<ul>\n" +
-            "<li class=\"selected_tab\"><a href=\"" + basePath + "/\">home</a></li>\n" +
-            "<li><a href=\"" + basePath + "/rounds\">rounds</a></li>\n" +
-            "<li><a href=\"" + basePath + "/table\">table</a></li>\n" +
+            "<li class=\"selected_tab\"><a href=\"" + home + "\">home</a></li>\n" +
+            "<li><a href=\"" + rounds + "\">rounds</a></li>\n" +
+            "<li><a href=\"" + table + "\">table</a></li>\n" +
             "<li><a>graphs</a>\n" +
                 "<ul>\n" +
-                    "<li><a href=\"" + basePath + "/spread\">spread</a></li>\n" +
-                    "<li><a href=\"" + basePath + "/distance\">distance</a></li>\n" +
+                    "<li><a href=\"" + spread + "\">spread</a></li>\n" +
+                    "<li><a href=\"" + distance + "\">distance</a></li>\n" +
                 "</ul>\n" +
             "</li>\n" +
-            "<li><a href=\"" + basePath + "/map\">maps</a></li>\n" +
+            "<li><a href=\"" + map + "\">maps</a></li>\n" +
         "</ul>\n";
     }
 } 
