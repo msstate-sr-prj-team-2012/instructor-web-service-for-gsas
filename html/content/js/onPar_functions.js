@@ -76,7 +76,7 @@ $(document).ready(function()
     }
         
     populateSelectField();
-    if(window.location.pathname == defines.BASE_PATH)
+    if(window.location.pathname == defines.BASE_PATH + "/")
     {
         createHomeMenu();
     }
