@@ -209,10 +209,18 @@ function createRoundTabs()
 function currentlyViewing()
 {
     var memberName = localStorage.getItem('userName');
-    if(memberName === null)
+    var rounds = localStorage.getObject('rounds');
+    if(rounds === null)
+    {
+        if(window.location.pathname !== "/gsas/rounds")
+        {
+            document.location.href = defines.BASE_PATH + '/rounds';   
+        }
+    }  
+    else if (memberName === null)
     {
         document.location.href = defines.BASE_PATH + '/';
-    }        
+    }
     else
     {
         document.getElementById("currently_viewing").innerHTML= "<span>currently viewing: </span>" + memberName;
@@ -288,15 +296,15 @@ Storage.prototype.getObject = function(key)
 function createTable()
 {
     var rounds = localStorage.getObject('rounds');
-    var html = '<table style="margin-top:200px auto;border-collapse: collapse;>\n';
+    var html = '<table style="position: relative;top:40%;left:20%;border-collapse: collapse;>\n';
     for (var i = 0; i < rounds.length; i++)
     {
-        html += '<tr style="background-color:#660000; color:#fff;margin-top:20px;"><th> Round </th><th> Date </th></tr>\n';
+        html += '<tr style="color:#660000;padding-top:20px;border-bottom: 2px solid #000;"><th> Round </th><th> Date </th></tr>\n';
         html += '<tr><td>' + rounds[i].ID + '</td><td>' + rounds[i].startTime + '</td></tr>\n';
-        html += '<tr style="background-color:#660000; color:#fff;margin-left:30px"><th> Holes </th><th> Par </th><th> Shots </th><th> Score </th></tr>\n';
+        html += '<tr style="color:#660000;padding-left:30px;border-bottom: 2px solid #000;"><th> Holes </th><th> Par </th><th> Shots </th><th> Score </th></tr>\n';
         for(var x = 0; x < rounds[i].holes.length; x++)
         {
-            html += '<tr style="margin-left:30px;"><td>' + rounds[i].holes[x].holeNumber + '</td><td>' + rounds[i].holes[x].par + 
+            html += '<tr style="padding-left:30px;"><td>' + rounds[i].holes[x].holeNumber + '</td><td>' + rounds[i].holes[x].par + 
                     '</td><td>' + rounds[i].holes[x].shots.length + '</td><td>' + rounds[i].holes[x].holeScore + '</td></tr>';
         }
     }
