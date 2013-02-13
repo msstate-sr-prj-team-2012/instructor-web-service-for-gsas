@@ -281,22 +281,22 @@ Storage.prototype.getObject = function(key)
 
 /****************************************************************************
  *
- * Testing pulling info from localStorage
+ * Testing pulling info from localStorage (TEMP)
  *
  ****************************************************************************/
 
 function createTable()
 {
     var rounds = localStorage.getObject('rounds');
-    var html = '<table>\n' +
-                '<tr style="background-color:#660000; color:#fff;"><th> Round </th><th> Date </th></tr>\n';
+    var html = '<table style="margin-top:150px auto;border-collapse: collapse;>\n' +
+                '<tr style="background-color:#660000; color:#fff;margin-top:20px;"><th> Round </th><th> Date </th></tr>\n';
     for (var i = 0; i < rounds.length; i++)
     {
-        html += '<tr><td>' + rounds[i].ID + '</td><td>' + rounds[i] + '</td></tr>\n';
-        html += '<tr style="background-color:#660000; color:#fff;"><th> Holes </th><th> Par </th><th> Shots </th><th> Score </th></tr>\n';
+        html += '<tr style="margin-left:30px;"><td>' + rounds[i].ID + '</td><td>' + rounds[i].startTime + '</td></tr>\n';
+        html += '<tr style="background-color:#660000; color:#fff;margin-left:30px"><th> Holes </th><th> Par </th><th> Shots </th><th> Score </th></tr>\n';
         for(var x = 0; x < rounds[i].holes.length; x++)
         {
-            html += '<tr><td>' + rounds[i].holes[x].holeNumber + '</td><td>' + rounds[i].holes[x].par + 
+            html += '<tr style="margin-left:30px;"><td>' + rounds[i].holes[x].holeNumber + '</td><td>' + rounds[i].holes[x].par + 
                     '</td><td>' + rounds[i].holes[x].shots.length + '</td><td>' + rounds[i].holes[x].holeScore + '</td></tr>';
         }
     }
