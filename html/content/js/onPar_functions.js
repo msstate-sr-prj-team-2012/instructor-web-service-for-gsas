@@ -135,31 +135,31 @@ function createHomeMenu()
     {
         document.getElementById("nav").innerHTML=
         "<ul>\n" +
-            "<li class=\"selected_tab\"><a href=\"/\">home</a></li>\n" +
+            "<li class=\"selected_tab\"><a href=\"" + defines.BASE_PATH + "/\">home</a></li>\n" +
         "</ul>\n";
     }
     else if(rounds === null)
     {
         document.getElementById("nav").innerHTML=
         "<ul>\n" +
-            "<li class=\"selected_tab\"><a href=\"/\">home</a></li>\n" +
-            "<li><a href=\"/rounds\">rounds</a></li>\n" +
+            "<li class=\"selected_tab\"><a href=\"" + defines.BASE_PATH + "/\">home</a></li>\n" +
+            "<li><a href=\"" + defines.BASE_PATH + "/rounds\">rounds</a></li>\n" +
         "</ul>\n";
     }
     else
     {
         document.getElementById("nav").innerHTML=
         "<ul>\n" +
-            "<li class=\"selected_tab\"><a href=\"/\">home</a></li>\n" +
-            "<li><a href=\"/rounds\">rounds</a></li>\n" +
-            "<li><a href=\"/table\">table</a></li>\n" +
+            "<li class=\"selected_tab\"><a href=\"" + defines.BASE_PATH + "/\">home</a></li>\n" +
+            "<li><a href=\"" + defines.BASE_PATH + "/rounds\">rounds</a></li>\n" +
+            "<li><a href=\"" + defines.BASE_PATH + "/table\">table</a></li>\n" +
             "<li><a>graphs</a>\n" +
                 "<ul>\n" +
-                    "<li><a href=\"/spread\">spread</a></li>\n" +
-                    "<li><a href=\"/distance\">distance</a></li>\n" +
+                    "<li><a href=\"" + defines.BASE_PATH + "/spread\">spread</a></li>\n" +
+                    "<li><a href=\"" + defines.BASE_PATH + "/distance\">distance</a></li>\n" +
                 "</ul>\n" +
             "</li>\n" +
-            "<li><a href=\"/map\">maps</a></li>\n" +
+            "<li><a href=\"" + defines.BASE_PATH + "/map\">maps</a></li>\n" +
         "</ul>\n";
     }
 } 
