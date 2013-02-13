@@ -23,7 +23,8 @@ $(document).ready(function()
                 return;
             } 
             // if something invalid is input, the SDK will alert of the 
-            // invalid input           
+            // invalid input   
+            // planning to change all alerts to html messages on page to avoid obtrusive popups
             var u = new User($(this).val());
             if(u.ID != null)
             {
@@ -210,14 +211,18 @@ function currentlyViewing()
 {
     var memberName = localStorage.getItem('userName');
     var rounds = localStorage.getObject('rounds');
-    if(rounds === null)
+    if(rounds == null)
     {
-        if(window.location.pathname !== "/gsas/rounds")
+        if(window.location.pathname === "/gsas/rounds")
         {
-            document.location.href = defines.BASE_PATH + '/rounds';   
+            document.getElementById("currently_viewing").innerHTML= "<span>currently viewing: </span>" + memberName;
+        }
+        else
+        {
+            document.location.href = defines.BASE_PATH + '/rounds';
         }
     }  
-    else if (memberName === null)
+    else if (memberName == null)
     {
         document.location.href = defines.BASE_PATH + '/';
     }
@@ -297,10 +302,10 @@ Storage.prototype.getObject = function(key)
 function createTable()
 {
     var rounds = localStorage.getObject('rounds');
-    var html = '<div style="position: relative;top:250px;';
+    var html = '<div style="position: relative;top:100px;">\n';
     for (var i = 0; i < rounds.length; i++)
     {
-        html += '<table border-collapse: collapse;border-spacing: 10px;border-top: 50px transparent solid;>\n';
+        html += '<table style="border-collapse: collapse;border-spacing: 10px;border-top: 50px transparent solid;">\n';
         html += '<tr style="color:#660000;padding-top:20px;border-bottom: 1px solid #000;"><th> Round </th><th> Date </th></tr>\n';
         html += '<tr><td>' + rounds[i].ID + '</td><td>' + rounds[i].startTime + '</td></tr>\n';
         html += '<tr style="color:#660000;border-bottom: 1px solid #000;border-left: 40px transparent solid; border-top: 10px transparent solid;"><th> Holes </th><th> Par </th><th> Shots </th><th> Score </th></tr>\n';
