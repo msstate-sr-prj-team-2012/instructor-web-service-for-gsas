@@ -74,23 +74,32 @@ $(document).ready(function()
         window.open("https://www.google.com/intl/en/chrome/browser/");
     }
         
-
-    if(window.location.pathname === '/gsas/')
+    populateSelectField();
+    if(window.location.pathname == "/gsas/")
     {
         createHomeMenu();
     }
-    if(window.location.pathname === '/gsas/rounds')
+    else if(window.location.pathname == "/gsas/rounds")
     {
         createRoundsMenu();     
         currentlyViewing();
         roundsClass = new Rounds();
     }
-    else
+    else if(window.location.pathname == "/gsas/maps")
     {
         createRoundTabs();
         currentlyViewing();
     }
-   populateSelectField();
+    else if(window.location.pathname == "/gsas/table")
+    {
+        createTable();
+        currentlyViewing();
+    }
+    else
+    {
+        currentlyViewing();
+    }
+   
     
     
 });
@@ -258,4 +267,30 @@ Storage.prototype.getObject = function(key)
 {
     var value = this.getItem(key);
     return value && JSON.parse(value);
+}
+
+
+/****************************************************************************
+ *
+ * Testing pulling info from localStorage
+ *
+ ****************************************************************************/
+
+function createTable()
+{
+    var rounds = localStorage.getObject('rounds');
+    var html = '<table>\n' +
+                '<tr style="background-color:#660000; color:#fff;"><th> Round </th><th> Date </th></tr>\n';
+    for (var i = 0; i < rounds.length; i++)
+    {
+        html += '<tr><td>' + rounds[i].ID + '</td><td>' + rounds[i] + '</td></tr>\n';
+        html += '<tr style="background-color:#660000; color:#fff;"><th> Holes </th><th> <th> Par </th> Shots <th></th> Score <th></th>\n';
+        for(var x = 0; x < rounds.holes.length; x++)
+        {
+            html += '<tr><td>' + rounds[i].holes[x].holeNumber + '</td><td>' + rounds[i].holes[x].par + 
+                    '</td><td>' + rounds[i].holes[x].shots.length + '</td><td>' + rounds[i].holes[x].holeScore + '</td></tr>';
+        }
+    }
+    html += '</table>\n';
+    document.getElementById('content').innerHTML = html;
 }
