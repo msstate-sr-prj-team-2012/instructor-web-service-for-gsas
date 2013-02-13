@@ -79,32 +79,32 @@ $(document).ready(function()
     {
         createHomeMenu();
     }
-    if(window.location.pathname === "/gsas/rounds")
+    else if(window.location.pathname === "/gsas/rounds")
     {
         createRoundsMenu();     
         currentlyViewing();
         roundsClass = new Rounds();
     }
-    if(window.location.pathname === "/gsas/maps")
+    else if(window.location.pathname === "/gsas/maps")
     {
         createRoundTabs();
         currentlyViewing();
     }
-    if(window.location.pathname === "/gsas/table")
+    else if(window.location.pathname === "/gsas/table")
     {
         createTable();
         currentlyViewing();
     }
-    if(window.location.pathname === "/gsas/spread")
+    else if(window.location.pathname === "/gsas/spread")
     {
         currentlyViewing();
     }
-    if(window.location.pathname === "/gsas/distance")
+    else if(window.location.pathname === "/gsas/distance")
     {
         createRoundsTabs();
         currentlyViewing();
     }
-    if(window.location.pathname === "/gsas/stats")
+    else if(window.location.pathname === "/gsas/stats")
     {
         currentlyViewing();
     }
