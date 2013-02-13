@@ -76,36 +76,36 @@ $(document).ready(function()
     }
         
     populateSelectField();
-    if(window.location.pathname == "/gsas/")
+    if(window.location.pathname == defines.BASE_PATH)
     {
         createHomeMenu();
     }
-    else if(window.location.pathname === "/gsas/rounds")
+    else if(window.location.pathname === defines.BASE_PATH + "/rounds")
     {
-        createRoundsMenu();     
         currentlyViewing();
+        createRoundsMenu();     
         roundsClass = new Rounds();
     }
-    else if(window.location.pathname === "/gsas/maps")
+    else if(window.location.pathname === defines.BASE_PATH + "/maps")
     {
+        currentlyViewing();
         createRoundTabs();
-        currentlyViewing();
     }
-    else if(window.location.pathname === "/gsas/table")
+    else if(window.location.pathname === defines.BASE_PATH + "/table")
     {
+        currentlyViewing();
         createTable();
-        currentlyViewing();
     }
-    else if(window.location.pathname === "/gsas/spread")
+    else if(window.location.pathname === defines.BASE_PATH + "/spread")
     {
         currentlyViewing();
     }
-    else if(window.location.pathname === "/gsas/distance")
+    else if(window.location.pathname === defines.BASE_PATH + "/distance")
     {
+        currentlyViewing();
         createRoundsTabs();
-        currentlyViewing();
     }
-    else if(window.location.pathname === "/gsas/stats")
+    else if(window.location.pathname === defines.BASE_PATH + "/stats")
     {
         currentlyViewing();
     }
@@ -211,9 +211,13 @@ function currentlyViewing()
 {
     var memberName = localStorage.getItem('userName');
     var rounds = localStorage.getObject('rounds');
-    if(rounds == null)
+    if (memberName == null)
     {
-        if(window.location.pathname === "/gsas/rounds")
+        document.location.href = defines.BASE_PATH + '/';
+    }
+    else if(rounds == null)
+    {
+        if(window.location.pathname === defines.BASE_PATH + "/rounds")
         {
             document.getElementById("currently_viewing").innerHTML= "<span>currently viewing: </span>" + memberName;
         }
@@ -222,10 +226,6 @@ function currentlyViewing()
             document.location.href = defines.BASE_PATH + '/rounds';
         }
     }  
-    else if (memberName == null)
-    {
-        document.location.href = defines.BASE_PATH + '/';
-    }
     else
     {
         document.getElementById("currently_viewing").innerHTML= "<span>currently viewing: </span>" + memberName;
