@@ -294,7 +294,7 @@ function createTable()
     {
         html += '<tr><td>' + rounds[i].ID + '</td><td>' + rounds[i] + '</td></tr>\n';
         html += '<tr style="background-color:#660000; color:#fff;"><th> Holes </th><th> Par </th><th> Shots </th><th> Score </th></tr>\n';
-        for(var x = 0; x < rounds.holes.length; x++)
+        for(var x = 0; x < rounds[i].holes.length; x++)
         {
             html += '<tr><td>' + rounds[i].holes[x].holeNumber + '</td><td>' + rounds[i].holes[x].par + 
                     '</td><td>' + rounds[i].holes[x].shots.length + '</td><td>' + rounds[i].holes[x].holeScore + '</td></tr>';
