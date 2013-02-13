@@ -76,44 +76,117 @@ $(document).ready(function()
     }
         
     populateSelectField();
+    createNavigationMenu();
     if(window.location.pathname == defines.BASE_PATH + "/")
     {
-        createHomeMenu();
+//        createHomeMenu();
+        document.getElementById('home').className += ' selected_tab'; 
     }
     else if(window.location.pathname === defines.BASE_PATH + "/rounds")
     {
         currentlyViewing();
-        createRoundsMenu();     
+//        createRoundsMenu();     
         roundsClass = new Rounds();
+        document.getElementById('round').className += ' selected_tab'; 
     }
-    else if(window.location.pathname === defines.BASE_PATH + "/maps")
+    else if(window.location.pathname === defines.BASE_PATH + "/map")
     {
         currentlyViewing();
         createRoundTabs();
+        document.getElementById('map').className += ' selected_tab'; 
     }
     else if(window.location.pathname === defines.BASE_PATH + "/table")
     {
         currentlyViewing();
         createTable();
+        document.getElementById('table').className += ' selected_tab'; 
     }
     else if(window.location.pathname === defines.BASE_PATH + "/spread")
     {
         currentlyViewing();
+        document.getElementById('graphs').className += ' selected_tab'; 
     }
     else if(window.location.pathname === defines.BASE_PATH + "/distance")
     {
         currentlyViewing();
         createRoundsTabs();
+        document.getElementById('graphs').className += ' selected_tab'; 
     }
     else if(window.location.pathname === defines.BASE_PATH + "/stats")
     {
         currentlyViewing();
+        document.getElementById('stats').className += ' selected_tab'; 
     }
    
     
     
 });
 
+
+function createNavigationMenu()
+{
+    var memberName = localStorage.getItem('userName');
+    var rounds = localStorage.getObject('rounds');
+    
+    var home = defines.BASE_PATH + "/";
+    var round = defines.BASE_PATH + "/rounds";
+    var table = defines.BASE_PATH + "/table";
+    var spread = defines.BASE_PATH + "/spread";
+    var distance = defines.BASE_PATH + "/distance";
+    var map = defines.BASE_PATH + "/map";
+    var stats = defines.BASE_PATH + "/stats";
+    
+    if(rounds === null && memberName === null)
+    {
+        if(window.location.pathname !== "/gsas/")
+        {
+            document.location.href = defines.BASE_PATH + '/';
+        }
+        else
+        {
+            document.getElementById("nav").innerHTML=
+            "<ul>\n" +
+                "<li id='home'><a href=\"" + home + "\">home</a></li>\n" +
+            "</ul>\n";
+        }
+    
+        
+    }
+    else if(rounds === null)
+    {
+        if(window.location.pathname !== "/gsas/" || window.location.pathname !== "/gsas/rounds")
+        {
+            document.location.href = defines.BASE_PATH + '/rounds';
+        }
+        else
+        {
+            document.getElementById("nav").innerHTML=
+            "<ul>\n" +
+                "<li id='home'><a href=\"" + home + "\">home</a></li>\n" +
+                "<li id='round'><a href=\"" + round + "\">rounds</a></li>\n" +
+            "</ul>\n";
+        }
+    
+        
+    }
+    else
+    {   
+        document.getElementById("nav").innerHTML=
+            "<ul>\n" +
+                "<li id='home'><a href=\"" + home + "\">home</a></li>\n" +
+                "<li id='round'><a href=\"" + round + "\">rounds</a></li>\n" +
+                "<li id='table'><a href=\"" + table + "\">table</a></li>\n" +
+                "<li id='graphs'><a>graphs</a>\n" +
+                    "<ul>\n" +
+                        "<li><a href=\"" + spread + "\">spread</a></li>\n" +
+                        "<li><a href=\"" + distance + "\">distance</a></li>\n" +
+                    "</ul>\n" +
+                "</li>\n" +
+                "<li id='map'><a href=\"" + map + "\">maps</a></li>\n" +
+                "<li id='stats'><a href=\"" + stats + "\">maps</a></li>\n" +
+            "</ul>\n";
+    }
+}
 
 
 function populateSelectField()
@@ -124,92 +197,92 @@ function populateSelectField()
         document.getElementById("select_field").add(new Option(users[i].name, users[i].ID));
     }
 }
-
-
-function createHomeMenu()
-{
-    var memberName = localStorage.getItem('userName');
-    var rounds = localStorage.getObject('rounds');
-
-    var home = defines.BASE_PATH + "/";
-    
-    if(rounds === null && memberName === null)
-    {
-        document.getElementById("nav").innerHTML=
-        "<ul>\n" +
-            "<li class=\"selected_tab\"><a href=\"" + home + "\">home</a></li>\n" +
-        "</ul>\n";
-    }
-    else if(rounds === null)
-    {
-        var rounds = defines.BASE_PATH + "/rounds";
-
-        document.getElementById("nav").innerHTML=
-        "<ul>\n" +
-            "<li class=\"selected_tab\"><a href=\"" + home + "\">home</a></li>\n" +
-            "<li><a href=\"" + rounds + "\">rounds</a></li>\n" +
-        "</ul>\n";
-    }
-    else
-    {
-        var rounds = defines.BASE_PATH + "/rounds";
-        var table = defines.BASE_PATH + "/table";
-        var spread = defines.BASE_PATH + "/spread";
-        var distance = defines.BASE_PATH + "/distance";
-        var map = defines.BASE_PATH + "/map";
-
-        document.getElementById("nav").innerHTML=
-        "<ul>\n" +
-            "<li class=\"selected_tab\"><a href=\"" + home + "\">home</a></li>\n" +
-            "<li><a href=\"" + rounds + "\">rounds</a></li>\n" +
-            "<li><a href=\"" + table + "\">table</a></li>\n" +
-            "<li><a>graphs</a>\n" +
-                "<ul>\n" +
-                    "<li><a href=\"" + spread + "\">spread</a></li>\n" +
-                    "<li><a href=\"" + distance + "\">distance</a></li>\n" +
-                "</ul>\n" +
-            "</li>\n" +
-            "<li><a href=\"" + map + "\">maps</a></li>\n" +
-        "</ul>\n";
-    }
-} 
-
-
-function createRoundsMenu()
-{   
-    var home = defines.BASE_PATH + "/";
-    var rounds = defines.BASE_PATH + "/rounds";
-
-    if(localStorage.getObject('rounds') === null)
-    {
-        document.getElementById("nav").innerHTML=
-        "<ul>\n" +
-            "<li><a href=\"" + home + "\">home</a></li>\n" +
-            "<li class=\"selected_tab\"><a href=\"" + rounds + "\">rounds</a></li>\n" +
-        "</ul>\n";
-    }
-    else
-    {
-        var table = defines.BASE_PATH + "/table";
-        var spread = defines.BASE_PATH + "/spread";
-        var distance = defines.BASE_PATH + "/distance";
-        var map = defines.BASE_PATH + "/map";
-
-        document.getElementById("nav").innerHTML=
-        "<ul>\n" +
-            "<li><a href=\"" + home + "\">home</a></li>\n" +
-            "<li class=\"selected_tab\"><a href=\"" + rounds + "\">rounds</a></li>\n" +
-            "<li><a href=\"" + table + "\">table</a></li>\n" +
-            "<li><a>graphs</a>\n" +
-                "<ul>\n" +
-                    "<li><a href=\"" + spread + "\">spread</a></li>\n" +
-                    "<li><a href=\"" + distance + "\">distance</a></li>\n" +
-                "</ul>\n" +
-            "</li>\n" +
-            "<li><a href=\"" + map + "\">maps</a></li>\n" +
-        "</ul>\n";
-    }
-} 
+//
+//
+//function createHomeMenu()
+//{
+//    var memberName = localStorage.getItem('userName');
+//    var rounds = localStorage.getObject('rounds');
+//
+//    var home = defines.BASE_PATH + "/";
+//    
+//    if(rounds === null && memberName === null)
+//    {
+//        document.getElementById("nav").innerHTML=
+//        "<ul>\n" +
+//            "<li class=\"selected_tab\"><a href=\"" + home + "\">home</a></li>\n" +
+//        "</ul>\n";
+//    }
+//    else if(rounds === null)
+//    {
+//        var rounds = defines.BASE_PATH + "/rounds";
+//
+//        document.getElementById("nav").innerHTML=
+//        "<ul>\n" +
+//            "<li class=\"selected_tab\"><a href=\"" + home + "\">home</a></li>\n" +
+//            "<li><a href=\"" + rounds + "\">rounds</a></li>\n" +
+//        "</ul>\n";
+//    }
+//    else
+//    {
+//        var rounds = defines.BASE_PATH + "/rounds";
+//        var table = defines.BASE_PATH + "/table";
+//        var spread = defines.BASE_PATH + "/spread";
+//        var distance = defines.BASE_PATH + "/distance";
+//        var map = defines.BASE_PATH + "/map";
+//
+//        document.getElementById("nav").innerHTML=
+//        "<ul>\n" +
+//            "<li class=\"selected_tab\"><a href=\"" + home + "\">home</a></li>\n" +
+//            "<li><a href=\"" + rounds + "\">rounds</a></li>\n" +
+//            "<li><a href=\"" + table + "\">table</a></li>\n" +
+//            "<li><a>graphs</a>\n" +
+//                "<ul>\n" +
+//                    "<li><a href=\"" + spread + "\">spread</a></li>\n" +
+//                    "<li><a href=\"" + distance + "\">distance</a></li>\n" +
+//                "</ul>\n" +
+//            "</li>\n" +
+//            "<li><a href=\"" + map + "\">maps</a></li>\n" +
+//        "</ul>\n";
+//    }
+//} 
+//
+//
+//function createRoundsMenu()
+//{   
+//    var home = defines.BASE_PATH + "/";
+//    var rounds = defines.BASE_PATH + "/rounds";
+//
+//    if(localStorage.getObject('rounds') === null)
+//    {
+//        document.getElementById("nav").innerHTML=
+//        "<ul>\n" +
+//            "<li><a href=\"" + home + "\">home</a></li>\n" +
+//            "<li class=\"selected_tab\"><a href=\"" + rounds + "\">rounds</a></li>\n" +
+//        "</ul>\n";
+//    }
+//    else
+//    {
+//        var table = defines.BASE_PATH + "/table";
+//        var spread = defines.BASE_PATH + "/spread";
+//        var distance = defines.BASE_PATH + "/distance";
+//        var map = defines.BASE_PATH + "/map";
+//
+//        document.getElementById("nav").innerHTML=
+//        "<ul>\n" +
+//            "<li><a href=\"" + home + "\">home</a></li>\n" +
+//            "<li class=\"selected_tab\"><a href=\"" + rounds + "\">rounds</a></li>\n" +
+//            "<li><a href=\"" + table + "\">table</a></li>\n" +
+//            "<li><a>graphs</a>\n" +
+//                "<ul>\n" +
+//                    "<li><a href=\"" + spread + "\">spread</a></li>\n" +
+//                    "<li><a href=\"" + distance + "\">distance</a></li>\n" +
+//                "</ul>\n" +
+//            "</li>\n" +
+//            "<li><a href=\"" + map + "\">maps</a></li>\n" +
+//        "</ul>\n";
+//    }
+//} 
 
 
 function createRoundTabs()
@@ -227,27 +300,29 @@ function createRoundTabs()
 
 function currentlyViewing()
 {
-    var memberName = localStorage.getItem('userName');
-    var rounds = localStorage.getObject('rounds');
-    if (memberName == null)
-    {
-        document.location.href = defines.BASE_PATH + '/';
-    }
-    else if(rounds == null)
-    {
-        if(window.location.pathname === defines.BASE_PATH + "/rounds")
-        {
-            document.getElementById("currently_viewing").innerHTML= "<span>currently viewing: </span>" + memberName;
-        }
-        else
-        {
-            document.location.href = defines.BASE_PATH + '/rounds';
-        }
-    }  
-    else
-    {
-        document.getElementById("currently_viewing").innerHTML= "<span>currently viewing: </span>" + memberName;
-    }
+//    var memberName = localStorage.getItem('userName');
+//    var rounds = localStorage.getObject('rounds');
+//    if (memberName == null)
+//    {
+//        document.location.href = defines.BASE_PATH + '/';
+//    }
+//    else if(rounds == null)
+//    {
+//        if(window.location.pathname === defines.BASE_PATH + "/rounds")
+//        {
+//            document.getElementById("currently_viewing").innerHTML= "<span>currently viewing: </span>" + memberName;
+//        }
+//        else
+//        {
+//            document.location.href = defines.BASE_PATH + '/rounds';
+//        }
+//    }  
+//    else
+//    {
+//        document.getElementById("currently_viewing").innerHTML= "<span>currently viewing: </span>" + memberName;
+//    }
+    document.getElementById("currently_viewing").innerHTML= 
+        "<span>currently viewing: </span>" + localStorage.getItem('userName');
 
 }
 
