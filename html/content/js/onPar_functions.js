@@ -21,17 +21,17 @@ $(document).ready(function()
             {
                 alert("Please enter a member id or email.");
                 return;
-            }            
+            } 
+            // if something invalid is input, the SDK will alert of the 
+            // invalid input           
             var u = new User($(this).val());
-            if(u === null || u === '')
+            if(u.ID != null)
             {
-                alert("Invalid member id or email.\n Please try again.");
-                return;
-            }
-            localStorage.removeItem('rounds');
-            localStorage.setItem('userName', u.name);
-            localStorage.setItem('userID',u.ID);       
-            document.location.href = defines.BASE_PATH + '/rounds';          
+                localStorage.removeItem('rounds');
+                localStorage.setItem('userName', u.name);
+                localStorage.setItem('userID',u.ID);       
+                document.location.href = defines.BASE_PATH + '/rounds';   
+            }       
         }
     });
     
@@ -249,7 +249,7 @@ Rounds.prototype.output = function()
         html += "<label><input type=\"checkbox\" value='" + this.roundObjects.rounds[i].ID + "'> " +          
             this.roundObjects.rounds[i].startTime + "</label><br/>\n";
     }
-    $("#date_list").append(html);
+    document.getElementById('date_list').innerHTML = html;
     this.show();
 }
 
