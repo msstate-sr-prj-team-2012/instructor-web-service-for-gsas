@@ -156,7 +156,7 @@ function createHomeMenu()
         var table = defines.BASE_PATH + "/table";
         var spread = defines.BASE_PATH + "/spread";
         var distance = defines.BASE_PATH + "/distance";
-        var map = defines.BASE_PATH + "/maps";
+        var map = defines.BASE_PATH + "/map";
 
         document.getElementById("nav").innerHTML=
         "<ul>\n" +
@@ -193,7 +193,7 @@ function createRoundsMenu()
         var table = defines.BASE_PATH + "/table";
         var spread = defines.BASE_PATH + "/spread";
         var distance = defines.BASE_PATH + "/distance";
-        var map = defines.BASE_PATH + "/maps";
+        var map = defines.BASE_PATH + "/map";
 
         document.getElementById("nav").innerHTML=
         "<ul>\n" +
