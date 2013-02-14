@@ -14,7 +14,7 @@ function() use ($app)
 	$app->render('rounds.html');
 });
 
-$app->get('/map',
+$app->get('/maps',
 function() use ($app)
 {
 	$app->render('maps.html');
