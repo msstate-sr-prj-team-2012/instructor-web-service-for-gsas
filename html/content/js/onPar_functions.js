@@ -84,9 +84,9 @@ $(document).ready(function()
         document.getElementById('round').className += ' selected_tab'; 
         roundsClass = new Rounds();
     }
-    else if(window.location.pathname === defines.BASE_PATH + "/map")
+    else if(window.location.pathname === defines.BASE_PATH + "/maps")
     {
-        document.getElementById('map').className += ' selected_tab'; 
+        document.getElementById('maps').className += ' selected_tab'; 
         createRoundTabs();
     }
     else if(window.location.pathname === defines.BASE_PATH + "/table")
@@ -174,7 +174,7 @@ function createNavigationMenu()
                         "<li><a href=\"" + distance + "\">distance</a></li>\n" +
                     "</ul>\n" +
                 "</li>\n" +
-                "<li id='map'><a href=\"" + maps + "\">maps</a></li>\n" +
+                "<li id='maps'><a href=\"" + maps + "\">maps</a></li>\n" +
                 "<li id='stats'><a href=\"" + stats + "\">stats</a></li>\n" +
             "</ul>\n";
         document.getElementById("currently_viewing").innerHTML= 
