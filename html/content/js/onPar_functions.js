@@ -2,6 +2,13 @@
 var roundsClass;
 $(document).ready(function() 
 { 
+    
+    
+/****************************************************************************
+ *
+ * Event Handlers For All User Inputs
+ *
+ ****************************************************************************/  
       
     $("#select_field").change(function()
     {
@@ -71,7 +78,12 @@ $(document).ready(function()
         "application. Please upgrade your browser to the latest release before continuing.");
         window.open("https://www.google.com/intl/en/chrome/browser/");
     }
-        
+
+/****************************************************************************
+ *
+ * Runs Functions Respective To Page Viewed & Sets Navigation Highlight
+ *
+ ****************************************************************************/
         
     populateSelectField();
     createNavigationMenu();
@@ -101,7 +113,7 @@ $(document).ready(function()
     else if(window.location.pathname === defines.BASE_PATH + "/distance")
     {
         document.getElementById('graphs').className += ' selected_tab'; 
-        createRoundsTabs();
+        createRoundTabs();
     }
     else if(window.location.pathname === defines.BASE_PATH + "/stats")
     {
@@ -111,6 +123,13 @@ $(document).ready(function()
  
 });
 
+
+
+/****************************************************************************
+ *
+ * Creates Navigation Menu & Redirects If Necessary
+ *
+ ****************************************************************************/
 
 function createNavigationMenu()
 {
@@ -177,11 +196,21 @@ function createNavigationMenu()
                 "<li id='maps'><a href=\"" + maps + "\">maps</a></li>\n" +
                 "<li id='stats'><a href=\"" + stats + "\">stats</a></li>\n" +
             "</ul>\n";
-        document.getElementById("currently_viewing").innerHTML= 
-        "<span>currently viewing: </span>" + localStorage.getItem('userName');
+        if(window.location.pathname !== (defines.BASE_PATH + '/'))
+        {
+            document.getElementById("currently_viewing").innerHTML= 
+            "<span>currently viewing: </span>" + localStorage.getItem('userName');
+        }
     }
-}
+} // end createNavigationMenu
 
+
+
+/****************************************************************************
+ *
+ * Loads Select Field With Members In Database
+ *
+ ****************************************************************************/
 
 function populateSelectField()
 {
@@ -192,6 +221,13 @@ function populateSelectField()
     }
 }
 
+
+
+/****************************************************************************
+ *
+ * Creates Round Tabs 
+ *
+ ****************************************************************************/
 
 function createRoundTabs()
 {
@@ -209,7 +245,7 @@ function createRoundTabs()
 
 /****************************************************************************
  *
- * Rounds
+ * Creates Checkboxs For Rounds Page
  *
  ****************************************************************************/
 
@@ -249,7 +285,7 @@ Rounds.prototype.show = function()
 
 /****************************************************************************
  *
- * Storage
+ * Modifies Storage To Accept Objects
  *
  ****************************************************************************/
 
