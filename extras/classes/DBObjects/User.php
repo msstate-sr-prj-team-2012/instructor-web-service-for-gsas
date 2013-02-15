@@ -93,6 +93,8 @@ class User
         // keys and values of what the variables should be set to as values.
         if (!is_null($data)) {
             $this->load($data);
+        } else {
+            $this->stats(new Stats());
         }
     }
 
@@ -141,15 +143,6 @@ class User
             $this->_stats = $data;
         } else {
             return $this->_stats;
-        }
-    }
-
-    private function IDs($data = null)
-    {
-        if (!is_null($data)) {
-            $this->_ids = $data;
-        } else {
-            return $this->_ids;
         }
     }
 
