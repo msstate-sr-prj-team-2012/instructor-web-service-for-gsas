@@ -104,7 +104,6 @@ $(document).ready(function()
     else if(window.location.pathname === defines.BASE_PATH + "/table")
     {     
         document.getElementById('table').className += ' selected_tab'; 
-        createTable();
     }
     else if(window.location.pathname === defines.BASE_PATH + "/spread")
     {
@@ -118,8 +117,9 @@ $(document).ready(function()
     else if(window.location.pathname === defines.BASE_PATH + "/stats")
     {
         document.getElementById('stats').className += ' selected_tab'; 
+        getStatData();
     }
-   
+
  
 });
 
@@ -302,30 +302,53 @@ Storage.prototype.getObject = function(key)
 }
 
 
+
 /****************************************************************************
  *
- * Table Page Testing
+ * Creates Statistics Table
  *
  ****************************************************************************/
 
-function createTable()
-{
-    var rounds = localStorage.getObject('rounds');
-    var html = '<div style="position: relative;top:100px;">\n';
-    for (var i = 0; i < rounds.length; i++)
+var statData;
+var rounds = localStorage.getObject('rounds');
+function getStatData()
+{   
+
+    statData = [];
+    for(i = 0;i < rounds.length; i++)
     {
-        html += '<table style="border-collapse: collapse;border-spacing: 10px;border-top: 50px transparent solid;">\n';
-        html += '<tr style="color:#660000;padding-top:20px;border-bottom: 1px solid #000;"><th> Round </th><th> Date </th></tr>\n';
-        html += '<tr><td>' + rounds[i].ID + '</td><td>' + rounds[i].startTime + '</td></tr>\n';
-        html += '<tr style="color:#660000;border-bottom: 1px solid #000;border-left: 40px transparent solid; border-top: 10px transparent solid;"><th> Holes </th><th> Par </th><th> Shots </th><th> Score </th></tr>\n';
-        for(var x = 0; x < rounds[i].holes.length; x++)
-        {
-            html += '<tr style="border-left: 40px transparent solid;"><td>' + rounds[i].holes[x].holeNumber + '</td><td>' + rounds[i].holes[x].par + 
-                    '</td><td>' + rounds[i].holes[x].shots.length + '</td><td>' + rounds[i].holes[x].holeScore + '</td></tr>';
-        }
-        html += '</table>\n';
-    }
-    html += '</div>';
-    
-    document.getElementById('content').innerHTML = html;
+        statData.push({
+            round: "round " + i,
+            gir: rounds[i].user.stats[2012].GIR_percentage,
+            accuracy: rounds[i].user.stats[2012].driving_accuracy,
+            distance: rounds[i].user.stats[2012].driving_distance 
+        })
+    }  
+    createStatGrid();
+}
+
+
+function createStatGrid()
+{
+    $("#stats").jqGrid({
+        datatype: "local",
+        data: statData,
+        colNames:['round', 'GIR %', 'driving accuracy', 'driving distance'],
+        colModel:[
+            {name:'round', index: 'round', width: 150},
+            {name:'gir',index:'gir', width:150, align:'center'},
+            {name:'accuracy',index:'accuracy', width:150, align:'center'},
+            {name:'distance',index:'distance', width:150, align:'center'}
+        ],
+        rowNum:5,
+        rowList:[5,10],
+        pager: '#pager',
+        sortname: 'round',
+        viewrecords: true,
+        grouping:true,
+        groupingView: { groupField:['round'],groupColumnShow:[false]},
+        caption:"Statistics",
+        height: "auto"
+
+    });
 }
