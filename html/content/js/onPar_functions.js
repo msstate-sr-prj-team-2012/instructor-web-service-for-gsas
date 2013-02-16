@@ -310,18 +310,18 @@ Storage.prototype.getObject = function(key)
  ****************************************************************************/
 
 var statData;
-var rounds = localStorage.getObject('rounds');
+var user = new User(localStorage.getItem('userID'));
 function getStatData()
 {   
 
     statData = [];
-    for(i = 0;i < rounds.length; i++)
+    for(i = 0;i < 2; i++)
     {
         statData.push({
-            round: "round " + i,
-            gir: rounds[i].user.stats[2012].GIR_percentage,
-            accuracy: rounds[i].user.stats[2012].driving_accuracy,
-            distance: rounds[i].user.stats[2012].driving_distance 
+            year: (2012 + i),
+            gir: user.stats[2012 + i].GIR_percentage,
+            accuracy: user.stats[2012 + i].driving_accuracy,
+            distance: user.stats[2012 + i].driving_distance 
         })
     }  
     createStatGrid();
@@ -333,9 +333,9 @@ function createStatGrid()
     $("#statistics").jqGrid({
         datatype: "local",
         data: statData,
-        colNames:['round', 'GIR %', 'driving accuracy', 'driving distance'],
+        colNames:['year', 'GIR %', 'driving accuracy', 'driving distance'],
         colModel:[
-            {name:'round', index: 'round', width: 150},
+            {name:'year', index: 'year', width: 150},
             {name:'gir',index:'gir', width:150, align:'center'},
             {name:'accuracy',index:'accuracy', width:150, align:'center'},
             {name:'distance',index:'distance', width:150, align:'center'}
@@ -343,7 +343,7 @@ function createStatGrid()
         rowNum:5,
         rowList:[5,10],
         pager: '#pager',
-        sortname: 'round',
+        sortname: 'year',
         viewrecords: true,
         grouping:true,
         groupingView: { groupField:['round'],groupColumnShow:[false]},

@@ -399,7 +399,7 @@ button
 #table_content, #stats_content 
 { 
     position:relative;
-    top:110px;
+    top:80px;
     margin: 0 auto;
     display:table;
 }
