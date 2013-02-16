@@ -38,6 +38,12 @@ function() use ($app)
 	$app->render('bar_graph.html');
 });
 
+$app->get('/stats',
+function() use ($app)
+{
+	$app->render('stats.html');
+});
+
 $app->run();
 
 ?>
