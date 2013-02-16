@@ -345,8 +345,8 @@ function createStatGrid()
         pager: '#pager',
         sortname: 'year',
         viewrecords: true,
-        grouping:true,
-        groupingView: { groupField:['round'],groupColumnShow:[false]},
+//        grouping:true,
+//        groupingView: { groupField:['year'],groupColumnShow:[false]},
         caption:"Statistics",
         height: "auto"
 
