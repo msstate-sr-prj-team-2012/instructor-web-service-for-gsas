@@ -374,7 +374,7 @@ input:-moz-placeholder { color:#848484; }
 .column
 {
     float: left;
-    width: 70px;
+    width: 150px;
     height: 250px;
     display: table;
     margin: 0 6px;
