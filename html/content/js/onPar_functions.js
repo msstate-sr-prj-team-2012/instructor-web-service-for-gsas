@@ -330,7 +330,7 @@ function getStatData()
 
 function createStatGrid()
 {
-    $("#stats").jqGrid({
+    $("#statistics").jqGrid({
         datatype: "local",
         data: statData,
         colNames:['round', 'GIR %', 'driving accuracy', 'driving distance'],
