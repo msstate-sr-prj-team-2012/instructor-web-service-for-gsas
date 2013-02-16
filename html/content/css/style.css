@@ -367,11 +367,17 @@ input:-moz-placeholder { color:#848484; }
 
 #date_list
 { 
-/*    display: inline-block;
+    position: relative;
+    display: table;
     margin: 15px auto;
-    height: 150px;
-    -moz-column-width: 60px;
-    -webkit-column-width: 70px;*/
+}
+.column
+{
+    float: left;
+    width: 70px;
+    height: 250px;
+    display: table;
+    margin: 0 6px;
 }
 button
 {

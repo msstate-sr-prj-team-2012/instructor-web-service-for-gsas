@@ -258,12 +258,17 @@ function Rounds()
 
 Rounds.prototype.output = function()
 {
-    var html = '';
+    var html = "<div class='column'>";
     for (var i = 0; i < this.roundObjects.rounds.length; i++) 
     {
         html += "<label><input type=\"checkbox\" value='" + this.roundObjects.rounds[i].ID + "'> " +          
             this.roundObjects.rounds[i].startTime + "</label><br/>\n";
+        if(((i+1)%10) === 0)
+        { 
+            html += "</div>\n<div class='column'>"; 
+        }
     }
+    html += "</div>";
     document.getElementById('date_list').innerHTML = html;
     this.show();
 }
