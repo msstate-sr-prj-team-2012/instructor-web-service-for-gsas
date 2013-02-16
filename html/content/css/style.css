@@ -405,8 +405,9 @@ button
 }
 #table_content .grid
 {
-    float:left;
-    margin-left: 15px;
+    display: table;
+    float:bottom;
+    margin-top:7px;
 }
 table{cursor:pointer}
 
