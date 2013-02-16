@@ -7,8 +7,7 @@ $(document).ready(function ()
     var currentRound = 0;
     var currentHole = 0;
     var rounds = localStorage.getObject('rounds');
-    getHoleData();
-    getShotData();
+
       
 /****************************************************************************
  *
@@ -31,8 +30,8 @@ $(document).ready(function ()
             data: roundData,
             colNames:['round', 'date'],
             colModel:[
-                {name:'round',index:'round', width:70, sorttype: 'int', align:'center'},
-                {name:'date',index:'date', width:150, align:'center', sorttype:'date', formatter:'date', formatoptions: {newformat:'d-M-Y'}},
+                {name:'round',index:'round', width:140, sorttype: 'int', align:'center'},
+                {name:'date',index:'date', width:400, align:'center', sorttype:'date', formatter:'date', formatoptions: {newformat:'d-M-Y'}},
             ],
             rowNum:10,
             rowList:[5,10],
@@ -42,16 +41,18 @@ $(document).ready(function ()
             sortorder: "asc",
             caption:"Rounds",
             height: "100%",
+            width: 700,
             
             // change of round will reload round and shot table
             onSelectRow: function(id){ 
                 currentRound = ($(this).getRowData(id)['round'] - 1);
                 $("#holes").jqGrid("GridUnload").trigger("reloadGrid");
-                getHoleData();         
+                getHoleData();   
+                $("#rounds").jqGrid('setGridState', 'hidden');
+                $("#holes").jqGrid('setGridState', 'visible');
              }
         })   
     
-
 
 
 /****************************************************************************
@@ -81,7 +82,6 @@ $(document).ready(function ()
         createHoleGrid();
         
         $("#shots").jqGrid("GridUnload").trigger("reloadGrid");
-        getShotData();
     }
         
     function createHoleGrid()
@@ -91,10 +91,10 @@ $(document).ready(function ()
                 data: holeData,
                 colNames:['hole', 'par', 'shots', 'score'],
                 colModel:[
-                    {name:'hole',index:'hole', width:70, sorttype: 'int', align:'center'},
-                    {name:'par',index:'par', width:70, align:'center'},
-                    {name:'shots',index:'shots', width:70, align:'center'},
-                    {name:'score',index:'score', width:70, align:'center'}
+                    {name:'hole',index:'hole', width:135, sorttype: 'int', align:'center'},
+                    {name:'par',index:'par', width:135, align:'center'},
+                    {name:'shots',index:'shots', width:135, align:'center'},
+                    {name:'score',index:'score', width:135, align:'center'}
                 ],
                 rowNum:9,
                 rowList:[9,18],
@@ -104,17 +104,19 @@ $(document).ready(function ()
                 sortorder: "asc",
                 caption:"Holes (Round  " + (currentRound + 1) + ")",
                 height: "100%",
+                width: 700,
 
                 // change of hole will reload shot table
                 onSelectRow: function(id){ 
                    currentHole = ($(this).getRowData(id)['hole'] - 1);
                    $("#shots").jqGrid("GridUnload").trigger("reloadGrid");
-                   getShotData();         
+                   getShotData();        
+                   $("#holes").jqGrid('setGridState', 'hidden');
+                   $("#shots").jqGrid('setGridState', 'visible');
                  }
 
             });
     }
-    
     
         
         
@@ -172,11 +174,11 @@ $(document).ready(function ()
             data: shotData,
             colNames:['shot', 'club', 'distance (yards)', 'direction', 'angle'],
             colModel:[
-                {name:'shot',index:'shot', width:70, sorttype: 'int', align:'center'},
-                {name:'club',index:'club', width:140, align:'center'},
-                {name:'distance',index:'distance', width:140, align:'center'},
-                {name:'direction',index:'direction', width:70, align:'center'},
-                {name:'angle',index:'angle', width:70, align:'center'}
+                {name:'shot',index:'shot', width:80, sorttype: 'int', align:'center'},
+                {name:'club',index:'club', width:150, align:'center'},
+                {name:'distance',index:'distance', width:150, align:'center'},
+                {name:'direction',index:'direction', width:80, align:'center'},
+                {name:'angle',index:'angle', width:80, align:'center'}
             ],
             rowNum:5,
             rowList:[5,10,15],
@@ -185,7 +187,8 @@ $(document).ready(function ()
             viewrecords: true,
             sortorder: "asc",
             caption:"Shots (Hole  " + (currentHole + 1) + ")",
-            height: "100%"
+            height: "100%",
+            width: 700
 
         });
    }                    
