@@ -11,9 +11,6 @@ html/content/js/i18n/grid.locale-en.js
 
 html/content/js/bar_graph.js
 html/content/js/maps.js
-html/content/js/onPar_SDK.js
-html/content/js/onPar_functions.js
-html/content/js/onPar_table_functions.js
 
 html/content/images/2008_MSU_logo_web_text_mont.png
 html/content/images/logo.png
@@ -56,3 +53,8 @@ html/content/images/holes/hole17_map.png
 html/content/images/holes/hole18_map.png
 
 
+NETWORK:
+
+html/content/js/onPar_SDK.js
+html/content/js/onPar_functions.js
+html/content/js/onPar_table_functions.js
