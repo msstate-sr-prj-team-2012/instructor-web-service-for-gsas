@@ -239,7 +239,7 @@ function createRoundTabs()
         html += "<li id='" + rounds[i].ID + "'>" + rounds[i].startTime + "</li>\n";
     }
     html += "</ul>\n";
-    document.getElementsByClassName("round_tabs").innerHTML = html;
+    document.getElementsByClassName("round_tabs")[0].innerHTML = html;
 }
 
 
