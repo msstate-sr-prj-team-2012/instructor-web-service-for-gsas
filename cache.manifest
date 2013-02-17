@@ -1,16 +1,16 @@
 CACHE MANIFEST
 
-html/content/css/style.css
-html/content/css/ui.jqgrid.css
-html/content/css/smoothness/jquery-ui-1.10.1.custom.min.css
+#html/content/css/style.css
+#html/content/css/ui.jqgrid.css
+#html/content/css/smoothness/jquery-ui-1.10.1.custom.min.css
 
-html/content/js/jquery-1.9.0.min.js
-html/content/js/jquery.jqGrid.min.js
-html/content/js/jquery.json-2.3.js
-html/content/js/i18n/grid.locale-en.js
+#html/content/js/jquery-1.9.0.min.js
+#html/content/js/jquery.jqGrid.min.js
+#html/content/js/jquery.json-2.3.js
+#html/content/js/i18n/grid.locale-en.js
 
-html/content/js/bar_graph.js
-html/content/js/maps.js
+#html/content/js/bar_graph.js
+#html/content/js/maps.js
 
 html/content/images/2008_MSU_logo_web_text_mont.png
 html/content/images/logo.png
@@ -55,6 +55,6 @@ html/content/images/holes/hole18_map.png
 
 NETWORK:
 
-html/content/js/onPar_SDK.js
-html/content/js/onPar_functions.js
-html/content/js/onPar_table_functions.js
+#html/content/js/onPar_SDK.js
+#html/content/js/onPar_functions.js
+#html/content/js/onPar_table_functions.js
