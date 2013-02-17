@@ -233,10 +233,10 @@ function createRoundTabs()
 {
     var rounds = localStorage.getObject('rounds');
     var html = '<ul>\n';
-    html += "<li id='" + rounds[0].ID + "' class='selected_tab'>" + rounds[0].startTime + "</li>\n";
+    html += "<li id='" + rounds[0].ID + "' title='" + rounds[0].startTime + "' class='selected_tab'>" + 1 + "</li>\n";
     for (var i = 1; i < rounds.length; i++)
     {
-        html += "<li id='" + rounds[i].ID + "'>" + rounds[i].startTime + "</li>\n";
+        html += "<li id='" + rounds[i].ID + "' title='" + rounds[i].startTime + "'>" + (i + 1) + "</li>\n";
     }
     html += "</ul>\n";
     document.getElementsByClassName("round_tabs")[0].innerHTML = html;
