@@ -16,14 +16,12 @@ $(document).ready(function()
     {
         changeView($(this).attr('id'));
     });
-    
-    document.getElementById(mapRound).className += ' selected_tab'; 
-    
+      
 });
 
 var mapView = 'v1';
 var mapHole = 1;   
-var mapRound = localStorage.getObject('rounds')[0].rid;
+var mapRound = localStorage.getObject('rounds')[0].ID;
 
 function changeToHole(hole) 
 {     
@@ -68,6 +66,6 @@ function changeView(view)
 
     
 /* gets current round object
-var round = localStorage.getItem('rounds').filter(function(obj) { return obj.rid == mapRound; });
+var round = localStorage.getObject('rounds').filter(function(obj) { return obj.ID == mapRound; });
 // do stuff 
 */

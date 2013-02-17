@@ -239,6 +239,7 @@ function createRoundTabs()
     }
     html += "</ul>\n";
     document.getElementsByClassName("round_tabs").innerHTML = html;
+    document.getElementById(rounds[0].ID).className += ' selected_tab'; 
 }
 
 
@@ -261,12 +262,12 @@ Rounds.prototype.output = function()
     var html = "<div class='column'>";
     for (var i = 0; i < this.roundObjects.rounds.length; i++) 
     {
-        html += "<label><input type=\"checkbox\" value='" + this.roundObjects.rounds[i].ID + "'> " +          
-            this.roundObjects.rounds[i].startTime + "</label><br/>\n";
-        if(((i+1)%10) === 0)
+        if((i%10) === 0)
         { 
             html += "</div>\n<div class='column'>"; 
         }
+        html += "<label><input type=\"checkbox\" value='" + this.roundObjects.rounds[i].ID + "'> " +          
+            this.roundObjects.rounds[i].startTime + "</label><br/>\n";     
     }
     html += "</div>";
     document.getElementById('date_list').innerHTML = html;
