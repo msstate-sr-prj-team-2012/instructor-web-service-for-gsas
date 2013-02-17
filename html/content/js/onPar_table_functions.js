@@ -207,7 +207,7 @@ function computeAngle(startLat,startLong,aimLat,aimLong,endLat,endLong)
     var mag1 = Math.pow((aimLat * aimLat + aimLong + aimLong), .5);
     var mag2 = Math.pow((endLat * endLat + endLong + endLong), .5);
     
-    return Math.round(Math.acos(scalar / (mag1 * mag2))*(180 / Math.PI)).toFixed(2);	
+    return (Math.acos(scalar / (mag1 * mag2))*(180 / Math.PI)).toFixed(2);	
 }
  
  
@@ -215,10 +215,10 @@ function convertGPStoYards(lat1, long1, lat2, long2)
 {
     var dLat = (lat2 - lat1)*(Math.PI / 180);
     var dLong = (long2 - long1)*(Math.PI / 180);
-    var a = Math.pow(Math.sin(dLat/2),2) + Math.cos(lat1) + Math.cos(lat2) + Math.pow(Math.sin(dLong/2),2);
-    var c = 2 * Math.atan(Math.sqrt(a), Math.sqrt(1 - a));
+    var a = Math.pow(Math.sin(dLat/2),2) + Math.cos(lat1) * Math.cos(lat2) * Math.pow(Math.sin(dLong/2),2);
+    var c = 2 * Math.atan2(Math.sqrt(a), Math.sqrt(1 - a));
     
-    return Math.round(6967420.2 * c).toFixed(2);
+    return (6967420.2 * c).toFixed(2);
 }
  
 function getClubName(id)
