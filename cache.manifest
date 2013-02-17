@@ -2,7 +2,7 @@ CACHE MANIFEST
 
 html/content/css/style.css
 html/content/css/ui.jqgrid.css
-html/content/css/smoothness/jquery-ul-1.10.1.custom.min.css
+html/content/css/smoothness/jquery-ui-1.10.1.custom.min.css
 
 html/content/js/jquery-1.9.0.min.js
 html/content/js/jquery.jqGrid.min.js

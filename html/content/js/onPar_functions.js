@@ -233,13 +233,13 @@ function createRoundTabs()
 {
     var rounds = localStorage.getObject('rounds');
     var html = '<ul>\n';
-    for (var i = 0; i < rounds.length; i++)
+    html += "<li id='" + rounds[0].ID + "' class='selected_tab'>" + rounds[0].startTime + "</li>\n";
+    for (var i = 1; i < rounds.length; i++)
     {
-        html += "<li id=\'" + rounds[i].ID + "'\">" + rounds[i].startTime + "</li>\n";
+        html += "<li id='" + rounds[i].ID + "'>" + rounds[i].startTime + "</li>\n";
     }
     html += "</ul>\n";
     document.getElementsByClassName("round_tabs").innerHTML = html;
-    document.getElementById(rounds[0].ID).className += ' selected_tab'; 
 }
 
 
@@ -262,7 +262,7 @@ Rounds.prototype.output = function()
     var html = "<div class='column'>";
     for (var i = 0; i < this.roundObjects.rounds.length; i++) 
     {
-        if((i%10) === 0)
+        if(i !== 0 && (i%10) === 0)
         { 
             html += "</div>\n<div class='column'>"; 
         }
