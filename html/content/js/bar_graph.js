@@ -14,67 +14,6 @@ $(document).ready(function()
     });
     
     document.getElementById(mapRound).className += ' selected_tab';
-	
-	var chartHybrid = new Highcharts.Chart({
-                    chart: {
-                        renderTo: "graphContainer",
-                        type: "column"
-                    },
-                    title: {
-                        text: "Average Distance by Hole"
-                    },
-                    xAxis: {
-                        categories: [
-                            "Hole 1",
-                            "Hole 2",
-                            "Hole 3",
-                            "Hole 4",
-                            "Hole 5",
-                            "Hole 6",
-                            "Hole 7",
-                            "Hole 8",
-                            "Hole 9",
-                            "Hole 10",
-                            "Hole 11",
-							"Hole 12",
-							"Hole 13",
-							"Hole 14",
-							"Hole 15",
-							"Hole 16",
-							"Hole 17",
-                            "Hole 18"
-                        ]
-                    },
-                    yAxis: {
-                        min: 0,
-                        title: {
-                            text: "Distance (yards)"
-                        }
-                    },
-                    legend: {
-                        layout: "vertical",
-                        backgroundColor: "#FFFFFF",
-                        align: "left",
-                        verticalAlign: "top",
-                        x: 100,
-                        y: 25,
-                        floating: true,
-                        shadow: true
-                    },
-                    tooltip: {
-                        formatter: function() {
-                            return ""+
-                                this.x +": "+ this.y +" yards";
-                        }
-                    },
-                    plotOptions: {
-                        column: {
-                            pointPadding: 0.2,
-                            borderWidth: 0
-                        }
-                    },
-                        series: hybrids
-                });
 });
         
        
@@ -102,9 +41,7 @@ function myToggle(id)
     
     if(id === 'v1')
     {
-			
             $("#containerWood").show();
-			
     }
     else if(id === 'v2')
     {
@@ -120,7 +57,7 @@ function myToggle(id)
     }
 }
 
-function getDistanceData(shots, clubName)
+function getDistanceData()
 {
 	currentRound = 0;
 	currentHole = 0;
