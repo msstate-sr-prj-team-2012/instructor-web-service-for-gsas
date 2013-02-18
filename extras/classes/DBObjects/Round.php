@@ -288,7 +288,7 @@ class Round
         $data['round'] = array();
 
         $data['round']['id']         = $this->ID();
-        $data['round']['user']       = $this->user()->export();
+        //$data['round']['user']       = $this->user()->export();
         $data['round']['course']     = $this->course()->export();
         $data['round']['totalScore'] = $this->totalScore();
         $data['round']['teeID']      = $this->teeID();
