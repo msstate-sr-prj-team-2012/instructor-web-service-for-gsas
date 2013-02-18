@@ -602,7 +602,7 @@ function Round(data)
 	if (typeof(data) === 'undefined') data = null;
 
 	this.ID = null;
-	this.user = null;
+	//this.user = null;
 	this.course = null;
 	this.totalScore = null;
 	this.teeID = null;
@@ -618,14 +618,14 @@ Round.prototype.loadByJSON = function(data)
 	this.ID = data.round.id;
 					
 	// create a new user for the user attribute
-	var u = new User();
+	/*var u = new User();
 	u.ID = data.round.user.user.id;
 	u.memberID = data.round.user.user.memberID;
 	u.nickname = data.round.user.user.nickname;
 	u.name = data.round.user.user.name;
 	u.email = data.round.user.user.email;
 	u.stats = data.round.user.user.stats;
-	this.user = u;
+	this.user = u;*/
 
 	// create a new course for the course attribute
 	var c = new Course();
@@ -829,7 +829,7 @@ Round.prototype.export = function()
 	{"round":
 		{
 			"id": this.ID,
-			"user": this.user.export(),
+			//"user": this.user.export(),
 			"course": this.course.export(),
 			"totalScore": this.totalScore,
 			"teeID": this.teeID,
