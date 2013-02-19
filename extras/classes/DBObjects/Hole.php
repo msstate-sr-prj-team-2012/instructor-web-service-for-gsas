@@ -121,20 +121,6 @@ class Hole
     private $_secondRefLong = null;
 
 /**
- * thirdRefLat - the latitude of the third reference point of the hole
- *
- * @var float
- */
-    private $_thirdRefLat = null;
-
-/**
- * thirdRefLong - the longitude of the third reference point of the hole
- *
- * @var float
- */
-    private $_thirdRefLong = null;
-
-/**
  * firstRefX - the corresponding X coordinate of the first reference point
  *
  * @var int
@@ -161,20 +147,6 @@ class Hole
  * @var int
  */
     private $_secondRefY = null;
-
-/**
- * thirdRefX - the corresponding X coordinate of the third reference point
- *
- * @var int
- */
-    private $_thirdRefX = null;
-
-/**
- * thirdRefY - the corresponding Y coordinate of the third reference point
- *
- * @var int
- */
-    private $_thirdRefY = null;
 
 /**
  * shots - an array holding all the Shots for the Hole
@@ -379,24 +351,6 @@ class Hole
         }
     }
 
-    public function thirdRefLat($data = null)
-    {
-        if (!is_null($data)) {
-            $this->_thirdRefLat = (float)$data;
-        } else {
-            return (float)$this->_thirdRefLat;
-        }
-    }
-
-    public function thirdRefLong($data = null)
-    {
-        if (!is_null($data)) {
-            $this->_thirdRefLong = (float)$data;
-        } else {
-            return (float)$this->_thirdRefLong;
-        }
-    }
-
     public function firstRefX($data = null)
     {
         if (!is_null($data)) {
@@ -430,24 +384,6 @@ class Hole
             $this->_secondRefY = (int)$data;
         } else {
             return (int)$this->_secondRefY;
-        }
-    }
-
-    public function thirdRefX($data = null)
-    {
-        if (!is_null($data)) {
-            $this->_thirdRefX = (int)$data;
-        } else {
-            return (int)$this->_thirdRefX;
-        }
-    }
-
-    public function thirdRefY($data = null)
-    {
-        if (!is_null($data)) {
-            $this->_thirdRefY = (int)$data;
-        } else {
-            return (int)$this->_thirdRefY;
         }
     }
 
@@ -543,14 +479,10 @@ class Hole
             $this->firstRefLong($data['firstRefLong']);
             $this->secondRefLat($data['secondRefLat']);
             $this->secondRefLong($data['secondRefLong']);
-            $this->thirdRefLat($data['thirdRefLat']);
-            $this->thirdRefLong($data['thirdRefLong']);
             $this->firstRefX($data['firstRefX']);
             $this->firstRefY($data['firstRefY']);
             $this->secondRefX($data['secondRefX']);
             $this->secondRefY($data['secondRefY']);
-            $this->thirdRefX($data['thirdRefX']);
-            $this->thirdRefY($data['thirdRefY']);
         }
     }
 
@@ -656,14 +588,10 @@ class Hole
         $data['hole']['firstRefLong'] = $this->firstRefLong();
         $data['hole']['secondRefLat'] = $this->secondRefLat();
         $data['hole']['secondRefLong'] = $this->secondRefLong();
-        $data['hole']['thirdRefLat'] = $this->thirdRefLat();
-        $data['hole']['thirdRefLong'] = $this->thirdRefLong();
         $data['hole']['firstRefX'] = $this->firstRefX();
         $data['hole']['firstRefY'] = $this->firstRefY();
         $data['hole']['secondRefX'] = $this->secondRefX();
         $data['hole']['secondRefY'] = $this->secondRefY();
-        $data['hole']['thirdRefX'] = $this->thirdRefX();
-        $data['hole']['thirdRefY'] = $this->thirdRefY();
 
         return $data;
     }
