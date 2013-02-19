@@ -325,9 +325,9 @@ function getStatData()
     {
         statData.push({
             year: (2012 + i),
-            gir: user.stats[2012 + i].GIR_percentage,
-            accuracy: user.stats[2012 + i].driving_accuracy,
-            distance: user.stats[2012 + i].driving_distance 
+            gir: (user.stats[2012 + i].GIR_percentage).toFixed(2),
+            accuracy: (user.stats[2012 + i].driving_accuracy).toFixed(2),
+            distance: (user.stats[2012 + i].driving_distance).toFixed(2) 
         })
     }  
     createStatGrid();

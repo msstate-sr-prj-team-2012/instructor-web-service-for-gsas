@@ -33,8 +33,8 @@ $(document).ready(function ()
                 {name:'round',index:'round', width:140, sorttype: 'int', align:'center'},
                 {name:'date',index:'date', width:400, align:'center', sorttype:'date', formatter:'date', formatoptions: {newformat:'d-M-Y'}},
             ],
-            rowNum:10,
-            rowList:[5,10],
+            rowNum:5,
+            rowList:[3,5,10],
             pager: '#pager',
             sortname: 'round',
             viewrecords: true,
@@ -48,8 +48,6 @@ $(document).ready(function ()
                 currentRound = ($(this).getRowData(id)['round'] - 1);
                 $("#holes").jqGrid("GridUnload").trigger("reloadGrid");
                 getHoleData();   
-                $("#rounds").jqGrid('setGridState', 'hidden');
-                $("#holes").jqGrid('setGridState', 'visible');
              }
         })   
     
@@ -62,13 +60,7 @@ $(document).ready(function ()
  ****************************************************************************/       
 
     function getHoleData()
-    {
-        
-        if((currentHole) > rounds[currentRound].holes.length)
-        {
-            currentHole = 0;
-        }
-        
+    {   
         holeData = [];
         for(i = 0; i < rounds[currentRound].holes.length; i++)
         {
@@ -80,8 +72,8 @@ $(document).ready(function ()
             })
         }
         createHoleGrid();
-        
         $("#shots").jqGrid("GridUnload").trigger("reloadGrid");
+        getShotData();
     }
         
     function createHoleGrid()
@@ -97,7 +89,7 @@ $(document).ready(function ()
                     {name:'score',index:'score', width:135, align:'center'}
                 ],
                 rowNum:9,
-                rowList:[9,18],
+                rowList:[5,9,18],
                 pager: '#pager2',
                 sortname: 'hole',
                 viewrecords: true,
@@ -111,8 +103,6 @@ $(document).ready(function ()
                    currentHole = ($(this).getRowData(id)['hole'] - 1);
                    $("#shots").jqGrid("GridUnload").trigger("reloadGrid");
                    getShotData();        
-                   $("#holes").jqGrid('setGridState', 'hidden');
-                   $("#shots").jqGrid('setGridState', 'visible');
                  }
 
             });
@@ -128,7 +118,12 @@ $(document).ready(function ()
        
 
     function getShotData()
-    {    
+    {                      
+        if((currentHole) > rounds[currentRound].holes.length)
+        {
+            currentHole = 0;
+        }
+        
         shotData = [];
         for(i = 0;i < rounds[currentRound].holes[currentHole].shots.length; i++)
         {
