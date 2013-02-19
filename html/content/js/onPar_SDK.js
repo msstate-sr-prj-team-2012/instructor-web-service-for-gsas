@@ -539,14 +539,10 @@ function Hole()
 	this.firstRefLong = null;
 	this.secondRefLat = null;
 	this.secondRefLong = null;
-	this.thirdRefLat = null;
-	this.thirdRefLong = null;
 	this.firstRefX = null;
 	this.firstRefY = null;
 	this.secondRefX = null;
 	this.secondRefY = null;
-	this.thirdRefX = null;
-	this.thirdRefY = null;
 	this.shots = new Array();
 }
 
@@ -574,14 +570,10 @@ Hole.prototype.export = function()
 			"firstRefLong": this.firstRefLong,
 			"secondRefLat": this.secondRefLat,
 			"secondRefLong": this.secondRefLong,
-			"thirdRefLat": this.thirdRefLat,
-			"thirdRefLong": this.thirdRefLong,
 			"firstRefX": this.firstRefX,
 			"firstRefY": this.firstRefY,
 			"secondRefX": this.secondRefX,
 			"secondRefY": this.secondRefY,
-			"thirdRefX": this.thirdRefX,
-			"thirdRefY": this.thirdRefY,
 			"shots": shotArray
 		}
 	};
