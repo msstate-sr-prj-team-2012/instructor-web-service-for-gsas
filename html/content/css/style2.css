@@ -33,7 +33,8 @@ body
     font-weight: 100;
     text-align:center;
     /*background: url("../images/background.png") repeat scroll;*/
-    background: #660000;
+    background: url("../images/bg.png") repeat scroll; 
+    /*background: #660000;*/
 }
 #page-wrap 
 {
@@ -60,6 +61,10 @@ body
     background: #fff;
     border-top-left-radius: 3px;
     border-top-right-radius: 3px;
+}
+#nav li.selected_tab a, #nav li:hover, #change_golfer li:hover
+{ 
+    box-shadow: 0px 0px 10px #fff;
 }
 .round_tabs li.selected_tab, .round_tabs li:hover
 {
@@ -378,15 +383,7 @@ nav ul ul li{ box-shadow: 10px 10px 10px #585858 ; }
     float:left;
     padding-left:10px;
     border-radius: 3px;
-}
-.select input[type="Submit"]
-{
-    color: #660000;
-    font-weight: bold;
-    width: 30px;
-    height: 30px;
-    cursor: pointer;
-    border-radius: 3px;
+    box-shadow: 0px 0px 10px #A4A4A4;
 }
 ::-webkit-input-placeholder { color:#848484; }
 ::-moz-placeholder { color:#848484; } /* firefox 19+ */
@@ -421,12 +418,16 @@ button
     height: 30px;
     position: relative;
     bottom: -30px;
+    margin: 5px;
+    border-radius: 3px;
+    box-shadow: 0px 0px 10px #A4A4A4;
 }
 #date_list input[type='checkbox']
 {
     padding-left:10px;
     padding-right: 0;
     margin: 0;
+    border-radius: 3px;
 }
 
 
