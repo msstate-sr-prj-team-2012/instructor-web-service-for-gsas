@@ -303,7 +303,7 @@ User.prototype.load = function(data)
 				data.user.gender == "m" ? thisUser.gender = "male" : thisUser.gender = "female";
 				data.user.rightHanded ? thisUser.hand = "right" : thisUser.hand = "left";
 
-				thisUser.age = getAge(date.user.birthDate);
+				thisUser.age = getAge(data.user.birthDate);
 
 				thisUser.stats = data.user.stats;
 				ret = true;
@@ -352,7 +352,7 @@ User.prototype.save = function()
 					data.user.gender == "m" ? thisUser.gender = "male" : thisUser.gender = "female";
 					data.user.rightHanded ? thisUser.hand = "right" : thisUser.hand = "left";
 
-					thisUser.age = getAge(date.user.birthDate);
+					thisUser.age = getAge(data.user.birthDate);
 					
 					thisUser.stats = data.user.stats;
 					ret = true;
@@ -399,7 +399,7 @@ User.prototype.save = function()
 				data.user.gender == "m" ? thisUser.gender = "male" : thisUser.gender = "female";
 				data.user.rightHanded ? thisUser.hand = "right" : thisUser.hand = "left";
 
-				thisUser.age = getAge(date.user.birthDate);
+				thisUser.age = getAge(data.user.birthDate);
 				
 				thisUser.stats = data.user.stats;
 				ret = true;
@@ -457,7 +457,7 @@ User.prototype.del = function()
 			data.user.gender == "m" ? thisUser.gender = "male" : thisUser.gender = "female";
 			data.user.rightHanded ? thisUser.hand = "right" : thisUser.hand = "left";
 
-			thisUser.age = getAge(date.user.birthDate);
+			thisUser.age = getAge(data.user.birthDate);
 
 			thisUser.stats = data.user.stats;
 
