@@ -248,6 +248,9 @@ function User(data)
 	this.nickname = null;
 	this.name = null;
 	this.email = null;
+	this.birthYear = null;
+	this.male = null;
+	this.rightHanded = null;
 	this.stats = null;
 
 	// constructor
@@ -288,6 +291,9 @@ User.prototype.load = function(data)
 				thisUser.nickname = data.user.nickname;
 				thisUser.name = data.user.name;
 				thisUser.email = data.user.email;
+				thisUser.birthYear = data.user.birthYear;
+				thisUser.male = data.user.male;
+				thisUser.rightHanded = data.user.rightHanded;
 				thisUser.stats = data.user.stats;
 				ret = true;
 			}
@@ -328,6 +334,9 @@ User.prototype.save = function()
 					thisUser.nickname = data.user.nickname;
 					thisUser.name = data.user.name;
 					thisUser.email = data.user.email;
+					thisUser.birthYear = data.user.birthYear;
+					thisUser.male = data.user.male;
+					thisUser.rightHanded = data.user.rightHanded;
 					thisUser.stats = data.user.stats;
 					ret = true;
 				}
@@ -366,6 +375,9 @@ User.prototype.save = function()
 				thisUser.nickname = data.user.nickname;
 				thisUser.name = data.user.name;
 				thisUser.email = data.user.email;
+				thisUser.birthYear = data.user.birthYear;
+				thisUser.male = data.user.male;
+				thisUser.rightHanded = data.user.rightHanded;
 				thisUser.stats = data.user.stats;
 				ret = true;
 			},
@@ -415,6 +427,9 @@ User.prototype.del = function()
 			thisUser.nickname = data.user.nickname;
 			thisUser.name = data.user.name;
 			thisUser.email = data.user.email;
+			thisUser.birthYear = data.user.birthYear;
+			thisUser.male = data.user.male;
+			thisUser.rightHanded = data.user.rightHanded;
 			thisUser.stats = data.user.stats;
 
 			ret = true;
@@ -438,6 +453,9 @@ User.prototype.export = function()
 			"nickname": this.nickname,
 			"name": this.name,
 			"email": this.email,
+			"birthYear": this.birthyear,
+			"male": this.male,
+			"rightHanded": this.rightHanded,
 			"stats": this.stats
 		}
 	};
