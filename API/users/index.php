@@ -141,7 +141,8 @@ function() use ($app)
             $array = $res->finalize();
         } else {
             // check to see if the required fiels for each key are set
-            if (!$data['name'] || !$data['email'] || !isset($data['rightHanded'])) {
+            if (!$data['name'] || !$data['email'] || !isset($data['rightHanded']) 
+                || !isset($data['gender']) || !isset($data['rightHanded'])) {
                 // return a 400 for bad request - improper JSON format
                 $res->status(400);
                 $array = $res->finalize();
@@ -269,7 +270,8 @@ function($id) use ($app)
             $array = $res->finalize();
         } else {
             // check to see if the required fiels for each key are set
-            if (!$data['name'] || !$data['email'] || !isset($data['rightHanded'])) {
+            if (!$data['name'] || !$data['email'] || !isset($data['rightHanded']) 
+                || !isset($data['gender']) || !isset($data['rightHanded'])) {
                 // return a 400 for bad request - improper JSON format
                 $res->status(400);
                 $array = $res->finalize();
