@@ -134,15 +134,14 @@ function() use ($app)
         
         if (!array_key_exists('memberID', $data) || !array_key_exists('nickname', $data)
                 || !array_key_exists('name', $data) || !array_key_exists('email', $data)
-                || !array_key_exists('birthYear', $data) || !array_key_exists('male', $data)
+                || !array_key_exists('birthDate', $data) || !array_key_exists('gender', $data)
                 || !array_key_exists('rightHanded', $data)) {
             // return a 400 for bad request - improper JSON format
             $res->status(400);
             $array = $res->finalize();
         } else {
             // check to see if the required fiels for each key are set
-            if (!$data['name'] || !$data['email'] || !$data['birthYear']
-                || !$data['male'] || !$data['rightHanded']) {
+            if (!$data['name'] || !$data['email'] || !isset($data['rightHanded'])) {
                 // return a 400 for bad request - improper JSON format
                 $res->status(400);
                 $array = $res->finalize();
@@ -189,8 +188,8 @@ function() use ($app)
                             $user->nickname($data['nickname']);
                             $user->name($data['name']);
                             $user->email($data['email']);
-                            $user->birthYear($data['birthYear']);
-                            $user->male($data['male']);
+                            $user->birthDate($data['birthDate']);
+                            $user->gender($data['gender']);
                             $user->rightHanded($data['rightHanded']);
                             
                             // save the user to the DB
@@ -263,15 +262,14 @@ function($id) use ($app)
         
         if (!array_key_exists('memberID', $data) || !array_key_exists('nickname', $data)
                 || !array_key_exists('name', $data) || !array_key_exists('email', $data)
-                || !array_key_exists('birthYear', $data) || !array_key_exists('male', $data)
+                || !array_key_exists('birthDate', $data) || !array_key_exists('gender', $data)
                 || !array_key_exists('rightHanded', $data)) {
             // return a 400 for bad request - improper JSON format
             $res->status(400);
             $array = $res->finalize();
         } else {
             // check to see if the required fiels for each key are set
-            if (!$data['name'] || !$data['email'] || !$data['birthYear']
-                || !$data['male'] || !$data['rightHanded']) {
+            if (!$data['name'] || !$data['email'] || !isset($data['rightHanded'])) {
                 // return a 400 for bad request - improper JSON format
                 $res->status(400);
                 $array = $res->finalize();
@@ -334,8 +332,8 @@ function($id) use ($app)
                                 $user->nickname($data['nickname']);
                                 $user->name($data['name']);
                                 $user->email($data['email']);
-                                $user->birthYear($data['birthYear']);
-                                $user->male($data['male']);
+                                $user->birthDate($data['birthDate']);
+                                $user->gender($data['gender']);
                                 $user->rightHanded($data['rightHanded']);
                                 
                                 // save the user to the DB
@@ -344,7 +342,7 @@ function($id) use ($app)
                                     $db->commit();
 
                                     // set the status code to 201 - created
-                                    $res->status(201);
+                                    $res->status(200);
                                     
                                     // set the body
                                     $res->write(json_encode($user->export()));

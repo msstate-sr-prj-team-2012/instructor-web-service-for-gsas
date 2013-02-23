@@ -63,16 +63,16 @@ class User
 /**
  * birthYear - integer value of the User's birth year
  *
- * @var int
+ * @var String
  */
-    private $_birthYear;
+    private $_birthDate;
 
 /**
- * male - boolean value, true if male, false if female
+ * gender - string 'm' or 'f'
  *
- * @var bool
+ * @var String
  */
-    private $_male;
+    private $_gender;
 
 /**
  * rightHanded - boolean value, true if right handed
@@ -158,21 +158,21 @@ class User
         }
     }
 
-    public function birthYear($data = null)
+    public function birthDate($data = null)
     {
         if (!is_null($data)) {
-            $this->_birthYear = (int)$data;
+            $this->_birthDate = $data;
         } else {
-            return (int)$this->_birthYear;
+            return $this->_birthDate;
         }
     }
 
-    public function male($data = null)
+    public function gender($data = null)
     {
         if (!is_null($data)) {
-            $this->_male = (bool)$data;
+            $this->_gender = $data;
         } else {
-            return (bool)$this->_male;
+            return $this->_gender;
         }
     }
 
@@ -262,8 +262,8 @@ class User
         $this->nickname($data['nickname']);
         $this->name($data['name']);
         $this->email($data['email']);
-        $this->birthYear($data['birthYear']);
-        $this->male($data['male']);
+        $this->birthDate($data['birthDate']);
+        $this->gender($data['gender']);
         $this->rightHanded($data['rightHanded']);
 
         $this->ID() ? $this->stats(new Stats($this->ID())) : $this->stats(new Stats());
@@ -282,8 +282,8 @@ class User
             'nickname'    => $this->nickname(),
             'name'        => $this->name(),
             'email'       => $this->email(),
-            'birthYear'   => $this->birthYear(),
-            'male'        => $this->male(),
+            'birthDate'   => $this->birthDate(),
+            'gender'      => $this->gender(),
             'rightHanded' => $this->rightHanded()
         );
 
@@ -307,8 +307,8 @@ class User
         $data['user']['nickname']    = $this->nickname();
         $data['user']['name']        = $this->name();
         $data['user']['email']       = $this->email();
-        $data['user']['birthYear']   = $this->birthYear();
-        $data['user']['male']        = $this->male();
+        $data['user']['birthDate']   = $this->birthDate();
+        $data['user']['gender']      = $this->gender();
         $data['user']['rightHanded'] = $this->rightHanded();
         $data['user']['stats']       = $this->stats()->stats();
 
