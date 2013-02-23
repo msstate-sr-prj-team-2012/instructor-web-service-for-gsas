@@ -248,9 +248,14 @@ function User(data)
 	this.nickname = null;
 	this.name = null;
 	this.email = null;
-	this.birthYear = null;
-	this.male = null;
+	this.age = null;
+	this.gender = null;
+	this.hand = null;
+
+	this.birthDate = null;
 	this.rightHanded = null;
+	this.DBgender = null;
+
 	this.stats = null;
 
 	// constructor
@@ -291,9 +296,15 @@ User.prototype.load = function(data)
 				thisUser.nickname = data.user.nickname;
 				thisUser.name = data.user.name;
 				thisUser.email = data.user.email;
-				thisUser.birthYear = data.user.birthYear;
-				thisUser.male = data.user.male;
+				thisUser.DBgender = data.user.gender;
 				thisUser.rightHanded = data.user.rightHanded;
+				thisUser.birthDate = data.user.birthDate;
+
+				data.user.gender == "m" ? thisUser.gender = "male" : thisUser.gender = "female";
+				data.user.rightHanded ? thisUser.hand = "right" : thisUser.hand = "left";
+
+				thisUser.age = getAge(date.user.birthDate);
+
 				thisUser.stats = data.user.stats;
 				ret = true;
 			}
@@ -334,9 +345,15 @@ User.prototype.save = function()
 					thisUser.nickname = data.user.nickname;
 					thisUser.name = data.user.name;
 					thisUser.email = data.user.email;
-					thisUser.birthYear = data.user.birthYear;
-					thisUser.male = data.user.male;
+					thisUser.DBgender = data.user.gender;
 					thisUser.rightHanded = data.user.rightHanded;
+					thisUser.birthDate = data.user.birthDate;
+					
+					data.user.gender == "m" ? thisUser.gender = "male" : thisUser.gender = "female";
+					data.user.rightHanded ? thisUser.hand = "right" : thisUser.hand = "left";
+
+					thisUser.age = getAge(date.user.birthDate);
+					
 					thisUser.stats = data.user.stats;
 					ret = true;
 				}
@@ -375,9 +392,15 @@ User.prototype.save = function()
 				thisUser.nickname = data.user.nickname;
 				thisUser.name = data.user.name;
 				thisUser.email = data.user.email;
-				thisUser.birthYear = data.user.birthYear;
-				thisUser.male = data.user.male;
+				thisUser.DBgender = data.user.gender;
 				thisUser.rightHanded = data.user.rightHanded;
+				thisUser.birthDate = data.user.birthDate;
+
+				data.user.gender == "m" ? thisUser.gender = "male" : thisUser.gender = "female";
+				data.user.rightHanded ? thisUser.hand = "right" : thisUser.hand = "left";
+
+				thisUser.age = getAge(date.user.birthDate);
+				
 				thisUser.stats = data.user.stats;
 				ret = true;
 			},
@@ -427,9 +450,15 @@ User.prototype.del = function()
 			thisUser.nickname = data.user.nickname;
 			thisUser.name = data.user.name;
 			thisUser.email = data.user.email;
-			thisUser.birthYear = data.user.birthYear;
-			thisUser.male = data.user.male;
+			thisUser.DBgender = data.user.gender;
 			thisUser.rightHanded = data.user.rightHanded;
+			thisUser.birthDate = data.user.birthDate;
+
+			data.user.gender == "m" ? thisUser.gender = "male" : thisUser.gender = "female";
+			data.user.rightHanded ? thisUser.hand = "right" : thisUser.hand = "left";
+
+			thisUser.age = getAge(date.user.birthDate);
+
 			thisUser.stats = data.user.stats;
 
 			ret = true;
@@ -453,9 +482,9 @@ User.prototype.export = function()
 			"nickname": this.nickname,
 			"name": this.name,
 			"email": this.email,
-			"birthYear": this.birthyear,
-			"male": this.male,
-			"rightHanded": this.rightHanded,
+			"birthDate": this.birthDate,
+			"gender": this.gender == "male" ? "m" : "f",
+			"rightHanded": this.hand == "right" ? true : false,
 			"stats": this.stats
 		}
 	};
@@ -898,4 +927,21 @@ RoundGetAll.prototype.next = function()
 			}
 		});
 	}
+}
+
+/*******************
+ *
+ * extra functions
+ *
+ ******************/
+
+ function getAge(dateString) {
+    var today = new Date();
+    var birthDate = new Date(dateString);
+    var age = today.getFullYear() - birthDate.getFullYear();
+    var m = today.getMonth() - birthDate.getMonth();
+    if (m < 0 || (m === 0 && today.getDate() < birthDate.getDate())) {
+        age--;
+    }
+    return age;
 }
