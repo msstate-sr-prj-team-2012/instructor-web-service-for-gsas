@@ -61,6 +61,27 @@ class User
     private $_email;
 
 /**
+ * birthYear - integer value of the User's birth year
+ *
+ * @var int
+ */
+    private $_birthYear;
+
+/**
+ * male - boolean value, true if male, false if female
+ *
+ * @var bool
+ */
+    private $_male;
+
+/**
+ * rightHanded - boolean value, true if right handed
+ *
+ * @var bool
+ */
+    private $_rightHanded;
+
+/**
  * stats - an associative array of the User's stats with years as keys.
  *
  * @var Stats
@@ -134,6 +155,33 @@ class User
             $this->_email = $data;
         } else {
             return $this->_email;
+        }
+    }
+
+    public function birthYear($data = null)
+    {
+        if (!is_null($data)) {
+            $this->_birthYear = (int)$data;
+        } else {
+            return (int)$this->_birthYear;
+        }
+    }
+
+    public function male($data = null)
+    {
+        if (!is_null($data)) {
+            $this->_male = (bool)$data;
+        } else {
+            return (bool)$this->_male;
+        }
+    }
+
+    public function rightHanded($data = null)
+    {
+        if (!is_null($data)) {
+            $this->_rightHanded = (bool)$data;
+        } else {
+            return (bool)$this->_rightHanded;
         }
     }
 
@@ -214,6 +262,9 @@ class User
         $this->nickname($data['nickname']);
         $this->name($data['name']);
         $this->email($data['email']);
+        $this->birthYear($data['birthYear']);
+        $this->male($data['male']);
+        $this->rightHanded($data['rightHanded']);
 
         $this->ID() ? $this->stats(new Stats($this->ID())) : $this->stats(new Stats());
     }
@@ -227,10 +278,13 @@ class User
     {
         // make an Array from the attributes of this User
         $params = array(
-            'memberID' => $this->memberID(),
-            'nickname' => $this->nickname(),
-            'name'     => $this->name(),
-            'email'    => $this->email()
+            'memberID'    => $this->memberID(),
+            'nickname'    => $this->nickname(),
+            'name'        => $this->name(),
+            'email'       => $this->email(),
+            'birthYear'   => $this->birthYear(),
+            'male'        => $this->male(),
+            'rightHanded' => $this->rightHanded()
         );
 
         // call DBObject::saveToDB and either insert or update the User.
@@ -248,12 +302,15 @@ class User
     {
         $data = array();
         $data['user'] = array();
-        $data['user']['id']       = $this->ID();
-        $data['user']['memberID'] = $this->memberID();
-        $data['user']['nickname'] = $this->nickname();
-        $data['user']['name']     = $this->name();
-        $data['user']['email']    = $this->email();
-        $data['user']['stats']    = $this->stats()->stats();
+        $data['user']['id']          = $this->ID();
+        $data['user']['memberID']    = $this->memberID();
+        $data['user']['nickname']    = $this->nickname();
+        $data['user']['name']        = $this->name();
+        $data['user']['email']       = $this->email();
+        $data['user']['birthYear']   = $this->birthYear();
+        $data['user']['male']        = $this->male();
+        $data['user']['rightHanded'] = $this->rightHanded();
+        $data['user']['stats']       = $this->stats()->stats();
 
         return $data;
     }

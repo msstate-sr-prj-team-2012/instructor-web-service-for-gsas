@@ -21,7 +21,7 @@
  *
  */
 
-require_once(dirname(__FILE__) . '/../../extras/config.php');
+require_once('../../config.php');
 $app->add(new \Slim\Middleware\HttpBasicAuth(API_USERNAME, API_PASSWORD));
 
 /**
@@ -133,13 +133,16 @@ function() use ($app)
         $data = $data['user'];
         
         if (!array_key_exists('memberID', $data) || !array_key_exists('nickname', $data)
-                || !array_key_exists('name', $data) || !array_key_exists('email', $data)) {
+                || !array_key_exists('name', $data) || !array_key_exists('email', $data)
+                || !array_key_exists('birthYear', $data) || !array_key_exists('male', $data)
+                || !array_key_exists('rightHanded', $data)) {
             // return a 400 for bad request - improper JSON format
             $res->status(400);
             $array = $res->finalize();
         } else {
             // check to see if the required fiels for each key are set
-            if (!$data['name'] || !$data['email']) {
+            if (!$data['name'] || !$data['email'] || !$data['birthYear']
+                || !$data['male'] || !$data['rightHanded']) {
                 // return a 400 for bad request - improper JSON format
                 $res->status(400);
                 $array = $res->finalize();
@@ -186,6 +189,9 @@ function() use ($app)
                             $user->nickname($data['nickname']);
                             $user->name($data['name']);
                             $user->email($data['email']);
+                            $user->birthYear($data['birthYear']);
+                            $user->male($data['male']);
+                            $user->rightHanded($data['rightHanded']);
                             
                             // save the user to the DB
                             if ($user->save()) {
@@ -235,6 +241,9 @@ function() use ($app)
 $app->post('/:id',
 function($id) use ($app)
 {
+    // get the instance of the DB 
+    $db = DB::getInstance();
+    
     // get the request object
     $req = $app->request();
     
@@ -253,13 +262,16 @@ function($id) use ($app)
         $data = $data['user'];
         
         if (!array_key_exists('memberID', $data) || !array_key_exists('nickname', $data)
-                || !array_key_exists('name', $data) || !array_key_exists('email', $data)) {
+                || !array_key_exists('name', $data) || !array_key_exists('email', $data)
+                || !array_key_exists('birthYear', $data) || !array_key_exists('male', $data)
+                || !array_key_exists('rightHanded', $data)) {
             // return a 400 for bad request - improper JSON format
             $res->status(400);
             $array = $res->finalize();
         } else {
             // check to see if the required fiels for each key are set
-            if (!$data['name'] || !$data['email']) {
+            if (!$data['name'] || !$data['email'] || !$data['birthYear']
+                || !$data['male'] || !$data['rightHanded']) {
                 // return a 400 for bad request - improper JSON format
                 $res->status(400);
                 $array = $res->finalize();
@@ -322,6 +334,9 @@ function($id) use ($app)
                                 $user->nickname($data['nickname']);
                                 $user->name($data['name']);
                                 $user->email($data['email']);
+                                $user->birthYear($data['birthYear']);
+                                $user->male($data['male']);
+                                $user->rightHanded($data['rightHanded']);
                                 
                                 // save the user to the DB
                                 if ($user->save()) {
