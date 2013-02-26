@@ -244,10 +244,10 @@ function changeView(view) {
 function drawData(){
     round = localStorage.getObject('rounds').filter(function(obj) { return obj.ID === currentRound; });
     html ="<svg>";
-    for (var i = 0; i < round.hole[currentHole].shots.length; i++){
-      var startLocationXY = main(round.hole[currentHole].shots[i].startLatitude, round.hole[currentHole].shots[i].startLongitude);
-      var endLocationXY = main(round.hole[currentHole].shots[i].endLatitude, round.hole[currentHole].shots[i].endLongitude);
-      var club = getClubName(round.hole[currentHole].shots[i].club);
+    for (var i = 0; i < round.holes[currentHole].shots.length; i++){
+      var startLocationXY = main(round.holes[currentHole].shots[i].startLatitude, round.holes[currentHole].shots[i].startLongitude);
+      var endLocationXY = main(round.holes[currentHole].shots[i].endLatitude, round.holes[currentHole].shots[i].endLongitude);
+      var club = getClubName(round.holes[currentHole].shots[i].club);
       var distance = 'not yet calculated';
       drawShape(startLocationXY, endLocationXY, club, distance, round.ID);
     }
@@ -391,24 +391,24 @@ function main(lat, lon){
     
     // known tee point/gps
     var TeeXY0 = { 
-        x: round.hole[currentHole].firstRefX, 
-        y: round.hole[currentHole].firstRefY
+        x: round.holes[currentHole].firstRefX, 
+        y: round.holes[currentHole].firstRefY
     };
     var TeeLLDeg = { 
-        lat: round.hole[currentHole].firstRefLat, 
-        lon: round.hole[currentHole].firstRefLong 
+        lat: round.holes[currentHole].firstRefLat, 
+        lon: round.holes[currentHole].firstRefLong 
     };
     var TeeLLRad = deg2rad(TeeLLDeg); 
     var TeeLLRadFlat = { x: TeeLLRad.lon, y: TeeLLRad.lat };
 
     // known green point/gps
     var CenterXY0 = {
-        x: round.hole[currentHole].secondRefLat,
-        y: round.hole[currentHole].secondRefLong
+        x: round.holes[currentHole].secondRefLat,
+        y: round.holes[currentHole].secondRefLong
     };
     var CenterLLDeg = {
-        lat: round.hole[currentHole].secondRefX,
-        lon: round.hole[currentHole].secondRefY
+        lat: round.holes[currentHole].secondRefX,
+        lon: round.holes[currentHole].secondRefY
     };
     var CenterLLRad = deg2rad(CenterLLDeg); 
     var CenterLLRadFlat = { x: CenterLLRad.lon, y: CenterLLRad.lat };
@@ -442,6 +442,8 @@ function main(lat, lon){
  ****************************************************************************/
 
 $(document).ready(function() {   
+    drawData();
+    
     $(".hole_tabs li").click(function() {
         changeToHole($(this).text());
         drawData(); 
