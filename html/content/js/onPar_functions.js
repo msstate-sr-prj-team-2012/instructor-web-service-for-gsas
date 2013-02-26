@@ -1,7 +1,6 @@
 
 var roundsClass;
-$(document).ready(function() 
-{ 
+$(document).ready(function() { 
     
     
 /****************************************************************************
@@ -10,8 +9,7 @@ $(document).ready(function()
  *
  ****************************************************************************/  
       
-    $("#select_field").change(function()
-    {
+    $("#select_field").change(function(){
         localStorage.removeItem('rounds');
         localStorage.setItem('userName', $("option[value='" + $(this).val() + "']").text());
         localStorage.setItem('userID', $(this).val());
@@ -19,19 +17,15 @@ $(document).ready(function()
     });
     
     
-    $("#input_field").keypress(function(e) 
-    {
-        if (e.which == 13) 
-        {
-            e.preventDefault();
-            if($(this).val() === '') 
-            {
+    $("#input_field").keypress(function(e) {
+        if (e.which == 13) {
+            e.preventDefault();       
+            if($(this).val() === '') {
                 alert("Please enter a member id or email.");
                 return;
             } 
             var u = new User($(this).val());
-            if(u.ID != null)
-            {
+            if(u.ID != null){
                 localStorage.removeItem('rounds');
                 localStorage.setItem('userName', u.name);
                 localStorage.setItem('userID',u.ID);       
@@ -41,23 +35,19 @@ $(document).ready(function()
     });
     
 
-    $(document).on("click", "#submit", function()
-    {
-        if($("input:checkbox:checked").length === 0)
-        {
+    $(document).on("click", "#submit", function(){
+        if($("input:checkbox:checked").length === 0){
             alert("Please select at least one date to continue.");
             return;
         }
-        if($("input:checkbox:checked").length > 10)
-        {
+        if($("input:checkbox:checked").length > 10){
             alert("You have selected " + $("input:checkbox:checked").length + " rounds.\n" +
             "A maximum of 10 rounds is allowed.");
             return;
         }
         
         var rounds = [];
-        $("input:checkbox:checked").each(function()
-        {
+        $("input:checkbox:checked").each(function(){
             rounds.push(new Round($(this).val()));
         })
         localStorage.setObject('rounds',rounds);
@@ -65,15 +55,13 @@ $(document).ready(function()
     });
     
 
-    $(document).on("click", "#more", function()
-    {
+    $(document).on("click", "#more", function(){
         roundsClass.roundObjects.next();
         roundsClass.output();
     });
 
 
-    if(typeof(Storage) === "undefined")
-    {
+    if(typeof(Storage) === "undefined"){
         alert("NOTICE: Your browser is not up to date and will not support this web " +
         "application. Please upgrade your browser to the latest release before continuing.");
         window.open("https://www.google.com/intl/en/chrome/browser/");
@@ -84,38 +72,31 @@ $(document).ready(function()
  * Runs Functions Respective To Page Viewed & Sets Navigation Highlight
  *
  ****************************************************************************/
-        
-    populateSelectField();
+      
     createNavigationMenu();
-    if(window.location.pathname == defines.BASE_PATH + "/")
-    {
+    populateSelectField();
+    if(window.location.pathname == defines.BASE_PATH + "/"){
         document.getElementById('home').className += ' selected_tab'; 
     }
-    else if(window.location.pathname === defines.BASE_PATH + "/rounds")
-    {     
+    else if(window.location.pathname === defines.BASE_PATH + "/rounds"){     
         document.getElementById('round').className += ' selected_tab'; 
         roundsClass = new Rounds();
     }
-    else if(window.location.pathname === defines.BASE_PATH + "/maps")
-    {
+    else if(window.location.pathname === defines.BASE_PATH + "/maps"){
         document.getElementById('maps').className += ' selected_tab'; 
         createRoundTabs();
     }
-    else if(window.location.pathname === defines.BASE_PATH + "/table")
-    {     
+    else if(window.location.pathname === defines.BASE_PATH + "/table"){     
         document.getElementById('table').className += ' selected_tab'; 
     }
-    else if(window.location.pathname === defines.BASE_PATH + "/spread")
-    {
-        document.getElementById('graphs').className += ' selected_tab'; 
+    else if(window.location.pathname === defines.BASE_PATH + "/spread"){
+        document.getElementById('spread').className += ' selected_tab';
     }
-    else if(window.location.pathname === defines.BASE_PATH + "/distance")
-    {
-        document.getElementById('graphs').className += ' selected_tab'; 
+    else if(window.location.pathname === defines.BASE_PATH + "/distance"){
+        document.getElementById('distance').className += ' selected_tab';
         createRoundTabs();
     }
-    else if(window.location.pathname === defines.BASE_PATH + "/stats")
-    {
+    else if(window.location.pathname === defines.BASE_PATH + "/stats"){
         document.getElementById('stats').className += ' selected_tab'; 
         getStatData();
     }
@@ -131,8 +112,7 @@ $(document).ready(function()
  *
  ****************************************************************************/
 
-function createNavigationMenu()
-{
+function createNavigationMenu(){
     var memberName = localStorage.getItem('userName');
     var rounds = localStorage.getObject('rounds');
     
@@ -144,60 +124,47 @@ function createNavigationMenu()
     var maps = defines.BASE_PATH + "/maps";
     var stats = defines.BASE_PATH + "/stats";
     
-    if(rounds === null && memberName === null)
-    {
-        if(window.location.pathname === (defines.BASE_PATH + '/'))
-        {
+    if(rounds === null && memberName === null){
+        if(window.location.pathname === (defines.BASE_PATH + '/')){
             document.getElementById("nav").innerHTML=
             "<ul>\n" +
-                "<li class='selected_tab'><a href=\"" + home + "\">home</a></li>\n" +
+                "<li id='home' class='selected_tab'><a href=\"" + home + "\">home</a></li>\n" +
             "</ul>\n";   
         }
-        else
-        {
+        else{
             document.location.href = defines.BASE_PATH + '/';
         }        
     }
-    else if(rounds === null)
-    {
-        if(window.location.pathname === (defines.BASE_PATH + '/') || window.location.pathname === (defines.BASE_PATH + '/rounds'))
-        {
+    
+    else if(rounds === null){
+        if(window.location.pathname === (defines.BASE_PATH + '/') || window.location.pathname === (defines.BASE_PATH + '/rounds')){
             document.getElementById("nav").innerHTML=
                 "<ul>\n" +
                     "<li id='home'><a href=\"" + home + "\">home</a></li>\n" +
                     "<li id='round'><a href=\"" + round + "\">rounds</a></li>\n" +
                 "</ul>\n";
-            if(window.location.pathname === (defines.BASE_PATH + '/rounds'))
-            {
+            if(window.location.pathname === (defines.BASE_PATH + '/rounds')){
                 document.getElementById("currently_viewing").innerHTML= 
                 "<span>currently viewing: </span>" + localStorage.getItem('userName');
             }
         }       
-        else
-        {
+        else{
              document.location.href = defines.BASE_PATH + '/rounds';
-
-        }  
-        
+        }        
     }
-    else
-    {   
+    
+    else{   
         document.getElementById("nav").innerHTML=
             "<ul>\n" +
                 "<li id='home'><a href=\"" + home + "\">home</a></li>\n" +
                 "<li id='round'><a href=\"" + round + "\">rounds</a></li>\n" +
                 "<li id='table'><a href=\"" + table + "\">table</a></li>\n" +
-                "<li id='graphs'><a>graphs</a>\n" +
-                    "<ul>\n" +
-                        "<li><a href=\"" + spread + "\">spread</a></li>\n" +
-                        "<li><a href=\"" + distance + "\">distance</a></li>\n" +
-                    "</ul>\n" +
-                "</li>\n" +
-                "<li id='maps'><a href=\"" + maps + "\">maps</a></li>\n" +
                 "<li id='stats'><a href=\"" + stats + "\">stats</a></li>\n" +
+                "<li id='spread'><a href=\"" + spread + "\">spread</a></li>\n" +
+                "<li id='distance'><a href=\"" + distance + "\">distance</a></li>\n" +
+                "<li id='maps'><a href=\"" + maps + "\">maps</a></li>\n" +
             "</ul>\n";
-        if(window.location.pathname !== (defines.BASE_PATH + '/'))
-        {
+        if(window.location.pathname !== (defines.BASE_PATH + '/')){
             document.getElementById("currently_viewing").innerHTML= 
             "<span>currently viewing: </span>" + localStorage.getItem('userName');
         }
@@ -212,11 +179,9 @@ function createNavigationMenu()
  *
  ****************************************************************************/
 
-function populateSelectField()
-{
+function populateSelectField(){
     var users = UserGetAll();
-    for(var i = 0; i < users.length; i++)
-    {
+    for(var i = 0; i < users.length; i++){
         document.getElementById("select_field").add(new Option(users[i].name, users[i].ID));
     }
 }
@@ -229,16 +194,16 @@ function populateSelectField()
  *
  ****************************************************************************/
 
-function createRoundTabs()
-{
+function createRoundTabs(){
     var rounds = localStorage.getObject('rounds');
+    
     var html = '<ul>\n';
     html += "<li id='" + rounds[0].ID + "' title='" + rounds[0].startTime + "' class='selected_tab'>" + 1 + "</li>\n";
-    for (var i = 1; i < rounds.length; i++)
-    {
+    for (var i = 1; i < rounds.length; i++){
         html += "<li id='" + rounds[i].ID + "' title='" + rounds[i].startTime + "'>" + (i + 1) + "</li>\n";
     }
     html += "</ul>\n";
+    
     document.getElementsByClassName("round_tabs")[0].innerHTML = html;
 }
 
@@ -250,20 +215,15 @@ function createRoundTabs()
  *
  ****************************************************************************/
 
-function Rounds()
-{
+function Rounds(){
     this.roundObjects = new RoundGetAll(localStorage.getItem('userID'));
     this.output();
 }
 
-
-Rounds.prototype.output = function()
-{
+Rounds.prototype.output = function(){
     var html = "<div class='column'>";
-    for (var i = 0; i < this.roundObjects.rounds.length; i++) 
-    {
-        if(i !== 0 && (i%10) === 0)
-        { 
+    for (var i = 0; i < this.roundObjects.rounds.length; i++) {
+        if(i !== 0 && (i%10) === 0){ 
             html += "</div>\n<div class='column'>"; 
         }
         html += "<label><input type=\"checkbox\" value='" + this.roundObjects.rounds[i].ID + "'> " +          
@@ -275,15 +235,12 @@ Rounds.prototype.output = function()
 }
 
 
-Rounds.prototype.show = function()
-{
-    if (this.roundObjects.nextPage) 
-    {
+Rounds.prototype.show = function(){
+    if (this.roundObjects.nextPage) {
         document.getElementById('buttons').innerHTML = 
             "<button id=\"submit\">submit</button><button id=\"more\">view more</button>";
     }
-    else
-    {
+    else{
         document.getElementById('buttons').innerHTML = "<button id=\"submit\">submit</button>";
     }
 }
@@ -295,14 +252,12 @@ Rounds.prototype.show = function()
  *
  ****************************************************************************/
 
-Storage.prototype.setObject = function(key, value) 
-{
+Storage.prototype.setObject = function(key, value) {
     this.setItem(key, JSON.stringify(value));
 }
 
 
-Storage.prototype.getObject = function(key) 
-{
+Storage.prototype.getObject = function(key) {
     var value = this.getItem(key);
     return value && JSON.parse(value);
 }
@@ -317,12 +272,10 @@ Storage.prototype.getObject = function(key)
 
 var statData;
 var user = new User(localStorage.getItem('userID'));
-function getStatData()
-{   
 
+function getStatData(){   
     statData = [];
-    for(i = 0;i < 2; i++)
-    {
+    for(var i = 0;i < 2; i++){
         statData.push({
             year: (2012 + i),
             gir: (user.stats[2012 + i].GIR_percentage).toFixed(2),
@@ -333,9 +286,7 @@ function getStatData()
     createStatGrid();
 }
 
-
-function createStatGrid()
-{
+function createStatGrid(){
     $("#statistics").jqGrid({
         datatype: "local",
         data: statData,
@@ -351,10 +302,7 @@ function createStatGrid()
         pager: '#pager',
         sortname: 'year',
         viewrecords: true,
-//        grouping:true,
-//        groupingView: { groupField:['year'],groupColumnShow:[false]},
         caption:"Statistics",
         height: "auto"
-
     });
 }
