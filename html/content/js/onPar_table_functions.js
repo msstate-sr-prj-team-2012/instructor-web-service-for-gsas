@@ -200,8 +200,8 @@ function computeAngle(startLat,startLong,aimLat,aimLong,endLat,endLong)
     endLong = endLong - startLong;
 
     var scalar = aimLat * endLat + aimLong * endLong;
-    var mag1 = Math.pow((aimLat * aimLat + aimLong + aimLong), .5);
-    var mag2 = Math.pow((endLat * endLat + endLong + endLong), .5);
+    var mag1 = Math.pow(((aimLat * aimLat) + aimLong + aimLong), 0.5);
+    var mag2 = Math.pow(((endLat * endLat) + endLong + endLong), 0.5);
     
     return (Math.acos(scalar / (mag1 * mag2))*(180 / Math.PI)).toFixed(2);	
 }
