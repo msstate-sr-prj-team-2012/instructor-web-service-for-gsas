@@ -44,6 +44,12 @@ function() use ($app)
 	$app->render('stats.html');
 });
 
+$app->get('/admin',
+function() use ($app)
+{
+	$app->render('admin.html');
+});
+
 $app->run();
 
 ?>
