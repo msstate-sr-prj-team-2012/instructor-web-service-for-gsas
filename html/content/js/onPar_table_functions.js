@@ -127,12 +127,12 @@ $(document).ready(function ()
         shotData = [];
         for(i = 0;i < rounds[currentRound].holes[currentHole].shots.length; i++)
         {
-            var startLat = parseFloat(rounds[currentRound].holes[currentHole].shots[i].startLatitude);
-            var startLong = parseFloat(rounds[currentRound].holes[currentHole].shots[i].startLongitude);
-            var aimLat = parseFloat(rounds[currentRound].holes[currentHole].shots[i].aimLatitude);
-            var aimLong = parseFloat(rounds[currentRound].holes[currentHole].shots[i].aimLongitude);
-            var endLat = parseFloat(rounds[currentRound].holes[currentHole].shots[i].endLatitude);
-            var endLong = parseFloat(rounds[currentRound].holes[currentHole].shots[i].endLongitude);
+            var startLat = rounds[currentRound].holes[currentHole].shots[i].startLatitude;
+            var startLong = rounds[currentRound].holes[currentHole].shots[i].startLongitude;
+            var aimLat = rounds[currentRound].holes[currentHole].shots[i].aimLatitude;
+            var aimLong = rounds[currentRound].holes[currentHole].shots[i].aimLongitude;
+            var endLat = rounds[currentRound].holes[currentHole].shots[i].endLatitude;
+            var endLong = rounds[currentRound].holes[currentHole].shots[i].endLongitude;
 
             // gets angle
             var angle = computeAngle(startLat,startLong,aimLat,aimLong,endLat,endLong);
@@ -142,6 +142,7 @@ $(document).ready(function ()
             if (angle > 0) {direction = 'right';}
             else if (angle < 0) {direction = 'left';}
             else if (angle == 0) {direction = 'center';}
+			else {direction = 'Error';}
 
             // gets distance
             var distance = convertGPStoYards(startLat, startLong, endLat, endLong);
