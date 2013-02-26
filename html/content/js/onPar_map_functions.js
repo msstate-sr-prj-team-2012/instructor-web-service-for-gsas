@@ -7,9 +7,9 @@
 
 var EARTH_RADIUS_IN_YARDS = 13950131.0 / 2; 
 var currentView = 'v1';
-var currentHole = 1;   
-var currentRound = localStorage.getObject('rounds')[0].ID;
-var round;
+var currentHole = 0;   
+var currentRound = localStorage.getObject('rounds')[0].ID; 
+var round = '';
 var html = '';
 
 
@@ -202,7 +202,7 @@ function convertXY1toXY0(xy, height){
  ****************************************************************************/
 
 function changeToHole(hole) {     
-    document.getElementById("h"+currentHole).className = "";
+    document.getElementById("h"+(currentHole+1)).className = "";
     if(currentView === 'v1'){
         $(".map_content").css("background","url(\"html/content/images/holes/hole" +hole+ "_map.PNG\")");
     }
@@ -210,7 +210,7 @@ function changeToHole(hole) {
         $(".map_content").css("background","url(\"html/content/images/holes/hole" +hole+ ".PNG\")");
     }
     document.getElementById("h"+hole).className += ' selected_tab';
-    currentHole = hole;          
+    currentHole = hole - 1;          
 }
 
 
@@ -242,9 +242,10 @@ function changeView(view) {
 
 // retrieves data, runs conversion, draws data to screen
 function drawData(){
-    round = localStorage.getObject('rounds').filter(function(obj) { return obj.ID === currentRound; });
-    html ="<svg>";
-    for (var i = 0; i < round.holes[currentHole].shots.length; i++){
+    // filters localStorage for currentRound
+    round = localStorage.getObject('rounds').filter(function(obj) { return (obj.ID === currentRound) })[0]; 
+    html = "<svg>"; 
+    for (var i = 0; i < round.holes[currentHole].shots.length; i++){ 
       var startLocationXY = main(round.holes[currentHole].shots[i].startLatitude, round.holes[currentHole].shots[i].startLongitude);
       var endLocationXY = main(round.holes[currentHole].shots[i].endLatitude, round.holes[currentHole].shots[i].endLongitude);
       var club = getClubName(round.holes[currentHole].shots[i].club);
@@ -381,23 +382,23 @@ function getDistance(lat1, long1, lat2, long2){
  *
  ****************************************************************************/
 
-function main(lat, lon){    
+function main(latitude, longitude){    
     // known location gps
     var LocationLLDeg = {
-        lat: lat,
-        lon: lon      
+        lat: latitude,
+        lon: longitude      
     };
-    var LocationLLRad = deg2rad(LocationLLDeg);
+    var LocationLLRad = deg2rad(LocationLLDeg); 
     
     // known tee point/gps
     var TeeXY0 = { 
         x: round.holes[currentHole].firstRefX, 
         y: round.holes[currentHole].firstRefY
-    };
+    }; 
     var TeeLLDeg = { 
         lat: round.holes[currentHole].firstRefLat, 
         lon: round.holes[currentHole].firstRefLong 
-    };
+    }; 
     var TeeLLRad = deg2rad(TeeLLDeg); 
     var TeeLLRadFlat = { x: TeeLLRad.lon, y: TeeLLRad.lat };
 
@@ -409,8 +410,8 @@ function main(lat, lon){
     var CenterLLDeg = {
         lat: round.holes[currentHole].secondRefX,
         lon: round.holes[currentHole].secondRefY
-    };
-    var CenterLLRad = deg2rad(CenterLLDeg); 
+    };  
+    var CenterLLRad = deg2rad(CenterLLDeg);  
     var CenterLLRadFlat = { x: CenterLLRad.lon, y: CenterLLRad.lat };
 
     // invert coordinate system with image size
@@ -419,7 +420,7 @@ function main(lat, lon){
     var CenterXY1 = convertXY0toXY1(CenterXY0, height); 
     
     // rotate coordinate system to point north
-    var rotation = angleOfRotation(TeeXY1, CenterXY1, TeeLLRad, CenterLLRad); 
+    var rotation = angleOfRotation(TeeXY1, CenterXY1, TeeLLRad, CenterLLRad);
     var TeeXY2 = convertXY1toXY2(TeeXY1, rotation); 
     var CenterXY2 = convertXY1toXY2(CenterXY1, rotation); 
     
