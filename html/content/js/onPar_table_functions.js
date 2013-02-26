@@ -206,7 +206,6 @@ function computeAngle(startLat,startLong,aimLat,aimLong,endLat,endLong)
     return (Math.acos(scalar / (mag1 * mag2))*(180 / Math.PI)).toFixed(2);	
 }
  
- 
 function convertGPStoYards(lat1, long1, lat2, long2)
 {
     var dLat = (lat2 - lat1)*(Math.PI / 180);
