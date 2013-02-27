@@ -74,7 +74,17 @@ $(document).ready(function() {
  ****************************************************************************/
       
     createNavigationMenu();
-    populateSelectField();
+    
+    //populateSelectField();
+    var users = UserGetAll();
+    $(".chzn-select").chosen();
+
+    for (var i = 0; i < users.length; i++) {
+        $('ul.chzn-results').append('<li class="active-result">' + users[i].name + '</li>');
+    }
+
+    $("#select_field").trigger("liszt:updated");
+    
     if(window.location.pathname == defines.BASE_PATH + "/"){
         document.getElementById('home').className += ' selected_tab'; 
     }
@@ -181,7 +191,7 @@ function createNavigationMenu(){
 
 function populateSelectField(){
     var users = UserGetAll();
-    for(var i = 0; i < users.length; i++){
+    for(var i = 0; i < users.length; i++) {
         document.getElementById("select_field").add(new Option(users[i].name, users[i].ID));
     }
 }
