@@ -76,13 +76,7 @@ $(document).ready(function() {
     createNavigationMenu();
     //populateSelectField();
     $('#golfer_select').select2({
-        data:[
-            {id:0,text:"enhancement"},
-            {id:1,text:"bug"},
-            {id:2,text:"duplicate"},
-            {id:3,text:"invalid"},
-            {id:4,text:"wontfix"}
-        ],
+        data:select2SelectFieldData(),
         width: "300px"
     });
 
@@ -195,7 +189,7 @@ function select2SelectFieldData()
     var data = new Array();
     var users = UserGetAll();
     for (var i = 0; i < user.length; i++) {
-        var item = { "id":users[i].ID, "text":users[i].name };
+        var item = { id:users[i].ID, text:users[i].name };
         console.log(JSON.stringify(item));
         data.push(item);
     }
