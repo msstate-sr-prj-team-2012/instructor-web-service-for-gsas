@@ -8,9 +8,8 @@
 var EARTH_RADIUS_IN_YARDS = 13950131.0 / 2; 
 var currentView = 'v1';
 var currentHole = 0;   
-var currentRound = localStorage.getObject('rounds')[0].ID; 
-var round = '';
-var html = '';
+var round = localStorage.getObject('rounds')[0];
+var html;
 
 
 /****************************************************************************
@@ -213,13 +212,12 @@ function changeToHole(hole) {
     currentHole = hole - 1;          
 }
 
-
 function changeToRound(id) {     
-    document.getElementById(currentRound).className = "";
+    document.getElementById(round.ID).className = "";
     document.getElementById(id).className += ' selected_tab'; 
-    currentRound = id;
+    // filters localStorage for new round object
+    round = localStorage.getObject('rounds').filter(function(obj) { return (obj.ID === id) })[0]; 
 }
-
 
 function changeView(view) {     
     document.getElementById(currentView).className = "";
@@ -242,24 +240,23 @@ function changeView(view) {
 
 // retrieves data, runs conversion, draws data to screen
 function drawData(){
-    // filters localStorage for currentRound
-    round = localStorage.getObject('rounds').filter(function(obj) { return (obj.ID === currentRound) })[0]; 
     html = "<svg>"; 
     for (var i = 0; i < round.holes[currentHole].shots.length; i++){ 
       var startLocationXY = main(round.holes[currentHole].shots[i].startLatitude, round.holes[currentHole].shots[i].startLongitude);
       var endLocationXY = main(round.holes[currentHole].shots[i].endLatitude, round.holes[currentHole].shots[i].endLongitude);
       var club = getClubName(round.holes[currentHole].shots[i].club);
-      var distance = 'not yet calculated';
+      var distance = getDistance(round.holes[currentHole].shots[i].startLatitude, round.holes[currentHole].shots[i].startLongitude, round.holes[currentHole].shots[i].endLatitude, round.holes[currentHole].shots[i].endLongitude);
       drawShape(startLocationXY, endLocationXY, club, distance, round.ID);
     }
     html += "</svg>";  
+    
     document.getElementById('svg').innerHTML = html;
     
     document.getElementById('par').innerHTML =
                 "<ul>\n" +
                     "<li>par: <span>" +round.holes[currentHole].par+ "</span></li>\n" +
                     "<li>score: <span>" +round.holes[currentHole].holeScore+ "</span></li>\n" +
-                "</ul>";
+                "</ul>\n";
 }
       
 function drawShape(start, end, club, distance, id){
@@ -366,13 +363,15 @@ function getClubName(id){
     else return 'unknown';
 }
 
-function getDistance(lat1, long1, lat2, long2){
-    var dLat = (lat2 - lat1)*(Math.PI / 180);
-    var dLong = (long2 - long1)*(Math.PI / 180);
-    var a = Math.pow(Math.sin(dLat/2),2) + Math.cos(lat1) * Math.cos(lat2) * Math.pow(Math.sin(dLong/2),2);
+function getDistance(startLat, startLon, endLat, endLon){
+    var dLat = (endLat - startLat) * (Math.PI / 180.0);
+    var dLon = (endLon - startLon) * (Math.PI / 180.0);
+    var lat1 = startLat * (Math.PI / 180.0);
+    var lat2 = endLat * (Math.PI / 180.0);
+    var a = Math.sin(dLat/2) * Math.sin(dLat/2) + Math.sin(dLon/2) * Math.sin(dLon/2) * Math.cos(lat1) * Math.cos(lat2);
     var c = 2 * Math.atan2(Math.sqrt(a), Math.sqrt(1 - a));
 
-    return (6967420.2 * c).toFixed(2);
+    return (EARTH_RADIUS_IN_YARDS * c).toFixed(2);
 }
 
 
