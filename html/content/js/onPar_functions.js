@@ -9,10 +9,17 @@ $(document).ready(function() {
  *
  ****************************************************************************/  
       
-    $("#select_field").change(function(){
+    /*$("#select_field").change(function(){
         localStorage.removeItem('rounds');
         localStorage.setItem('userName', $("option[value='" + $(this).val() + "']").text());
         localStorage.setItem('userID', $(this).val());
+        document.location.href = defines.BASE_PATH + '/rounds';
+    });*/
+
+    $("#golfer_select").change(function(){
+        localStorage.removeItem('rounds');
+        localStorage.setItem('userName', $("#golfer_select").select2('data').text);
+        localStorage.setItem('userID', $("#golfer_select").select2('data').text);
         document.location.href = defines.BASE_PATH + '/rounds';
     });
     
