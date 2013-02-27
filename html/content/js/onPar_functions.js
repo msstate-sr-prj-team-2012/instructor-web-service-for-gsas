@@ -74,8 +74,9 @@ $(document).ready(function() {
  ****************************************************************************/
       
     createNavigationMenu();
-    populateSelectField();
-    
+    //populateSelectField();
+    $("#select_field").select2(select2SelectFieldData());
+
     if(window.location.pathname == defines.BASE_PATH + "/"){
         document.getElementById('home').className += ' selected_tab'; 
     }
@@ -179,6 +180,16 @@ function createNavigationMenu(){
  * Loads Select Field With Members In Database
  *
  ****************************************************************************/
+
+function select2SelectFieldData()
+{
+    var data = new Array();
+    var users = UserGetAll();
+    for (var i = 0; i < user.length; i++) {
+        var item = { "id":users[i].ID, "text":users[i].name };
+        data.push(item);
+    }
+}
 
 function populateSelectField(){
     var users = UserGetAll();
