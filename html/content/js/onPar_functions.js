@@ -83,8 +83,7 @@ $(document).ready(function() {
     createNavigationMenu();
     //populateSelectField();
     $('#golfer_select').select2({
-        data:select2SelectFieldData(),
-        width: "600px"
+        data:select2SelectFieldData()
     });
 
     if(window.location.pathname == defines.BASE_PATH + "/"){
