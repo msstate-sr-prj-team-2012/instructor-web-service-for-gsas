@@ -67,7 +67,7 @@ function getDistanceData()
     {
 		
 		//loop through each hole
-		for(int h = 0; h < rounds[i].holes.length; h++)
+		for(var h = 0; h < rounds[i].holes.length; h++)
 		{
 			//loop through each shot
 			for(int j = 0; j < rounds[i].holes[h].shots.length; j++)
