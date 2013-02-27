@@ -1,7 +1,6 @@
 
 var roundsClass;
 $(document).ready(function() { 
-    $(".chzn-select").chosen();
     
 /****************************************************************************
  *
@@ -74,7 +73,10 @@ $(document).ready(function() {
  ****************************************************************************/
       
     createNavigationMenu();
+    
     populateSelectField();
+    $(".chzn-select").chosen();
+    
     if(window.location.pathname == defines.BASE_PATH + "/"){
         document.getElementById('home').className += ' selected_tab'; 
     }
@@ -101,7 +103,6 @@ $(document).ready(function() {
         getStatData();
     }
 
- 
 });
 
 
