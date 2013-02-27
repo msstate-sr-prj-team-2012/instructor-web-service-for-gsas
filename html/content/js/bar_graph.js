@@ -70,7 +70,7 @@ function getDistanceData()
 		for(var h = 0; h < rounds[i].holes.length; h++)
 		{
 			//loop through each shot
-			for(int j = 0; j < rounds[i].holes[h].shots.length; j++)
+			for(var j = 0; j < rounds[i].holes[h].shots.length; j++)
 			{
 				var startLat = parseFloat(rounds[i].holes[h].shots[j].startLatitude);
 				var startLong = parseFloat(rounds[i].holes[h].shots[j].startLongitude);
