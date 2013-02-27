@@ -1,8 +1,6 @@
 
 var roundsClass;
 $(document).ready(function() { 
-    $(".chzn-select").chosen();
-    
     
 /****************************************************************************
  *
@@ -189,6 +187,8 @@ function populateSelectField(){
         document.getElementById("select_field").add(new Option(users[i].name, users[i].ID));
 
     }
+
+    $(".chzn-select").chosen();
 }
 
 
