@@ -191,6 +191,7 @@ function select2SelectFieldData()
         var item = { "id":users[i].ID, "text":users[i].name };
         data.push(item);
     }
+    return data;
 }
 
 function populateSelectField(){
