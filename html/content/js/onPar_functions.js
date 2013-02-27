@@ -182,8 +182,11 @@ function createNavigationMenu(){
 
 function populateSelectField(){
     var users = UserGetAll();
+    document.getElementById("select_field").add(new Option("", null));
+    var currentLetter = 'A';
     for(var i = 0; i < users.length; i++){
-        //document.getElementById("select_field").add(new Option(users[i].name, users[i].ID));
+        // first get the first letter of the last name
+        document.getElementById("select_field").add(new Option(users[i].name, users[i].ID));
 
     }
 }
