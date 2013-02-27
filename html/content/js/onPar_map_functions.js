@@ -7,7 +7,7 @@
 
 var EARTH_RADIUS_IN_YARDS = 13950131.0 / 2; 
 var currentView = 'v1';
-var currentHole = 0;   
+var currentHole = 1;   
 var round = localStorage.getObject('rounds')[0];
 var hole;
 var html;
@@ -202,7 +202,7 @@ function convertXY1toXY0(xy){
  ****************************************************************************/
 
 function changeToHole(hole) {     
-    document.getElementById("h"+(currentHole+1)).className = "";
+    document.getElementById("h"+currentHole).className = "";
     if(currentView === 'v1'){
         $(".map_content").css("background","url(\"html/content/images/holes/hole" +hole+ "_map.PNG\")");
     }
@@ -210,7 +210,7 @@ function changeToHole(hole) {
         $(".map_content").css("background","url(\"html/content/images/holes/hole" +hole+ ".PNG\")");
     }
     document.getElementById("h"+hole).className += ' selected_tab';
-    currentHole = hole - 1;          
+    currentHole = hole;          
 }
 
 function changeToRound(id) {     
@@ -223,10 +223,10 @@ function changeToRound(id) {
 function changeView(view) {     
     document.getElementById(currentView).className = "";
     if(view === 'v1'){
-        $(".map_content").css("background","url(\"html/content/images/holes/hole" +(currentHole+1)+ "_map.PNG\")");
+        $(".map_content").css("background","url(\"html/content/images/holes/hole" +currentHole+ "_map.PNG\")");
     }  
     if(view === 'v2'){
-        $(".map_content").css("background","url(\"html/content/images/holes/hole" +(currentHole+1)+ ".PNG\")");
+        $(".map_content").css("background","url(\"html/content/images/holes/hole" +currentHole+ ".PNG\")");
     }
     document.getElementById(view).className += ' selected_tab'; 
     currentView = view;
@@ -261,8 +261,8 @@ function drawData(){
                   
           document.getElementById('par').innerHTML =
             "<ul>\n" +
-                "<li>par: <span>" +round.holes[currentHole].par+ "</span></li>\n" +
-                "<li>score: <span>" +round.holes[currentHole].holeScore+ "</span></li>\n" +
+                "<li>par: <span>" +hole.par+ "</span></li>\n" +
+                "<li>score: <span>" +hole.holeScore+ "</span></li>\n" +
             "</ul>\n";
     }
     
