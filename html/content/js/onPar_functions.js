@@ -2,6 +2,7 @@
 var roundsClass;
 $(document).ready(function() { 
     
+    
 /****************************************************************************
  *
  * Event Handlers For All User Inputs
@@ -73,9 +74,7 @@ $(document).ready(function() {
  ****************************************************************************/
       
     createNavigationMenu();
-    
     populateSelectField();
-    
     if(window.location.pathname == defines.BASE_PATH + "/"){
         document.getElementById('home').className += ' selected_tab'; 
     }
@@ -102,6 +101,7 @@ $(document).ready(function() {
         getStatData();
     }
 
+ 
 });
 
 
@@ -183,7 +183,6 @@ function populateSelectField(){
     var users = UserGetAll();
     for(var i = 0; i < users.length; i++){
         document.getElementById("select_field").add(new Option(users[i].name, users[i].ID));
-
     }
 }
 
@@ -199,9 +198,9 @@ function createRoundTabs(){
     var rounds = localStorage.getObject('rounds');
     
     var html = '<ul>\n';
-    html += "<li id='" + rounds[0].ID + "' title='" + rounds[0].startTime + "' class='selected_tab'>" + 1 + "</li>\n";
+    html += "<li id='" + rounds[0].ID + "' title=' Date: " + rounds[0].startTime.split(' ')[0] + "\n Time: " + rounds[0].startTime.split(' ')[1] + "' class='selected_tab'>" + 1 + "</li>\n";
     for (var i = 1; i < rounds.length; i++){
-        html += "<li id='" + rounds[i].ID + "' title=' Date: " + rounds[i].startTime.split(' ')[0] + "<br/> Time: " + rounds[i].startTime.split(' ')[1] + "'>" + (i + 1) + "</li>\n";
+        html += "<li id='" + rounds[i].ID + "' title=' Date: " + rounds[i].startTime.split(' ')[0] + "\n Time: " + rounds[i].startTime.split(' ')[1] + "'>" + (i + 1) + "</li>\n";
     }
     html += "</ul>\n";
     
