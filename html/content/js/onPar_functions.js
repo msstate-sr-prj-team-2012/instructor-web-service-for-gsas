@@ -76,7 +76,11 @@ $(document).ready(function() {
     createNavigationMenu();
 
     $(".chzn-select").chosen();
-    populateSelectField();
+    //populateSelectField();
+    var users = UserGetAll();
+    for (var i = 0; i < users.length; i++) {
+        $("#select_field").append($("<option />").val(this.id).text(this.department));
+    }
     $("#select_field").trigger("liszt:updated");
     
     if(window.location.pathname == defines.BASE_PATH + "/"){
