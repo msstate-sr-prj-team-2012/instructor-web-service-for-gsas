@@ -75,9 +75,9 @@ $(document).ready(function() {
       
     createNavigationMenu();
     populateSelectField();
-    /*var users = {"data":select2SelectFieldData()};
+    var users = {"data":select2SelectFieldData()};
     console.log(JSON.stringify(users));
-    $("#select_field").select2({"data":[{"id":1, "text":"Benton, Kevin"}]});*/
+    $("#select_field").select2({"data":[{"id":1, "text":"Benton, Kevin"}]});
 
     if(window.location.pathname == defines.BASE_PATH + "/"){
         document.getElementById('home').className += ' selected_tab'; 
