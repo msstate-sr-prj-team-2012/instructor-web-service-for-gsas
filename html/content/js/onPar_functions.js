@@ -76,33 +76,14 @@ $(document).ready(function() {
     createNavigationMenu();
     //populateSelectField();
     $('#golfer_select').select2({
-        minimumInputLength: 3,
-        placeholder: 'Search',
-        ajax: {
-            url: "http://www.weighttraining.com/sm/search",
-            dataType: 'jsonp',
-            quietMillis: 100,
-            data: function(term, page) {
-                return {
-                    types: ["exercise"],
-                    limit: -1,
-                    term: term
-                };
-            },
-            results: function(data, page ) {
-                return { results: data.results.exercise }
-            }
-        },
-        formatResult: function(exercise) { 
-            return "<div class='select2-user-result'>" + exercise.term + "</div>"; 
-        },
-        formatSelection: function(exercise) { 
-            return exercise.term; 
-        },
-        initSelection : function (element, callback) {
-            var elementText = $(element).attr('data-init-text');
-            callback({"term":elementText});
-        }
+        data:[
+            {id:0,text:"enhancement"},
+            {id:1,text:"bug"},
+            {id:2,text:"duplicate"},
+            {id:3,text:"invalid"},
+            {id:4,text:"wontfix"}
+        ],
+        width: "300px"
     });
 
     if(window.location.pathname == defines.BASE_PATH + "/"){
