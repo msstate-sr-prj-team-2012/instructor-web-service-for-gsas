@@ -7,7 +7,7 @@
     <link rel="stylesheet" type="text/css" media="screen" href="html/content/css/style2.css">
     <link rel="stylesheet" type="text/css" media="screen" href="html/content/css/chosen.css">
     <script type="text/javascript" src="html/content/js/jquery-1.8.3.min.js"></script>
-    <script type="text/javascript" src="html/content/js/chosen.jquery.min.js"></script>
+    <script type="text/javascript" src="html/content/js/select2.min.js"></script>
     <script type="text/javascript" src="html/content/js/onPar_SDK.js"></script>
     <script type="text/javascript" src="html/content/js/onPar_functions.js"></script> 
 </head>
@@ -45,11 +45,9 @@
                 is uploaded before continuing</h1>
                           
                 <div class="select">
-                    choose a search option below to begin evaluating<br/><br/>
-                        <select id="select_field" data-placeholder="Choose Golfer..." class="chzn-select" style="width:350px;" tabindex="2">
-                            <option value=""></option>        
-                        <!--<select id="select_field">
-                          <option value="" disabled selected>select golfer...</option>-->
+                    choose a search option below to begin evaluating<br/><br/>    
+                        <select id="select_field">
+                          <option value="" disabled selected>select golfer...</option>
                         </select>                  
                     or 
                         <input type="text" id="input_field" placeholder="enter member id or email...">
