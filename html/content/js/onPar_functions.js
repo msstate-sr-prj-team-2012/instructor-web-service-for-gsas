@@ -75,6 +75,8 @@ $(document).ready(function() {
       
     createNavigationMenu();
     //populateSelectField();
+    var users = {"data":select2SelectFieldData()};
+    console.log(JSON.stringify(users));
     $("#select_field").select2({"data":select2SelectFieldData()});
 
     if(window.location.pathname == defines.BASE_PATH + "/"){
