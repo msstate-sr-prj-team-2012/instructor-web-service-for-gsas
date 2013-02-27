@@ -462,27 +462,27 @@ table{cursor:pointer}
     background: url("../images/holes/hole1_map.PNG");
     border-radius:5px;
 }
-.par
+#par
 {
     position:absolute;
     top:-30px;
     right:10px;
 }
-.par ul
+#par ul
 {
     list-style-type: none;
     text-decoration: none;
     margin: 0;
     padding: 0;
 }
-.par li
+#par li
 {
     color: #000;
     display: inline-block;
     margin: 0 60px 0 0;
 }
-.par span { color: #660000; }
-.par li:hover{background: transparent; color:#000; cursor: default;}
+#par span { color: #660000; }
+#par li:hover{background: transparent; color:#000; cursor: default;}
 .view_tabs
 {
     position: absolute;

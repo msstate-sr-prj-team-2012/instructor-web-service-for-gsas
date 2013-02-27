@@ -179,15 +179,15 @@ function scaleConvert(locationLL, CenterXY, CenterLLRadFlat, scaleFlat){
 function convertXY2toXY1(xy, angle){
     var y = ((Math.sin(angle.sinRot)*xy.x) - (Math.cos(angle.sinRot)*xy.y)) / ((Math.cos(angle.sinRot)*Math.cos(angle.cosRot)) - (Math.sin(angle.cosRot)*Math.sin(angle.sinRot)));
     var temp = {
-            x: ((xy.x + (y * Math.sin(angle.cosRot))) / Math.cos(angle.cosRot)),
+            x: ((xy.x + (y * Math.sin(angle.cosRot))) / Math.cos(angle.sinRot)),
             y: y
     };
     return temp;
 }
 
-function convertXY1toXY0(xy, height){
+function convertXY1toXY0(xy){
     var temp = { 
-        x: height - (height - xy.y), 
+        x: xy.y, 
         y: xy.x
     };
     return temp;
@@ -222,10 +222,10 @@ function changeToRound(id) {
 function changeView(view) {     
     document.getElementById(currentView).className = "";
     if(view === 'v1'){
-        $(".map_content").css("background","url(\"html/content/images/holes/hole" +currentHole+ "_map.PNG\")");
+        $(".map_content").css("background","url(\"html/content/images/holes/hole" +(currentHole+1)+ "_map.PNG\")");
     }  
     if(view === 'v2'){
-        $(".map_content").css("background","url(\"html/content/images/holes/hole" +currentHole+ ".PNG\")");
+        $(".map_content").css("background","url(\"html/content/images/holes/hole" +(currentHole+1)+ ".PNG\")");
     }
     document.getElementById(view).className += ' selected_tab'; 
     currentView = view;
@@ -241,30 +241,39 @@ function changeView(view) {
 // retrieves data, runs conversion, draws data to screen
 function drawData(){
     html = "<svg>"; 
-    for (var i = 0; i < round.holes[currentHole].shots.length; i++){ 
-      var startLocationXY = main(round.holes[currentHole].shots[i].startLatitude, round.holes[currentHole].shots[i].startLongitude);
-      var endLocationXY = main(round.holes[currentHole].shots[i].endLatitude, round.holes[currentHole].shots[i].endLongitude);
-      var club = getClubName(round.holes[currentHole].shots[i].club);
-      var distance = getDistance(round.holes[currentHole].shots[i].startLatitude, round.holes[currentHole].shots[i].startLongitude, round.holes[currentHole].shots[i].endLatitude, round.holes[currentHole].shots[i].endLongitude);
-      drawShape(startLocationXY, endLocationXY, club, distance, round.ID);
+    
+    // shows message if no data
+    if(round.holes[currentHole] === undefined || round.holes[currentHole].shots.length === 0 ){
+        html += '<text x="260" y="160" font-size="20" fill="red" > No Shot Data For This Hole </text>';
+        $('.map_content').css('background', '#fff');
+        document.getElementById('par').innerHTML = '';
     }
-    html += "</svg>";  
+    // iterates through shots of the current hole
+    else{    
+        for (var i = 0; i < round.holes[currentHole].shots.length; i++){ 
+          var startLocationXY = main(round.holes[currentHole].shots[i].startLatitude, round.holes[currentHole].shots[i].startLongitude);
+          var endLocationXY = main(round.holes[currentHole].shots[i].endLatitude, round.holes[currentHole].shots[i].endLongitude);
+          var distance = getDistance(round.holes[currentHole].shots[i].startLatitude, round.holes[currentHole].shots[i].startLongitude, round.holes[currentHole].shots[i].endLatitude, round.holes[currentHole].shots[i].endLongitude);
+          drawShape(startLocationXY, endLocationXY, round.holes[currentHole].shots[i].club, distance, round.startTime);
+        }
+                  
+          document.getElementById('par').innerHTML =
+            "<ul>\n" +
+                "<li>par: <span>" +round.holes[currentHole].par+ "</span></li>\n" +
+                "<li>score: <span>" +round.holes[currentHole].holeScore+ "</span></li>\n" +
+            "</ul>\n";
+    }
     
-    document.getElementById('svg').innerHTML = html;
-    
-    document.getElementById('par').innerHTML =
-                "<ul>\n" +
-                    "<li>par: <span>" +round.holes[currentHole].par+ "</span></li>\n" +
-                    "<li>score: <span>" +round.holes[currentHole].holeScore+ "</span></li>\n" +
-                "</ul>\n";
+    html += "</svg>";     
+    document.getElementById('svg').innerHTML = html;   
 }
       
-function drawShape(start, end, club, distance, id){
+function drawShape(start, end, club, distance, startTime){
     var color;
- 
+    var clubName = getClubName(club);
     // draw line between two points
     html += "<line x1='" +start.x+ "' y1='" +start.y+ "' x2='" +end.x+ "' y2='" +end.y+ "' stroke='black' stroke-width='2'>\n" +
-                "<title> Round: " + id + "</title>\n" +
+                "<title> Date: " + startTime.split(' ')[0] + "<br/> Time: " + startTime.split(' ')[1] + " </title>\n" +
             "</line>\n";
 
     // draw triangle with the appropriate color
@@ -279,7 +288,7 @@ function drawShape(start, end, club, distance, id){
         // points='topX,topY rightX,rightY leftX,leftY'  
         // drawn centered on the point with a 6px difference in each direction
         html += "<polygon points='" +start.x+ "," +(start.y-6)+ " "+(start.x+6)+","+(start.y+6)+" "+(start.x-6)+","+(start.y+6)+"' stroke='" +color+ "' stroke-width='2' fill='white' >\n" +
-                    "<title> Club: " +club+ " <br/> Distance: " +distance+ " </title>\n" +
+                    "<title> Club: " +clubName+ " <br/> Distance: " +distance+ " yards</title>\n" +
                 "</polygon>\n";
     }
 
@@ -292,7 +301,7 @@ function drawShape(start, end, club, distance, id){
         else if (club === 11) color = 'purple';
 
         html += "<rect x='" +start.x+ "' y='" +start.y+ "' width='10' height='10' stroke='" +color+ "' stroke-width='2' fill='white' >\n" +
-                    "<title> Club: " +club+ " <br/> Distance: " +distance+ " </title>\n" +
+                    "<title> Club: " +clubName+ " <br/> Distance: " +distance+ " yards</title>\n" +
                 "</rect>\n";
     }
 
@@ -308,7 +317,7 @@ function drawShape(start, end, club, distance, id){
         else if (club === 19) color = 'brown';
 
         html += "<circle cx='" +start.x+ "' cy='" +start.y+ "' r='5' stroke='" +color+ "' stroke-width='2' fill='white' >" +
-                    "<title> Club: " +club+ " <br/> Distance: " +distance+ " </title>\n" +
+                    "<title> Club: " +clubName+ " <br/> Distance: " +distance+ " yards</title>\n" +
                 "</circle>\n";
     }
 
@@ -323,7 +332,7 @@ function drawShape(start, end, club, distance, id){
         // points='topX,topY rightX,rightY bottomX,bottomY leftX,leftY'
         // diamond centered on point with 6px difference in each direction
         html += "<polygon points='"+start.x+","+(start.y-6)+" "+(start.x+6)+","+start.y+" "+start.x+","+(start.y+6)+" "+(start.x-6)+","+start.y+"' stroke='" +color+ "' stroke-width='2' fill='white' >\n" +
-                    "<title> Club: " +club+ " <br/> Distance: " +distance+ " </title>\n" +
+                    "<title> Club: " +clubName+ " <br/> Distance: " +distance+ " yards</title>\n" +
                 "</polygon>\n";
     }
 } // end draw shape
@@ -403,12 +412,12 @@ function main(latitude, longitude){
 
     // known green point/gps
     var CenterXY0 = {
-        x: round.holes[currentHole].secondRefLat,
-        y: round.holes[currentHole].secondRefLong
+        x: round.holes[currentHole].secondRefX,
+        y: round.holes[currentHole].secondRefY
     };
     var CenterLLDeg = {
-        lat: round.holes[currentHole].secondRefX,
-        lon: round.holes[currentHole].secondRefY
+        lat: round.holes[currentHole].secondRefLat,
+        lon: round.holes[currentHole].secondRefLong
     };  
     var CenterLLRad = deg2rad(CenterLLDeg);  
     var CenterLLRadFlat = { x: CenterLLRad.lon, y: CenterLLRad.lat };
@@ -429,9 +438,9 @@ function main(latitude, longitude){
     // convert gps coordinates to pixel location (1. scale, 2. rotation, 3. invert)
     var LocationXY2 = scaleConvert(LocationLLRad, CenterXY2, CenterLLRadFlat, flatEarthScale);
     var LocationXY1 = convertXY2toXY1(LocationXY2, rotation);
-    var LocationXY0 = convertXY1toXY0(LocationXY1, height);
+    var LocationXY0 = convertXY1toXY0(LocationXY1);
     
-    return LocationXY0;      
+    return LocationXY0; 
 }
 
 
