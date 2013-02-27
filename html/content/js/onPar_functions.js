@@ -77,7 +77,7 @@ $(document).ready(function() {
     //populateSelectField();
     $('#golfer_select').select2({
         data:select2SelectFieldData(),
-        width: "900px"
+        width: "600px"
     });
 
     if(window.location.pathname == defines.BASE_PATH + "/"){
