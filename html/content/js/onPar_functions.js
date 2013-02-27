@@ -74,16 +74,7 @@ $(document).ready(function() {
  ****************************************************************************/
       
     createNavigationMenu();
-    
-    //populateSelectField();
-    var users = UserGetAll();
-    $(".chzn-select").chosen();
-
-    for (var i = 0; i < users.length; i++) {
-        $('ul.chzn-results').append('<li class="active-result">' + users[i].name + '</li>');
-    }
-
-    $("#select_field").trigger("liszt:updated");
+    populateSelectField();
     
     if(window.location.pathname == defines.BASE_PATH + "/"){
         document.getElementById('home').className += ' selected_tab'; 
