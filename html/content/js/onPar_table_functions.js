@@ -9,8 +9,9 @@ var holeData = [];
 var shotData = [];
 var statData = [];
 var currentRound = 0;
-var currentHole = 0;
+var currentHole = 1;
 var rounds = localStorage.getObject('rounds');
+var hole;
 
 $(document).ready(function () {
     getRoundData();
@@ -107,7 +108,7 @@ function createHoleGrid(){
 
             // change of hole will reload shot table
             onSelectRow: function(id){ 
-               currentHole = ($(this).getRowData(id)['hole'] - 1);
+               currentHole = $(this).getRowData(id)['hole'];
                $("#shots").jqGrid("GridUnload").trigger("reloadGrid");
                getShotData();        
              }
@@ -122,19 +123,24 @@ function createHoleGrid(){
  *
  ****************************************************************************/
 
-function getShotData(){                      
-    if((currentHole) > rounds[currentRound].holes.length){
-        currentHole = 0;
+function getShotData(){
+    
+    // filters round object for currentHole
+    hole = (rounds[currentRound]).filter(function(obj) { return (obj.holeNumber == currentHole) })[0];
+    
+    if(hole === undefined || hole.shots.length === 0){
+        createShotGrid();
+        $('#shots').setCaption("Shots (No Shot Data For This Hole)").trigger("reloadGrid");
     }
 
     shotData = [];
-    for(i = 0;i < rounds[currentRound].holes[currentHole].shots.length; i++){
-        var startLat = rounds[currentRound].holes[currentHole].shots[i].startLatitude;
-        var startLong = rounds[currentRound].holes[currentHole].shots[i].startLongitude;
-        var aimLat = rounds[currentRound].holes[currentHole].shots[i].aimLatitude;
-        var aimLong = rounds[currentRound].holes[currentHole].shots[i].aimLongitude;
-        var endLat = rounds[currentRound].holes[currentHole].shots[i].endLatitude;
-        var endLong = rounds[currentRound].holes[currentHole].shots[i].endLongitude;
+    for(var i = 0;i < hole.shots.length; i++){
+        var startLat = hole.shots[i].startLatitude;
+        var startLong = hole.shots[i].startLongitude;
+        var aimLat = hole.shots[i].aimLatitude;
+        var aimLong = hole.shots[i].aimLongitude;
+        var endLat = hole.shots[i].endLatitude;
+        var endLong = hole.shots[i].endLongitude;
 
         // gets angle
         var angle = computeAngle(startLat,startLong,aimLat,aimLong,endLat,endLong);
@@ -149,10 +155,10 @@ function getShotData(){
         var distance = getDistance(startLat, startLong, endLat, endLong);
 
         // gets club name
-        var club = getClubName(rounds[currentRound].holes[currentHole].shots[i].club);
+        var club = getClubName(hole.shots[i].club);
 
         shotData.push({
-            shot: rounds[currentRound].holes[currentHole].shots[i].shotNumber,
+            shot: hole.shots[i].shotNumber,
             club: club,
             distance: distance,
             direction: direction, 
@@ -180,7 +186,7 @@ function createShotGrid(){
         sortname: 'shot',
         viewrecords: true,
         sortorder: "asc",
-        caption:"Shots (Hole  " + (currentHole + 1) + ")",
+        caption:"Shots (Hole  " + currentHole + ")",
         height: "100%",
         width: 700
     });
