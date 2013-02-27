@@ -45,9 +45,11 @@
                 is uploaded before continuing</h1>
                           
                 <div class="select">
-                    choose a search option below to begin evaluating<br/><br/>        
-                        <select id="select_field">
-                          <option value="" disabled selected>select golfer...</option>
+                    choose a search option below to begin evaluating<br/><br/>
+                        <select id="select_field" data-placeholder="Choose a Country" class="chzn-select" style="width:350px;" tabindex="2">
+                            <option value=""></option>        
+                        <!--<select id="select_field">
+                          <option value="" disabled selected>select golfer...</option>-->
                         </select>                  
                     or 
                         <input type="text" id="input_field" placeholder="enter member id or email...">

@@ -74,7 +74,10 @@ $(document).ready(function() {
  ****************************************************************************/
       
     createNavigationMenu();
+
+    $(".chzn-select").chosen();
     populateSelectField();
+    $("#select_field").trigger("liszt:updated");
     
     if(window.location.pathname == defines.BASE_PATH + "/"){
         document.getElementById('home').className += ' selected_tab'; 
