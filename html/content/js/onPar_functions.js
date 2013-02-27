@@ -205,7 +205,7 @@ function createRoundTabs(){
     var html = '<ul>\n';
     html += "<li id='" + rounds[0].ID + "' title='" + rounds[0].startTime + "' class='selected_tab'>" + 1 + "</li>\n";
     for (var i = 1; i < rounds.length; i++){
-        html += "<li id='" + rounds[i].ID + "' title='" + rounds[i].startTime + "'>" + (i + 1) + "</li>\n";
+        html += "<li id='" + rounds[i].ID + "' title=' Date: " + rounds[i].startTime.split(' ')[0] + "<br/> Time: " + rounds[i].startTime.split(' ')[1] + "'>" + (i + 1) + "</li>\n";
     }
     html += "</ul>\n";
     

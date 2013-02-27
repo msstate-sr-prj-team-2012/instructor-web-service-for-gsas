@@ -213,10 +213,10 @@ function changeToHole(hole) {
 }
 
 function changeToRound(id) {     
-    document.getElementById(round.ID).className = "";
+    document.getElementById(round.ID).className = ""; 
     document.getElementById(id).className += ' selected_tab'; 
-    // filters localStorage for new round object
-    round = localStorage.getObject('rounds').filter(function(obj) { return (obj.ID === id) })[0]; 
+    // filters localStorage for new round object 
+    round = localStorage.getObject('rounds').filter(function(obj) { return (obj.ID == id) })[0]; 
 }
 
 function changeView(view) {     
