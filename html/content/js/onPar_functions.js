@@ -75,7 +75,6 @@ $(document).ready(function() {
     createNavigationMenu();
     
     populateSelectField();
-    $(".chzn-select").chosen();
     
     if(window.location.pathname == defines.BASE_PATH + "/"){
         document.getElementById('home').className += ' selected_tab'; 
@@ -182,10 +181,7 @@ function createNavigationMenu(){
 
 function populateSelectField(){
     var users = UserGetAll();
-    document.getElementById("select_field").add(new Option("", null));
-    var currentLetter = 'A';
     for(var i = 0; i < users.length; i++){
-        // first get the first letter of the last name
         document.getElementById("select_field").add(new Option(users[i].name, users[i].ID));
 
     }
