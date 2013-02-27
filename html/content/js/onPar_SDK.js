@@ -67,7 +67,6 @@ Course.prototype.load = function(data)
 	$.ajax({
 		accepts: "application/json",
 		async: false,
-		dataType: "json",
 		url: "API/courses/" + data,
 		type: "GET",
 		username: defines.API_USERNAME,
@@ -77,6 +76,7 @@ Course.prototype.load = function(data)
 				ret = false;
 				alert('This course does not exist.');
 			} else {
+				data = JSON.parse(data);
 				thisCourse.ID = data.course.id;
 				thisCourse.name = data.course.name;
 				thisCourse.location = data.course.location;
@@ -102,7 +102,6 @@ Course.prototype.save = function()
 		$.ajax({
 			accepts: "application/json",
 			async: false,
-			dataType: "json",
 			url: "API/courses/" + this.ID,
 			type: "POST",
 			username: defines.API_USERNAME,
@@ -114,6 +113,7 @@ Course.prototype.save = function()
 					ret = false;
 					alert('This course does not exist.');
 				} else {
+					data = JSON.parse(data);
 					thisCourse.ID = data.course.id;
 					thisCourse.name = data.course.name;
 					thisCourse.location = data.course.location;
@@ -130,7 +130,6 @@ Course.prototype.save = function()
 		$.ajax({
 			accepts: "application/json",
 			async: false,
-			dataType: "json",
 			url: "API/courses/",
 			type: "POST",
 			username: defines.API_USERNAME,
@@ -138,6 +137,7 @@ Course.prototype.save = function()
 			contentType: "application/json",
 			data: JSON.stringify(this.export()),
 			success: function(data, textStatus, xhr) {
+				data = JSON.parse(data);
 				thisCourse.ID = data.course.id;
 				thisCourse.name = data.course.name;
 				thisCourse.location = data.course.location;
@@ -163,7 +163,6 @@ Course.prototype.del = function()
 	$.ajax({
 		accepts: "application/json",
 		async: false,
-		dataType: "json",
 		url: "API/courses/destroy/" + this.ID,
 		type: "POST",
 		username: defines.API_USERNAME,
@@ -172,12 +171,14 @@ Course.prototype.del = function()
 			if (xhr.status == 204) {
 				ret = false;
 				alert('This Course does not exist');
-			}
-			thisCourse.ID = data.course.id;
-			thisCourse.name = data.course.name;
-			thisCourse.location = data.course.location;
+			} else {
+				data = JSON.parse(data);
+				thisCourse.ID = data.course.id;
+				thisCourse.name = data.course.name;
+				thisCourse.location = data.course.location;
 
-			ret = true;
+				ret = true;
+			}
 		},
 		error: function(data, textStatus, xhr) {
 			ret = false;
@@ -209,12 +210,12 @@ function CourseGetAll()
 	$.ajax({
 		accepts: "application/json",
 		async: false,
-		dataType: "json",
 		url: "API/courses/",
 		type: "GET",
 		username: defines.API_USERNAME,
 		password: defines.API_PASSWORD,
 		success: function(data, textStatus, xhr) {
+			data = JSON.parse(data);
 			for (var i = 0; i < data.courses.length; i++) {
 				var c = new Course();
 				c.ID = data.courses[i].course.id;
@@ -273,7 +274,6 @@ User.prototype.load = function(data)
 	$.ajax({
 		accepts: "application/json",
 		async: false,
-		dataType: "json",
 		url: "API/users/" + data,
 		type: "GET",
 		username: defines.API_USERNAME,
@@ -291,6 +291,7 @@ User.prototype.load = function(data)
 					alert('Invalid User ID');
 				}
 			} else {
+				data = JSON.parse(data);
 				thisUser.ID = data.user.id;
 				thisUser.memberID = data.user.memberID;
 				thisUser.nickname = data.user.nickname;
@@ -328,7 +329,6 @@ User.prototype.save = function()
 		$.ajax({
 			accepts: "application/json",
 			async: false,
-			dataType: "json",
 			url: "API/users/" + this.ID,
 			type: "POST",
 			username: defines.API_USERNAME,
@@ -340,6 +340,7 @@ User.prototype.save = function()
 					ret = false;
 					alert('This user does not exist.');
 				} else {
+					data = JSON.parse(data);
 					thisUser.ID = data.user.id;
 					thisUser.memberID = data.user.memberID;
 					thisUser.nickname = data.user.nickname;
@@ -379,7 +380,6 @@ User.prototype.save = function()
 		$.ajax({
 			accepts: "application/json",
 			async: false,
-			dataType: "json",
 			url: "API/users/",
 			type: "POST",
 			username: defines.API_USERNAME,
@@ -387,6 +387,7 @@ User.prototype.save = function()
 			contentType: "application/json",
 			data: JSON.stringify(this.export()),
 			success: function(data, textStatus, xhr) {
+				data = JSON.parse(data);
 				thisUser.ID = data.user.id;
 				thisUser.memberID = data.user.memberID;
 				thisUser.nickname = data.user.nickname;
@@ -435,7 +436,6 @@ User.prototype.del = function()
 	$.ajax({
 		accepts: "application/json",
 		async: false,
-		dataType: "json",
 		url: "API/users/destroy/" + this.ID,
 		type: "POST",
 		username: defines.API_USERNAME,
@@ -444,24 +444,26 @@ User.prototype.del = function()
 			if (xhr.status == 204) {
 				ret = false;
 				alert('This user does not exist');
+			} else {
+				data = JSON.parse(data);
+				thisUser.ID = data.user.id;
+				thisUser.memberID = data.user.memberID;
+				thisUser.nickname = data.user.nickname;
+				thisUser.name = data.user.name;
+				thisUser.email = data.user.email;
+				thisUser.DBgender = data.user.gender;
+				thisUser.rightHanded = data.user.rightHanded;
+				thisUser.birthDate = data.user.birthDate;
+
+				data.user.gender == "m" ? thisUser.gender = "male" : thisUser.gender = "female";
+				data.user.rightHanded ? thisUser.hand = "right" : thisUser.hand = "left";
+
+				thisUser.age = getAge(data.user.birthDate);
+
+				thisUser.stats = data.user.stats;
+
+				ret = true;
 			}
-			thisUser.ID = data.user.id;
-			thisUser.memberID = data.user.memberID;
-			thisUser.nickname = data.user.nickname;
-			thisUser.name = data.user.name;
-			thisUser.email = data.user.email;
-			thisUser.DBgender = data.user.gender;
-			thisUser.rightHanded = data.user.rightHanded;
-			thisUser.birthDate = data.user.birthDate;
-
-			data.user.gender == "m" ? thisUser.gender = "male" : thisUser.gender = "female";
-			data.user.rightHanded ? thisUser.hand = "right" : thisUser.hand = "left";
-
-			thisUser.age = getAge(data.user.birthDate);
-
-			thisUser.stats = data.user.stats;
-
-			ret = true;
 		},
 		error: function(data, textStatus, xhr) {
 			ret = false;
@@ -499,12 +501,12 @@ function UserGetAll()
 	$.ajax({
 		accepts: "application/json",
 		async: false,
-		dataType: "json",
 		url: "API/users/",
 		type: "GET",
 		username: defines.API_USERNAME,
 		password: defines.API_PASSWORD,
 		success: function(data, textStatus, xhr) {
+			data = JSON.parse(data);
 			for (var i = 0; i < data.users.length; i++) {
 				var u = new User();
 				u.ID = data.users[i].id;
@@ -654,6 +656,8 @@ function Round(data)
 
 Round.prototype.loadByJSON = function(data)
 {
+	data = JSON.parse(data);
+
 	this.ID = data.round.id;
 					
 	// create a new user for the user attribute
@@ -739,7 +743,6 @@ Round.prototype.load = function(data)
 	$.ajax({
 		accepts: "application/json",
 		async: false,
-		dataType: "json",
 		url: "API/rounds/" + data,
 		type: "GET",
 		username: defines.API_USERNAME,
@@ -773,7 +776,6 @@ Round.prototype.save = function()
 		$.ajax({
 			accepts: "application/json",
 			async: false,
-			dataType: "json",
 			url: "API/rounds/" + this.ID,
 			type: "POST",
 			username: defines.API_USERNAME,
@@ -800,7 +802,6 @@ Round.prototype.save = function()
 		$.ajax({
 			accepts: "application/json",
 			async: false,
-			dataType: "json",
 			url: "API/rounds/",
 			type: "POST",
 			username: defines.API_USERNAME,
@@ -832,7 +833,6 @@ Round.prototype.del = function()
 	$.ajax({
 		accepts: "application/json",
 		async: false,
-		dataType: "json",
 		url: "API/rounds/destroy/" + this.ID,
 		type: "POST",
 		username: defines.API_USERNAME,
@@ -906,12 +906,12 @@ RoundGetAll.prototype.next = function()
 		$.ajax({
 			accepts: "application/json",
 			async: false,
-			dataType: "json",
 			url: this.url + this.nextPage,
 			type: "GET",
 			username: defines.API_USERNAME,
 			password: defines.API_PASSWORD,
 			success: function(data, textStatus, xhr) {
+				data = JSON.parse(data);
 				for (var i = 0; i < data.rounds.length; i++) {
 					var r = new Round();
 					r.ID = data.rounds[i].id;
