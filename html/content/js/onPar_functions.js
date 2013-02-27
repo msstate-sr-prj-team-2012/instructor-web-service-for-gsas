@@ -75,7 +75,7 @@ $(document).ready(function() {
       
     createNavigationMenu();
     //populateSelectField();
-    $("#select_field").select2(select2SelectFieldData());
+    $("#select_field").select2({"data":select2SelectFieldData()});
 
     if(window.location.pathname == defines.BASE_PATH + "/"){
         document.getElementById('home').className += ' selected_tab'; 
