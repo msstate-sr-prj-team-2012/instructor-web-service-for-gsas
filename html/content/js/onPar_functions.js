@@ -19,7 +19,7 @@ $(document).ready(function() {
     $("#golfer_select").change(function(){
         localStorage.removeItem('rounds');
         localStorage.setItem('userName', $("#golfer_select").select2('data').text);
-        localStorage.setItem('userID', $("#golfer_select").select2('data').text);
+        localStorage.setItem('userID', $("#golfer_select").select2('data').id);
         document.location.href = defines.BASE_PATH + '/rounds';
     });
     
