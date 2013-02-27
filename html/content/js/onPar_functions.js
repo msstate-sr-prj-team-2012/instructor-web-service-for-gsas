@@ -8,13 +8,6 @@ $(document).ready(function() {
  * Event Handlers For All User Inputs
  *
  ****************************************************************************/  
-      
-    /*$("#select_field").change(function(){
-        localStorage.removeItem('rounds');
-        localStorage.setItem('userName', $("option[value='" + $(this).val() + "']").text());
-        localStorage.setItem('userID', $(this).val());
-        document.location.href = defines.BASE_PATH + '/rounds';
-    });*/
 
     $("#golfer_select").change(function(){
         localStorage.removeItem('rounds');
@@ -200,14 +193,6 @@ function select2SelectFieldData()
     }
     return data;
 }
-
-function populateSelectField(){
-    var users = UserGetAll();
-    for(var i = 0; i < users.length; i++) {
-        document.getElementById("select_field").add(new Option(users[i].name, users[i].ID));
-    }
-}
-
 
 
 /****************************************************************************

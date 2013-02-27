@@ -4,9 +4,11 @@
     <title>onPar - table</title>
     <link rel="icon" type="image/ico" href="http://shadowrealm.cse.msstate.edu/favicon.ico">
     <link rel="stylesheet" type="text/css" media="screen" href="html/content/css/style2.css">
+    <link rel="stylesheet" type="text/css" media="screen" href="html/content/css/select2.css">
     <link rel="stylesheet" type="text/css" media="screen" href="html/content/css/smoothness/jquery-ui-1.10.1.custom.min.css" />
     <link rel="stylesheet" type="text/css" media="screen" href="html/content/css/ui.jqgrid.css" /> 
     <script type="text/javascript" src="html/content/js/jquery-1.8.3.min.js"></script>
+    <script type="text/javascript" src="html/content/js/select2.min.js"></script>
     <script type="text/javascript" src="html/content/js/i18n/grid.locale-en.js"></script>
     <script type="text/javascript" src="html/content/js/jquery.jqGrid.src.js"></script>
     <script type="text/javascript" src="html/content/js/onPar_SDK.js"></script>
@@ -40,9 +42,7 @@
                         <input type="text" id="input_field" placeholder="enter member id or email..." >
                   </li>
                   <li>                       
-                        <select id="select_field">
-                            <option value="" disabled selected>select golfer...</option>
-                        </select>
+                        <input type="hidden" id="golfer_select" placeholder="Select Golfer..." style="width:250px;"/>
                   </li>
               </ul>
             </li>
