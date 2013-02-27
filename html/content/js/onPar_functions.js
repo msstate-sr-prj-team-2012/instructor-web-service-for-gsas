@@ -188,7 +188,7 @@ function select2SelectFieldData()
 {
     var data = new Array();
     var users = UserGetAll();
-    for (var i = 0; i < user.length; i++) {
+    for (var i = 0; i < users.length; i++) {
         var item = { id:users[i].ID, text:users[i].name };
         console.log(JSON.stringify(item));
         data.push(item);
