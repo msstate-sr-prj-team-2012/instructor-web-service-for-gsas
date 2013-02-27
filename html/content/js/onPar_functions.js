@@ -75,7 +75,7 @@ $(document).ready(function() {
       
     createNavigationMenu();
     //populateSelectField();
-    $('#test').select2({
+    $('#golfer_select').select2({
         minimumInputLength: 3,
         placeholder: 'Search',
         ajax: {
