@@ -9,6 +9,7 @@ var EARTH_RADIUS_IN_YARDS = 13950131.0 / 2;
 var currentView = 'v1';
 var currentHole = 0;   
 var round = localStorage.getObject('rounds')[0];
+var hole;
 var html;
 
 
@@ -241,20 +242,21 @@ function changeView(view) {
 // retrieves data, runs conversion, draws data to screen
 function drawData(){
     html = "<svg>"; 
-    
+    // filters round object for currentHole
+    hole = (round.holes).filter(function(obj) { return (obj.holeNumber == currentHole) })[0];
     // shows message if no data
-    if(round.holes[currentHole] === undefined || round.holes[currentHole].shots.length === 0 ){
+    if(hole === undefined || hole.shots.length === 0){
         html += '<text x="260" y="160" font-size="20" fill="red" > No Shot Data For This Hole </text>';
         $('.map_content').css('background', '#fff');
         document.getElementById('par').innerHTML = '';
     }
     // iterates through shots of the current hole
     else{    
-        for (var i = 0; i < round.holes[currentHole].shots.length; i++){ 
-          var startLocationXY = main(round.holes[currentHole].shots[i].startLatitude, round.holes[currentHole].shots[i].startLongitude);
-          var endLocationXY = main(round.holes[currentHole].shots[i].endLatitude, round.holes[currentHole].shots[i].endLongitude);
-          var distance = getDistance(round.holes[currentHole].shots[i].startLatitude, round.holes[currentHole].shots[i].startLongitude, round.holes[currentHole].shots[i].endLatitude, round.holes[currentHole].shots[i].endLongitude);
-          drawShape(startLocationXY, endLocationXY, round.holes[currentHole].shots[i].club, distance, round.startTime);
+        for (var i = 0; i < hole.shots.length; i++){ 
+          var startLocationXY = main(hole.shots[i].startLatitude, hole.shots[i].startLongitude);
+          var endLocationXY = main(hole.shots[i].endLatitude, hole.shots[i].endLongitude);
+          var distance = getDistance(hole.shots[i].startLatitude, hole.shots[i].startLongitude, hole.shots[i].endLatitude, hole.shots[i].endLongitude);
+          drawShape(startLocationXY, endLocationXY, hole.shots[i].club, distance, round.startTime);
         }
                   
           document.getElementById('par').innerHTML =
@@ -400,24 +402,24 @@ function main(latitude, longitude){
     
     // known tee point/gps
     var TeeXY0 = { 
-        x: round.holes[currentHole].firstRefX, 
-        y: round.holes[currentHole].firstRefY
+        x: hole.firstRefX, 
+        y: hole.firstRefY
     }; 
     var TeeLLDeg = { 
-        lat: round.holes[currentHole].firstRefLat, 
-        lon: round.holes[currentHole].firstRefLong 
+        lat: hole.firstRefLat, 
+        lon: hole.firstRefLong 
     }; 
     var TeeLLRad = deg2rad(TeeLLDeg); 
     var TeeLLRadFlat = { x: TeeLLRad.lon, y: TeeLLRad.lat };
 
     // known green point/gps
     var CenterXY0 = {
-        x: round.holes[currentHole].secondRefX,
-        y: round.holes[currentHole].secondRefY
+        x: hole.secondRefX,
+        y: hole.secondRefY
     };
     var CenterLLDeg = {
-        lat: round.holes[currentHole].secondRefLat,
-        lon: round.holes[currentHole].secondRefLong
+        lat: hole.secondRefLat,
+        lon: hole.secondRefLong
     };  
     var CenterLLRad = deg2rad(CenterLLDeg);  
     var CenterLLRadFlat = { x: CenterLLRad.lon, y: CenterLLRad.lat };
