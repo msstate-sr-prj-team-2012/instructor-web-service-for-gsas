@@ -75,9 +75,35 @@ $(document).ready(function() {
       
     createNavigationMenu();
     //populateSelectField();
-    var users = {"data":select2SelectFieldData()};
-    console.log(JSON.stringify(users));
-    $("#golfer_select").select2({data:[{"id":1, "text":"Benton, Kevin"}]});
+    $('#test').select2({
+        minimumInputLength: 3,
+        placeholder: 'Search',
+        ajax: {
+            url: "http://www.weighttraining.com/sm/search",
+            dataType: 'jsonp',
+            quietMillis: 100,
+            data: function(term, page) {
+                return {
+                    types: ["exercise"],
+                    limit: -1,
+                    term: term
+                };
+            },
+            results: function(data, page ) {
+                return { results: data.results.exercise }
+            }
+        },
+        formatResult: function(exercise) { 
+            return "<div class='select2-user-result'>" + exercise.term + "</div>"; 
+        },
+        formatSelection: function(exercise) { 
+            return exercise.term; 
+        },
+        initSelection : function (element, callback) {
+            var elementText = $(element).attr('data-init-text');
+            callback({"term":elementText});
+        }
+    });
 
     if(window.location.pathname == defines.BASE_PATH + "/"){
         document.getElementById('home').className += ' selected_tab'; 
