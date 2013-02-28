@@ -21,8 +21,8 @@ root { display: block; }
 * { margin: 0; padding: 0; }
 body 
 {
-    font: 13px/25px Century Gothic, 'TeXGyreAdventorRegular', sans-serif;
-    font-weight: 100;
+    font: 13px/25px 'Raleway', Century Gothic, 'TeXGyreAdventorRegular', sans-serif;
+    font-weight: 500;
     text-align:center;
     background: url("../images/bg.png") repeat scroll; 
 }
@@ -336,6 +336,7 @@ nav ul li:hover > a
     position: absolute;
     top:180px;
     left:210px;
+    text-transform: lowercase;
 }
 .select input[type="text"]
 {
@@ -348,7 +349,7 @@ nav ul li:hover > a
     float:left;
     border-radius: 5px;
 }
-.select select
+.select input[type="hidden"]
 {
     font: 13px Century Gothic, 'TeXGyreAdventorRegular', sans-serif;
     width: 100%;
