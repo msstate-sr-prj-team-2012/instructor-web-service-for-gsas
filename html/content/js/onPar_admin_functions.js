@@ -5,7 +5,7 @@
  ****************************************************************************/
 
 var userData = [];
-var users = localStorage.getObject('rounds');
+//var users = localStorage.getObject('rounds');
 
 $(document).ready(function () {
     getUserData();
@@ -36,8 +36,8 @@ function getUserData(){
             data: userData,
             colNames:['User Name', 'Email'],
             colModel:[
-                {name:'User Name', index:'userName', width: 140, sorttype: 'string', align:'center'},
-                {name:'Email', index:'userEmail', width:400, align:'center', sorttype:'string', align:'center'},
+                {name:'User Name', index:'userName', width: 140, sorttype: 'text', align:'center'},
+                {name:'Email', index:'userEmail', width:400, align:'center', sorttype:'text', align:'center'},
             ],
             rowNum: 5,
             rowList:[3,5,10],
@@ -47,12 +47,12 @@ function getUserData(){
             sortorder: "asc",
             caption:"Users",
             height: "100%",
-            width: 700,
+            width: 700
 
             // change of round will reload round and shot table
-            onSelectRow: function(id){ 
-                getUserData();   
-             }
+            // onSelectRow: function(id){ 
+                // getUserData();   
+             // }
         })
  }
  
