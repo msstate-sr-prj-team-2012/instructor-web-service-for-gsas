@@ -18,11 +18,10 @@ $(document).ready(function () {
 
 function getUserData(){
     userData = [];
-    for(var i = 0; i < 10; i++){
-        userData.push({
-                name: 'ChadMcDaniel',
-                userEmail: 'ccm290@msstate.edu'
-            });
+    
+	for(var i = 0; i < 7; i++)
+	{
+        userData.push({ name: 'ChadMcDaniel', userEmail: 'ccm290@msstate.edu'});
     }
 	
     createUserGrid();
