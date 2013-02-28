@@ -126,7 +126,7 @@ function createHoleGrid(){
 function getShotData(){
     
     // filters round object for currentHole
-    hole = (rounds[currentRound]).filter(function(obj) { return (obj.holeNumber == currentHole) })[0];
+    hole = [rounds[currentRound]].filter(function(obj) { return (obj.holeNumber == currentHole) })[0];
     
     shotData = [];
     if(hole === undefined || hole.shots.length === 0){
