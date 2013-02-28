@@ -218,6 +218,13 @@ function changeToRound(id) {
     document.getElementById(id).className += ' selected_tab'; 
     // filters localStorage for new round object 
     round = localStorage.getObject('rounds').filter(function(obj) { return (obj.ID == id) })[0]; 
+    
+    if(currentView === 'v1'){
+        $(".map_content").css("background","url(\"html/content/images/holes/hole" +currentHole+ "_map.PNG\")");
+    }
+    if(currentView === 'v2'){
+        $(".map_content").css("background","url(\"html/content/images/holes/hole" +currentHole+ ".PNG\")");
+    }
 }
 
 function changeView(view) {     
