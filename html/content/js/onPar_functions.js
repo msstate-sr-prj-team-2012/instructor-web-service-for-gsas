@@ -104,6 +104,10 @@ $(document).ready(function() {
         document.getElementById('stats').className += ' selected_tab'; 
         getStatData();
     }
+	else if(window.location.pathname === defines.BASE_PATH + "/admin"){
+        document.getElementById('stats').className += ' selected_tab'; 
+        getStatData();
+    }
 
  
 });
@@ -127,6 +131,7 @@ function createNavigationMenu(){
     var distance = defines.BASE_PATH + "/distance";
     var maps = defines.BASE_PATH + "/maps";
     var stats = defines.BASE_PATH + "/stats";
+    var admin = defines.BASE_PATH + "/admin";
     
     if(rounds === null && memberName === null){
         if(window.location.pathname === (defines.BASE_PATH + '/')){
@@ -167,6 +172,7 @@ function createNavigationMenu(){
                 "<li id='spread'><a href=\"" + spread + "\">spread</a></li>\n" +
                 "<li id='distance'><a href=\"" + distance + "\">distance</a></li>\n" +
                 "<li id='maps'><a href=\"" + maps + "\">maps</a></li>\n" +
+				"<li id='maps'><a href=\"" + admin + "\">admin</a></li>\n" +
             "</ul>\n";
         if(window.location.pathname !== (defines.BASE_PATH + '/')){
             document.getElementById("currently_viewing").innerHTML= 

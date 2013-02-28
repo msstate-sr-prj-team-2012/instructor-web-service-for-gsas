@@ -13,15 +13,11 @@
     <script type="text/javascript" src="html/content/js/jquery.jqGrid.src.js"></script>
     <script type="text/javascript" src="html/content/js/onPar_SDK.js"></script>
     <script type="text/javascript" src="html/content/js/onPar_functions.js"></script>
-    <script type="text/javascript" src="html/content/js/onPar_table_functions.js"></script>
+    <script type="text/javascript" src="html/content/js/onPar_admin_functions.js"></script>
 </head>
 <body>
-    
  <div id="page-wrap">
-
-    
     <!--==============================header=================================-->
-
    <header> 
 
         <img src="html/content/images/logo.png" alt="" class="site-logo">
@@ -33,6 +29,8 @@
 
          <nav id="nav">  
          </nav>
+
+
          <!--<ul id="change_golfer">
             <li><a>change golfer ?</a>
               <ul>
@@ -54,12 +52,14 @@
         <!--==============================content================================-->
 
         <div class="content">
-            
+            <div id="table_content">
+                <div class="grid">
+                    <table id="user"></table>
+                    <div id="pager"></div>
+                </div>
+            </div>
         </div>
-
-
         <!--==============================footer=================================-->
- 
         <footer>
             2013 onPar 
         </footer>
