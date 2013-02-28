@@ -13,7 +13,7 @@ $(document).ready(function()
         changeToRound($(this).attr('id'));
     });
     var tags = new Array("January", "February", "March", "April","pie")
-var values = new Array("55", "80", "95", "32","900")
+    var values = new Array("55", "80", "95", "32","900")
     basicbargraph(tags,values);
     document.getElementById(mapRound).className += ' selected_tab';
 });
@@ -22,7 +22,7 @@ var values = new Array("55", "80", "95", "32","900")
     var length = 200
 
     for (i = 0; i < tags.length; i++) {
-        document.write('<div style="font-size: 10pt; color: #AAAAAA;">' + tags[i] + ': </div><div style="font-size: 10pt; color: #AAAAAA;"><img src="pixel.jpg" width="' + values[i] / 100 * length + '" height="15" border="1" style="border-color: #00AA00"> ' + values[i] + '%</div>')
+        document.write('<div style="font-size: 10pt; color: #AAAAAA;">' + tags[i] + ': </div><div style="font-size: 10pt; color: #AAAAAA;"><img src="pixel.jpg" width="' + values[i] / 100 * length + '" height="15" border="1" style="border-color: #00AA00"> ' + values[i] + 'Yards</div>')
     }
 }      
       
@@ -69,7 +69,9 @@ function getDistanceData()
 {
 	currentRound = 0;
 	currentHole = 0;
-	
+	var shottotal=0;
+        var arrayofdistances="";
+        var arrayofshots="";
 	//Loop through each round
 	for(i = 0;i < rounds.length; i++)
     {
@@ -91,6 +93,7 @@ function getDistanceData()
                             }
                         }
 	}
+        return 
 }
 function convertGPStoYards(lat1, long1, lat2, long2)
 {
