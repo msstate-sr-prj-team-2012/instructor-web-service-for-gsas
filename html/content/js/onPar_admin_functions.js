@@ -21,8 +21,8 @@ function getUserData(){
     userData = [];
     for(var i = 0; i < 10/*users.length*/; i++){
         userData.push({
-                userName: "Chad McDaniel, //users[i].name,
-                userEmail: ccm290@msstate.edu//users[i].email 
+                userName: "Chad McDaniel",
+                userEmail: "ccm290@msstate.edu "
             });
     }
 	
@@ -36,8 +36,8 @@ function getUserData(){
             data: userData,
             colNames:['User Name', 'Email'],
             colModel:[
-                {name:'User Name', index:'user', width: 140, sorttype: 'string', align:'center'},
-                {name:'Email', index:'email', width:400, align:'center', sorttype:'string', align:'center'},
+                {name:'User Name', index:'userName', width: 140, sorttype: 'string', align:'center'},
+                {name:'Email', index:'userEmail', width:400, align:'center', sorttype:'string', align:'center'},
             ],
             rowNum:5,
             rowList:[3,5,10],
