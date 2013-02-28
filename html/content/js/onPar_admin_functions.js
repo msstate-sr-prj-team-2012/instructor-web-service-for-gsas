@@ -5,7 +5,6 @@
  ****************************************************************************/
 
 var userData = [];
-//var users = localStorage.getObject('rounds');
 
 $(document).ready(function () {
     getUserData();
@@ -19,10 +18,10 @@ $(document).ready(function () {
 
 function getUserData(){
     userData = [];
-    for(var i = 0; i < 10/*users.length*/; i++){
+    for(var i = 0; i < 10; i++){
         userData.push({
-                userName: "Chad McDaniel",
-                userEmail: "ccm290@msstate.edu"
+                userName: 'Chad McDaniel ' + i,
+                userEmail: 'ccm290@msstate.edu'
             });
     }
 	
@@ -53,7 +52,7 @@ function getUserData(){
             // onSelectRow: function(id){ 
                 // getUserData();   
              // }
-        })
+        });
  }
  
  function getUserData()
