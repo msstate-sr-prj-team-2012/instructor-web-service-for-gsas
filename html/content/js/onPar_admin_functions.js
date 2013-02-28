@@ -20,8 +20,8 @@ function getUserData(){
     userData = [];
     for(var i = 0; i < 10; i++){
         userData.push({
-                userName: 'Chad McDaniel ' + i,
-                userEmail: 'ccm290@msstate.edu'
+                userName: "Chad McDaniel",
+                userEmail: "ccm290@msstate.edu"
             });
     }
 	
@@ -30,13 +30,13 @@ function getUserData(){
 
 //Creates the actual table
  function createUserGrid(){
-     $("#user").jqGrid({
+     $("#users").jqGrid({
             datatype: "local",
             data: userData,
             colNames:['User Name', 'Email'],
             colModel:[
                 {name:'User Name', index:'userName', width: 140, sorttype: 'text', align:'center'},
-                {name:'Email', index:'userEmail', width:400, align:'center', sorttype:'text', align:'center'},
+                {name:'Email', index:'userEmail', width:140, align:'center', sorttype:'text', align:'center'},
             ],
             rowNum: 5,
             rowList:[3,5,10],
