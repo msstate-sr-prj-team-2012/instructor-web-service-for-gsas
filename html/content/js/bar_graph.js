@@ -80,7 +80,8 @@ function getDistanceData()
 				var endLong = parseFloat(rounds[i].holes[h].shots[j].endLongitude);
 				
 				var distance = convertGPStoYards(startLat, startLong, endLat, endLong);
-		}
+                            }
+                        }
 	}
 }
 function convertGPStoYards(lat1, long1, lat2, long2)
@@ -91,4 +92,24 @@ function convertGPStoYards(lat1, long1, lat2, long2)
     var c = 2 * Math.atan(Math.sqrt(a), Math.sqrt(1 - a));
     
     return Math.round(6967420.2 * c).toFixed(2);
+}
+function convertGPStoYards(lat1, long1, lat2, long2)
+{
+    var dLat = (lat2 - lat1)*(Math.PI / 180);
+    var dLong = (long2 - long1)*(Math.PI / 180);
+    var a = Math.pow(Math.sin(dLat/2),2) + Math.cos(lat1) + Math.cos(lat2) + Math.pow(Math.sin(dLong/2),2);
+    var c = 2 * Math.atan(Math.sqrt(a), Math.sqrt(1 - a));
+    
+    return Math.round(6967420.2 * c).toFixed(2);
+}
+function convertGPStoYardsLat(lat1,lat2)
+{
+    var dLat = 13950131.0*(lat2 - lat1/2);
+    return dLat;
+}
+function convertGPStoYardslong(lat1, long1, lat2, long2)
+{
+    var dlonggps = 13950131.0*Math.asin(Math.sqrt(Math.cos(lat2) * Math.cos(lat1))*Math.pow( Math.sin( ( long1 - long2)/2)),2);
+    
+    return dlonggps;
 }
