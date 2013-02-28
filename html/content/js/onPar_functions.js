@@ -172,7 +172,7 @@ function createNavigationMenu(){
                 "<li id='spread'><a href=\"" + spread + "\">spread</a></li>\n" +
                 "<li id='distance'><a href=\"" + distance + "\">distance</a></li>\n" +
                 "<li id='maps'><a href=\"" + maps + "\">maps</a></li>\n" +
-				"<li id='maps'><a href=\"" + admin + "\">admin</a></li>\n" +
+				"<li id='admin'><a href=\"" + admin + "\">admin</a></li>\n" +
             "</ul>\n";
         if(window.location.pathname !== (defines.BASE_PATH + '/')){
             document.getElementById("currently_viewing").innerHTML= 

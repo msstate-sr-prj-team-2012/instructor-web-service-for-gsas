@@ -22,7 +22,7 @@ function getUserData(){
     for(var i = 0; i < 10/*users.length*/; i++){
         userData.push({
                 userName: "Chad McDaniel",
-                userEmail: "ccm290@msstate.edu "
+                userEmail: "ccm290@msstate.edu"
             });
     }
 	
@@ -39,7 +39,7 @@ function getUserData(){
                 {name:'User Name', index:'userName', width: 140, sorttype: 'string', align:'center'},
                 {name:'Email', index:'userEmail', width:400, align:'center', sorttype:'string', align:'center'},
             ],
-            rowNum:5,
+            rowNum: 5,
             rowList:[3,5,10],
             pager: '#pager',
             sortname: 'User Name',
