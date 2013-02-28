@@ -46,7 +46,7 @@ function getUserData(){
             sortorder: "asc",
             caption:"Users",
             height: "100%",
-            width: 700
+            width: 280
 
             // change of round will reload round and shot table
             // onSelectRow: function(id){ 
