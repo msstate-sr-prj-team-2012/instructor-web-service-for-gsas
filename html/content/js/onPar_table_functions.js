@@ -128,44 +128,45 @@ function getShotData(){
     // filters round object for currentHole
     hole = (rounds[currentRound]).filter(function(obj) { return (obj.holeNumber == currentHole) })[0];
     
+    shotData = [];
     if(hole === undefined || hole.shots.length === 0){
         createShotGrid();
         $('#shots').setCaption("Shots (No Shot Data For This Hole)").trigger("reloadGrid");
     }
+    else{
+        for(var i = 0;i < hole.shots.length; i++){
+            var startLat = hole.shots[i].startLatitude;
+            var startLong = hole.shots[i].startLongitude;
+            var aimLat = hole.shots[i].aimLatitude;
+            var aimLong = hole.shots[i].aimLongitude;
+            var endLat = hole.shots[i].endLatitude;
+            var endLong = hole.shots[i].endLongitude;
 
-    shotData = [];
-    for(var i = 0;i < hole.shots.length; i++){
-        var startLat = hole.shots[i].startLatitude;
-        var startLong = hole.shots[i].startLongitude;
-        var aimLat = hole.shots[i].aimLatitude;
-        var aimLong = hole.shots[i].aimLongitude;
-        var endLat = hole.shots[i].endLatitude;
-        var endLong = hole.shots[i].endLongitude;
+            // gets angle
+            var angle = computeAngle(startLat,startLong,aimLat,aimLong,endLat,endLong);
 
-        // gets angle
-        var angle = computeAngle(startLat,startLong,aimLat,aimLong,endLat,endLong);
+            // gets direction
+            var direction;
+            if (angle > 0) {direction = 'right';}
+            else if (angle < 0) {direction = 'left';}
+            else if (angle == 0) {direction = 'center';}
 
-        // gets direction
-        var direction;
-        if (angle > 0) {direction = 'right';}
-        else if (angle < 0) {direction = 'left';}
-        else if (angle == 0) {direction = 'center';}
+            // gets distance
+            var distance = getDistance(startLat, startLong, endLat, endLong);
 
-        // gets distance
-        var distance = getDistance(startLat, startLong, endLat, endLong);
+            // gets club name
+            var club = getClubName(hole.shots[i].club);
 
-        // gets club name
-        var club = getClubName(hole.shots[i].club);
-
-        shotData.push({
-            shot: hole.shots[i].shotNumber,
-            club: club,
-            distance: distance,
-            direction: direction, 
-            angle: angle 
-        })
-    }  
-    createShotGrid();
+            shotData.push({
+                shot: hole.shots[i].shotNumber,
+                club: club,
+                distance: distance,
+                direction: direction, 
+                angle: angle 
+            })
+        }  
+        createShotGrid();
+    }
 }
 
 function createShotGrid(){
