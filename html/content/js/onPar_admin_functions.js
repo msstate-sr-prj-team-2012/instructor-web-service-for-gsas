@@ -21,7 +21,7 @@ function getUserData(){
     
 	for(var i = 0; i < 7; i++)
 	{
-        userData.push({ name: 'ChadMcDaniel', userEmail: 'ccm290@msstate.edu'});
+        userData.push({ name: i, userEmail: 'ccm290@msstate.edu'});
     }
 	
     createUserGrid();
