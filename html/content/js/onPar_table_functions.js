@@ -126,12 +126,12 @@ function createHoleGrid(){
 function getShotData(){
     
     // filters round object for currentHole
-    hole = [rounds[currentRound]].filter(function(obj) { return (obj.holeNumber == currentHole) })[0];
+    hole = (rounds[currentRound].holes).filter(function(obj) { return (obj.holeNumber == currentHole) })[0];
     
     shotData = [];
     if(hole === undefined || hole.shots.length === 0){
         createShotGrid();
-        $('#shots').setCaption("Shots (No Shot Data For This Hole)").trigger("reloadGrid");
+        $('#shots').setCaption("Shots (Hole " + currentHole + ") <span style='color:#ff0000' > -- No Data Found -- </span>").trigger("reloadGrid");
     }
     else{
         for(var i = 0;i < hole.shots.length; i++){
