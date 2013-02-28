@@ -319,3 +319,63 @@ function createStatGrid(){
         height: "auto"
     });
 }
+
+
+/****************************************************************************
+ *
+ * Retreive club name and distance functions
+ *
+ ****************************************************************************/
+
+function getClubName(club){
+    if(club === defines.DRIVER) return 'driver';
+    else if(club === defines.THREE_WOOD) return '3 wood';
+    else if(club === defines.FOUR_WOOD) return '4 wood';
+    else if(club === defines.FIVE_WOOD) return '5 wood';
+    else if(club === defines.SEVEN_WOOD) return '7 wood';
+    else if(club === defines.NINE_WOOD) return '9 wood';
+    else if(club === defines.TWO_HYBRID) return '2 hybrid';
+    else if(club === defines.THREE_HYBRID) return '3 hybrid';
+    else if(club === defines.FOUR_HYBRID) return '4 hybrid';
+    else if(club === defines.FIVE_HYBRID) return '5 hybrid';
+    else if(club === defines.SIX_HYBRID) return '6 hybrid';
+    else if(club === defines.TWO_IRON) return '2 iron';
+    else if(club === defines.THREE_IRON) return '3 iron';
+    else if(club === defines.FOUR_IRON) return '4 iron';
+    else if(club === defines.FIVE_IRON) return '5 iron';
+    else if(club === defines.SIX_IRON) return '6 iron';
+    else if(club === defines.SEVEN_IRON) return '7 iron';
+    else if(club === defines.EIGHT_IRON) return '8 iron';
+    else if(club === defines.NINE_IRON) return '9 iron';
+    else if(club === defines.PW) return 'pitching wedge';
+    else if(club === defines.AW) return 'approach wedge';
+    else if(club === defines.SW) return 'sand wedge';
+    else if(club === defines.LW) return 'lob wedge';
+    else if(club === defines.HLW) return 'high lob wedge';
+    else return 'unknown';
+}
+
+function getDistance(startLat, startLon, endLat, endLon){
+    var dLat = (endLat - startLat) * (Math.PI / 180.0);
+    var dLon = (endLon - startLon) * (Math.PI / 180.0);
+    var lat1 = startLat * (Math.PI / 180.0);
+    var lat2 = endLat * (Math.PI / 180.0);
+//    var a = Math.pow(Math.sin(dLat/2),2) + Math.cos(startLat) * Math.cos(endLat) * Math.pow(Math.sin(dLon/2),2);
+    var a = Math.sin(dLat/2) * Math.sin(dLat/2) + Math.sin(dLon/2) * Math.sin(dLon/2) * Math.cos(lat1) * Math.cos(lat2);
+    var c = 2 * Math.atan2(Math.sqrt(a), Math.sqrt(1 - a));
+
+    return (EARTH_RADIUS_IN_YARDS * c).toFixed(2);
+}
+
+function computeAngle(startLat,startLong,aimLat,aimLong,endLat,endLong){
+    aimLat = aimLat - startLat;
+    aimLong = aimLong - startLong;
+    endLat = endLat - startLat;
+    endLong = endLong - startLong;
+
+    var scalar = aimLat * endLat + aimLong * endLong;
+    var mag1 = Math.pow((aimLat * aimLat + aimLong + aimLong), .5);
+    var mag2 = Math.pow((endLat * endLat + endLong + endLong), .5);
+    
+    return (Math.acos(scalar / (mag1 * mag2))*(180 / Math.PI)).toFixed(2);	
+}
