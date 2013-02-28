@@ -35,8 +35,8 @@ function getUserData(){
             data: userData,
             colNames:['User Name', 'Email'],
             colModel:[
-                {name:'User Name', index:'userName', width: 140, align:'center'},
-                {name:'Email', index:'userEmail', width:140, align:'center', align:'center'}
+                {name: 'User Name', index:'userName',  width: 140, align:'center'},
+                {name: 'Email',     index:'userEmail', width: 140, align:'center'}
             ],
             rowNum: 5,
             rowList:[3,5,10],
