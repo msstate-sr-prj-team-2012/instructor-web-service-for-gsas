@@ -152,7 +152,7 @@ function getShotData(){
             else if (angle == 0) {direction = 'center';}
 
             // gets distance
-            var distance = distance(startLat, startLong, endLat, endLong);
+            var distance = getDistance(startLat, startLong, endLat, endLong);
 
             // gets club name
             var club = getClubName(hole.shots[i].club);
@@ -191,7 +191,64 @@ function createShotGrid(){
         height: "100%",
         width: 700
     });
-}
+}                    
 
-   
+
+/****************************************************************************
+ *
+ * Conversion Functions
+ *
+ ****************************************************************************/
+
+function computeAngle(startLat,startLong,aimLat,aimLong,endLat,endLong){
+    aimLat = aimLat - startLat;
+    aimLong = aimLong - startLong;
+    endLat = endLat - startLat;
+    endLong = endLong - startLong;
+
+    var scalar = aimLat * endLat + aimLong * endLong;
+    var mag1 = Math.pow((aimLat * aimLat + aimLong + aimLong), .5);
+    var mag2 = Math.pow((endLat * endLat + endLong + endLong), .5);
+    
+    return (Math.acos(scalar / (mag1 * mag2))*(180 / Math.PI)).toFixed(2);	
+}
+ 
+function getDistance(startLat, startLon, endLat, endLon){
+    var dLat = (endLat - startLat) * (Math.PI / 180.0);
+    var dLon = (endLon - startLon) * (Math.PI / 180.0);
+    var lat1 = startLat * (Math.PI / 180.0);
+    var lat2 = endLat * (Math.PI / 180.0);
+    var a = Math.sin(dLat/2) * Math.sin(dLat/2) + Math.sin(dLon/2) * Math.sin(dLon/2) * Math.cos(lat1) * Math.cos(lat2);
+    var c = 2 * Math.atan2(Math.sqrt(a), Math.sqrt(1 - a));
+
+    return (6975065.5 * c).toFixed(2);
+}
+ 
+function getClubName(id){
+    if(id === 1) return 'driver';
+    else if(id === 2) return '3 wood';
+    else if(id === 3) return '4 wood';
+    else if(id === 4) return '5 wood';
+    else if(id === 5) return '7 wood';
+    else if(id === 6) return '9 wood';
+    else if(id === 7) return '2 hybrid';
+    else if(id === 8) return '3 hybrid';
+    else if(id === 9) return '4 hybrid';
+    else if(id === 10) return '5 hybrid';
+    else if(id === 11) return '6 hybrid';
+    else if(id === 12) return '2 iron';
+    else if(id === 13) return '3 iron';
+    else if(id === 14) return '4 iron';
+    else if(id === 15) return '5 iron';
+    else if(id === 16) return '6 iron';
+    else if(id === 17) return '8 iron';
+    else if(id === 18) return '8 iron';
+    else if(id === 19) return '9 iron';
+    else if(id === 20) return 'pitching wedge';
+    else if(id === 21) return 'approach wedge';
+    else if(id === 22) return 'sand wedge';
+    else if(id === 23) return 'lob wedge';
+    else if(id === 24) return 'high lob wedge';
+    else return 'unknown';
+}
 
