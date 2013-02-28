@@ -5,7 +5,6 @@
  *
  ****************************************************************************/
 
-var EARTH_RADIUS_IN_YARDS = 13950131.0 / 2; 
 var currentView = 'v1';
 var currentHole = 1;   
 var round = localStorage.getObject('rounds')[0];
@@ -255,7 +254,7 @@ function drawData(){
         for (var i = 0; i < hole.shots.length; i++){ 
           var startLocationXY = main(hole.shots[i].startLatitude, hole.shots[i].startLongitude);
           var endLocationXY = main(hole.shots[i].endLatitude, hole.shots[i].endLongitude);
-          var distance = getDistance(hole.shots[i].startLatitude, hole.shots[i].startLongitude, hole.shots[i].endLatitude, hole.shots[i].endLongitude);
+          var distance = distance(hole.shots[i].startLatitude, hole.shots[i].startLongitude, hole.shots[i].endLatitude, hole.shots[i].endLongitude);
           drawShape(startLocationXY, endLocationXY, hole.shots[i].club, distance, round.startTime);
         }
                   
@@ -279,13 +278,13 @@ function drawShape(start, end, club, distance, startTime){
             "</line>\n";
 
     // draw triangle with the appropriate color
-    if(club >= 1 && club <= 6){
-        if (club === 1) color = 'red';
-        else if (club === 2) color = 'green';
-        else if (club === 3) color = 'blue';
-        else if (club === 4) color = 'orange';
-        else if (club === 5) color = 'purple';
-        else if (club === 6) color = 'lightblue';
+    if(club >= defines.DRIVER && club <= defines.NINE_WOOD){
+        if (club === defines.DRIVER) color = 'red';
+        else if (club === defines.THREE_WOOD) color = 'green';
+        else if (club === defines.FOUR_WOORD) color = 'blue';
+        else if (club === defines.FIVE_WOOD) color = 'orange';
+        else if (club === defines.SEVEN_WOOD) color = 'purple';
+        else if (club === defines.NINE_WOOD) color = 'lightblue';
 
         // points='topX,topY rightX,rightY leftX,leftY'  
         // drawn centered on the point with a 6px difference in each direction
@@ -295,12 +294,12 @@ function drawShape(start, end, club, distance, startTime){
     }
 
     // draw square with the appropriate color
-    else if (club >= 7 && club <= 9){
-        if (club === 7) color = 'red';
-        else if (club === 8) color = 'green';
-        else if (club === 9) color = 'blue';
-        else if (club === 10) color = 'orange';
-        else if (club === 11) color = 'purple';
+    else if (club >= defines.TWO_HYBRID && club <= defines.SIX_HYBRID){
+        if (club === defines.TWO_HYBRID) color = 'red';
+        else if (club === defines.THREE_HYBRID) color = 'green';
+        else if (club === defines.FOUR_HYBRID) color = 'blue';
+        else if (club === defines.FIVE_HYBRID) color = 'orange';
+        else if (club === defines.SIX_HYBRID) color = 'purple';
 
         html += "<rect x='" +start.x+ "' y='" +start.y+ "' width='10' height='10' stroke='" +color+ "' stroke-width='2' fill='white' >\n" +
                     "<title> Club: " +clubName+ " <br/> Distance: " +distance+ " yards</title>\n" +
@@ -308,15 +307,15 @@ function drawShape(start, end, club, distance, startTime){
     }
 
     // draw circle with the appropriate color
-    else if (club >= 12 && club <= 19){
-        if (club === 12) color = 'red';
-        else if (club === 13) color = 'green';
-        else if (club === 14) color = 'blue';
-        else if (club === 15) color = 'orange';
-        else if (club === 16) color = 'purple';
-        else if (club === 17) color = 'lightblue';
-        else if (club === 18) color = 'pink';
-        else if (club === 19) color = 'brown';
+    else if (club >= defines.TWO_IRON && club <= defines.NINE_IRON){
+        if (club === defines.TWO_IRON) color = 'red';
+        else if (club === defines.THREE_IRON) color = 'green';
+        else if (club === defines.FOUR_IRON) color = 'blue';
+        else if (club === defines.FIVE_IRON) color = 'orange';
+        else if (club === defines.SIX_IRON) color = 'purple';
+        else if (club === defines.SEVEN_IRON) color = 'lightblue';
+        else if (club === defines.EIGHT_IRON) color = 'pink';
+        else if (club === defines.NINE_IRON) color = 'brown';
 
         html += "<circle cx='" +start.x+ "' cy='" +start.y+ "' r='5' stroke='" +color+ "' stroke-width='2' fill='white' >" +
                     "<title> Club: " +clubName+ " <br/> Distance: " +distance+ " yards</title>\n" +
@@ -324,12 +323,12 @@ function drawShape(start, end, club, distance, startTime){
     }
 
     // draw diamond with the approriate color
-    else if (club >= 20 && club <=24){
-        if (club === 20) color = 'red';
-        else if (club === 21) color = 'green';
-        else if (club === 22) color = 'blue';
-        else if (club === 23) color = 'orange';
-        else if (club === 24) color = 'purple';
+    else if (club >= defines.PW && club <= defines.HLW){
+        if (club === defines.PW) color = 'red';
+        else if (club === defines.AW) color = 'green';
+        else if (club === defines.SW) color = 'blue';
+        else if (club === defines.LW) color = 'orange';
+        else if (club === defines.HLW) color = 'purple';
 
         // points='topX,topY rightX,rightY bottomX,bottomY leftX,leftY'
         // diamond centered on point with 6px difference in each direction
@@ -338,53 +337,6 @@ function drawShape(start, end, club, distance, startTime){
                 "</polygon>\n";
     }
 } // end draw shape
-
-
-/****************************************************************************
- *
- * Retreive club name and distance functions
- *
- ****************************************************************************/
-
-function getClubName(id){
-    if(id === 1) return 'driver';
-    else if(id === 2) return '3 wood';
-    else if(id === 3) return '4 wood';
-    else if(id === 4) return '5 wood';
-    else if(id === 5) return '7 wood';
-    else if(id === 6) return '9 wood';
-    else if(id === 7) return '2 hybrid';
-    else if(id === 8) return '3 hybrid';
-    else if(id === 9) return '4 hybrid';
-    else if(id === 10) return '5 hybrid';
-    else if(id === 11) return '6 hybrid';
-    else if(id === 12) return '2 iron';
-    else if(id === 13) return '3 iron';
-    else if(id === 14) return '4 iron';
-    else if(id === 15) return '5 iron';
-    else if(id === 16) return '6 iron';
-    else if(id === 17) return '8 iron';
-    else if(id === 18) return '8 iron';
-    else if(id === 19) return '9 iron';
-    else if(id === 20) return 'pitching wedge';
-    else if(id === 21) return 'approach wedge';
-    else if(id === 22) return 'sand wedge';
-    else if(id === 23) return 'lob wedge';
-    else if(id === 24) return 'high lob wedge';
-    else return 'unknown';
-}
-
-function getDistance(startLat, startLon, endLat, endLon){
-    var dLat = (endLat - startLat) * (Math.PI / 180.0);
-    var dLon = (endLon - startLon) * (Math.PI / 180.0);
-//    var lat1 = startLat * (Math.PI / 180.0);
-//    var lat2 = endLat * (Math.PI / 180.0);
-    var a = Math.pow(Math.sin(dLat/2),2) + Math.cos(startLat) * Math.cos(endLat) * Math.pow(Math.sin(dLon/2),2);
-//    var a = Math.sin(dLat/2) * Math.sin(dLat/2) + Math.sin(dLon/2) * Math.sin(dLon/2) * Math.cos(lat1) * Math.cos(lat2);
-    var c = 2 * Math.atan2(Math.sqrt(a), Math.sqrt(1 - a));
-
-    return (EARTH_RADIUS_IN_YARDS * c).toFixed(2);
-}
 
 
 /****************************************************************************
