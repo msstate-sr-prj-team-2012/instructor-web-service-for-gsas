@@ -105,7 +105,7 @@ $(document).ready(function() {
         getStatData();
     }
 	else if(window.location.pathname === defines.BASE_PATH + "/admin"){
-        document.getElementById('stats').className += ' selected_tab'; 
+        document.getElementById('admin').className += ' selected_tab'; 
         getStatData();
     }
 
