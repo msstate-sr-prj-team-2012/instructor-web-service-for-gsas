@@ -12,11 +12,19 @@ $(document).ready(function()
     {
         changeToRound($(this).attr('id'));
     });
-    
+    var tags = new Array("January", "February", "March", "April","pie")
+var values = new Array("55", "80", "95", "32","900")
+    basicbargraph(tags,values);
     document.getElementById(mapRound).className += ' selected_tab';
 });
         
-       
+ function basicbargraph(tags, value) {
+    var length = 200
+
+    for (i = 0; i < tags.length; i++) {
+        document.write('<div style="font-size: 10pt; color: #AAAAAA;">' + tags[i] + ': </div><div style="font-size: 10pt; color: #AAAAAA;"><img src="pixel.jpg" width="' + values[i] / 100 * length + '" height="15" border="1" style="border-color: #00AA00"> ' + values[i] + '%</div>')
+    }
+}      
       
 var graphView = 'v1';
 var mapRound = localStorage.getObject('rounds')[0].rid;
