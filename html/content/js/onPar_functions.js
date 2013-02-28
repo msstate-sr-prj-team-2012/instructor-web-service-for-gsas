@@ -1,14 +1,21 @@
+/****************************************************************************
+ *
+ * Global Variables
+ *
+ ****************************************************************************/
 
+var EARTH_RADIUS_IN_YARDS = 13950131.0 / 2; 
 var roundsClass;
-$(document).ready(function() { 
-    
-    
+
+   
 /****************************************************************************
  *
  * Event Handlers For All User Inputs
  *
  ****************************************************************************/  
 
+$(document).ready(function() { 
+    
     $("#golfer_select").change(function(){
         localStorage.removeItem('rounds');
         localStorage.setItem('userName', $("#golfer_select").select2('data').text);
