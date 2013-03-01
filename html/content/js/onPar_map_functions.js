@@ -280,7 +280,7 @@ function drawAllData(){
         for(i = 0; i < hole.length; i++){
             html += "<svg>\n";
             // iterates through shots of current hole
-            for(var x = 0; x < hole[i].shots.length; i++){
+            for(var x = 0; x < hole[i].shots.length; x++){
                 var startLocationXY = main(hole[i].shots[x].startLatitude, hole[i].shots[x].startLongitude);
                 var endLocationXY = main(hole[i].shots[x].endLatitude, hole[i].shots[x].endLongitude);
                 var distance = getDistance(hole[i].shots[x].startLatitude, hole[i].shots[x].startLongitude, hole[i].shots[x].endLatitude, hole[i].shots[x].endLongitude);

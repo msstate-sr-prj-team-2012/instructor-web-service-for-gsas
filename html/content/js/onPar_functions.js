@@ -159,9 +159,9 @@ function createNavigationMenu(){
             // prints golfer data to page
             if(window.location.pathname === (defines.BASE_PATH + '/rounds')){
                 document.getElementById("currently_viewing").innerHTML= 
-                    "<span>golfer: </span>" + golfer.name + "<br/>\n" +
-                    "<span>age: </span>" + getAge(golfer.birthDate) + "<br/>\n" +
-                    "<span>sex: </span>" + golfer.gender + "<br/>\n" +
+                    "<span>golfer: </span>" + golfer.name + " " +
+                    "<span>age: </span>" + getAge(golfer.birthDate) + " " +
+                    "<span>sex: </span>" + golfer.gender + " " +
                     "<span>hand: </span>" + golfer.hand + "\n";
             }
         }  
@@ -187,9 +187,9 @@ function createNavigationMenu(){
         // prints golfer data to page
         if(window.location.pathname !== (defines.BASE_PATH + '/')){
             document.getElementById("currently_viewing").innerHTML= 
-                "<span>golfer: </span>" + golfer.name + "<br/>\n" +
-                "<span>age: </span>" + getAge(golfer.birthDate) + "<br/>\n" +
-                "<span>sex: </span>" + golfer.gender + "<br/>\n" +
+                "<span>golfer: </span>" + golfer.name + " " +
+                "<span>age: </span>" + getAge(golfer.birthDate) + " " +
+                "<span>sex: </span>" + golfer.gender + " " +
                 "<span>hand: </span>" + golfer.hand + "\n";
         }
     }
