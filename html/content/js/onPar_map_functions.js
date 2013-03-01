@@ -5,10 +5,10 @@
  *
  ****************************************************************************/
 
-var EARTH_RADIUS_IN_YARDS = 13950131.0 / 2; 
 var currentView = 'v1';
 var currentHole = 1;   
-var round = localStorage.getObject('rounds')[0];
+var currentRound = 'all';
+var round = localStorage.getObject('rounds');
 var hole;
 var html;
 
@@ -215,9 +215,16 @@ function changeToHole(hole) {
 
 function changeToRound(id) {     
     document.getElementById(round.ID).className = ""; 
-    document.getElementById(id).className += ' selected_tab'; 
+    document.getElementById(id).className += ' selected_tab';
+    currentRound = id;
+    
     // filters localStorage for new round object 
-    round = localStorage.getObject('rounds').filter(function(obj) { return (obj.ID == id) })[0]; 
+    if (id === 'all'){
+        round = localStorage.getObject('rounds');
+    }
+    else{
+        round = localStorage.getObject('rounds').filter(function(obj) { return (obj.ID == id) })[0]; 
+    }
     
     if(currentView === 'v1'){
         $(".map_content").css("background","url(\"html/content/images/holes/hole" +currentHole+ "_map.PNG\")");
@@ -246,43 +253,105 @@ function changeView(view) {
  *
  ****************************************************************************/
 
-// retrieves data, runs conversion, draws data to screen
+
+// draws all shot data for a hole for every round
+function drawAllData(){
+    html = "<svg>\n";
+    
+    // creates array of hole objects for currentHole
+    hole = [];
+    for(var i = 0; i < round.length; i++){
+        var holeObject = (round[i].holes).filter(function(obj) { return (obj.holeNumber == currentHole )})[0];
+        if(holeObject != undefined || holeObject.length == 0){
+            hole.push(holeObject);
+        }
+    }
+    
+    // shows message if no data
+    if(hole.length === 0) {
+        html += '<text x="260" y="160" font-size="20" fill="red" > No Shot Data For This Hole </text>\n';
+        $('.map_content').css('background', '#fff');
+        document.getElementById('par').innerHTML = '';
+    }
+    // collects data
+    else{
+        var score;
+        // iterates through objects of hole array
+        for(i = 0; i < hole.length; i++){
+            html += "<svg>\n";
+            // iterates through shots of current hole
+            for(var x = 0; x < hole[i].shots.length; i++){
+                var startLocationXY = main(hole[i].shots[x].startLatitude, hole[i].shots[x].startLongitude);
+                var endLocationXY = main(hole[i].shots[x].endLatitude, hole[i].shots[x].endLongitude);
+                var distance = getDistance(hole[i].shots[x].startLatitude, hole[i].shots[x].startLongitude, hole[i].shots[x].endLatitude, hole[i].shots[x].endLongitude);
+                // retrieves startTime associated with currentHole
+                var startTime = new Round(hole[i].roundID).startTime;
+                // passing all shot information to drawing function
+                drawShape(startLocationXY, endLocationXY, hole[i].shots[x].club, distance, startTime, hole[i].holeScore, hole[i].putts);
+                // being used to calculate an average score
+                score += hole[i].holeScore;
+            }
+            html += "</svg>\n";
+        }
+        
+        document.getElementById('par').innerHTML =
+            "<ul>\n" +
+                "<li>par: <span>" + hole[0].par + "</span></li>\n" +
+                "<li> average score: <span>" + (score / hole.length).toFixed(1) + "</span></li>\n" +
+            "</ul>\n";
+    }
+    
+    html += "</svg>\n";
+    document.getElementById('svg').innerHTML = html;  
+}
+
+
+// retrieves data, runs conversion, draws data to screen for single round
 function drawData(){
-    html = "<svg>"; 
+   
+    // redirects to different fuction if 'all' rounds is selected
+    if (currentRound === 'all'){
+       drawAllData();
+       return     
+    }
+    
+    html = "<svg>\n"; 
     // filters round object for currentHole
     hole = (round.holes).filter(function(obj) { return (obj.holeNumber == currentHole) })[0];
     // shows message if no data
     if(hole === undefined || hole.shots.length === 0){
-        html += '<text x="260" y="160" font-size="20" fill="red" > No Shot Data For This Hole </text>';
+        html += '<text x="260" y="160" font-size="20" fill="red" > No Shot Data For This Hole </text>\n';
         $('.map_content').css('background', '#fff');
         document.getElementById('par').innerHTML = '';
     }
-    // iterates through shots of the current hole
-    else{    
+    // collects data
+    else{  
+        // iterates through shots of the current hole
         for (var i = 0; i < hole.shots.length; i++){ 
           var startLocationXY = main(hole.shots[i].startLatitude, hole.shots[i].startLongitude);
           var endLocationXY = main(hole.shots[i].endLatitude, hole.shots[i].endLongitude);
           var distance = getDistance(hole.shots[i].startLatitude, hole.shots[i].startLongitude, hole.shots[i].endLatitude, hole.shots[i].endLongitude);
-          drawShape(startLocationXY, endLocationXY, hole.shots[i].club, distance, round.startTime);
+          // passing all shot information to drawing function
+          drawShape(startLocationXY, endLocationXY, hole.shots[i].club, distance, round.startTime, hole.holeScore, hole.putts);
         }
                   
           document.getElementById('par').innerHTML =
             "<ul>\n" +
-                "<li>par: <span>" +hole.par+ "</span></li>\n" +
-                "<li>score: <span>" +hole.holeScore+ "</span></li>\n" +
+                "<li>par: <span>" + hole.par + "</span></li>\n" +
+                "<li>score: <span>" + hole.holeScore + "</span></li>\n" +
             "</ul>\n";
     }
     
-    html += "</svg>";     
+    html += "</svg>\n";     
     document.getElementById('svg').innerHTML = html;   
 }
       
-function drawShape(start, end, club, distance, startTime){
+function drawShape(start, end, club, distance, startTime, holeScore, putts){
     var color;
     var clubName = getClubName(club);
     // draw line between two points
-    html += "<line x1='" +start.x+ "' y1='" +start.y+ "' x2='" +end.x+ "' y2='" +end.y+ "' stroke='black' stroke-width='2'>\n" +
-                "<title> Date: " + startTime.split(' ')[0] + "<br/> Time: " + startTime.split(' ')[1] + " </title>\n" +
+    html += "<line x1='" +start.x+ "' y1='" +start.y+ "' x2='" +end.x+ "' y2='" +end.y+ "' stroke='black' stroke-width='3'>\n" +
+                "<title> Date: " + startTime.split(' ')[0] + "<br/> Time: " + startTime.split(' ')[1] + "<br/> Score: " + holeScore + "<br/> Putts: " + putts + "</title>\n" +
             "</line>\n";
 
     // draw triangle with the appropriate color
@@ -325,7 +394,7 @@ function drawShape(start, end, club, distance, startTime){
         else if (club === 18) color = 'pink';
         else if (club === 19) color = 'brown';
 
-        html += "<circle cx='" +start.x+ "' cy='" +start.y+ "' r='5' stroke='" +color+ "' stroke-width='2' fill='white' >" +
+        html += "<circle cx='" +start.x+ "' cy='" +start.y+ "' r='5' stroke='" +color+ "' stroke-width='2' fill='white' >\n" +
                     "<title> Club: " +clubName+ " <br/> Distance: " +distance+ " yards</title>\n" +
                 "</circle>\n";
     }

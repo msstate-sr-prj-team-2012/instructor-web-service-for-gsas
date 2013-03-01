@@ -18,7 +18,6 @@ $(document).ready(function() {
     
     $("#golfer_select").change(function(){
         localStorage.removeItem('rounds');
-        localStorage.setItem('userName', $("#golfer_select").select2('data').text);
         localStorage.setItem('userID', $("#golfer_select").select2('data').id);
         document.location.href = defines.BASE_PATH + '/rounds';
     });
@@ -34,7 +33,6 @@ $(document).ready(function() {
             var u = new User($(this).val());
             if(u.ID != null){
                 localStorage.removeItem('rounds');
-                localStorage.setItem('userName', u.name);
                 localStorage.setItem('userID',u.ID);       
                 document.location.href = defines.BASE_PATH + '/rounds';   
             }       
@@ -81,7 +79,6 @@ $(document).ready(function() {
  ****************************************************************************/
       
     createNavigationMenu();
-    //populateSelectField();
     $('#golfer_select').select2({
         data:select2SelectFieldData()
     });
@@ -111,24 +108,22 @@ $(document).ready(function() {
         document.getElementById('stats').className += ' selected_tab'; 
         getStatData();
     }
-	else if(window.location.pathname === defines.BASE_PATH + "/admin"){
+    else if(window.location.pathname === defines.BASE_PATH + "/admin"){
         document.getElementById('admin').className += ' selected_tab'; 
-        getStatData();
     }
 
- 
 });
 
 
 
 /****************************************************************************
  *
- * Creates Navigation Menu & Redirects If Necessary
+ * Creates Navigation Menu, Redirects If Necessary, & Outputs Golfer Information 
  *
  ****************************************************************************/
 
 function createNavigationMenu(){
-    var memberName = localStorage.getItem('userName');
+    var golfer = new User(localStorage.getItem('userID'));
     var rounds = localStorage.getObject('rounds');
     
     var home = defines.BASE_PATH + "/";
@@ -140,13 +135,14 @@ function createNavigationMenu(){
     var stats = defines.BASE_PATH + "/stats";
     var admin = defines.BASE_PATH + "/admin";
     
-    if(rounds === null && memberName === null){
+    if(golfer === null){
         if(window.location.pathname === (defines.BASE_PATH + '/')){
             document.getElementById("nav").innerHTML=
             "<ul>\n" +
                 "<li id='home' class='selected_tab'><a href=\"" + home + "\">home</a></li>\n" +
             "</ul>\n";   
         }
+        // redirects to home page if golfer is not selected
         else{
             document.location.href = defines.BASE_PATH + '/';
         }        
@@ -159,11 +155,17 @@ function createNavigationMenu(){
                     "<li id='home'><a href=\"" + home + "\">home</a></li>\n" +
                     "<li id='round'><a href=\"" + round + "\">rounds</a></li>\n" +
                 "</ul>\n";
+            
+            // prints golfer data to page
             if(window.location.pathname === (defines.BASE_PATH + '/rounds')){
                 document.getElementById("currently_viewing").innerHTML= 
-                "<span>currently viewing: </span>" + localStorage.getItem('userName');
+                    "<span>golfer: </span>" + golfer.name + "<br/>\n" +
+                    "<span>age: </span>" + getAge(golfer.birthDate) + "<br/>\n" +
+                    "<span>sex: </span>" + golfer.gender + "<br/>\n" +
+                    "<span>hand: </span>" + golfer.hand + "\n";
             }
-        }       
+        }  
+        // redirects to rounds page if rounds are not selected
         else{
              document.location.href = defines.BASE_PATH + '/rounds';
         }        
@@ -179,15 +181,32 @@ function createNavigationMenu(){
                 "<li id='spread'><a href=\"" + spread + "\">spread</a></li>\n" +
                 "<li id='distance'><a href=\"" + distance + "\">distance</a></li>\n" +
                 "<li id='maps'><a href=\"" + maps + "\">maps</a></li>\n" +
-				"<li id='admin'><a href=\"" + admin + "\">admin</a></li>\n" +
+		"<li id='admin'><a href=\"" + admin + "\">admin</a></li>\n" +
             "</ul>\n";
+        
+        // prints golfer data to page
         if(window.location.pathname !== (defines.BASE_PATH + '/')){
             document.getElementById("currently_viewing").innerHTML= 
-            "<span>currently viewing: </span>" + localStorage.getItem('userName');
+                "<span>golfer: </span>" + golfer.name + "<br/>\n" +
+                "<span>age: </span>" + getAge(golfer.birthDate) + "<br/>\n" +
+                "<span>sex: </span>" + golfer.gender + "<br/>\n" +
+                "<span>hand: </span>" + golfer.hand + "\n";
         }
     }
 } // end createNavigationMenu
 
+// calculates golfer's age
+function getAge(dateString) {
+    var today = new Date();
+    // Date(year, month (0-11), day)
+    var birthDate = new Date(dateString.split('-')[0], dateString.split('-')[1] - 1, dateString.split('-')[2]);
+    var age = today.getFullYear() - birthDate.getFullYear();
+    var m = today.getMonth() - birthDate.getMonth();
+    if (m < 0 || (m === 0 && today.getDate() < birthDate.getDate())) {
+        age--;
+    }
+    return age;
+}
 
 
 /****************************************************************************
@@ -218,8 +237,8 @@ function createRoundTabs(){
     var rounds = localStorage.getObject('rounds');
     
     var html = '<ul>\n';
-    html += "<li id='" + rounds[0].ID + "' title=' Date: " + rounds[0].startTime.split(' ')[0] + "\n Time: " + rounds[0].startTime.split(' ')[1] + "' class='selected_tab'>" + 1 + "</li>\n";
-    for (var i = 1; i < rounds.length; i++){
+    html += "<li id='all' title='all rounds' class='selected_tab'>all</li>\n";
+    for (var i = 0; i < rounds.length; i++){
         html += "<li id='" + rounds[i].ID + "' title=' Date: " + rounds[i].startTime.split(' ')[0] + "\n Time: " + rounds[i].startTime.split(' ')[1] + "'>" + (i + 1) + "</li>\n";
     }
     html += "</ul>\n";
@@ -330,7 +349,7 @@ function createStatGrid(){
 
 /****************************************************************************
  *
- * Retreive club name and distance functions
+ * Functions to retrieve club name, distance, and angle
  *
  ****************************************************************************/
 
