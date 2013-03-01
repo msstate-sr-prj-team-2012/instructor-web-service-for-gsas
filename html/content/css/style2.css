@@ -552,6 +552,9 @@ table{cursor:pointer}
     font-size: 13px;
     font-weight: bold;
 }
+svg { opacity: 1}
+svg svg { opacity: .4}
+svg svg:hover { opacity: 1}
 
 
 
