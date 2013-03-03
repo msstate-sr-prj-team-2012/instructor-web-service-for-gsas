@@ -214,9 +214,9 @@ function changeToHole(hole) {
 }
 
 function changeToRound(id) {     
-    document.getElementById(round.ID).className = ""; 
+    document.getElementById(currentRound).className = "";
     document.getElementById(id).className += ' selected_tab';
-    currentRound = id;
+    currentRound = id;  
     
     // filters localStorage for new round object 
     if (id === 'all'){
@@ -231,7 +231,7 @@ function changeToRound(id) {
     }
     if(currentView === 'v2'){
         $(".map_content").css("background","url(\"html/content/images/holes/hole" +currentHole+ ".PNG\")");
-    }
+    } 
 }
 
 function changeView(view) {     
@@ -259,16 +259,16 @@ function drawAllData(){
     html = "<svg>\n";
     
     // creates array of hole objects for currentHole
-    hole = [];
+    var holeArray = [];
     for(var i = 0; i < round.length; i++){
         var holeObject = (round[i].holes).filter(function(obj) { return (obj.holeNumber == currentHole )})[0];
-        if(holeObject != undefined || holeObject.length == 0){
-            hole.push(holeObject);
+        if(holeObject != undefined || holeObject.length != 0){
+            holeArray.push(holeObject);
         }
     }
     
     // shows message if no data
-    if(hole.length === 0) {
+    if(holeArray.length === 0) {
         html += '<text x="260" y="160" font-size="20" fill="red" > No Shot Data For This Hole </text>\n';
         $('.map_content').css('background', '#fff');
         document.getElementById('par').innerHTML = '';
@@ -277,19 +277,20 @@ function drawAllData(){
     else{
         var score;
         // iterates through objects of hole array
-        for(i = 0; i < hole.length; i++){
+        for(i = 0; i < holeArray.length; i++){
+            hole = holeArray[i];
             html += "<svg>\n";
             // iterates through shots of current hole
-            for(var x = 0; x < hole[i].shots.length; x++){
-                var startLocationXY = main(hole[i].shots[x].startLatitude, hole[i].shots[x].startLongitude);
-                var endLocationXY = main(hole[i].shots[x].endLatitude, hole[i].shots[x].endLongitude);
-                var distance = getDistance(hole[i].shots[x].startLatitude, hole[i].shots[x].startLongitude, hole[i].shots[x].endLatitude, hole[i].shots[x].endLongitude);
+            for(var x = 0; x < hole.shots.length; x++){ 
+                var startLocationXY = main(hole.shots[x].startLatitude, hole.shots[x].startLongitude); 
+                var endLocationXY = main(hole.shots[x].endLatitude, hole.shots[x].endLongitude); 
+                var distance = getDistance(hole.shots.startLatitude, hole.shots[x].startLongitude, hole.shots[x].endLatitude, hole.shots[x].endLongitude); 
                 // retrieves startTime associated with currentHole
-                var startTime = new Round(hole[i].roundID).startTime;
+                var startTime = new Round(hole.roundID).startTime; 
                 // passing all shot information to drawing function
-                drawShape(startLocationXY, endLocationXY, hole[i].shots[x].club, distance, startTime, hole[i].holeScore, hole[i].putts);
+                drawShape(startLocationXY, endLocationXY, hole.shots[x].club, distance, startTime, hole.holeScore, hole.putts);
                 // being used to calculate an average score
-                score += hole[i].holeScore;
+                score += hole.holeScore; 
             }
             html += "</svg>\n";
         }
