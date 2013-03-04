@@ -181,7 +181,7 @@ function createNavigationMenu(){
             "</ul>\n";
         
         // prints golfer data to page
-        if (window.location.pathname !== (defines.BASE_PATH + '/') || window.location.pathname !== (defines.BASE_PATH + '/admin')) {
+        if (window.location.pathname !== (defines.BASE_PATH + '/') && window.location.pathname !== (defines.BASE_PATH + '/admin')) {
             document.getElementById("currently_viewing").innerHTML= 
                 "<span>golfer: </span>" + golfer.name + " -- " +
                 "<span>age: </span>" + getAge(golfer.birthDate) + " -- " +
