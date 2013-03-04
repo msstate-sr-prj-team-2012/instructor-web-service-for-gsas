@@ -12,14 +12,12 @@
     <script type="text/javascript" src="html/content/js/i18n/grid.locale-en.js"></script>
     <script type="text/javascript" src="html/content/js/jquery.jqGrid.src.js"></script>
     <script type="text/javascript" src="html/content/js/onPar_SDK.js"></script>
-    <script type="text/javascript" src="html/content/js/onPar_functions.js"></script>
     <script type="text/javascript" src="html/content/js/onPar_admin_functions.js"></script>
 </head>
 <body>
  <div id="page-wrap">
     <!--==============================header=================================-->
    <header> 
-
         <img src="html/content/images/logo.png" alt="" class="site-logo">
         <h1> onPar </h1>
         <div class="organization-logo">
@@ -29,12 +27,13 @@
         <div id="currently_viewing"></div>
    </header>
 
-        <!--==============================content================================-->
+	<!--==============================content================================-->
 
-        <div class="content">
+	<div class="content">
+		<div class="admin">
 			<div id="golferselect">
 				Select Golfer
-				<input type="hidden" id="golfer_select2" placeholder="Select Golfer..." style="width:600px;"/><br/>
+				<input type="hidden" id="golfer_select" placeholder="Select Golfer..." style="width:600px;"/><br/>
 				<input type="button" id="editGolfer" value="Edit"/>
 				<input type="button" id="deleteGolfer" value="Delete"/>
 			</div>
@@ -56,11 +55,12 @@
 			<div id="roundselect" style="width: 200px; background-color: black">
 				
 			</div>
-        </div>
-        <!--==============================footer=================================-->
-        <footer>
-            2013 onPar 
-        </footer>
+		</div>
+	</div>
+	<!--==============================footer=================================-->
+	<footer>
+		2013 onPar 
+	</footer>
 </div>
 </body>
 </html>

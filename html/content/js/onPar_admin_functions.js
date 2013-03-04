@@ -38,7 +38,7 @@ $(document).ready(function () {
 		if (r==true)
 		{
 			//delete user
-			userID = $("#golfer_select2").select2('data').id);
+			userID = $("#golfer_select").select2('data').id);
 			user = new User(userID);
 			user.del();
 		}
@@ -50,7 +50,7 @@ $(document).ready(function () {
     });
 	
 	//Load all user data 
-	$('#golfer_select2').select2({
+	$('#golfer_select').select2({
         data:select2SelectFieldData()
     });
 });
