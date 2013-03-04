@@ -3,22 +3,6 @@
  * Global Variables
  *
  ****************************************************************************/
-var userID = null;
-var user = null;
-$(document).ready(function () {
-	$('#userform').hide();
-	$('#roundselect').hide();
-	$('#admin').hide();
-
-    var securityprompt;
-    securityprompt = prompt("Please enter the admin password:", "Password:");
-	var passcode = "12345";
-	if(passcode == securityprompt)
-	{
-		//allow admin functions
-		setupPage();
-	}
-});
 
 function setupPage()
 {
@@ -59,4 +43,3 @@ function setupPage()
 		$('#userform').show();
     });
 }
-
