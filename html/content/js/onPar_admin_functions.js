@@ -5,11 +5,25 @@
  ****************************************************************************/
 var userID = null;
 var user = null;
-function adminSetup()
-{
+$(document).ready(function () {
 	$('#userform').hide();
 	$('#roundselect').hide();
+	$('#admin').hide();
+	var securityprompt = prompt("Please enter the admin password:", "Password:")
+	var passcode = "12345";
+	if(passcode == securityprompt)
+	{
+		//allow admin functions
+		setupPage();
+	}
+	else
+	{
 	
+	}
+});
+
+function setupPage()
+{
 	$(document).on("click", "#editGolfer", function(){
         //load the user data into the form for editing
 		userID = document.getElementById('uID');
@@ -32,7 +46,7 @@ function adminSetup()
 	$(document).on("click", "#deleteGolfer", function(){
         //display a warning message.  If confirm, delete user
 		var r = confirm("WARNING: pressing this button results in the selected user being deleted.\nPress OK to continue or cancel to stop the deletion.");
-		if (r == true)
+		if (r==true)
 		{
 			//delete user
 			userID = document.getElementById('uID');
