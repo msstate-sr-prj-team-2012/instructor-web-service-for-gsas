@@ -9,8 +9,9 @@ $(document).ready(function () {
 	$('#userform').hide();
 	$('#roundselect').hide();
 	$('#admin').hide();
-	
-	var securityprompt = prompt("Please enter the admin password:", "Password:")
+
+    var securityprompt;
+    securityprompt = prompt("Please enter the admin password:", "Password:");
 	var passcode = "12345";
 	if(passcode == securityprompt)
 	{
@@ -21,26 +22,27 @@ $(document).ready(function () {
 
 function setupPage()
 {
-	$(document).on("click", "#editGolfer", function(){
+	$(document).on('click', '#editGolfer', function(){
         //load the user data into the form for editing
 		userID = document.getElementById('uID');
 		user = new User(userID);
-		document.getElementById('ufname') = user.name;
-		document.getElementById('ulname') = user.name;
-		document.getElementById('email') = user.email;
-		document.getElementById('memberID') = user.email;		
-		document.getElementById('birthyear') = user.birthdate;
-		document.getElementById('gender') = user.DBgender;
+		document.getElementById('ufname').value = user.name;
+		document.getElementById('ulname').value = user.name;
+		document.getElementById('email').value = user.email;
+		document.getElementById('memberID').value = user.email;
+		document.getElementById('birthyear').value = user.birthdate;
+		document.getElementById('gender').value = user.DBgender;
 		$('#userform').show();
 		
 		//Add rounds functionality
 		
-		$(document).on("click", '#save', function(){
+		$(document).on('click', '#save', function(){
 		//update user
-		}
+            var name = null;
+		});
     });
 	
-	$(document).on("click", "#deleteGolfer", function(){
+	$(document).on('click', '#deleteGolfer', function(){
         //display a warning message.  If confirm, delete user
 		var r = confirm("WARNING: pressing this button results in the selected user being deleted.\nPress OK to continue or cancel to stop the deletion.");
 		if (r==true)
@@ -52,7 +54,7 @@ function setupPage()
 		}
     });
 	
-	$(document).on("click", "#addGolfer", function(){
+	$(document).on('click', '#addGolfer', function(){
         //load an empty user form.
 		$('#userform').show();
     });
