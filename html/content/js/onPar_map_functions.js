@@ -297,8 +297,8 @@ function drawAllData(){
         
         document.getElementById('par').innerHTML =
             "<ul>\n" +
-                "<li>par: <span>" + hole[0].par + "</span></li>\n" +
-                "<li> average score: <span>" + (score / hole.length).toFixed(1) + "</span></li>\n" +
+                "<li>par: <span>" + hole.par + "</span></li>\n" +
+                "<li> average score: <span>" + (score / holeArray.length).toFixed(1) + "</span></li>\n" +
             "</ul>\n";
     }
     
