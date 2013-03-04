@@ -35,7 +35,7 @@ function adminSetup()
 		if (r == true)
 		{
 			//delete user
-			userID = $("#golfer_select").select2('data').id);
+			userID = document.getElementById('uID');
 			user = new User(userID);
 			user.del();
 		}
