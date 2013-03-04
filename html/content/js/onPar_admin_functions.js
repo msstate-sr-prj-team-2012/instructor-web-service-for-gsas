@@ -3,59 +3,55 @@
  * Global Variables
  *
  ****************************************************************************/
-
-var userData = [];
-var users = select2SelectFieldData();
-
+var userID = null;
+var user = null;
 $(document).ready(function () {
     getUserData();
+	$('#userform').hide();
+	$('#roundselect').hide();
+	
+	$(document).on("click", "#editGolfer", function(){
+        //load the user data into the form for editing
+		userID = $("#golfer_select2").select2('data').id);
+		user = new User(userID);
+		$('#userform').show();
+		document.getElementById('ufname') = user.name;
+		document.getElementById('ulname') = user.name;
+		document.getElementById('email') = user.email;
+		document.getElementById('memberID') = user.email;		
+		document.getElementById('birthyear') = user.birthdate;
+		document.getElementById('gender') = user.DBgender;
+		$('#userform').show();
+		
+		//Add rounds functionality
+		
+		$(document).on("click", '#save', function(){
+		//update user
+		}
+     
+		
+    });
+	
+	$(document).on("click", "#deleteGolfer", function(){
+        //display a warning message.  If confirm, delete user
+		var r = confirm("WARNING: pressing this button results in the selected user being deleted.\nPress OK to continue or cancell to stop the deletion.");
+		if (r==true)
+		{
+			//delete user
+			userID = $("#golfer_select2").select2('data').id);
+			user = new User(userID);
+			user.del();
+		}
+		
+    });
+	$(document).on("click", "#addGolfer", function(){
+        //load an empty user form.
+		
+    });
+	
+	//Load all user data 
+	$('#golfer_select2').select2({
+        data:select2SelectFieldData()
+    });
 });
 
-/****************************************************************************
- *
- * Creates Rounds Table
- *
- ****************************************************************************/
-
-function getUserData(){
-    userData = [];
-    
-	for(var i = 0; i < 7; i++)
-	{
-        userData.push({ name: 'Chad McDaniel', userEmail: 'ccm290@msstate.edu'});
-    }
-	
-    createUserGrid();
-}
-
-//Creates the actual table
- function createUserGrid(){
-     $("#users").jqGrid({
-            datatype: "local",
-            data: userData,
-            colNames:['Name', 'Email'],
-            colModel:[
-                {name:'Name',  index:'name', width:140},
-                {name:'Email', index:'userEmail', width:140}
-            ],
-            rowNum:5,
-            rowList:[3,5,10],
-            pager:'#pager',
-            sortname:'User Name',
-            viewrecords:true,
-            sortorder:"asc",
-            caption:"Users",
-            height:"100%",
-            width:280
-
-            // change of round will reload round and shot table
-            // onSelectRow: function(id){ 
-                // getUserData();   
-             // }
-        });
- }
- 
- /*function getUserData()
- {
- 
- }*/

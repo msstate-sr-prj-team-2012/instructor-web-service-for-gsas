@@ -22,48 +22,38 @@
 
         <img src="html/content/images/logo.png" alt="" class="site-logo">
         <h1> onPar </h1>
-
-
         <div class="organization-logo">
         </div>
-
-         <nav id="nav">  
-         </nav>
-
-
-         <!--<ul id="change_golfer">
-            <li><a>change golfer ?</a>
-              <ul>
-                  <li> 
-                        <input type="text" id="input_field" placeholder="enter member id or email..." >
-                  </li>
-                  <li>                       
-                        <input type="hidden" id="golfer_select" placeholder="Select Golfer..." style="width:250px;"/>
-                  </li>
-              </ul>
-            </li>
-        </ul>!-->
-
-            <div id="currently_viewing"></div>
-
-
+        <nav id="nav">  
+        </nav>
+        <div id="currently_viewing"></div>
    </header>
 
         <!--==============================content================================-->
 
         <div class="content">
-			All users
-			<div>
-				<table id="users"></table>
-				<div id="pager"></div>
+			<div id="golferselect">
+				Select Golfer
+				<input type="hidden" id="golfer_select2" placeholder="Select Golfer..." style="width:600px;"/><br/>
+				<input type="button" id="editGolfer" value="Edit"/>
+				<input type="button" id="deleteGolfer" value="Delete"/>
 			</div>
-			<div style="width: 200px; background-color: black">
+			<div id="golferadd">
+				<input type="button" id="addGolfer" value="Add Golfer"/>
+			</div>
+			<div id="userform" style="width: 200px; background-color: black">
 				<form id="userInfo">
-				<input type="text" name="name" id="uname" /><br/>
+				<input type="text" name="firstname" id="ufname" /><br/>
+				<input type="text" name="lastname" id="ulname" /><br/>
 				<input type="text" name="email" id="uemail" /><br/>
-				<input type="button" value="Save Changes" /><br/>
-				<input type="button" value="Delete Changes" /><br/>
+				<input type="text" name="memberID" id="umemID" /><br/>
+				<input type="text" name="birthyear" id="birthyear" /><br/>
+				<input type="text" name="gender" id="gender" /><br/>
+				<input type="button" id="save" /><br/>
+				<input type="reset" value="Reset Form" /><br/>
 				</form>
+			</div>
+			<div id="roundselect" style="width: 200px; background-color: black">
 				
 			</div>
         </div>
