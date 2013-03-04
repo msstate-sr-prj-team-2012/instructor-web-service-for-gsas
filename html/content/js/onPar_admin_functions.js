@@ -12,9 +12,8 @@ $(document).ready(function () {
 	
 	$(document).on("click", "#editGolfer", function(){
         //load the user data into the form for editing
-		userID = $("#golfer_select2").select2('data').id);
+		userID = document.getElementById('uID');
 		user = new User(userID);
-		$('#userform').show();
 		document.getElementById('ufname') = user.name;
 		document.getElementById('ulname') = user.name;
 		document.getElementById('email') = user.email;
