@@ -5,7 +5,8 @@
  ****************************************************************************/
 var userID = null;
 var user = null;
-$(document).ready(function () {
+function adminSetup()
+{
 	$('#userform').hide();
 	$('#roundselect').hide();
 	
@@ -31,7 +32,7 @@ $(document).ready(function () {
 	$(document).on("click", "#deleteGolfer", function(){
         //display a warning message.  If confirm, delete user
 		var r = confirm("WARNING: pressing this button results in the selected user being deleted.\nPress OK to continue or cancel to stop the deletion.");
-		if (r==true)
+		if (r == true)
 		{
 			//delete user
 			userID = $("#golfer_select").select2('data').id);
@@ -44,5 +45,5 @@ $(document).ready(function () {
         //load an empty user form.
 		$('#userform').show();
     });
-});
+}
 

@@ -22,7 +22,6 @@ $(document).ready(function() {
         document.location.href = defines.BASE_PATH + '/rounds';
     });
     
-    
     $("#input_field").keypress(function(e) {
         if (e.which == 13) {
             e.preventDefault();       
@@ -39,7 +38,6 @@ $(document).ready(function() {
         }
     });
     
-
     $(document).on("click", "#submit", function(){
         if($("input:checkbox:checked").length === 0){
             alert("Please select at least one date to continue.");
@@ -59,7 +57,6 @@ $(document).ready(function() {
         document.location.href = defines.BASE_PATH + '/table';
     });
     
-
     $(document).on("click", "#more", function(){
         roundsClass.roundObjects.next();
         roundsClass.output();
@@ -111,6 +108,9 @@ $(document).ready(function() {
     else if(window.location.pathname === defines.BASE_PATH + "/admin"){
         document.getElementById('admin').className += ' selected_tab'; 
     }
+	
+	//Call admin setup to setup admin settings
+	adminSetup();
 
 });
 
