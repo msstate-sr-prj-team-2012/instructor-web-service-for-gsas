@@ -30,7 +30,7 @@ $(document).ready(function () {
 	
 	$(document).on("click", "#deleteGolfer", function(){
         //display a warning message.  If confirm, delete user
-		var r = confirm("WARNING: pressing this button results in the selected user being deleted.\nPress OK to continue or cancell to stop the deletion.");
+		var r = confirm("WARNING: pressing this button results in the selected user being deleted.\nPress OK to continue or cancel to stop the deletion.");
 		if (r==true)
 		{
 			//delete user
@@ -38,16 +38,11 @@ $(document).ready(function () {
 			user = new User(userID);
 			user.del();
 		}
-		
-    });
-	$(document).on("click", "#addGolfer", function(){
-        //load an empty user form.
-		
     });
 	
-	//Load all user data 
-	$('#golfer_select').select2({
-        data:select2SelectFieldData()
+	$(document).on("click", "#addGolfer", function(){
+        //load an empty user form.
+		$('#userform').show();
     });
 });
 
