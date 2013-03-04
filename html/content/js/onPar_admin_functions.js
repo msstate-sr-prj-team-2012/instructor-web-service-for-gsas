@@ -6,7 +6,6 @@
 var userID = null;
 var user = null;
 $(document).ready(function () {
-    getUserData();
 	$('#userform').hide();
 	$('#roundselect').hide();
 	
@@ -27,8 +26,6 @@ $(document).ready(function () {
 		$(document).on("click", '#save', function(){
 		//update user
 		}
-     
-		
     });
 	
 	$(document).on("click", "#deleteGolfer", function(){
