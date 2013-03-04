@@ -108,10 +108,6 @@ $(document).ready(function() {
     else if(window.location.pathname === defines.BASE_PATH + "/admin"){
         document.getElementById('admin').className += ' selected_tab'; 
     }
-	
-	//Call admin setup to setup admin settings
-	adminSetup();
-
 });
 
 
