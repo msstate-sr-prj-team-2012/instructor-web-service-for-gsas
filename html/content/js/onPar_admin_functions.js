@@ -9,16 +9,13 @@ $(document).ready(function () {
 	$('#userform').hide();
 	$('#roundselect').hide();
 	$('#admin').hide();
+	
 	var securityprompt = prompt("Please enter the admin password:", "Password:")
 	var passcode = "12345";
 	if(passcode == securityprompt)
 	{
 		//allow admin functions
 		setupPage();
-	}
-	else
-	{
-	
 	}
 });
 
