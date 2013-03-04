@@ -15,6 +15,9 @@
     <script type="text/javascript" src="html/content/js/onPar_functions.js"></script>
     <script type="text/javascript" src="html/content/js/onPar_admin_functions.js"></script>
     <script type="text/javascript">
+        var userID = null;
+        var user = null;
+
         $(document).ready(function () {
             $('#userform').hide();
             $('#roundselect').hide();
@@ -47,7 +50,7 @@
 
 	<div class="content">
 		<div class="admin">
-			<div id="golferselect" class="select">
+			<div id="golferselect">
 				Enter Golfer ID: <input type="text" id="uID" /><br/>
 				
 				<input type="button" id="editGolfer" value="Edit"/>
