@@ -237,7 +237,7 @@ nav ul li:hover > a
 #change_golfer li:hover ul li {width: 99%;}
 #change_golfer ul li{float:none;}
 #change_golfer ul a{white-space:nowrap;}
-#change_golfer li:hover ul{visibility: visible; left:-35px; }
+#change_golfer li:hover ul{visibility: visible; left:-75px; }
 #change_golfer li:hover > a
 {
     color: #660000; 
@@ -287,7 +287,7 @@ nav ul li:hover > a
     margin: 0 auto;
     color: #660000;
     text-align: center;
-    width: 300px;
+    width: 850px;
     text-transform: lowercase; 
     z-index:999;
 }
