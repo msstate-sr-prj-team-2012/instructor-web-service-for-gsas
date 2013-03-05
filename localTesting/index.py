@@ -80,7 +80,6 @@ def getAllRounds(page):
 
 @app.get('/gsas/API/rounds/user/:userID/:page')
 def getAllRoundsForUser(userID, page):
-    fullUrl = base_url + 'rounds/user/' + str(userID) + str(page)
     r = request.get(base_url + 'rounds/user/' + str(userID) + '/' + str(page), auth = ('cse3213', 'test'))
     bottle.response.status = r.status_code
     return r.json
