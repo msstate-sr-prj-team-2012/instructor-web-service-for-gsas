@@ -68,7 +68,7 @@ Course.prototype.load = function(data)
 		accepts: "application/json",
 		async: false,
 		dataType: "json",
-		url: defines.BASE_PATH + '/' + "API/courses/" + data,
+		url: "API/courses/" + data,
 		type: "GET",
 		username: defines.API_USERNAME,
 		password: defines.API_PASSWORD,
@@ -103,7 +103,7 @@ Course.prototype.save = function()
 			accepts: "application/json",
 			async: false,
 			dataType: "json",
-			url: defines.BASE_PATH + '/' + "API/courses/" + this.ID,
+			url: "API/courses/" + this.ID,
 			type: "POST",
 			username: defines.API_USERNAME,
 			password: defines.API_PASSWORD,
@@ -131,7 +131,7 @@ Course.prototype.save = function()
 			accepts: "application/json",
 			async: false,
 			dataType: "json",
-			url: defines.BASE_PATH + '/' + "API/courses/",
+			url: "API/courses/",
 			type: "POST",
 			username: defines.API_USERNAME,
 			password: defines.API_PASSWORD,
@@ -164,7 +164,7 @@ Course.prototype.del = function()
 		accepts: "application/json",
 		async: false,
 		dataType: "json",
-		url: defines.BASE_PATH + '/' + "API/courses/destroy/" + this.ID,
+		url: "API/courses/destroy/" + this.ID,
 		type: "POST",
 		username: defines.API_USERNAME,
 		password: defines.API_PASSWORD,
@@ -210,7 +210,7 @@ function CourseGetAll()
 		accepts: "application/json",
 		async: false,
 		dataType: "json",
-		url: defines.BASE_PATH + '/' + "API/courses/",
+		url: "API/courses/",
 		type: "GET",
 		username: defines.API_USERNAME,
 		password: defines.API_PASSWORD,
@@ -274,7 +274,7 @@ User.prototype.load = function(data)
 		accepts: "application/json",
 		async: false,
 		dataType: "json",
-		url: defines.BASE_PATH + '/' + "API/users/" + data,
+		url: "API/users/" + data,
 		type: "GET",
 		username: defines.API_USERNAME,
 		password: defines.API_PASSWORD,
@@ -329,7 +329,7 @@ User.prototype.save = function()
 			accepts: "application/json",
 			async: false,
 			dataType: "json",
-			url: defines.BASE_PATH + '/' + "API/users/" + this.ID,
+			url: "API/users/" + this.ID,
 			type: "POST",
 			username: defines.API_USERNAME,
 			password: defines.API_PASSWORD,
@@ -380,7 +380,7 @@ User.prototype.save = function()
 			accepts: "application/json",
 			async: false,
 			dataType: "json",
-			url: defines.BASE_PATH + '/' + "API/users/",
+			url: "API/users/",
 			type: "POST",
 			username: defines.API_USERNAME,
 			password: defines.API_PASSWORD,
@@ -436,7 +436,7 @@ User.prototype.del = function()
 		accepts: "application/json",
 		async: false,
 		dataType: "json",
-		url: defines.BASE_PATH + '/' + "API/users/destroy/" + this.ID,
+		url: "API/users/destroy/" + this.ID,
 		type: "POST",
 		username: defines.API_USERNAME,
 		password: defines.API_PASSWORD,
@@ -500,7 +500,7 @@ function UserGetAll()
 		accepts: "application/json",
 		async: false,
 		dataType: "json",
-		url: defines.BASE_PATH + '/' + "API/users/",
+		url: "API/users/",
 		type: "GET",
 		username: defines.API_USERNAME,
 		password: defines.API_PASSWORD,
@@ -740,7 +740,7 @@ Round.prototype.load = function(data)
 		accepts: "application/json",
 		async: false,
 		dataType: "json",
-		url: defines.BASE_PATH + '/' + "API/rounds/" + data,
+		url: "API/rounds/" + data,
 		type: "GET",
 		username: defines.API_USERNAME,
 		password: defines.API_PASSWORD,
@@ -774,7 +774,7 @@ Round.prototype.save = function()
 			accepts: "application/json",
 			async: false,
 			dataType: "json",
-			url: defines.BASE_PATH + '/' + "API/rounds/" + this.ID,
+			url: "API/rounds/" + this.ID,
 			type: "POST",
 			username: defines.API_USERNAME,
 			password: defines.API_PASSWORD,
@@ -801,7 +801,7 @@ Round.prototype.save = function()
 			accepts: "application/json",
 			async: false,
 			dataType: "json",
-			url: defines.BASE_PATH + '/' + "API/rounds/",
+			url: "API/rounds/",
 			type: "POST",
 			username: defines.API_USERNAME,
 			password: defines.API_PASSWORD,
@@ -833,7 +833,7 @@ Round.prototype.del = function()
 		accepts: "application/json",
 		async: false,
 		dataType: "json",
-		url: defines.BASE_PATH + '/' + "API/rounds/destroy/" + this.ID,
+		url: "API/rounds/destroy/" + this.ID,
 		type: "POST",
 		username: defines.API_USERNAME,
 		password: defines.API_PASSWORD,
@@ -889,11 +889,11 @@ function RoundGetAll(data)
 
 	if (data) {
 		this.userID = data;
-		this.url = defines.BASE_PATH + '/' + "API/rounds/user/" + this.userID + "/";
+		this.url = "API/rounds/user/" + this.userID + "/";
 		this.next();
 	} else {
 		this.userID = null;
-		this.url = defines.BASE_PATH + '/' + "API/rounds/all/";
+		this.url = "API/rounds/all/";
 		this.next();
 	}
 }

@@ -262,7 +262,7 @@ function drawAllData(){
     var holeArray = [];
     for(var i = 0; i < round.length; i++){
         var holeObject = (round[i].holes).filter(function(obj) { return (obj.holeNumber == currentHole )})[0];
-        if(holeObject != undefined || holeObject.length != 0){
+        if(holeObject != undefined){
             holeArray.push(holeObject);
         }
     }
@@ -284,7 +284,7 @@ function drawAllData(){
             for(var x = 0; x < hole.shots.length; x++){ 
                 var startLocationXY = main(hole.shots[x].startLatitude, hole.shots[x].startLongitude); 
                 var endLocationXY = main(hole.shots[x].endLatitude, hole.shots[x].endLongitude); 
-                var distance = getDistance(hole.shots.startLatitude, hole.shots[x].startLongitude, hole.shots[x].endLatitude, hole.shots[x].endLongitude); 
+                var distance = getDistance(hole.shots[x].startLatitude, hole.shots[x].startLongitude, hole.shots[x].endLatitude, hole.shots[x].endLongitude); 
                 // retrieves startTime associated with currentHole
                 var startTime = new Round(hole.roundID).startTime; 
                 // passing all shot information to drawing function
@@ -351,9 +351,13 @@ function drawShape(start, end, club, distance, startTime, holeScore, putts){
     var color;
     var clubName = getClubName(club);
     // draw line between two points
-    html += "<line x1='" +start.x+ "' y1='" +start.y+ "' x2='" +end.x+ "' y2='" +end.y+ "' stroke='black' stroke-width='3'>\n" +
-                "<title> Date: " + startTime.split(' ')[0] + "<br/> Time: " + startTime.split(' ')[1] + "<br/> Score: " + holeScore + "<br/> Putts: " + putts + "</title>\n" +
-            "</line>\n";
+    html += "<line x1='" +start.x+ "' \n\
+                   y1='" +start.y+ "' \n\
+                   x2='" +end.x+ "' \n\
+                   y2='" +end.y+ "' \n\
+                   stroke='black' \n\
+                   stroke-width='3' \n\
+                   title='Date: " + startTime.split(' ')[0] + "<br/> Time: " + startTime.split(' ')[1] + "<br/> Score: " + holeScore + "<br/> Putts: " + putts + "'/>\n";
 
     // draw triangle with the appropriate color
     if(club >= 1 && club <= 6){
@@ -366,9 +370,13 @@ function drawShape(start, end, club, distance, startTime, holeScore, putts){
 
         // points='topX,topY rightX,rightY leftX,leftY'  
         // drawn centered on the point with a 6px difference in each direction
-        html += "<polygon points='" +start.x+ "," +(start.y-6)+ " "+(start.x+6)+","+(start.y+6)+" "+(start.x-6)+","+(start.y+6)+"' stroke='" +color+ "' stroke-width='2' fill='white' >\n" +
-                    "<title> Club: " +clubName+ " <br/> Distance: " +distance+ " yards</title>\n" +
-                "</polygon>\n";
+        html += "<polygon points='" +start.x+ "," +(start.y-6)+ " \n\
+                                  "+(start.x+6)+","+(start.y+6)+" \n\
+                                  "+(start.x-6)+","+(start.y+6)+"' \n\
+                          stroke='" +color+ "' \n\
+                          stroke-width='2' \n\
+                          fill='white' \n\
+                          title=' Club: +" +clubName+ " <br/> Distance: " +distance+ " yards' />\n";
     }
 
     // draw square with the appropriate color
@@ -379,9 +387,14 @@ function drawShape(start, end, club, distance, startTime, holeScore, putts){
         else if (club === 10) color = 'orange';
         else if (club === 11) color = 'purple';
 
-        html += "<rect x='" +start.x+ "' y='" +start.y+ "' width='10' height='10' stroke='" +color+ "' stroke-width='2' fill='white' >\n" +
-                    "<title> Club: " +clubName+ " <br/> Distance: " +distance+ " yards</title>\n" +
-                "</rect>\n";
+        html += "<rect x='" +start.x+ "' \n\
+                       y='" +start.y+ "' \n\
+                       width='10' \n\
+                       height='10' \n\
+                       stroke='" +color+ "' \n\
+                       stroke-width='2' \n\
+                       fill='white' \n\
+                       title=' Club: +" +clubName+ " <br/> Distance: " +distance+ " yards' />\n"; 
     }
 
     // draw circle with the appropriate color
@@ -395,9 +408,13 @@ function drawShape(start, end, club, distance, startTime, holeScore, putts){
         else if (club === 18) color = 'pink';
         else if (club === 19) color = 'brown';
 
-        html += "<circle cx='" +start.x+ "' cy='" +start.y+ "' r='5' stroke='" +color+ "' stroke-width='2' fill='white' >\n" +
-                    "<title> Club: " +clubName+ " <br/> Distance: " +distance+ " yards</title>\n" +
-                "</circle>\n";
+        html += "<circle cx='" +start.x+ "' \n\
+                         cy='" +start.y+ "' \n\
+                         r='5' \n\
+                         stroke='" +color+ "' \n\
+                         stroke-width='2' \n\
+                         fill='white' \n\
+                         title=' Club: +" +clubName+ " <br/> Distance: " +distance+ " yards' />\n";
     }
 
     // draw diamond with the approriate color
@@ -410,9 +427,14 @@ function drawShape(start, end, club, distance, startTime, holeScore, putts){
 
         // points='topX,topY rightX,rightY bottomX,bottomY leftX,leftY'
         // diamond centered on point with 6px difference in each direction
-        html += "<polygon points='"+start.x+","+(start.y-6)+" "+(start.x+6)+","+start.y+" "+start.x+","+(start.y+6)+" "+(start.x-6)+","+start.y+"' stroke='" +color+ "' stroke-width='2' fill='white' >\n" +
-                    "<title> Club: " +clubName+ " <br/> Distance: " +distance+ " yards</title>\n" +
-                "</polygon>\n";
+        html += "<polygon points='"+start.x+","+(start.y-6)+" \n\
+                                  "+(start.x+6)+","+start.y+" \n\
+                                  "+start.x+","+(start.y+6)+" \n\
+                                  "+(start.x-6)+","+start.y+"' \n\
+                          stroke='" +color+ "' \n\
+                          stroke-width='2' \n\
+                          fill='white' \n\
+                          title=' Club: " +clubName+ " <br/> Distance: " +distance+ " yards'/>";
     }
 } // end draw shape
 

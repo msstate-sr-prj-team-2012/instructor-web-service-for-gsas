@@ -14,12 +14,32 @@
     <script type="text/javascript" src="{{ get_url('static', path='js/onPar_SDK.js') }}"></script>
     <script type="text/javascript" src="{{ get_url('static', path='js/onPar_functions.js') }}"></script>
     <script type="text/javascript" src="{{ get_url('static', path='js/onPar_admin_functions.js') }}"></script>
+	<script type="text/javascript">
+
+        function addYears()
+        {
+            var x = document.getElementById("birthyear");
+
+            for (var i = 2013; i >= 1900; i--) {
+                var option = document.createElement("option");
+                option.text = i;
+                option.value = i;
+                try {
+                    x.add(option, x.options[null]);
+                }
+                catch (e) {
+                    x.add(option, null);
+                }
+            }
+        }
+
+    </script>
 </head>
 <body>
  <div id="page-wrap">
     <!--==============================header=================================-->
    <header> 
-        <img src="{{ get_url('static', path='images/logo.png') }}" alt="" class="site-logo">
+        <img src="html/content/images/logo.png" alt="" class="site-logo">
         <h1> onPar </h1>
         <div class="organization-logo">
         </div>
@@ -30,26 +50,45 @@
 	<!--==============================content================================-->
 
 	<div class="content">
-		<div class="admin">
-			<div id="golferselect" class="select">
-				Enter Golfer ID: <input type="text" id="uID" /><br/>
+        <div id="passwordDiv" style="float: none; position: relative; margin: 120px auto;">
+            Please enter the passcode to continue: <input type="password" name="passcode" id="pass" />
+            <input type="button" id="passbtn" value="Submit" /><br />
+            <div id="errmsg"></div>
+        </div>
+
+		<div id="administrative">
+			<div id="golferseldiv">
+                <div id="golferselect" style="float: none; margin: 0px auto">
+				    Enter Golfer ID: <input type="text" id="uID" /><br/>
 				
-				<input type="button" id="editGolfer" value="Edit"/>
-				<input type="button" id="deleteGolfer" value="Delete"/>
-			</div>
-			<div id="golferadd">
-				<input type="button" id="addGolfer" value="Add Golfer"/>
-			</div>
-			<div id="userform" style="width: 200px; background-color: black">
+				    <input type="button" id="editGolfer" value="Edit"/>
+				    <input type="button" id="deleteGolfer" value="Delete"/>
+			    </div>
+			    <div id="golferadd" style="float: none; margin: 0px auto">
+				    <input type="button" id="addGolfer" value="Add Golfer"/>
+			    </div>
+            </div>
+
+			<div id="userform" style="width: 750px; float: none; margin: 0px auto; background-color: black; color: white;">
 				<form id="userInfo">
-					<input type="text" name="firstname" id="ufname" /><br/>
-					<input type="text" name="lastname" id="ulname" /><br/>
-					<input type="text" name="email" id="uemail" /><br/>
-					<input type="text" name="memberID" id="umemID" /><br/>
-					<input type="text" name="birthyear" id="birthyear" /><br/>
-					<input type="text" name="gender" id="gender" /><br/>
-					<input type="button" id="save" /><br/>
-					<input type="reset" value="Reset Form" /><br/>
+					<input type="text"  placeholder="First Name" name="firstname" id="ufname" />
+					<input type="text"  placeholder="Last Name"  name="lastname" id="ulname" /><br/>
+
+					<input type="email" placeholder="E-Mail"     name ="email" id="uemail" /><br/>
+					<input type="text"  placeholder="Member ID"  name="memberID" id="umemID" /><br/>
+					
+                    Birth Year:
+                    <select name="birthyear" id="birthyear">
+                        <option value="">Select birth year...</option>
+                    </select><br />
+                    <script>addYears();</script>
+
+                    Gender: 
+					<input type="radio" name="gender" value="Male" />Male
+                    <input type="radio" name="gender" value="Female" />Female<br />
+
+					<input type="button" id="save" value="Save Changes" />
+					<input type="reset" value="Reset Form" />
 				</form>
 			</div>
 			<div id="roundselect" style="width: 200px; background-color: black">
