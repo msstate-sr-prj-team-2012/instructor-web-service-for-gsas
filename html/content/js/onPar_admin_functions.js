@@ -35,7 +35,7 @@ function setupPage()
 	$(document).on('click', '#editGolfer', function(){
 
 	    //load the user data into the form for editing
-		userID = document.getElementById('uID');
+		userID = document.getElementById('uID').value;
 		user = new User(userID);
 		document.getElementById('ufname').value = user.name;
 		document.getElementById('ulname').value = user.name;
