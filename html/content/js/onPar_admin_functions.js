@@ -7,7 +7,8 @@ var userID = null;
 var user = null;
 
 $(document).ready(function () {
-   
+
+    hideAdmin();
 
     var securityprompt;
     securityprompt = prompt('Please enter the admin password', '');
@@ -15,19 +16,18 @@ $(document).ready(function () {
 
     if (passcode == securityprompt)
     {
+        showAdmin();
         //allow admin functions
         setupPage();
     }
     else
     {
-        $('#admin').hide();
+        alert("Invalid Password!");
     }
 });
 
 function setupPage()
 {
-    $('#admin').show();
-
 	$(document).on('click', '#editGolfer', function(){
         //load the user data into the form for editing
 		userID = document.getElementById('uID');
@@ -38,7 +38,7 @@ function setupPage()
 		document.getElementById('memberID').value = user.email;
 		document.getElementById('birthyear').value = user.birthdate;
 		document.getElementById('gender').value = user.DBgender;
-		
+
 		//Add rounds functionality
 		
 		$(document).on('click', '#save', function(){
@@ -63,4 +63,16 @@ function setupPage()
         //load an empty user form.
 		$('#userform').show();
     });
+}
+
+function hideAdmin() {
+    $('#golferselect').hide();
+    $('#golferadd').hide();
+    $('#userform').hide();
+}
+
+function showAdmin() {
+    $('#golferselect').show();
+    $('#golferadd').show();
+    $('#userform').show();
 }

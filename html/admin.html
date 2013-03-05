@@ -14,6 +14,26 @@
     <script type="text/javascript" src="html/content/js/onPar_SDK.js"></script>
     <script type="text/javascript" src="html/content/js/onPar_functions.js"></script>
     <script type="text/javascript" src="html/content/js/onPar_admin_functions.js"></script>
+    <script type="text/javascript">
+
+        function addYears()
+        {
+            var x = document.getElementById("birthyear");
+
+            for (var i = 2013; i <= 1900; i--) {
+                var option = document.createElement("option");
+                option.text = i;
+                option.value = i;
+                try {
+                    x.add(option, x.options[null]);
+                }
+                catch (e) {
+                    x.add(option, null);
+                }
+            }
+        }
+
+    </script>
 </head>
 <body>
  <div id="page-wrap">
@@ -42,14 +62,24 @@
 			</div>
 			<div id="userform" style="width: 200px; background-color: black">
 				<form id="userInfo">
-					<input type="text"  placeholder="First Name" name="firstname" id="ufname" /><br/>
+					<input type="text"  placeholder="First Name" name="firstname" id="ufname" />
 					<input type="text"  placeholder="Last Name"  name="lastname" id="ulname" /><br/>
+
 					<input type="email" placeholder="E-Mail"     name ="email" id="uemail" /><br/>
 					<input type="text"  placeholder="Member ID"  name="memberID" id="umemID" /><br/>
-					<input type="text"  placeholder="Birth Year" name="birthyear" id="birthyear" /><br/>
-					<input type="text"  placeholder="Gender"     name="gender" id="gender" /><br/>
-					<input type="button" id="save" /><br/>
-					<input type="reset" value="Reset Form" /><br/>
+					
+                    Birth Year:
+                    <select name="birthyear" id="birthyear">
+                        <option value="">Select birth year...</option>
+                    </select><br />
+                    <script>addYears();</script>
+
+                    Gender: 
+					<input type="radio" name="gender" value="Male" />
+                    <input type="radio" name="gender" value="Female" /><br />
+
+					<input type="button" id="save" value="Save Changes" />
+					<input type="reset" value="Reset Form" />
 				</form>
 			</div>
 			<div id="roundselect" style="width: 200px; background-color: black">
