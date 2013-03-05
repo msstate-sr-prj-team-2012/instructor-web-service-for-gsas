@@ -284,7 +284,7 @@ function drawAllData(){
             for(var x = 0; x < hole.shots.length; x++){ 
                 var startLocationXY = main(hole.shots[x].startLatitude, hole.shots[x].startLongitude); 
                 var endLocationXY = main(hole.shots[x].endLatitude, hole.shots[x].endLongitude); 
-                var distance = getDistance(hole.shots.startLatitude, hole.shots[x].startLongitude, hole.shots[x].endLatitude, hole.shots[x].endLongitude); 
+                var distance = getDistance(hole.shots[x].startLatitude, hole.shots[x].startLongitude, hole.shots[x].endLatitude, hole.shots[x].endLongitude); 
                 // retrieves startTime associated with currentHole
                 var startTime = new Round(hole.roundID).startTime; 
                 // passing all shot information to drawing function
