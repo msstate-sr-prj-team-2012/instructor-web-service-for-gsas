@@ -10,20 +10,7 @@ $(document).ready(function () {
 
     hideAdmin();
 
-    var securityprompt;
-    securityprompt = prompt('Please enter the admin password', '');
-    var passcode = '12345';
-
-    if (passcode == securityprompt)
-    {
-        showAdmin();
-        //allow admin functions
-        setupPage();
-    }
-    else
-    {
-        alert("Invalid Password!");
-    }
+    window.onload = askForPass();
 });
 
 function setupPage()
@@ -75,4 +62,19 @@ function showAdmin() {
     $('#golferselect').show();
     $('#golferadd').show();
     $('#userform').show();
+}
+
+function askForPass() {
+    var securityprompt;
+    securityprompt = prompt('Please enter the admin password', '');
+    var passcode = '12345';
+
+    if (passcode == securityprompt) {
+        showAdmin();
+        //allow admin functions
+        setupPage();
+    }
+    else {
+        alert("Invalid Password!");
+    }
 }
