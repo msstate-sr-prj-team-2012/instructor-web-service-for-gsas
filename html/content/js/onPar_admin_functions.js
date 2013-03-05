@@ -8,7 +8,7 @@ var user = null;
 
 $(document).ready(function () {
 
-    $('#admin').hide();
+    $('#aadministrative').hide();
 
     $(document).on('click', '#passbtn', function () {
         var passcode = '12345';
@@ -16,13 +16,14 @@ $(document).ready(function () {
 
         if (passcode == entered) {
             $('#passwordDiv').hide();
-            $('#admin').show();
+            $('#administrative').show();
 
             //allow admin functions
             setupPage();
         }
         else {
             documet.getElementById('errmsg').innerHTML = "Error: Password entered incorrectly";
+            $('#errmsg').show();
         }
     });
 });
