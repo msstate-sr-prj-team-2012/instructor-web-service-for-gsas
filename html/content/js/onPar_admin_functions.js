@@ -8,7 +8,7 @@ var user = null;
 
 $(document).ready(function () {
 
-    $('#aadministrative').hide();
+    $('#administrative').hide();
 
     $(document).on('click', '#passbtn', function () {
         var passcode = '12345';
