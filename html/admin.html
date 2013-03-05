@@ -14,29 +14,6 @@
     <script type="text/javascript" src="html/content/js/onPar_SDK.js"></script>
     <script type="text/javascript" src="html/content/js/onPar_functions.js"></script>
     <script type="text/javascript" src="html/content/js/onPar_admin_functions.js"></script>
-    <script type="text/javascript">
-        var userID = null;
-        var user = null;
-
-        $(document).ready(function () {
-            $('#userform').hide();
-            $('#roundselect').hide();
-            $('#admin').hide();
-
-            var securityprompt;
-            securityprompt = prompt('Please enter the admin password', 'Password:');
-            var passcode = '12345';
-
-            if (passcode == securityprompt) {
-                //allow admin functions
-                setupPage();
-            }
-            else
-            {
-                $('#admin').hide();
-            }
-        });
-    </script>
 </head>
 <body>
  <div id="page-wrap">
