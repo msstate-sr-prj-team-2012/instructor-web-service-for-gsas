@@ -1,0 +1,626 @@
+
+
+/****************************************************************************
+ *
+ * All
+ *
+ ****************************************************************************/
+
+@font-face 
+{
+    font-family: 'TeXGyreAdventorRegular';
+    src: url('../fonts/texgyreadventor-regular-webfont.eot');
+    src: url('../fonts/texgyreadventor-regular-webfont.eot?#iefix') format('embedded-opentype'),
+         url('../fonts/texgyreadventor-regular-webfont.woff') format('woff'),
+         url('../fonts/texgyreadventor-regular-webfont.ttf') format('truetype'),
+         url('../fonts/texgyreadventor-regular-webfont.svg#TeXGyreAdventorRegular') format('svg');
+    font-weight: normal;
+    font-style: normal;
+}
+root { display: block; }
+* { margin: 0; padding: 0; }
+body 
+{
+    font: 13px/25px 'Raleway', Century Gothic, 'TeXGyreAdventorRegular', sans-serif;
+    font-weight: 500;
+    text-align:center;
+    background: url("../images/bg.png") repeat scroll; 
+}
+#page-wrap 
+{
+    min-width: 780px;
+    max-width: 1200px;
+    height: 100%;
+    margin: 10px auto;
+}
+.content
+{
+    position: relative;
+    text-align: center;
+    width: 100%;
+    min-height:550px;
+    height: auto;
+    top: 50px;
+    border: 1px transparent solid;
+    background: #fff;
+    box-shadow: 0px 0px 10px #fff ;
+    border-radius: 5px;
+}
+#nav li.selected_tab a, .view_tabs li.selected_tab, .view_tabs li:hover
+{
+    color:#660000;
+    background: #fff;
+    border-top-left-radius: 5px;
+    border-top-right-radius: 5px;
+}
+#nav li.selected_tab a, #nav li:hover, #change_golfer li:hover
+{ 
+    box-shadow: 0px 0px 10px #fff;
+}
+.round_tabs li.selected_tab, .round_tabs li:hover
+{
+    border-top-left-radius: 5px;
+    border-bottom-left-radius: 5px;
+}
+.hole_tabs li.selected_tab, .hole_tabs li:hover
+{
+    border-bottom-left-radius: 5px;
+    border-bottom-right-radius: 5px;
+}
+li:hover > a, li:hover 
+{
+    transition: background .3s linear;
+    -webkit-transition: background .3s linear;
+    -moz-transition: background .3s linear;
+    -o-transition: background .3s linear;
+}
+
+
+
+/****************************************************************************
+ *
+ * Header
+ *
+ ****************************************************************************/
+
+header 
+{
+    position:relative;
+    text-align: center;
+    height:90px;
+    margin-top: 30px;
+    margin-bottom:30px;
+}
+header h1 
+{
+    position:absolute;
+    left:65px;
+    margin:26px 0 16px 0;
+    color: #fff;
+    font-size:55px;
+    padding-top:15px;
+    font-weight:100;
+}
+.site-logo
+{
+    position: absolute;
+    top:10px;
+    left:10px;
+    height:70px;
+    width:50px;
+    padding:10px;
+}
+.organization-logo
+{
+    position: absolute;
+    padding: 10px;
+    top: 20px;
+    right: 0;
+    width: 270px;
+    height: 72px;
+    background: url('../images/2008_MSU_logo_web_text_whiteontrans.png') no-repeat center;
+}
+
+
+
+/****************************************************************************
+ *
+ * Footer
+ *
+ ****************************************************************************/
+
+footer 
+{
+    text-align: right;
+    color: #fff;
+    position: relative;
+    bottom: -70px;
+    margin-right:20px;
+    padding-bottom: 30px;
+}
+footer a
+{
+    display: inline-block;
+    color:#fff;
+    text-decoration:none;
+    padding:0 20px 0 20px;
+}
+
+
+
+/****************************************************************************
+ *
+ * Navigation Menu
+ *
+ ****************************************************************************/
+
+nav ul
+{
+    list-style:none;
+    position:absolute;
+    z-index:5;
+    margin: 0;
+    padding: 0;
+    font-size:0;
+    float:left;
+    bottom: -84px;
+    left: 15px;
+}
+nav ul li
+{
+    display: inline-block;
+    margin: 1px;
+    width: 90px;
+    font-size:13px;
+    position:relative;
+    z-index: 0;
+}
+nav ul a
+{
+    display:block;
+    text-decoration:none;
+    line-height:20px;
+    padding: 4px 6px;
+    color: #fff;
+}
+nav ul li:hover > a
+{
+    color: #660000;
+    background: #fff;     
+    border-top-left-radius: 5px;
+    border-top-right-radius: 5px;
+}
+
+
+
+/****************************************************************************
+ *
+ * Change Golfer Menu
+ *
+ ****************************************************************************/
+
+#change_golfer
+{
+    list-style:none;
+    position:absolute;
+    z-index:5;
+    bottom: -81px;
+    right: 60px;
+}
+#change_golfer li
+{
+    display: inline-block;
+    margin: 1px;
+    width: 150px;
+    font-size:13px;
+    position:relative;
+}
+#change_golfer a
+{
+    display:block;
+    text-decoration:none;
+    line-height:20px;
+    padding: 4px 6px;
+    color: #fff;
+}
+#change_golfer ul
+{
+    float:left;
+    background:#fff;
+    background:transparent;
+    color:#fff; 
+    list-style:none;
+    position:absolute;
+    padding:5px; 
+    visibility: hidden;
+}
+#change_golfer li:hover ul li {width: 99%;}
+#change_golfer ul li{float:none;}
+#change_golfer ul a{white-space:nowrap;}
+#change_golfer li:hover ul{visibility: visible; left:-35px; }
+#change_golfer li:hover > a
+{
+    color: #660000; 
+    background: #fff;
+    border-top-left-radius: 5px;
+    border-top-right-radius: 5px;
+}
+#change_golfer ul li, #change_golfer ul li:hover
+{ 
+    box-shadow: 10px 10px 10px #585858;
+    border: 1px #bdbdbd solid; 
+    background: #fff;
+    margin-bottom: 5px;
+    border-radius: 5px;
+}
+#change_golfer input[type="text"]
+{
+    width: 185px;
+    height: 22px;
+    color: #848484;
+    font: 12px 'TeXGyreAdventorRegular', sans-serif;
+    padding-left:5px;
+    border: none;
+}
+#change_golfer select
+{
+    width: 200px;
+    height: 22px;
+    color: #848484;
+    font: 12px 'TeXGyreAdventorRegular', sans-serif;
+    padding-left:5px;
+    border: none;
+}
+
+
+
+/****************************************************************************
+ *
+ * Currently Viewing
+ *
+ ****************************************************************************/
+
+#currently_viewing
+{
+    position: relative;
+    bottom: -184px;
+    margin: 0 auto;
+    color: #660000;
+    text-align: center;
+    width: 300px;
+    text-transform: lowercase; 
+    z-index:999;
+}
+#currently_viewing span
+{
+    color: #000;
+}
+
+
+
+/****************************************************************************
+ *
+ * Home Page
+ *
+ ****************************************************************************/
+
+.homepage
+{
+    position: relative;
+    padding: 0;
+    margin: 50px auto;
+    width: 780px;
+    height: auto;
+    color: #848484;
+}
+.homepage img
+{
+    position: absolute;
+    top:20px;
+    left:-20px;
+}
+.homepage h1
+{
+    position: absolute;
+    top: 50px;
+    left: 210px;
+    width: 600px;
+    text-align: left;
+    font-size: 35px;
+    color: #848484;
+    line-height: 50px;
+    font-weight: 100;
+}
+.select
+{
+    position: absolute;
+    top:180px;
+    left:210px;
+    text-transform: lowercase;
+}
+.select input[type="text"]
+{
+    font: 13px Century Gothic, 'TeXGyreAdventorRegular', sans-serif;
+    width: 600px;
+    height: 30px;
+    color: #848484;
+    margin-bottom: 20px;
+    padding-left:10px;
+    float:left;
+    border-radius: 5px;
+}
+.select input[type="hidden"]
+{
+    font: 13px Century Gothic, 'TeXGyreAdventorRegular', sans-serif;
+    width: 100%;
+    height: 34px;
+    color: #848484;
+    float:left;
+    padding-left:10px;
+    border-radius: 5px;
+    box-shadow: 0px 0px 10px #A4A4A4;
+}
+
+/****************************************************************************
+ *
+ * admin Page
+ *
+ ****************************************************************************/
+
+.admin
+{
+    position: relative;
+    padding: 0;
+    margin: 50px auto;
+    width: 780px;
+    height: auto;
+    color: #848484;
+}
+.admin h1
+{
+    position: absolute;
+    top: 50px;
+    left: 210px;
+    width: 600px;
+    text-align: left;
+    font-size: 35px;
+    color: #848484;
+    line-height: 50px;
+    font-weight: 100;
+}
+
+/****************************************************************************
+ *
+ * Rounds Page
+ *
+ ****************************************************************************/
+
+#date_list
+{ 
+    position: relative;
+    display: table;
+    margin: 15px auto;
+}
+.column
+{
+    float: left;
+    width: 150px;
+    height: 250px;
+    display: table;
+    margin: 0 6px;
+}
+button
+{
+    font: 13px Century Gothic, 'TeXGyreAdventorRegular', sans-serif;
+    width: 100px;
+    height: 30px;
+    position: relative;
+    bottom: -30px;
+    margin: 5px;
+    border-radius: 5px;
+    box-shadow: 0px 0px 10px #A4A4A4;
+}
+#date_list input[type='checkbox']
+{
+    padding-left:10px;
+    padding-right: 0;
+    margin: 0;
+    border-radius: 5px;
+}
+
+
+
+/****************************************************************************
+ *
+ * Table Page
+ *
+ ****************************************************************************/
+
+#table_content, #stats_content 
+{ 
+    position:relative;
+    top:80px;
+    margin: 0 auto;
+    display:table;
+}
+#table_content .grid
+{
+    display: table;
+    float:bottom;
+    margin-top:7px;
+}
+table{cursor:pointer}
+
+
+
+/****************************************************************************
+ *
+ * Maps Page
+ *
+ ****************************************************************************/
+
+.map_content li
+{ 
+    display: block;
+    text-decoration: none;
+    color: #660000; 
+}
+.map_content li:hover 
+{ 
+    color:#fff; 
+    background: #660000;
+    cursor: pointer;
+}
+.map_content li.selected_tab
+{
+    color:#fff;
+    background:#660000;
+}
+.map_content
+{
+    position: relative;
+    border: 3px #660000 solid;
+    padding: 0;
+    margin: 125px auto 150px;
+    width: 800px;
+    height: 350px;
+    box-shadow: 10px 10px 100px #A4A4A4;
+    background: url("../images/holes/hole1_map.PNG");
+    border-radius:5px;
+}
+#par
+{
+    position:absolute;
+    top:-30px;
+    right:10px;
+}
+#par ul
+{
+    list-style-type: none;
+    text-decoration: none;
+    margin: 0;
+    padding: 0;
+}
+#par li
+{
+    color: #000;
+    display: inline-block;
+    margin: 0 60px 0 0;
+}
+#par span { color: #660000; }
+#par li:hover{background: transparent; color:#000; cursor: default;}
+.view_tabs
+{
+    position: absolute;
+    top: -29px;
+    left: 10px;
+}
+.hole_tabs
+{
+    position: absolute;
+    left: 10px;
+    bottom: -33px;
+}
+.round_tabs
+{
+    position: absolute;
+    left: -34px;
+    top: 10px;
+}
+.view_tabs ul, .hole_tabs ul, .round_tabs ul
+{
+    list-style-type:none;
+    overflow:hidden;  
+    margin: 0;
+    padding: 0;
+    font-size:0;
+}
+.view_tabs li
+{
+    display: inline-block;
+    margin: 1px;
+    width: 160px;
+    font-size:13px;
+}
+.hole_tabs li
+{
+    display: inline-block;
+    width: 30px;
+    margin: 1px;
+    font-size:13px;
+}
+.round_tabs li
+{
+    width: 30px;
+    margin: 1px;
+    font-size: 13px; 
+}
+.round_title
+{
+    position: absolute;
+    top: 40%;
+    left: -13%;
+    font-size: 13px;
+    font-weight: bold;
+    /* rotate left 90 */
+    -webkit-transform: rotate(-90deg);
+    -moz-transform: rotate(-90deg);   
+    -o-transform: rotate(-90deg);
+    /*    for IE -> */ 
+    filter: progid:DXImageTransform.Microsoft.BasicImage(rotation=3);
+}
+.hole_title
+{
+    position: absolute;
+    bottom: -23%;
+    left: 50%;
+    font-size: 13px;
+    font-weight: bold;
+}
+svg { opacity: 1}
+svg svg { opacity: .4}
+svg svg:hover { opacity: 1}
+
+
+
+/****************************************************************************
+ *
+ * Bar Graph Page
+ *
+ ****************************************************************************/
+
+.graph_content
+{
+    position: relative;
+    border: 3px #660000 solid;
+    padding: 0;
+    margin: 125px auto;
+    width: 850px;
+    height: 350px;
+    background: transparent;
+    box-shadow: 10px 10px 100px #A4A4A4 ;  
+    border-radius: 5px;
+}
+.graph_content li{ color:#660000;}
+.graph_content li:hover 
+{ 
+    color:#fff; 
+    background: #660000;
+    cursor: pointer;
+}
+.graph_content li.selected_tab
+{
+    color:#fff;
+    background:#660000;
+}
+#containerWood, #containerIron, #containerHybrid, #containerWedge 
+{
+    display: block;
+    width: 100%;
+    height: 100%;
+    z-index:1000; 
+}
+
+
+
+

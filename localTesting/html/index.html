@@ -1,0 +1,70 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>onPar - home</title>
+    <meta charset="utf-8">
+    <link rel="icon" type="image/ico" href="http://shadowrealm.cse.msstate.edu/favicon.ico">
+    <link rel="stylesheet" type="text/css" media="screen" href="{{ get_url('static', path='css/style2.css') }}">
+    <link rel="stylesheet" type="text/css" media="screen" href="{{ get_url('static', path='css/select2.css') }}">
+    <script type="text/javascript" src="{{ get_url('static', path='js/jquery-1.8.3.min.js') }}"></script>
+    <script type="text/javascript" src="{{ get_url('static', path='js/select2.min.js') }}"></script>
+    <script type="text/javascript" src="{{ get_url('static', path='js/onPar_SDK.js') }}"></script>
+    <script type="text/javascript" src="{{ get_url('static', path='js/onPar_functions.js') }}"></script> 
+</head>
+<body>
+     
+<div id="page-wrap">
+
+    
+        <!--==============================header=================================-->
+
+       <header> 
+
+            <img src="{{ get_url('static', path='images/logo.png') }}" alt="" class="site-logo">
+            <h1> onPar </h1>
+
+
+            <div class="organization-logo">
+            </div>
+
+            <nav id="nav">
+            </nav>
+
+
+        </header>
+
+        <!--==============================content================================-->
+
+        <div class="content">
+            
+            <div class="homepage"> 
+                
+                <img src="{{ get_url('static', path='images/iphone.png') }}" alt="">
+                
+                <h1>please ensure all golfer information <br/>
+                is uploaded before continuing</h1>
+                          
+                <div class="select">
+                    choose a search option below to begin evaluating<br/><br/>    
+                        <input type="hidden" id="golfer_select" placeholder="Select Golfer..." style="width:600px;"/>        
+                        <br />or<br />
+                        <input type="text" id="input_field" placeholder="enter member id or email...">
+                </div>
+    
+            </div>
+            
+        </div>
+
+
+
+
+        <!--==============================footer=================================-->
+ 
+        <footer>
+            2013 onPar 
+        </footer>
+
+</div>
+    
+</body>
+</html>

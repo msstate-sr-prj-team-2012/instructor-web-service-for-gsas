@@ -1,0 +1,66 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>onPar - table</title>
+    <link rel="icon" type="image/ico" href="http://shadowrealm.cse.msstate.edu/favicon.ico">
+    <link rel="stylesheet" type="text/css" media="screen" href="{{ get_url('static', path='css/style2.css') }}">
+    <link rel="stylesheet" type="text/css" media="screen" href="{{ get_url('static', path='css/select2.css') }}">
+    <link rel="stylesheet" type="text/css" media="screen" href="{{ get_url('static', path='css/smoothness/jquery-ui-1.10.1.custom.min.css') }}" />
+    <link rel="stylesheet" type="text/css" media="screen" href="{{ get_url('static', path='css/ui.jqgrid.css') }}" /> 
+    <script type="text/javascript" src="{{ get_url('static', path='js/jquery-1.8.3.min.js') }}"></script>
+    <script type="text/javascript" src="{{ get_url('static', path='js/select2.min.js') }}"></script>
+    <script type="text/javascript" src="{{ get_url('static', path='js/i18n/grid.locale-en.js') }}"></script>
+    <script type="text/javascript" src="{{ get_url('static', path='js/jquery.jqGrid.src.js') }}"></script>
+    <script type="text/javascript" src="{{ get_url('static', path='js/onPar_SDK.js') }}"></script>
+    <script type="text/javascript" src="{{ get_url('static', path='js/onPar_functions.js') }}"></script>
+    <script type="text/javascript" src="{{ get_url('static', path='js/onPar_admin_functions.js') }}"></script>
+</head>
+<body>
+ <div id="page-wrap">
+    <!--==============================header=================================-->
+   <header> 
+        <img src="{{ get_url('static', path='images/logo.png') }}" alt="" class="site-logo">
+        <h1> onPar </h1>
+        <div class="organization-logo">
+        </div>
+        <nav id="nav">  
+        </nav>
+   </header>
+
+	<!--==============================content================================-->
+
+	<div class="content">
+		<div class="admin">
+			<div id="golferselect" class="select">
+				Enter Golfer ID: <input type="text" id="uID" /><br/>
+				
+				<input type="button" id="editGolfer" value="Edit"/>
+				<input type="button" id="deleteGolfer" value="Delete"/>
+			</div>
+			<div id="golferadd">
+				<input type="button" id="addGolfer" value="Add Golfer"/>
+			</div>
+			<div id="userform" style="width: 200px; background-color: black">
+				<form id="userInfo">
+					<input type="text" name="firstname" id="ufname" /><br/>
+					<input type="text" name="lastname" id="ulname" /><br/>
+					<input type="text" name="email" id="uemail" /><br/>
+					<input type="text" name="memberID" id="umemID" /><br/>
+					<input type="text" name="birthyear" id="birthyear" /><br/>
+					<input type="text" name="gender" id="gender" /><br/>
+					<input type="button" id="save" /><br/>
+					<input type="reset" value="Reset Form" /><br/>
+				</form>
+			</div>
+			<div id="roundselect" style="width: 200px; background-color: black">
+				
+			</div>
+		</div>
+	</div>
+	<!--==============================footer=================================-->
+	<footer>
+		2013 onPar 
+	</footer>
+</div>
+</body>
+</html>
