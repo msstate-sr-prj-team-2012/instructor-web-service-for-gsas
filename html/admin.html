@@ -14,27 +14,7 @@
     <script type="text/javascript" src="html/content/js/onPar_SDK.js"></script>
     <script type="text/javascript" src="html/content/js/onPar_functions.js"></script>
     <script type="text/javascript" src="html/content/js/onPar_admin_functions.js"></script>
-    <script type="text/javascript">
-
-        function addYears()
-        {
-            var x = document.getElementById("birthyear");
-
-            for (var i = 2013; i >= 1900; i--) {
-                var option = document.createElement("option");
-                option.text = i;
-                option.value = i;
-                try {
-                    x.add(option, x.options[null]);
-                }
-                catch (e) {
-                    x.add(option, null);
-                }
-            }
-        }
-
-    </script>
-</head>
+    </head>
 <body>
  <div id="page-wrap">
     <!--==============================header=================================-->
@@ -71,21 +51,18 @@
 
 			<div id="userform" style="width: 750px; float: none; margin: 0px auto; background-color: black; color: white;">
 				<form id="userInfo">
-					<input type="text"  placeholder="First Name" name="firstname" id="ufname" />
-					<input type="text"  placeholder="Last Name"  name="lastname" id="ulname" /><br/>
-
+					<input type="text"  placeholder="Name" name="name" id="uname" /><br/>
 					<input type="email" placeholder="E-Mail"     name ="email" id="uemail" /><br/>
 					<input type="text"  placeholder="Member ID"  name="memberID" id="umemID" /><br/>
 					
-                    Birth Year:
-                    <select name="birthyear" id="birthyear">
-                        <option value="">Select birth year...</option>
-                    </select><br />
-                    <script>addYears();</script>
+                    Birth date:
+                    <input type="text" name="birthdate1" id="ubdate" /><br/>
+                    <input type="button" id="datechange" value="Change Birth Date" />
+                    <input type="date" name="changebirthdate" id="ubdatechange" /><br/>
 
                     Gender: 
-					<input type="radio" name="gender" value="Male" />Male
-                    <input type="radio" name="gender" value="Female" />Female<br />
+					<input type="radio" name="gender" id="genderm" value="male" />Male
+                    <input type="radio" name="gender" id="genderf" value="female" />Female<br />
 
 					<input type="button" id="save" value="Save Changes" />
 					<input type="reset" value="Reset Form" />
