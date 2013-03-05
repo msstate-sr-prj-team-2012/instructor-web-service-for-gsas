@@ -19,14 +19,34 @@ $(document).ready(function()
 });
         
  function basicbargraph(tags, value) {
-    var length = 200
+    var length = 200;
     var html;
 
     for (i = 0; i < tags.length; i++) {
-        html+= '<div style="font-size: 10pt; color: #AAAAAA;">' + tags[i] + ': </div><div style="font-size:0 1pt; color: #AAAAAA;"><img src="pixel.jpg" width="' + values[i] / 100 * length + '" height="15" border="1" style="border-color: #00AA00"> ' + values[i] + 'Yards</div>';
+        html+= '<div style="font-size: 10pt; color: #AAAAAA;">' + tags[i] + ': </div><div style="font-size:0 1pt; color: #AAAAAA;"><img src="pixel.jpg" width="' + value[i] / 100 * length + '" height="15" border="1" style="border-color: #00AA00"> ' + value[i] + 'Yards</div>';
     }
-    document.getElemenById('graphContainer').innerHTML = html;
-}      
+    document.getElemenById('map_image').innerHTML = html;
+}     
+function graph2(tags, value) {
+    var hi = 200;
+    var wi = 40;
+    var ddds;
+    html+= ' <p> ';
+    for (i = 0; i < tags.length; i++) {
+        html+= value[i]+' yards ';
+    }
+    html+= '<div> </div> </p>';
+    for (i = 0; i < tags.length; i++) {
+    ddds=hi-value[i];
+        html+= '<svg height="' + hi + '" width="' + wi + '"><rect id="redrect' + i + '"  width="20" height="' + value[i] + '"fill="red" y="'+ddds+'" /> </svg>';
+    }
+   html+= '<div> </div> <p> ';
+    for (i = 0; i < tags.length; i++) {
+        html+= tags[i]+' ';
+    }
+    html+= ' </p>';
+    document.getElementById('map_image').innerHTML = html;
+}
       
 var graphView = 'v1';
 var mapRound = localStorage.getObject('rounds')[0].rid;
