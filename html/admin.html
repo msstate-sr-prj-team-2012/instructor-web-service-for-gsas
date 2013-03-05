@@ -50,7 +50,13 @@
 	<!--==============================content================================-->
 
 	<div class="content">
-		<div class="admin">
+        <div id="passwordDiv">
+            Please enter the passcode to continue: <input type="password" name="passcode" id="pass" />
+            <input type="button" id="passbtn" value="Submit" />
+            <div id="errmsg"></div>
+        </div>
+
+		<div id="admin">
 			<div id="golferselect">
 				Enter Golfer ID: <input type="text" id="uID" /><br/>
 				

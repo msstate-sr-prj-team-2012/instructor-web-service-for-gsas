@@ -8,9 +8,23 @@ var user = null;
 
 $(document).ready(function () {
 
-    hideAdmin();
+    $('#admin').hide();
 
-    window.onload = askForPass();
+    $(document).on('click', '#passbtn', function () {
+        var passcode = '12345';
+        var entered = document.getElementById('pass').value;
+
+        if (passcode == entered) {
+            $('#passwordDiv').hide();
+            $('#admin').show();
+
+            //allow admin functions
+            setupPage();
+        }
+        else {
+            documet.getElementById('errmsg').innerHTML = "Error: Password entered incorrectly";
+        }
+    });
 });
 
 function setupPage()
@@ -50,31 +64,4 @@ function setupPage()
         //load an empty user form.
 		$('#userform').show();
     });
-}
-
-function hideAdmin() {
-    $('#golferselect').hide();
-    $('#golferadd').hide();
-    $('#userform').hide();
-}
-
-function showAdmin() {
-    $('#golferselect').show();
-    $('#golferadd').show();
-    $('#userform').show();
-}
-
-function askForPass() {
-    var securityprompt;
-    securityprompt = prompt('Please enter the admin password', '');
-    var passcode = '12345';
-
-    if (passcode == securityprompt) {
-        showAdmin();
-        //allow admin functions
-        setupPage();
-    }
-    else {
-        alert("Invalid Password!");
-    }
 }
