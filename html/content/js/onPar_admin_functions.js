@@ -7,15 +7,20 @@ var userID = null;
 var user = null;
 
 $(document).ready(function () {
-    $('#admin').hide();
+   
 
     var securityprompt;
     securityprompt = prompt('Please enter the admin password', '');
     var passcode = '12345';
 
-    if (passcode == securityprompt) {
+    if (passcode == securityprompt)
+    {
         //allow admin functions
         setupPage();
+    }
+    else
+    {
+        $('#admin').hide();
     }
 });
 
