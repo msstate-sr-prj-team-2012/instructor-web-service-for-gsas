@@ -9,6 +9,8 @@ var user = null;
 $(document).ready(function () {
 
     $('#administrative').hide();
+    $('#userform').hide();
+
 
     $(document).on('click', '#passbtn', function () {
         var passcode = '12345';
@@ -22,8 +24,8 @@ $(document).ready(function () {
             setupPage();
         }
         else {
-            documet.getElementById('errmsg').innerHTML = "Error: Password entered incorrectly";
             $('#errmsg').show();
+            document.getElementById('errmsg').innerHTML = "Error: Password entered incorrectly";
         }
     });
 });
@@ -31,20 +33,25 @@ $(document).ready(function () {
 function setupPage()
 {
 	$(document).on('click', '#editGolfer', function(){
-        //load the user data into the form for editing
+
+	    //load the user data into the form for editing
 		userID = document.getElementById('uID');
 		user = new User(userID);
 		document.getElementById('ufname').value = user.name;
 		document.getElementById('ulname').value = user.name;
 		document.getElementById('email').value = user.email;
 		document.getElementById('memberID').value = user.email;
-		document.getElementById('birthyear').value = user.birthdate;
-		document.getElementById('gender').value = user.DBgender;
+		//document.getElementById('birthyear').value = user.birthdate;
+		//document.getElementById('gender').value = user.DBgender;
+
+		$('#userform').show();
+
 
 		//Add rounds functionality
 		
 		$(document).on('click', '#save', function(){
-		//update user
+
+		    //update user
             var name = null;
 		});
     });
