@@ -28,8 +28,8 @@ $(document).ready(function () {
         else {
             $('#errmsg').show();
             document.getElementById('errmsg').innerHTML = "Error: Password entered incorrectly";
-        }*/
-    });
+        }
+    });*/
 });
 
 function setupPage() {
