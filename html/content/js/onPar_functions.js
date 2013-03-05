@@ -184,25 +184,12 @@ function createNavigationMenu(){
         if (window.location.pathname !== (defines.BASE_PATH + '/') && window.location.pathname !== (defines.BASE_PATH + '/admin')) {
             document.getElementById("currently_viewing").innerHTML= 
                 "<span>golfer: </span>" + golfer.name + " -- " +
-                "<span>age: </span>" + getAge(golfer.birthDate) + " -- " +
+                "<span>age: </span>" + golfer.age + " -- " +
                 "<span>sex: </span>" + golfer.gender + " -- " +
                 "<span>hand: </span>" + golfer.hand + "\n";
         }
     }
 } // end createNavigationMenu
-
-// calculates golfer's age
-function getAge(dateString) {
-    var today = new Date();
-    // Date(year, month (0-11), day)
-    var birthDate = new Date(dateString.split('-')[0], dateString.split('-')[1] - 1, dateString.split('-')[2]);
-    var age = today.getFullYear() - birthDate.getFullYear();
-    var m = today.getMonth() - birthDate.getMonth();
-    if (m < 0 || (m === 0 && today.getDate() < birthDate.getDate())) {
-        age--;
-    }
-    return age;
-}
 
 
 /****************************************************************************
