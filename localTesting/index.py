@@ -62,33 +62,114 @@ base_url = 'http://shadowrealm.cse.msstate.edu/gsas/API/'
 
 @app.get('/gsas/API/users/')
 def getAllUsers():
-    r = request.get(base_url + 'users/', auth = ('cse3213', 'test'))
+    requestHeaders = {}
+    for key, value in bottle.request.headers.iteritems():
+        requestHeaders[key] = value
+
+    r = request.get(base_url + 'users/', headers = requestHeaders, auth = ('cse3213', 'test'))
     bottle.response.status = r.status_code
+
+    for key, value in r.headers.iteritems():
+        bottle.response.headers[key] = value
+
     return r.json
 
-@app.get('/gsas/API/users/:id')
+@app.get('/gsas/API/users/<id:int>')
 def getUser(id):
-    r = request.get(base_url + 'users/' + id, auth = ('cse3213', 'test'))
+    requestHeaders = {}
+    for key, value in bottle.request.headers.iteritems():
+        requestHeaders[key] = value
+
+    r = request.get(base_url + 'users/' + str(id), headers = requestHeaders, auth = ('cse3213', 'test'))
     bottle.response.status = r.status_code
+
+    for key, value in r.headers.iteritems():
+        bottle.response.headers[key] = value
+
     return r.json
 
-@app.get('/gsas/API/rounds/all/:page')
+@app.get('/gsas/API/rounds/all/<page:int>')
 def getAllRounds(page):
-    r = request.get(base_url + 'rounds/all/' + page, auth = ('cse3213', 'test'))
+    requestHeaders = {}
+    for key, value in bottle.request.headers.iteritems():
+        requestHeaders[key] = value
+
+    r = request.get(base_url + 'rounds/all/' + page, headers = requestHeaders, auth = ('cse3213', 'test'))
     bottle.response.status = r.status_code
+
+    for key, value in r.headers.iteritems():
+        bottle.response.headers[key] = value
+
     return r.json
 
-@app.get('/gsas/API/rounds/user/:userID/:page')
+@app.get('/gsas/API/rounds/user/<userID:int>/<page:int>')
 def getAllRoundsForUser(userID, page):
-    r = request.get(base_url + 'rounds/user/' + str(userID) + '/' + str(page), auth = ('cse3213', 'test'))
+    requestHeaders = {}
+    for key, value in bottle.request.headers.iteritems():
+        requestHeaders[key] = value
+
+    r = request.get(base_url + 'rounds/user/' + str(userID) + '/' + str(page), headers = requestHeaders, auth = ('cse3213', 'test'))
     bottle.response.status = r.status_code
+
+    for key, value in r.headers.iteritems():
+        bottle.response.headers[key] = value
+
     return r.json
 
-@app.get('/gsas/API/rounds/:id')
+@app.get('/gsas/API/rounds/<id:int>')
 def getRound(id):
-    r = request.get(base_url + 'rounds/' + id, auth = ('cse3213', 'test'))
+    requestHeaders = {}
+    for key, value in bottle.request.headers.iteritems():
+        requestHeaders[key] = value
+
+    r = request.get(base_url + 'rounds/' + str(id), headers = requestHeaders, auth = ('cse3213', 'test'))
     bottle.response.status = r.status_code
+
+    for key, value in r.headers.iteritems():
+        bottle.response.headers[key] = value
+
     return r.json
 
+@app.post('/gsas/API/users/<id:int>')
+def updateUser(id):
+    requestHeaders = {}
+    for key, value in bottle.request.headers.iteritems():
+        requestHeaders[key] = value
+
+    r = request.post(base_url + 'users/' + str(id), bottle.request.json, headers = requestHeaders, auth = ('cse3213', 'test'))
+    bottle.response.status = r.status_code
+
+    for key, value in r.headers.iteritems():
+        bottle.response.headers[key] = value
+
+    return r.json
+
+@app.post('/gsas/API/users/')
+def newUser():
+    requestHeaders = {}
+    for key, value in bottle.request.headers.iteritems():
+        requestHeaders[key] = value
+    
+    r = request.post(base_url + 'users/', json.JSONEncoder().encode(bottle.request.json), headers = requestHeaders, auth = ('cse3213', 'test'))
+    bottle.response.status = r.status_code
+
+    for key, value in r.headers.iteritems():
+        bottle.response.headers[key] = value
+
+    return r.json
+
+@app.post('/gsas/API/users/destroy/<id:int>')
+def deleteUser(id):
+    requestHeaders = {}
+    for key, value in bottle.request.headers.iteritems():
+        requestHeaders[key] = value
+    
+    r = request.post(base_url + 'users/destroy/' + str(id), json.JSONEncoder().encode(bottle.request.json), headers = requestHeaders, auth = ('cse3213', 'test'))
+    bottle.response.status = r.status_code
+
+    for key, value in r.headers.iteritems():
+        bottle.response.headers[key] = value
+
+    return r.json
 
 app.run(host='localhost', port=8080)
