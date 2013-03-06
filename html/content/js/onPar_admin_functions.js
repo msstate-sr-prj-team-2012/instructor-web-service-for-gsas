@@ -7,8 +7,12 @@ var userID = null;
 var user = null;
 
 var changebdate = false;
+var rounds = [];
 
 $(document).ready(function () {
+    $('#golfer_select2').select2({
+        data: select2SelectFieldData()
+    });
 
     //$('#administrative').hide();
     $('#userform').hide();
@@ -39,6 +43,7 @@ function setupPage() {
         $('#datechange').show();
         $('#ubdatechange').hide();
         $('#ubdatechangetext').hide();
+        $('#roundselect').hide();
         $('#userform').show();
 
         document.getElementById('formheader').innerText = "Edit Golfer";
@@ -53,7 +58,15 @@ function setupPage() {
         });
 
         //load the user data into the form for editing
-        userID = document.getElementById('uID').value;
+        if (document.getElementById('uID').value != '')
+        {
+            userID = document.getElementById('uID').value;
+        }
+        else if (document.getElementById('golfer_select2').value != '')
+        {
+            userID = $('#golfer_select2').select2('data').userID;
+        }
+
         user = new User(userID);
         document.getElementById('uname').value = user.name;
         document.getElementById('uemail').value = user.email;
@@ -103,11 +116,11 @@ function setupPage() {
     $(document).on('click', '#addGolfer', function () {
         //load an empty user form.
         $('#userform').show();
-        
         $('#ubdate').hide();
         $('#datechange').hide();
         $('#ubdatechange').show();
         $('#ubdatechangetext').show();
+        $('#roundselect').hide();
         $('#userform').show();
 
         document.getElementById('formheader').innerText = "Add Golfer";
@@ -135,6 +148,29 @@ function setupPage() {
 
             user.save();
         });
+    });
 
+    $(document).on('click', '#deleteRounds', function () {
+        $('#userform').hide();
+        $('#roundselect').show();
+        var tableStr = '';
+        tableStr += "<tr>";
+        tableStr += "<th colspan=2>";
+        tableStr += 'All rounds for '; //+ user.name;
+        tableStr += "</th>";
+        tableStr += "<tr>";
+        /*rounds = new RoundGetAll(user.userID);
+        for(var i = 0; i < rounds.length; i++)
+        {
+            tableStr += "<tr>";
+            tableStr += "<td>";
+            tableStr += '<input type="checkbox" name="rounds" value="' + i + '" />';
+            tableStr += "</td>";
+            tableStr += "<td>";
+            tableStr += rounds[i].startDate;
+            tableStr += "</td>";
+            tableStr += "<tr>";
+        }*/
+        document.getElementById('roundTable').innerHTML = tableStr;
     });
 }
