@@ -16,6 +16,7 @@ $(document).ready(function () {
 
     //$('#administrative').hide();
     $('#userform').hide();
+    $('#roundselect').hide();
 
 
    /* $(document).on('click', '#passbtn', function () {
@@ -57,14 +58,15 @@ function setupPage() {
 
         });
 
+
+        //userID = $('#golfer_select2').select2('data').id;
+
         //load the user data into the form for editing
-        if (document.getElementById('uID').value != '')
-        {
-            userID = document.getElementById('uID').value;
+        if (document.getElementById('uID').value == '') {
+            userID = $('#golfer_select2').select2('data').id;
         }
-        else if (document.getElementById('golfer_select2').value != '')
-        {
-            userID = $('#golfer_select2').select2('data').userID;
+        else {
+            userID = document.getElementById('uID').value;
         }
 
         user = new User(userID);
