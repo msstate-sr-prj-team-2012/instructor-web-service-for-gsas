@@ -109,7 +109,7 @@ function setupPage() {
         var r = confirm("WARNING: pressing this button results in the selected user being deleted.\nPress OK to continue or cancel to stop the deletion.");
         if (r == true) {
             //delete user
-            userID = document.getElementById('uID');
+            userID = document.getElementById('uID').value;
             user = new User(userID);
             user.del();
         }
