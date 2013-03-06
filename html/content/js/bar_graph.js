@@ -13,7 +13,9 @@ var rounds = localStorage.getObject('rounds');
 var html='';
 var graphView = 'v1';
 var mapRound = localStorage.getObject('rounds')[0].rid;
-
+var shotn= [];
+var shotdis=[];
+var shotclub=[];
 $(document).ready(function() 
 {
     $(".view_tabs li").click(function() 
@@ -25,10 +27,11 @@ $(document).ready(function()
     {
         changeToRound($(this).attr('id'));
     });
-    var tags = new Array("shot 1", "shot 2", "shot 3", "shot 4","hot 5")
-    var values = new Array("55", "80", "95", "32","900")
+    var tags = new Array("shot 1", "shot 2", "shot 3", "shot 4","hot 5");
+    var values = new Array("55", "80", "95", "32","900");
     //basicbargraph(tags,values);
-    graph2(tags,values);
+   // graph2(tags,values);
+    graph3();
     document.getElementById(mapRound).className += ' selected_tab';
 });
         
@@ -188,19 +191,39 @@ function getShotDatabg(){
             var aimLong = hole.shots[i].aimLongitude;
             var endLat = hole.shots[i].endLatitude;
             var endLong = hole.shots[i].endLongitude;
-
-
             // gets distance
             var distance = getDistance(startLat, startLong, endLat, endLong);
-
             // gets club name
             var club = getClubName(hole.shots[i].club);
-
-            shotData.push({
+            shotdis[i]=distance;
+            shotclub[i]=club;
+            shotn[i]='shot'+i;
+            /*shotData.push({
                 shot: hole.shots[i].shotNumber,
                 club: club,
                 distance: distance,
-            })
+            })*/
         }  
     }
+}
+function graph3() {
+    var hi = 200;
+    var wi = 40;
+    var ddds; 
+    getShotDatabg();
+    html+= ' <p> ';
+    for (i = 0; i < shotn.length; i++) {
+        html+= shotdis[i]+' yards ';
+    }
+    html+= '<div> </div> </p>';
+    for (i = 0; i < shotn.length; i++) {
+    ddds=hi-shotdis[i];
+        html+= '<svg height="' + hi + '" width="' + wi + '"><rect id="redrect' + i + '"  width="20" height="' + shotdis[i] + '"fill="red" y="'+ddds+'" /> </svg>';
+    }
+   html+= '<div> </div> <p> ';
+    for (i = 0; i < shotn.length; i++) {
+        html+= shotn[i]+' ';
+    }
+    html+= ' </p>';
+    document.getElementById('map_image').innerHTML = html;
 }
