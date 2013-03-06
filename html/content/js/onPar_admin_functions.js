@@ -35,11 +35,17 @@ $(document).ready(function () {
 function setupPage() {
     $(document).on('click', '#editGolfer', function () {
 
+        $('#ubdate').show();
+        $('#datechange').show();
         $('#ubdatechange').hide();
+        $('#ubdatechangetext').hide();
         $('#userform').show();
+
+        document.getElementById('formheader').innerText = "Edit Golfer";
         
         $(document).on('click', '#datechange', function () {
             $('#ubdatechange').show();
+            $('#ubdatechangetext').show();
             $('#ubdate').hide();
             $('#datechange').hide();
             changebdate = true;
@@ -53,6 +59,7 @@ function setupPage() {
         document.getElementById('uemail').value = user.email;
         document.getElementById('umemID').value = user.memberID;
         document.getElementById('ubdate').value = user.birthDate;
+        document.getElementById('save').value = 'Save Changes';
         if (user.gender == 'male') {
             document.getElementById('genderm').checked = true;
         }
@@ -96,12 +103,38 @@ function setupPage() {
     $(document).on('click', '#addGolfer', function () {
         //load an empty user form.
         $('#userform').show();
-        user = new User(userID);
-        document.getElementById('ufname').value = '';
-        document.getElementById('ulname').value = '';
-        document.getElementById('email').value = '';
-        document.getElementById('email').value = '';
-        document.getElementById('email').value = '';
+        
+        $('#ubdate').hide();
+        $('#datechange').hide();
+        $('#ubdatechange').show();
+        $('#ubdatechangetext').show();
+        $('#userform').show();
+
+        document.getElementById('formheader').innerText = "Add Golfer";
+
+        user = new User();
+        document.getElementById('uname').value = '';
+        document.getElementById('uemail').value = '';
+        document.getElementById('umemID').value = '';
+        document.getElementById('ubdate').value = '';
+        document.getElementById('save').value = 'Create User';
+
+        //Add rounds functionality
+        $(document).on('click', '#save', function () {
+            user.name = document.getElementById('uname').value;
+            user.email = document.getElementById('uemail').value;
+            user.memberID = document.getElementById('umemID').value;
+            user.birthDate = document.getElementById('ubdatechange').value;
+
+            if (document.getElementById('genderm').checked == true) {
+                user.gender = 'male';
+            }
+            else {
+                user.gender = 'female';
+            }
+
+            user.save();
+        });
 
     });
 }

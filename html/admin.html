@@ -15,6 +15,76 @@
     <script type="text/javascript" src="html/content/js/onPar_functions.js"></script>
     <script type="text/javascript" src="html/content/js/onPar_admin_functions.js"></script>
     </head>
+ <style type="text/css">
+        .button_example{
+        border:1px solid #450111;
+         -webkit-border-radius: 3px; 
+         -moz-border-radius: 3px;
+         border-radius: 3px;
+         font-family:arial, helvetica, sans-serif; 
+         padding: 10px 10px 10px 10px; 
+         text-shadow: -1px -1px 0 rgba(0,0,0,0.3);
+         font-weight:bold; 
+         text-align: center; 
+         color: #FFFFFF; background-color: #77021d;
+         background-image: -webkit-gradient(linear, left top, left bottom, color-stop(0%,#77021d), color-stop(100%, #3a000d));
+         background-image: -webkit-linear-gradient(top, #77021d, #3a000d);
+         background-image: -moz-linear-gradient(top, #77021d, #3a000d);
+         background-image: -ms-linear-gradient(top, #77021d, #3a000d);
+         background-image: -o-linear-gradient(top, #77021d, #3a000d);
+         background-image: linear-gradient(top, #77021d, #3a000d);
+         filter:progid:DXImageTransform.Microsoft.gradient(GradientType=0,startColorstr=#77021d, endColorstr=#3a000d);
+        
+        }
+
+        .button_example:hover{
+             border:1px solid #72021c; 
+          background-color: #a90329;
+         background-image: -webkit-gradient(linear, left top, left bottom, color-stop(0%, #a90329), color-stop(100%, #6d0019));
+         background-image: -webkit-linear-gradient(top, #a90329, #6d0019);
+         background-image: -moz-linear-gradient(top, #a90329, #6d0019);
+         background-image: -ms-linear-gradient(top, #a90329, #6d0019);
+         background-image: -o-linear-gradient(top, #a90329, #6d0019);
+         background-image: linear-gradient(top, #a90329, #6d0019);
+         filter:progid:DXImageTransform.Microsoft.gradient(GradientType=0,startColorstr=#a90329, endColorstr=#6d0019);
+        
+         }
+        .memid {
+            height: 20px;
+            border-radius: 14px;
+            text-align: center;
+        }
+        .formheading {
+            font-size: 20px;
+        }
+        .formfield {
+            margin: 10px;
+        }
+        .formstyle {
+            width: 500px; float: none; margin: 0px auto; color: white;
+            padding: 10px;
+            border-radius: 10px;
+            /* IE10 Consumer Preview */ 
+            background-image: -ms-linear-gradient(bottom, #000000 0%, #3A000D 5%, #3A000D 95%, #FFFFFF 100%);
+
+            /* Mozilla Firefox */ 
+            background-image: -moz-linear-gradient(bottom, #000000 0%, #3A000D 5%, #3A000D 95%, #FFFFFF 100%);
+
+            /* Opera */ 
+            background-image: -o-linear-gradient(bottom, #000000 0%, #3A000D 5%, #3A000D 95%, #FFFFFF 100%);
+
+            /* Webkit (Safari/Chrome 10) */ 
+            background-image: -webkit-gradient(linear, left bottom, left top, color-stop(0, #000000), color-stop(0.05, #3A000D), color-stop(0.95, #3A000D), color-stop(1, #FFFFFF));
+
+            /* Webkit (Chrome 11+) */ 
+            background-image: -webkit-linear-gradient(bottom, #000000 0%, #3A000D 5%, #3A000D 95%, #FFFFFF 100%);
+
+            /* W3C Markup, IE10 Release Preview */ 
+            background-image: linear-gradient(to top, #000000 0%, #3A000D 5%, #3A000D 95%, #FFFFFF 100%);
+         }
+    </style>
+
+</head>
 <body>
  <div id="page-wrap">
     <!--==============================header=================================-->
@@ -31,41 +101,45 @@
 
 	<div class="content">
         <div id="passwordDiv" style="float: none; position: relative; margin: 120px auto;">
-            Please enter the passcode to continue: <input type="password" name="passcode" id="pass" />
+            Please enter the passcode to continue: <input type="password" class="memid" name="passcode" id="pass" />
             <input type="button" id="passbtn" value="Submit" /><br />
             <div id="errmsg"></div>
         </div>
 
 		<div id="administrative">
 			<div id="golferseldiv">
-                <div id="golferselect" style="float: none; margin: 0px auto">
-				    Enter Golfer ID: <input type="text" id="uID" /><br/>
-				
-				    <input type="button" id="editGolfer" value="Edit"/>
-				    <input type="button" id="deleteGolfer" value="Delete"/>
-			    </div>
-			    <div id="golferadd" style="float: none; margin: 0px auto">
-				    <input type="button" id="addGolfer" value="Add Golfer"/>
+                <div id="golferselect" style=" margin-top: 70px; display: inline-block;">
+				    <input type="text" class="memid" placeholder="Enter Golfer ID" id="uID" style="width: 300px;" /><br />
+				    <p class="formfield">
+                    <input type="button" id="editGolfer"   class="button_example" value="Edit Golfer"/>
+				    <input type="button" id="deleteGolfer" class="button_example" value="Delete Golfer"/>   
+                    <input type="button" id="deleteRounds" class="button_example" value="Delete Rounds"/>   
+                    <input type="button" id="addGolfer" class="button_example" value="Add Golfer" />
+				    </p>
 			    </div>
             </div>
 
-			<div id="userform" style="width: 750px; float: none; margin: 0px auto; background-color: black; color: white;">
+			<div id="userform" class="formstyle">
+                <span class="formheading" id="formheader">Edit User Info</span>
 				<form id="userInfo">
-					<input type="text"  placeholder="Name" name="name" id="uname" /><br/>
-					<input type="email" placeholder="E-Mail"     name ="email" id="uemail" /><br/>
-					<input type="text"  placeholder="Member ID"  name="memberID" id="umemID" /><br/>
+					<p class="formfield"><input type="text"  class="memid"  placeholder="Name" name="name" id="uname"            style="width: 200px;" /></p>
+					<p class="formfield"><input type="email" class="memid" placeholder="E-Mail" name ="email" id="uemail"        style="width: 200px;" /></p>
+					<p class="formfield"><input type="text"  class="memid"  placeholder="Member ID"  name="memberID" id="umemID" style="width: 200px;" /></p>
 					
-                    Birth date:
-                    <input type="text" name="birthdate1" id="ubdate" /><br/>
-                    <input type="button" id="datechange" value="Change Birth Date" />
-                    <input type="date" name="changebirthdate" id="ubdatechange" /><br/>
-
+                    <p class="formfield">
+                    <input type="text" class="memid" name="birthdate1" id="ubdate" style="width: 150px;"/>
+                    <span id="ubdatechangetext">Enter Birthdate:</span>
+                    <input type="date" name="changebirthdate" id="ubdatechange" /></p>
+                    <p class="formfield"><input type="button" class="button_example" id="datechange" value="Change Birth Date" /></p>
+                    
+                    <p class="formfield">
                     Gender: 
 					<input type="radio" name="gender" id="genderm" value="male" />Male
-                    <input type="radio" name="gender" id="genderf" value="female" />Female<br />
+                    <input type="radio" name="gender" id="genderf" value="female" />Female</p>
 
-					<input type="button" id="save" value="Save Changes" />
-					<input type="reset" value="Reset Form" />
+                    <p class="formfield">
+					<input type="button" class="button_example" id="save" value="Save Changes" />
+					<input type="reset" class="button_example" value="Reset Form" /></p>
 				</form>
 			</div>
 			<div id="roundselect" style="width: 200px; background-color: black">
