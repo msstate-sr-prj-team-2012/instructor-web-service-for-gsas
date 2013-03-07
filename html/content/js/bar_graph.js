@@ -31,7 +31,7 @@ $(document).ready(function()
     var values = new Array("63", "80", "95", "34","900");
     //basicbargraph(tags,values);
     graph2(tags,values);
-    //graph3();
+    graph3();
     document.getElementById(mapRound).className += ' selected_tab';
 });
         
@@ -197,7 +197,7 @@ function getShotDatabg(){
             var club = getClubName(hole.shots[i].club);
             shotdis[i]=distance;
             shotclub[i]=club;
-            shotn[i]='shot'+i;
+            shotn[i]='shot'+i+1;
             /*shotData.push({
                 shot: hole.shots[i].shotNumber,
                 club: club,
