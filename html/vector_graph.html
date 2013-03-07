@@ -1,71 +1,109 @@
 <!DOCTYPE html>
 <html>
-<head>
-    <title>onPar - spread</title>
-    <link rel="icon" type="image/ico" href="http://shadowrealm.cse.msstate.edu/favicon.ico">
-    <link rel="stylesheet" type="text/css" media="screen" href="html/content/css/style2.css">
-    <link rel="stylesheet" type="text/css" media="screen" href="html/content/css/select2.css">
-    <link rel="stylesheet" type="text/css" media="screen" href="html/content/css/maps.css"> 
-    <script type="text/javascript" src="html/content/js/jquery-1.8.3.min.js"></script>
-    <script type="text/javascript" src="html/content/js/select2.min.js"></script>
-    <script type="text/javascript" src="html/content/js/onPar_SDK.js"></script>
-    <script type="text/javascript" src="html/content/js/onPar_functions.js"></script>
-</head>
+    <head>
+        <title>onPar - spread</title>
+        <link rel="icon" type="image/ico" href="http://shadowrealm.cse.msstate.edu/favicon.ico">
+        <link rel="stylesheet" type="text/css" media="screen" href="html/content/css/style2.css">
+        <link rel="stylesheet" type="text/css" media="screen" href="html/content/css/vector.css">
+        <script type="text/javascript" src="html/content/js/jquery-1.9.0.min.js"></script>
+        <script type="text/javascript" src="html/content/js/onPar_SDK.js"></script>
+        <script type="text/javascript" src="html/content/js/onPar_functions.js"></script>
+        <script type="text/javascript" src="html/content/js/graphFunctions.js"></script>
+        <script type="text/javascript" src="html/content/js/vector_graph.js"></script>
 
-<body>
+    </head>
 
-<div id="page-wrap">
+    <body>
 
-    
-    <!--==============================header=================================-->
-
-   <header> 
-
-        <img src="html/content/images/logo.png" alt="" class="site-logo">
-        <h1> onPar </h1>
+        <div id="page-wrap">
 
 
-        <div class="organization-logo">
+            <!--==============================header=================================-->
+
+            <header> 
+
+                <img src="html/content/images/logo.png" alt="" class="site-logo">
+                <h1> onPar </h1>
+
+
+                <div class="organization-logo">
+                </div>
+
+                <nav id="nav">  
+                </nav>
+
+
+
+                <ul id="change_golfer">
+                    <li><a>change golfer ?</a>
+                        <ul>
+                            <li> 
+                                <input type="text" id="input_field" placeholder="enter member id or email..." >
+                            </li>
+                            <li>                       
+                                <select id="select_field">
+                                    <option value="" disabled selected>select golfer...</option>
+                                </select>
+                            </li>
+                        </ul>
+                    </li>
+                </ul>
+
+                <div id="currently_viewing"></div>
+
+
+            </header>
+
+
+            <!--==============================content================================-->
+            <div class="content">
+                <div class="graph_content">
+
+
+
+                    <div class="hole_title">holes</div>
+                    <div class="hole_tabs"> 
+                    </div>
+
+                    <div class = "shot_title">shots</div>
+                    <div class = "shot_tabs">
+                    </div>
+
+                    <div class ="club_title">clubs</div>
+                    <div class = "club_tabs">
+                        <ul>
+                            <li id ="0c" class="selected_tab">all</li>
+                            <li id ="1c">driver</li>
+                            <li id ="2c">wood</li>
+                            <li id ="3c">hybrid</li>
+                            <li id ="4c">iron</li>
+                            <li id ="5c">wedge</li>
+                        </ul>
+                    </div>
+                    <div class ="vector_graph">   
+                 <!--       <svg>
+                        <line stroke-width='3' stroke='black' x2=425 y2=350 x1 =425  y1=87 >                              
+                        <title> Aim </title>
+                        </line>
+
+                        <circle cx= 425 cy= 350 r= 5 stroke= 'black'
+                                stroke-width= '2' fill= 'black'>
+                        </circle>
+
+                        <circle cx= 425 cy= 87  r= 3 stroke= 'black'
+                                stroke-width= '2' fill= 'black'>
+                        </circle>
+                        </svg>-->
+                    </div>
+                </div>
+            </div>
+
+            <!--==============================footer=================================-->
+
+            <footer>
+                2013 onPar 
+            </footer>  
+
         </div>
-
-        <nav id="nav">  
-        </nav>
-
-
-
-         <ul id="change_golfer">
-            <li><a>change golfer ?</a>
-              <ul>
-                  <li> 
-                        <input type="text" id="input_field" placeholder="enter member id or email..." >
-                  </li>
-                  <li>                       
-                        <input type="hidden" id="golfer_select" placeholder="Select Golfer..." style="width:250px;"/>
-                  </li>
-              </ul>
-            </li>
-        </ul>
-
-            <div id="currently_viewing"></div>
-
-
-   </header>
-       
-    
-    <!--==============================content================================-->
-    
-    <div class="content">
-
-    </div>
-    
-    
-    <!--==============================footer=================================-->
-
-    <footer>
-        2013 onPar 
-    </footer>  
-
-</div>
-
-</body>
+    </body>
 </html>
