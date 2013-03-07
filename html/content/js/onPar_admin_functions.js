@@ -5,9 +5,10 @@
  ****************************************************************************/
 var userID = null;
 var user = null;
-
 var changebdate = false;
 var rounds = [];
+
+userChange = false;
 
 $(document).ready(function () {
     $('#golfer_select2').select2({
@@ -55,9 +56,7 @@ function setupPage() {
             $('#ubdate').hide();
             $('#datechange').hide();
             changebdate = true;
-
         });
-
 
         //userID = $('#golfer_select2').select2('data').id;
 
@@ -82,25 +81,49 @@ function setupPage() {
             document.getElementById('genderf').checked = true;
         }
 
+        $('#uname').change(function () {
+            userChange = true;
+        });
+
+        $('#uemail').change(function () {
+            userChange = true;
+        });
+
+        $('#umemID').change(function () {
+            userChange = true;
+        });
+
+        $(document).on('click', '#datechange', function () {
+            $('#ubdatechange').change(function () {
+                userChange = true;
+            });
+        });
 
         //Add rounds functionality
         $(document).on('click', '#save', function () {
-            user.name = document.getElementById('uname').value;
-            user.email = document.getElementById('uemail').value;
-            user.memberID = document.getElementById('umemID').value;
-            if (changebdate)
-            {
-                user.birthDate = document.getElementById('ubdatechange').value;
-            }
+            if (userChange == true) {
+                user.name = document.getElementById('uname').value;
+                user.email = document.getElementById('uemail').value;
+                user.memberID = document.getElementById('umemID').value;
+                if (changebdate) {
+                    user.birthDate = document.getElementById('ubdatechange').value;
+                }
 
-            if (document.getElementById('genderm').checked == true) {
-                user.gender = 'male';
+                if (document.getElementById('genderm').checked == true) {
+                    user.gender = 'male';
+                }
+                else {
+                    user.gender = 'female';
+                }
+
+                if (user.save()) {
+                    alert("Changes Saved!");
+                }
+                userChange = false;
             }
             else {
-                user.gender = 'female';
+                alert("No changes have been detected.  Please make changes before saving a user.");
             }
-
-            user.save();
         });
     });
 
@@ -109,9 +132,13 @@ function setupPage() {
         var r = confirm("WARNING: pressing this button results in the selected user being deleted.\nPress OK to continue or cancel to stop the deletion.");
         if (r == true) {
             //delete user
-            userID = document.getElementById('uID').value;
+            userID = document.getElementById('uID');
             user = new User(userID);
-            user.del();
+
+            if (user.del()) {
+                alert("User was deleted");
+            }
+            
         }
     });
 
@@ -148,7 +175,11 @@ function setupPage() {
                 user.gender = 'female';
             }
 
-            user.save();
+            if (user.save()) {
+                alert("Changes Saved!");
+                $('#userform').hide();
+                $('#roundselect').hide();
+            }
         });
     });
 
@@ -158,10 +189,10 @@ function setupPage() {
         var tableStr = '';
         tableStr += "<tr>";
         tableStr += "<th colspan=2>";
-        tableStr += 'All rounds for '; //+ user.name;
+        tableStr += 'All rounds for ' + user.name;
         tableStr += "</th>";
         tableStr += "<tr>";
-        /*rounds = new RoundGetAll(user.userID);
+        rounds = new RoundGetAll(user.userID);
         for(var i = 0; i < rounds.length; i++)
         {
             tableStr += "<tr>";
@@ -172,7 +203,50 @@ function setupPage() {
             tableStr += rounds[i].startDate;
             tableStr += "</td>";
             tableStr += "<tr>";
-        }*/
+        }
         document.getElementById('roundTable').innerHTML = tableStr;
     });
 }
+
+/*function checkForChanges() {
+    var foundChange = false;
+
+    if (document.getElementById('uname').value != user.name)
+    {
+        foundchange = true;
+    }
+
+    if (document.getElementById('umemID').value != user.memberID)
+    {
+        foundchange = true;
+    }
+    
+    if (document.getElementById('uemail').value != user.email)
+    {
+        foundchange = true;
+    }
+    
+
+    var bdate = document.getElementById('ubdatechange').value;
+
+    if (bdate !== '' && bdate != user.birthDate)
+    {
+        foundchange = true;
+    }
+    
+    if (document.getElementById('genderm').checked == true) {
+        if (user.gender != 'male') {
+            foundchange = true;
+        }
+    }
+    else {
+        if (user.gender != 'female') {
+            foundchange = true;
+        }
+    }
+
+    alert(document.getElementById('uname').value + ' ' + user.name + '\n' + document.getElementById('umemID').value + ' ' + user.memberID + '\n' + document.getElementById('uemail').value + user.email + '\n'
+          + "Changes: " + foundChange);
+
+    return foundChange;
+}*/
