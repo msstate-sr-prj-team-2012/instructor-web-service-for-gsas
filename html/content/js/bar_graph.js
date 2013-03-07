@@ -28,10 +28,10 @@ $(document).ready(function()
         changeToRound($(this).attr('id'));
     });
     var tags = new Array("shot 1", "shot 2", "shot 3", "shot 4","hot 5");
-    var values = new Array("55", "80", "95", "32","900");
+    var values = new Array("63", "80", "95", "34","900");
     //basicbargraph(tags,values);
-   // graph2(tags,values);
-    graph3();
+    graph2(tags,values);
+    //graph3();
     document.getElementById(mapRound).className += ' selected_tab';
 });
         
