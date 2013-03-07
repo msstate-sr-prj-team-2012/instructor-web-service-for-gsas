@@ -380,7 +380,7 @@ function drawShape(start, end, club, distance, startTime, holeScore, putts){
     }
 
     // draw square with the appropriate color
-    else if (club >= 7 && club <= 9){
+    else if (club >= 7 && club <= 11){
         if (club === 7) color = 'red';
         else if (club === 8) color = 'green';
         else if (club === 9) color = 'blue';
