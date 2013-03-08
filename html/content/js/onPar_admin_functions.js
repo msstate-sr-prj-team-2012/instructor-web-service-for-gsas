@@ -5,8 +5,8 @@
  ****************************************************************************/
 var userID = null;
 var user = null;
-var changebdate = false;
 var rounds = [];
+var selectedUser = false;
 
 userChange = false;
 
@@ -15,6 +15,10 @@ $(document).ready(function () {
     //$('#administrative').hide();
     $('#userform').hide();
     $('#roundselect').hide();
+
+    $('#golfer_select').change(function () {
+        selectedUser = true;
+    });
 
 
    /* $(document).on('click', '#passbtn', function () {
@@ -43,169 +47,162 @@ function setupPage() {
     //
     //**********************************************************************
     $(document).on('click', '#editGolfer', function () {
-        $('#userform').show();
-        $('#roundselect').hide();
 
-        //Change the title of the form to "Edit Golfer"
-        document.getElementById('formheader').innerText = "Edit Golfer";
+        if (getID()) {
+            $('#userform').show();
+            $('#roundselect').hide();
 
-        //load the user data into the form for editing
-        if (document.getElementById('uID').value == '') {
-            userID = $('#golfer_select').select2('data').id;
-        }
-        else {
-            userID = document.getElementById('uID').value;
-        }
-        //**************************************************
+            //Change the title of the form to "Edit Golfer"
+            document.getElementById('formheader').innerText = "Edit Golfer";
 
-        //Get User data from the database
-        user = new User(userID);
-        //**********
+            //Get User data from the database
+            user = new User(userID);
+            //**********
 
-        //Setup the user form to display the user's current information
-        document.getElementById('ufname').value = firstName(user.name);
-        document.getElementById('ulname').value = lastName(user.name);
-        document.getElementById('unickname').value = user.nickname;
-        document.getElementById('uemail').value = user.email;
-        document.getElementById('umemID').value = user.memberID;
-        document.getElementById('ubdatechange').value = user.birthDate;
-        document.getElementById('save').value = 'Save Changes';
-        if (user.gender == 'male') {
-            document.getElementById('genderm').checked = true;
-        }
-        else {
-            document.getElementById('genderf').checked = true;
-        }
-
-        if (user.hand == 'left') {
-            document.getElementById('lefth').checked = true;
-        }
-        else {
-            document.getElementById('righth').checked = true;
-        }
-        //****************************************************
-
-        //If any of the form fields should change, then set the change flag to true
-        $('#ufname').change(function () {
-            userChange = true;
-        });
-
-        $('#ulname').change(function () {
-            userChange = true;
-        });
-
-        $('#uemail').change(function () {
-            userChange = true;
-        });
-
-        $('#umemID').change(function () {
-            userChange = true;
-        });
-
-        $('#unickname').change(function () {
-            userChange = true;
-        });
-
-        $('#ubdatechange').change(function () {
-            userChange = true;
-        });
-
-        $('#genderm').change(function () {
-            userChange = true;
-        });
-
-        $('#genderf').change(function () {
-            userChange = true;
-        });
-
-        $('#lefth').change(function () {
-            userChange = true;
-        });
-
-        $('righth').change(function () {
-            userChange = true;
-        });
-
-        //*******************************
-
-        //Code to run when admin click "Save changes" while editing user info
-        $(document).on('click', '#save', function () {
-            //Flag for making sure information is validated
-            var validated = false;
-
-            //Make sure the user has changed any data before saving changes to the database
-            if (userChange == true) {
-                //Append the last and first name of the user together to store in database
-                var name = document.getElementById('ulname').value + ', ' + document.getElementById('ufname').value;
-
-                //Save updated data to user object
-                user.name = name;
-                user.nickname = document.getElementById('unickname').value;
-                user.email = document.getElementById('uemail').value;
-            
-                //Run the new member id through a regex to validate
-                if (checkmemberID(document.getElementById('umemID').value)) {
-                    validated = true;
-                    user.memberID = document.getElementById('umemID').value;
-                }
-                else {
-                    validated = false;
-                    //Throw an error
-                    alert('Error: Use format NNNNM-NNNNNN, where N is any digit 0 - 9.  Example: 1234M-567890');
-                }
-
-                //Run the new email through a regex to validate
-                if (checkemail(document.getElementById('uemail').value)) {
-                    validated = true;
-                    user.memberID = document.getElementById('uemail').value;
-                }
-                else {
-                    validated = false;
-                    alert('Not a valid e-mail.  Use format abcd123@efgh.ijk');
-                }
-
-                user.birthDate = document.getElementById('ubdatechange').value;
-
-                //Save the new gender
-                if (document.getElementById('genderm').checked == true) {
-                    user.gender = 'male';
-                }
-                else if (document.getElementById('genderf').checked == true) {
-                    user.gender = 'female';
-                }
-                else {
-                    validated = false;
-                    alert("Alert:  Please select gender!");
-                }
-
-                //Save the new hand
-                if (document.getElementById('lefth').checked == true) {
-                    user.hand = 'left';
-                }
-                else if (document.getElementById('righth').checked == true) {
-                    user.hand = 'right';
-                }
-                else {
-                    validated = false;
-                    alert("Alert:  Please select gender!");
-                }
-
-                //Before saving, make sure both email and memberID were correct
-                if (validated)
-                {
-                    if (user.save()) {
-                        alert("Changes Saved!");
-                        $('#userform').hide();
-                    }
-                }
-                //Set the user change flag to zero for another edit
-                userChange = false;
+            //Setup the user form to display the user's current information
+            document.getElementById('ufname').value = firstName(user.name);
+            document.getElementById('ulname').value = lastName(user.name);
+            document.getElementById('unickname').value = user.nickname;
+            document.getElementById('uemail').value = user.email;
+            document.getElementById('umemID').value = user.memberID;
+            document.getElementById('ubdatechange').value = user.birthDate;
+            document.getElementById('save').value = 'Save Changes';
+            if (user.gender == 'male') {
+                document.getElementById('genderm').checked = true;
             }
-            //Alert the admin that no changes were detected
             else {
-                alert("No changes have been detected.  Please make changes before saving a user.");
+                document.getElementById('genderf').checked = true;
             }
-        });
+
+            if (user.hand == 'left') {
+                document.getElementById('lefth').checked = true;
+            }
+            else {
+                document.getElementById('righth').checked = true;
+            }
+            //****************************************************
+
+            //If any of the form fields should change, then set the change flag to true
+            $('#ufname').change(function () {
+                userChange = true;
+            });
+
+            $('#ulname').change(function () {
+                userChange = true;
+            });
+
+            $('#uemail').change(function () {
+                userChange = true;
+            });
+
+            $('#umemID').change(function () {
+                userChange = true;
+            });
+
+            $('#unickname').change(function () {
+                userChange = true;
+            });
+
+            $('#ubdatechange').change(function () {
+                userChange = true;
+            });
+
+            $('#genderm').change(function () {
+                userChange = true;
+            });
+
+            $('#genderf').change(function () {
+                userChange = true;
+            });
+
+            $('#lefth').change(function () {
+                userChange = true;
+            });
+
+            $('righth').change(function () {
+                userChange = true;
+            });
+
+            //*******************************
+
+            //Code to run when admin click "Save changes" while editing user info
+            $(document).on('click', '#save', function () {
+                //Flag for making sure information is validated
+                var validated = false;
+
+                //Make sure the user has changed any data before saving changes to the database
+                if (userChange == true) {
+                    //Append the last and first name of the user together to store in database
+                    var name = document.getElementById('ulname').value + ', ' + document.getElementById('ufname').value;
+
+                    //Save updated data to user object
+                    user.name = name;
+                    user.nickname = document.getElementById('unickname').value;
+                    user.email = document.getElementById('uemail').value;
+
+                    //Run the new member id through a regex to validate
+                    if (checkmemberID(document.getElementById('umemID').value)) {
+                        validated = true;
+                        user.memberID = document.getElementById('umemID').value;
+                    }
+                    else {
+                        validated = false;
+                        //Throw an error
+                        alert('Error: Use format NNNNM-NNNNNN, where N is any digit 0 - 9.  Example: 1234M-567890');
+                    }
+
+                    //Run the new email through a regex to validate
+                    if (checkemail(document.getElementById('uemail').value)) {
+                        validated = true;
+                        user.memberID = document.getElementById('uemail').value;
+                    }
+                    else {
+                        validated = false;
+                        alert('Not a valid e-mail.  Use format abcd123@efgh.ijk');
+                    }
+
+                    user.birthDate = document.getElementById('ubdatechange').value;
+
+                    //Save the new gender
+                    if (document.getElementById('genderm').checked == true) {
+                        user.gender = 'male';
+                    }
+                    else if (document.getElementById('genderf').checked == true) {
+                        user.gender = 'female';
+                    }
+                    else {
+                        validated = false;
+                        alert("Alert:  Please select gender!");
+                    }
+
+                    //Save the new hand
+                    if (document.getElementById('lefth').checked == true) {
+                        user.hand = 'left';
+                    }
+                    else if (document.getElementById('righth').checked == true) {
+                        user.hand = 'right';
+                    }
+                    else {
+                        validated = false;
+                        alert("Alert:  Please select gender!");
+                    }
+
+                    //Before saving, make sure both email and memberID were correct
+                    if (validated) {
+                        if (user.save()) {
+                            alert("Changes Saved!");
+                            $('#userform').hide();
+                        }
+                    }
+                    //Set the user change flag to zero for another edit
+                    userChange = false;
+                }
+                    //Alert the admin that no changes were detected
+                else {
+                    alert("No changes have been detected.  Please make changes before saving a user.");
+                }
+            });
+        }
     });
     //**********************************************************************
 
@@ -215,20 +212,23 @@ function setupPage() {
     //
     //**********************************************************************
     $(document).on('click', '#deleteGolfer', function () {
-        //display a warning message.  If confirm, delete user
-        var r = confirm("WARNING: pressing this button results in the selected user being deleted.\nPress OK to continue or cancel to stop the deletion.");
-        if (r == true) {
-            //delete user
-            //load the user data into the form for editing
-			if (document.getElementById('uID').value == '') {
-				userID = $('#golfer_select').select2('data').id;
-			}
-			else {
-				userID = document.getElementById('uID').value;
-			}
-            user = new User(userID);
-            if (user.del()) {
-                alert("User was deleted");
+        if (getID()) {
+            //display a warning message.  If confirm, delete user
+            var r = confirm("WARNING: pressing this button results in the selected user being deleted.\nPress OK to continue or cancel to stop the deletion.");
+            if (r == true) {
+                //delete user
+                //load the user data into the form for editing
+                if (document.getElementById('uID').value == '') {
+                    userID = $('#golfer_select').select2('data').id;
+                }
+                else {
+                    userID = document.getElementById('uID').value;
+                }
+                user = new User(userID);
+
+                if (user.del()) {
+                    alert("User was deleted");
+                }
             }
         }
     });
@@ -332,27 +332,28 @@ function setupPage() {
     //
     //**********************************************************************
     $(document).on('click', '#deleteRounds', function () {
-        $('#userform').hide();
-        $('#roundselect').show();
-        var tableStr = '';
-        tableStr += "<tr>";
-        tableStr += "<th colspan=2>";
-        tableStr += 'All rounds for ' + user.name;
-        tableStr += "</th>";
-        tableStr += "<tr>";
-        rounds = new RoundGetAll(user.userID);
-        for(var i = 0; i < rounds.length; i++)
-        {
+        if (getID()) {
+            $('#userform').hide();
+            $('#roundselect').show();
+            var tableStr = '';
             tableStr += "<tr>";
-            tableStr += "<td>";
-            tableStr += '<input type="checkbox" name="rounds" value="' + i + '" />';
-            tableStr += "</td>";
-            tableStr += "<td>";
-            tableStr += rounds[i].startDate;
-            tableStr += "</td>";
+            tableStr += "<th colspan=2>";
+            tableStr += 'All rounds for ' + user.name;
+            tableStr += "</th>";
             tableStr += "<tr>";
+            rounds = new RoundGetAll(user.userID);
+            for (var i = 0; i < rounds.length; i++) {
+                tableStr += "<tr>";
+                tableStr += "<td>";
+                tableStr += '<input type="checkbox" name="rounds" value="' + i + '" />';
+                tableStr += "</td>";
+                tableStr += "<td>";
+                tableStr += rounds[i].startDate;
+                tableStr += "</td>";
+                tableStr += "<tr>";
+            }
+            document.getElementById('roundTable').innerHTML = tableStr;
         }
-        document.getElementById('roundTable').innerHTML = tableStr;
     });
     //*********************************************************************
 }
@@ -391,4 +392,22 @@ function checkemail(email) {
         return false;
     else
         return true;
+}
+
+function getID() {
+    //load the user data into the form for editing
+    if (selectedUser) {
+        userID = $('#golfer_select').select2('data').id;
+        return true;
+    }
+
+    else if (userID = document.getElementById('uID').value != '') {
+        userID = document.getElementById('uID').value;
+        return true;
+    }
+    else {
+        alert('Please select a golfer or enter a member ID!');
+        return false;
+    }
+    //**************************************************
 }
