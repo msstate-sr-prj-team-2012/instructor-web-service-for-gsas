@@ -11,9 +11,6 @@ var rounds = [];
 userChange = false;
 
 $(document).ready(function () {
-    $('#golfer_select2').select2({
-        data: select2SelectFieldData()
-    });
 
     //$('#administrative').hide();
     $('#userform').hide();
@@ -54,7 +51,7 @@ function setupPage() {
 
         //load the user data into the form for editing
         if (document.getElementById('uID').value == '') {
-            userID = $('#golfer_select2').select2('data').id;
+            userID = $('#golfer_select').select2('data').id;
         }
         else {
             userID = document.getElementById('uID').value;

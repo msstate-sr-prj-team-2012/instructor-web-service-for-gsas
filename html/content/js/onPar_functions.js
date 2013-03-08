@@ -16,10 +16,16 @@ var roundsClass;
 
 $(document).ready(function() { 
     
-    $("#golfer_select").change(function(){
-        localStorage.removeItem('rounds');
-        localStorage.setItem('userID', $("#golfer_select").select2('data').id);
-        document.location.href = defines.BASE_PATH + '/rounds';
+   $("#golfer_select").change(function () {
+        var admin_url = document.location.href;
+        admin_url = admin_url.slice(document.location.href.length - 5, document.location.href.length);
+
+        //Make sure that the user is not on the admin page
+        if (admin_url != 'admin') {
+            localStorage.removeItem('rounds');
+            localStorage.setItem('userID', $("#golfer_select").select2('data').id);
+            document.location.href = defines.BASE_PATH + '/rounds';
+        }
     });
     
     $("#input_field").keypress(function(e) {
