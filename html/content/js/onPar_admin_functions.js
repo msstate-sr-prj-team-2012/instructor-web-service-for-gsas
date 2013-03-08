@@ -219,9 +219,14 @@ function setupPage() {
         var r = confirm("WARNING: pressing this button results in the selected user being deleted.\nPress OK to continue or cancel to stop the deletion.");
         if (r == true) {
             //delete user
-            userID = document.getElementById('uID');
+            //load the user data into the form for editing
+			if (document.getElementById('uID').value == '') {
+				userID = $('#golfer_select').select2('data').id;
+			}
+			else {
+				userID = document.getElementById('uID').value;
+			}
             user = new User(userID);
-
             if (user.del()) {
                 alert("User was deleted");
             }
