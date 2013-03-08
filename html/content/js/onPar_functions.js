@@ -16,7 +16,7 @@ var roundsClass;
 
 $(document).ready(function() { 
     
-   $("#golfer_select").change(function () {
+    $("#golfer_select").change(function(){
         var admin_url = document.location.href;
         admin_url = admin_url.slice(document.location.href.length - 5, document.location.href.length);
 
