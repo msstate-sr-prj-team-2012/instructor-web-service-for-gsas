@@ -109,6 +109,23 @@ function setupPage() {
         $('#ubdatechange').change(function () {
             userChange = true;
         });
+
+        $('#genderm').change(function () {
+            userChange = true;
+        });
+
+        $('#genderf').change(function () {
+            userChange = true;
+        });
+
+        $('#lefth').change(function () {
+            userChange = true;
+        });
+
+        $('righth').change(function () {
+            userChange = true;
+        });
+
         //*******************************
 
         //Code to run when admin click "Save changes" while editing user info
@@ -153,16 +170,24 @@ function setupPage() {
                 if (document.getElementById('genderm').checked == true) {
                     user.gender = 'male';
                 }
-                else {
+                else if (document.getElementById('genderf').checked == true) {
                     user.gender = 'female';
+                }
+                else {
+                    validated = false;
+                    alert("Alert:  Please select gender!");
                 }
 
                 //Save the new hand
                 if (document.getElementById('lefth').checked == true) {
                     user.hand = 'left';
                 }
-                else {
+                else if (document.getElementById('righth').checked == true) {
                     user.hand = 'right';
+                }
+                else {
+                    validated = false;
+                    alert("Alert:  Please select gender!");
                 }
 
                 //Before saving, make sure both email and memberID were correct
@@ -259,19 +284,28 @@ function setupPage() {
                 alert('Not a valid e-mail.  Use format abcd123@efgh.ijk');
             }
 
+            //Save the new gender
             if (document.getElementById('genderm').checked == true) {
                 user.gender = 'male';
             }
-            else {
+            else if (document.getElementById('genderf').checked == true) {
                 user.gender = 'female';
+            }
+            else {
+                validated = false;
+                alert("Alert:  Please select gender!");
             }
 
             //Save the new hand
             if (document.getElementById('lefth').checked == true) {
                 user.hand = 'left';
             }
-            else {
+            else if (document.getElementById('righth').checked == true) {
                 user.hand = 'right';
+            }
+            else {
+                validated = false;
+                alert("Alert:  Please select gender!");
             }
 
             //Before saving, make sure both email and memberID were correct
