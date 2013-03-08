@@ -154,7 +154,7 @@ function setupPage() {
                     //Run the new email through a regex to validate
                     if (checkemail(document.getElementById('uemail').value)) {
                         validated = true;
-                        user.memberID = document.getElementById('uemail').value;
+                        user.email = document.getElementById('uemail').value;
                     }
                     else {
                         validated = false;
