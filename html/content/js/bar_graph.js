@@ -1,23 +1,26 @@
-// github copy
+
 /****************************************************************************
  *
  * Global Variables
  *
  ****************************************************************************/
+var WOODS = 'v1';
+var HYBRIDS = 'v2';
+var IRONS = 'v3';
+var WEDGES = 'v4';
+var currentClubGroup = WOODS;  
 
-var currentView = 'v1';
-var currentHole = 1;   
-var currentRound = '1';
-var hole;
 var rounds = localStorage.getObject('rounds');
-var html='';
-var graphView = 'v1';
-var mapRound = localStorage.getObject('rounds')[0].rid;
-var shotn= [];
-var shotdis=[];
-var shotclub=[];
-$(document).ready(function() 
+var currentRound = 'all';
+
+/****************************************************************************
+ *
+ * Functions dealing with data retreiving
+ *
+ ****************************************************************************/
+function getChart(clubGroup)
 {
+<<<<<<< HEAD
     $(".view_tabs li").click(function() 
     {
         myToggle($(this).attr('id'));
@@ -37,152 +40,322 @@ $(document).ready(function()
         
  function basicbargraph(tags, value) {
     var length = 200;
+=======
+    var clubsText = '';
+>>>>>>> Bar graph
 
-    for (i = 0; i < tags.length; i++) {
-        html+= '<div style="font-size: 10pt; color: #AAAAAA;">' + tags[i] + ': </div><div style="font-size:0 1pt; color: #AAAAAA;"><img src="pixel.jpg" width="' + value[i] / 100 * length + '" height="15" border="1" style="border-color: #00AA00"> ' + value[i] + 'Yards</div>';
+    var yAxisText = '';
+
+    currentRound == 'all' ? yAxisText = 'Average Distance (yards)' : yAxisText = 'Distance (yards)';
+
+    if (clubGroup === WOODS) {
+        clubsText = 'Woods';
+    } else if (clubGroup === HYBRIDS) {
+        clubsText = 'Hybrids';
+    } else if (clubGroup === IRONS) {
+        clubsText = 'Irons';
+    } else {
+        clubsText = 'Wedges';
     }
-    document.getElemenById('map_image').innerHTML = html;
-}     
-function graph2(tags, value) {
-    var hi = 200;
-    var wi = 40;
-    var ddds;
-    html+= ' <p> ';
-    for (i = 0; i < tags.length; i++) {
-        html+= value[i]+' yards ';
-    }
-    html+= '<div> </div> </p>';
-    for (i = 0; i < tags.length; i++) {
-    ddds=hi-value[i];
-        html+= '<svg height="' + hi + '" width="' + wi + '"><rect id="redrect' + i + '"  width="20" height="' + value[i] + '"fill="red" y="'+ddds+'" /> </svg>';
-    }
-   html+= '<div> </div> <p> ';
-    for (i = 0; i < tags.length; i++) {
-        html+= tags[i]+' ';
-    }
-    html+= ' </p>';
-    document.getElementById('map_image').innerHTML = html;
+
+    var chart = new Highcharts.Chart({
+        chart: {
+            renderTo: 'graphContainer',
+            type: 'column'
+        },
+        title: {
+            text: 'Distance by Hole for ' + clubsText
+        },
+        xAxis: {
+            categories: [
+                'Hole 1',
+                'Hole 2',
+                'Hole 3',
+                'Hole 4',
+                'Hole 5',
+                'Hole 6',
+                'Hole 7',
+                'Hole 8',
+                'Hole 9',
+                'Hole 10',
+                'Hole 11',
+                'Hole 12',
+                'Hole 13',
+                'Hole 14',
+                'Hole 15',
+                'Hole 16',
+                'Hole 17',
+                'Hole 18'
+            ]
+        },
+        yAxis: {
+            min: 0,
+            title: {
+                text: yAxisText
+            }
+        },
+        legend: {
+            layout: 'vertical',
+            backgroundColor: '#FFFFFF',
+            align: 'left',
+            verticalAlign: 'top',
+            x: 100,
+            y: 70,
+            floating: true,
+            shadow: true
+        },
+        tooltip: {
+            formatter: function() {
+                return ''+
+                    this.x +': '+ this.y +' yards';
+            }
+        },
+        plotOptions: {
+            column: {
+                pointPadding: 0.2,
+                borderWidth: 0
+            }
+        },
+            series: getRoundData(clubGroup)
+    });
 }
 
-function changeView(view)
+function getRoundData(clubGroup)
 {
-    document.getElementById(graphView).className = ""; 
-    document.getElementById(view).className += ' selected_tab'; 
-    graphView = view;
-}       
+    // set a new variable to host the data
+    var series = [];
 
-function changeToRound(rid) 
-{     
-    document.getElementById(mapRound).className = "";
-    document.getElementById(rid).className += ' selected_tab'; 
-    mapRound = rid;
-}
+    //figure out which clubs are being used (which group)
+    if(clubGroup === WOODS) {
+        series.push({name:'driver',data:[0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0]});
+        series.push({name:'3 wood',data:[0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0]});
+        series.push({name:'4 wood',data:[0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0]});
+        series.push({name:'5 wood',data:[0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0]});
+        series.push({name:'7 wood',data:[0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0]});
+        series.push({name:'9 wood',data:[0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0]});
+    } else if(clubGroup === HYBRIDS) {
+        series.push({name:'2 hybrid',data:[0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0]});
+        series.push({name:'3 hybrid',data:[0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0]});
+        series.push({name:'4 hybrid',data:[0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0]});
+        series.push({name:'5 hybrid',data:[0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0]});
+        series.push({name:'6 hybrid',data:[0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0]});
+    } else if(clubGroup === IRONS) {
+        series.push({name:'2 iron',data:[0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0]});
+        series.push({name:'3 iron',data:[0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0]});
+        series.push({name:'4 iron',data:[0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0]});
+        series.push({name:'5 iron',data:[0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0]});
+        series.push({name:'6 iron',data:[0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0]});
+        series.push({name:'7 iron',data:[0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0]});
+        series.push({name:'8 iron',data:[0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0]});
+        series.push({name:'9 iron',data:[0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0]});
+    } else {
+        series.push({name:'pitching wedge',data:[0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0]});
+        series.push({name:'approach wedge',data:[0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0]});
+        series.push({name:'sand wedge',data:[0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0]});
+        series.push({name:'lob wedge',data:[0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0]});
+        series.push({name:'high lob wedge',data:[0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0]});
+    }
 
-function myToggle(id)
-{
-    changeView(id);
-    
-    if(id === 'v1')
-    {
-            $("#containerWood").show();
-    }
-    else if(id === 'v2')
-    {
-            $("#containerHybrid").show();
-    }
-    else if(id === 'v3')
-    {
-            $("#containerIron").show();
-    }
-    else if(id === 'v4')
-    {
-            $("#containerWedge").show();
-    }
-}
+    // cycle through the round data
+    // the if statements just checks to see if all is checked
+    // if all is selected, rounds will be an array
+    // else there is only a single round
+    if (rounds.length >= 1) {
+        // multiple rounds
+        // find the average
+        var distances = [];
 
-function getDistanceData()
-{
-	currentRound = 0;
-	currentHole = 0;
-	var shottotal=0;
-        var arrayofdistances="";
-        var arrayofshots="";
-	//Loop through each round
-	for(i = 0;i < rounds.length; i++)
-    {
-		
-		//loop through each hole
-		for(var h = 0; h < rounds[i].holes.length; h++)
-		{
-			//loop through each shot
-			for(var j = 0; j < rounds[i].holes[h].shots.length; j++)
-			{
-				var startLat = parseFloat(rounds[i].holes[h].shots[j].startLatitude);
-				var startLong = parseFloat(rounds[i].holes[h].shots[j].startLongitude);
-				var aimLat = parseFloat(rounds[i].holes[h].shots[j].aimLatitude);
-				var aimLong = parseFloat(rounds[i].holes[h].shots[j].aimLongitude);
-				var endLat = parseFloat(rounds[i].holes[h].shots[j].endLatitude);
-				var endLong = parseFloat(rounds[i].holes[h].shots[j].endLongitude);
-				
-				var distance = convertGPStoYards(startLat, startLong, endLat, endLong);
-                                arrayofdistances[shottotal]=distance;
-                                arrayofshots[shottotal]=shottotal+1;
-                                shottotal=shottotal+1;
+        if(clubGroup === WOODS) {
+            distances.push({name:'driver',data:[[],[],[],[],[],[],[],[],[],[],[],[],[],[],[],[],[],[]]});
+            distances.push({name:'3 wood',data:[[],[],[],[],[],[],[],[],[],[],[],[],[],[],[],[],[],[]]});
+            distances.push({name:'4 wood',data:[[],[],[],[],[],[],[],[],[],[],[],[],[],[],[],[],[],[]]});
+            distances.push({name:'5 wood',data:[[],[],[],[],[],[],[],[],[],[],[],[],[],[],[],[],[],[]]});
+            distances.push({name:'7 wood',data:[[],[],[],[],[],[],[],[],[],[],[],[],[],[],[],[],[],[]]});
+            distances.push({name:'9 wood',data:[[],[],[],[],[],[],[],[],[],[],[],[],[],[],[],[],[],[]]});
+        } else if(clubGroup === HYBRIDS) {
+            distances.push({name:'2 hybrid',data:[[],[],[],[],[],[],[],[],[],[],[],[],[],[],[],[],[],[]]});
+            distances.push({name:'3 hybrid',data:[[],[],[],[],[],[],[],[],[],[],[],[],[],[],[],[],[],[]]});
+            distances.push({name:'4 hybrid',data:[[],[],[],[],[],[],[],[],[],[],[],[],[],[],[],[],[],[]]});
+            distances.push({name:'5 hybrid',data:[[],[],[],[],[],[],[],[],[],[],[],[],[],[],[],[],[],[]]});
+            distances.push({name:'6 hybrid',data:[[],[],[],[],[],[],[],[],[],[],[],[],[],[],[],[],[],[]]});
+        } else if(clubGroup === IRONS) {
+            distances.push({name:'2 iron',data:[[],[],[],[],[],[],[],[],[],[],[],[],[],[],[],[],[],[]]});
+            distances.push({name:'3 iron',data:[[],[],[],[],[],[],[],[],[],[],[],[],[],[],[],[],[],[]]});
+            distances.push({name:'4 iron',data:[[],[],[],[],[],[],[],[],[],[],[],[],[],[],[],[],[],[]]});
+            distances.push({name:'5 iron',data:[[],[],[],[],[],[],[],[],[],[],[],[],[],[],[],[],[],[]]});
+            distances.push({name:'6 iron',data:[[],[],[],[],[],[],[],[],[],[],[],[],[],[],[],[],[],[]]});
+            distances.push({name:'7 iron',data:[[],[],[],[],[],[],[],[],[],[],[],[],[],[],[],[],[],[]]});
+            distances.push({name:'8 iron',data:[[],[],[],[],[],[],[],[],[],[],[],[],[],[],[],[],[],[]]});
+            distances.push({name:'9 iron',data:[[],[],[],[],[],[],[],[],[],[],[],[],[],[],[],[],[],[]]});
+        } else {
+            distances.push({name:'pitching wedge',data:[[],[],[],[],[],[],[],[],[],[],[],[],[],[],[],[],[],[]]});
+            distances.push({name:'approach wedge',data:[[],[],[],[],[],[],[],[],[],[],[],[],[],[],[],[],[],[]]});
+            distances.push({name:'sand wedge',data:[[],[],[],[],[],[],[],[],[],[],[],[],[],[],[],[],[],[]]});
+            distances.push({name:'lob wedge',data:[[],[],[],[],[],[],[],[],[],[],[],[],[],[],[],[],[],[]]});
+            distances.push({name:'high lob wedge',data:[[],[],[],[],[],[],[],[],[],[],[],[],[],[],[],[],[],[]]});
+        }
+
+        for (var roundIndex = 0; roundIndex < rounds.length; roundIndex++) {
+            for (var holeIndex = 0; holeIndex < rounds[roundIndex].holes.length; holeIndex++) {
+                for (var shotIndex = 0; shotIndex < rounds[roundIndex].holes[holeIndex].shots.length; shotIndex++) {
+                    if(clubGroup === WOODS) {
+                        if (rounds[roundIndex].holes[holeIndex].shots[shotIndex].club >= defines.DRIVER &&
+                            rounds[roundIndex].holes[holeIndex].shots[shotIndex].club <= defines.NINE_WOOD) {
+                            // find the distance and put it in the proper place in the series data
+                            for (var distancesIndex = 0; distancesIndex < distances.length; distancesIndex++) {
+                                if (distances[distancesIndex].name == getClubName(rounds[roundIndex].holes[holeIndex].shots[shotIndex].club)) {
+                                    distances[distancesIndex].data[rounds[roundIndex].holes[holeIndex].holeNumber - 1].push(parseFloat(getDistance(
+                                        rounds[roundIndex].holes[holeIndex].shots[shotIndex].startLatitude,
+                                        rounds[roundIndex].holes[holeIndex].shots[shotIndex].startLongitude,
+                                        rounds[roundIndex].holes[holeIndex].shots[shotIndex].endLatitude,
+                                        rounds[roundIndex].holes[holeIndex].shots[shotIndex].endLongitude
+                                    )));
+                                    break;
+                                }
                             }
                         }
-	}
-        return arrayofdistances, arrayofshots;
-}
-function convertGPStoYards(lat1, long1, lat2, long2)
-{
-    var dLat = (lat2 - lat1)*(Math.PI / 180);
-    var dLong = (long2 - long1)*(Math.PI / 180);
-    var a = Math.pow(Math.sin(dLat/2),2) + Math.cos(lat1) + Math.cos(lat2) + Math.pow(Math.sin(dLong/2),2);
-    var c = 2 * Math.atan(Math.sqrt(a), Math.sqrt(1 - a));
-    
-    return Math.round(6967420.2 * c).toFixed(2);
-}
-function convertGPStoYards(lat1, long1, lat2, long2)
-{
-    var dLat = (lat2 - lat1)*(Math.PI / 180);
-    var dLong = (long2 - long1)*(Math.PI / 180);
-    var a = Math.pow(Math.sin(dLat/2),2) + Math.cos(lat1) + Math.cos(lat2) + Math.pow(Math.sin(dLong/2),2);
-    var c = 2 * Math.atan(Math.sqrt(a), Math.sqrt(1 - a));
-    
-    return Math.round(6967420.2 * c).toFixed(2);
-}
-function convertGPStoYardsLat(lat1,lat2)
-{
-    var dLat = 13950131.0*(lat2 - lat1/2);
-    return dLat;
-}
-function convertGPStoYardslong(lat1, long1, lat2, long2)
-{
-    var dlonggps = 13950131.0*Math.asin(Math.sqrt(Math.cos(lat2) * Math.cos(lat1))*Math.pow( Math.sin( ( long1 - long2)/2)),2);
-    
-    return dlonggps;
-}
-function getDistance(startLat, startLon, endLat, endLon){
-    var dLat = (endLat - startLat) * (Math.PI / 180.0);
-    var dLon = (endLon - startLon) * (Math.PI / 180.0);
-    var lat1 = startLat * (Math.PI / 180.0);
-    var lat2 = endLat * (Math.PI / 180.0);
-//    var a = Math.pow(Math.sin(dLat/2),2) + Math.cos(startLat) * Math.cos(endLat) * Math.pow(Math.sin(dLon/2),2);
-    var a = Math.sin(dLat/2) * Math.sin(dLat/2) + Math.sin(dLon/2) * Math.sin(dLon/2) * Math.cos(lat1) * Math.cos(lat2);
-    var c = 2 * Math.atan2(Math.sqrt(a), Math.sqrt(1 - a));
+                    } else if(clubGroup === HYBRIDS) {
+                        if (rounds[roundIndex].holes[holeIndex].shots[shotIndex].club >= defines.TWO_HYBRID &&
+                            rounds[roundIndex].holes[holeIndex].shots[shotIndex].club <= defines.SIX_HYBRID) {
+                            // find the distance and put it in the proper place in the series data
+                            for (var distancesIndex = 0; distancesIndex < distances.length; distancesIndex++) {
+                                if (distances[distancesIndex].name == getClubName(rounds[roundIndex].holes[holeIndex].shots[shotIndex].club)) {
+                                    distances[distancesIndex].data[rounds[roundIndex].holes[holeIndex].holeNumber - 1].push(parseFloat(getDistance(
+                                        rounds[roundIndex].holes[holeIndex].shots[shotIndex].startLatitude,
+                                        rounds[roundIndex].holes[holeIndex].shots[shotIndex].startLongitude,
+                                        rounds[roundIndex].holes[holeIndex].shots[shotIndex].endLatitude,
+                                        rounds[roundIndex].holes[holeIndex].shots[shotIndex].endLongitude
+                                    )));
+                                    break;
+                                }
+                            }
+                        }
+                    } else if(clubGroup === IRONS) {
+                        if (rounds[roundIndex].holes[holeIndex].shots[shotIndex].club >= defines.TWO_IRON &&
+                            rounds[roundIndex].holes[holeIndex].shots[shotIndex].club <= defines.NINE_IRON) {
+                            // find the distance and put it in the proper place in the series data
+                            for (var distancesIndex = 0; distancesIndex < distances.length; distancesIndex++) {
+                                if (distances[distancesIndex].name == getClubName(rounds[roundIndex].holes[holeIndex].shots[shotIndex].club)) {
+                                    distances[distancesIndex].data[rounds[roundIndex].holes[holeIndex].holeNumber - 1].push(parseFloat(getDistance(
+                                        rounds[roundIndex].holes[holeIndex].shots[shotIndex].startLatitude,
+                                        rounds[roundIndex].holes[holeIndex].shots[shotIndex].startLongitude,
+                                        rounds[roundIndex].holes[holeIndex].shots[shotIndex].endLatitude,
+                                        rounds[roundIndex].holes[holeIndex].shots[shotIndex].endLongitude
+                                    )));
+                                    break;
+                                }
+                            }
+                        }
+                    } else {
+                        if (rounds[roundIndex].holes[holeIndex].shots[shotIndex].club >= defines.PW &&
+                            rounds[roundIndex].holes[holeIndex].shots[shotIndex].club <= defines.HLW) {
+                            // find the distance and put it in the proper place in the series data
+                            for (var distancesIndex = 0; distancesIndex < distances.length; distancesIndex++) {
+                                if (distances[distancesIndex].name == getClubName(rounds[roundIndex].holes[holeIndex].shots[shotIndex].club)) {
+                                    distances[distancesIndex].data[rounds[roundIndex].holes[holeIndex].holeNumber - 1].push(parseFloat(getDistance(
+                                        rounds[roundIndex].holes[holeIndex].shots[shotIndex].startLatitude,
+                                        rounds[roundIndex].holes[holeIndex].shots[shotIndex].startLongitude,
+                                        rounds[roundIndex].holes[holeIndex].shots[shotIndex].endLatitude,
+                                        rounds[roundIndex].holes[holeIndex].shots[shotIndex].endLongitude
+                                    )));
+                                    break;
+                                }
+                            }
+                        }
+                    }
+                }
+            }
+        }
 
-    return (EARTH_RADIUS_IN_YARDS * c).toFixed(2);
-}
-function getShotDatabg(){
-    
-    // filters round object for currentHole
-    hole = (rounds[currentRound].holes).filter(function(obj) { return (obj.holeNumber == currentHole) })[0];
-    
-    shotData = [];
-    if(hole === undefined || hole.shots.length === 0){
-        createShotGrid();
-        $('#shots').setCaption("Shots (Hole " + currentHole + ") <span style='color:#ff0000' > -- No Data Found -- </span>").trigger("reloadGrid");
+        // loop throught the distances and average the integers in the arrays
+        for (distancesIndex = 0; distancesIndex < distances.length; distancesIndex++) {
+            // distances index will line up with series index
+            for (dataIndex = 0; dataIndex < distances[distancesIndex].data.length; dataIndex++) {
+                // dataIndex will line up with data index in series
+                if (distances[distancesIndex].data[dataIndex].length != 0) {
+                    var sum = 0;
+                    for (var i = 0; i < distances[distancesIndex].data[dataIndex].length; i++) {
+                        sum += distances[distancesIndex].data[dataIndex][i];
+                    }
+                    series[distancesIndex].data[dataIndex] = parseFloat(sum / distances[distancesIndex].data[dataIndex].length);
+                }
+            }
+        }
+
+    } else {
+        // single round
+        for (var holeIndex = 0; holeIndex < rounds.holes.length; holeIndex++) {
+            for (var shotIndex = 0; shotIndex < rounds.holes[holeIndex].shots.length; shotIndex++) {
+                // see if the club is in the group needed
+                if(clubGroup === WOODS) {
+                    if (rounds.holes[holeIndex].shots[shotIndex].club >= defines.DRIVER &&
+                        rounds.holes[holeIndex].shots[shotIndex].club <= defines.NINE_WOOD) {
+                        // find the distance and put it in the proper place in the series data
+                        for (var seriesIndex = 0; seriesIndex < series.length; seriesIndex++) {
+                            if (series[seriesIndex].name == getClubName(rounds.holes[holeIndex].shots[shotIndex].club)) {
+                                series[seriesIndex].data[rounds.holes[holeIndex].holeNumber - 1] = parseFloat(getDistance(
+                                    rounds.holes[holeIndex].shots[shotIndex].startLatitude,
+                                    rounds.holes[holeIndex].shots[shotIndex].startLongitude,
+                                    rounds.holes[holeIndex].shots[shotIndex].endLatitude,
+                                    rounds.holes[holeIndex].shots[shotIndex].endLongitude
+                                ));
+                                break;
+                            }
+                        }
+                    }
+                } else if(clubGroup === HYBRIDS) {
+                    if (rounds.holes[holeIndex].shots[shotIndex].club >= defines.TWO_HYBRID &&
+                        rounds.holes[holeIndex].shots[shotIndex].club <= defines.SIX_HYBRID) {
+                        // find the distance and put it in the proper place in the series data
+                        for (var seriesIndex = 0; seriesIndex < series.length; seriesIndex++) {
+                            if (series[seriesIndex].name == getClubName(rounds.holes[holeIndex].shots[shotIndex].club)) {
+                                series[seriesIndex].data[rounds.holes[holeIndex].holeNumber - 1] = parseFloat(getDistance(
+                                    rounds.holes[holeIndex].shots[shotIndex].startLatitude,
+                                    rounds.holes[holeIndex].shots[shotIndex].startLongitude,
+                                    rounds.holes[holeIndex].shots[shotIndex].endLatitude,
+                                    rounds.holes[holeIndex].shots[shotIndex].endLongitude
+                                ));
+                                break;
+                            }
+                        }
+                    }
+                } else if(clubGroup === IRONS) {
+                    if (rounds.holes[holeIndex].shots[shotIndex].club >= defines.TWO_IRON &&
+                        rounds.holes[holeIndex].shots[shotIndex].club <= defines.NINE_IRON) {
+                        // find the distance and put it in the proper place in the series data
+                        for (var seriesIndex = 0; seriesIndex < series.length; seriesIndex++) {
+                            if (series[seriesIndex].name == getClubName(rounds.holes[holeIndex].shots[shotIndex].club)) {
+                                series[seriesIndex].data[rounds.holes[holeIndex].holeNumber - 1] = parseFloat(getDistance(
+                                    rounds.holes[holeIndex].shots[shotIndex].startLatitude,
+                                    rounds.holes[holeIndex].shots[shotIndex].startLongitude,
+                                    rounds.holes[holeIndex].shots[shotIndex].endLatitude,
+                                    rounds.holes[holeIndex].shots[shotIndex].endLongitude
+                                ));
+                                break;
+                            }
+                        }
+                    }
+                } else {
+                    if (rounds.holes[holeIndex].shots[shotIndex].club >= defines.PW &&
+                        rounds.holes[holeIndex].shots[shotIndex].club <= defines.HLW) {
+                        // find the distance and put it in the proper place in the series data
+                        for (var seriesIndex = 0; seriesIndex < series.length; seriesIndex++) {
+                            if (series[seriesIndex].name == getClubName(rounds.holes[holeIndex].shots[shotIndex].club)) {
+                                series[seriesIndex].data[rounds.holes[holeIndex].holeNumber - 1] = parseFloat(getDistance(
+                                    rounds.holes[holeIndex].shots[shotIndex].startLatitude,
+                                    rounds.holes[holeIndex].shots[shotIndex].startLongitude,
+                                    rounds.holes[holeIndex].shots[shotIndex].endLatitude,
+                                    rounds.holes[holeIndex].shots[shotIndex].endLongitude
+                                ));
+                                break;
+                            }
+                        }
+                    }
+                }
+            }
+        }
     }
+<<<<<<< HEAD
     else{
         for(var i = 0;i < hole.shots.length; i++){
             var startLat = hole.shots[i].startLatitude;
@@ -204,26 +377,84 @@ function getShotDatabg(){
                 distance: distance,
             })*/
         }  
+=======
+
+    var realSeries = [];
+
+    // loop through the series. If any item's data element is all 0s, don't add it to real series
+    for (var seriesIndex = 0; seriesIndex < series.length; seriesIndex++) {
+        var check = 0;
+        for (var i = 0; i < 18; i++) {
+            check += series[seriesIndex].data[i];
+        }
+        if (check != 0) 
+            realSeries.push(series[seriesIndex]);
+>>>>>>> Bar graph
+    }
+
+    return realSeries;
+}
+
+/****************************************************************************
+ *
+ * Functions dealing with tabs and graph showing
+ *
+ ****************************************************************************/
+ function changeView(view) {     
+    document.getElementById(currentClubGroup).className = "";
+
+    if(view === WOODS) {
+        getChart(WOODS);
+    } else if(view === HYBRIDS) {
+        getChart(HYBRIDS);
+    } else if(view === IRONS) {
+        getChart(IRONS);
+    } else {
+        getChart(WEDGES);
+    }
+
+    document.getElementById(view).className += ' selected_tab'; 
+    currentClubGroup = view;
+}
+
+function changeToRound(id) {     
+    document.getElementById(currentRound).className = "";
+    document.getElementById(id).className += ' selected_tab';
+    currentRound = id;  
+    
+    // filters localStorage for new round object 
+    if (id === 'all'){
+        rounds = localStorage.getObject('rounds');
+    } else {
+        rounds = localStorage.getObject('rounds').filter(function(obj) { return (obj.ID == id) })[0]; 
+    }
+    
+    if(currentClubGroup === WOODS) {
+        getChart(WOODS);
+    } else if(currentClubGroup === HYBRIDS) {
+        getChart(HYBRIDS);
+    } else if(currentClubGroup === IRONS) {
+        getChart(IRONS);
+    } else {
+        getChart(WEDGES);
     }
 }
-function graph3() {
-    var hi = 200;
-    var wi = 40;
-    var ddds; 
-    getShotDatabg();
-    html+= ' <p> ';
-    for (i = 0; i < shotn.length; i++) {
-        html+= shotdis[i]+' yards ';
-    }
-    html+= '<div> </div> </p>';
-    for (i = 0; i < shotn.length; i++) {
-    ddds=hi-shotdis[i];
-        html+= '<svg height="' + hi + '" width="' + wi + '"><rect id="redrect' + i + '"  width="20" height="' + shotdis[i] + '"fill="red" y="'+ddds+'" /> </svg>';
-    }
-   html+= '<div> </div> <p> ';
-    for (i = 0; i < shotn.length; i++) {
-        html+= shotn[i]+' ';
-    }
-    html+= ' </p>';
-    document.getElementById('map_image').innerHTML = html;
-}
+
+
+/****************************************************************************
+ *
+ * Event handlers for tabs and redraws data
+ *
+ ****************************************************************************/
+
+$(document).ready(function() {   
+    getChart(WOODS);
+
+    $(".round_tabs li").click(function() {
+        changeToRound($(this).attr('id'));
+    });
+
+    $(".view_tabs li").click(function() {
+        changeView($(this).attr('id'));
+    });       
+});
