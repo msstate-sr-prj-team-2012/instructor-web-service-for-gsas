@@ -20,30 +20,7 @@ var currentRound = 'all';
  ****************************************************************************/
 function getChart(clubGroup)
 {
-<<<<<<< HEAD
-    $(".view_tabs li").click(function() 
-    {
-        myToggle($(this).attr('id'));
-    });
-    
-    $(".round_tabs li").click(function() 
-    {
-        changeToRound($(this).attr('id'));
-    });
-    var tags = new Array("shot 1", "shot 2", "shot 3", "shot 4","hot 5");
-    var values = new Array("63", "80", "95", "34","900");
-    //basicbargraph(tags,values);
-    graph2(tags,values);
-    graph3();
-    document.getElementById(mapRound).className += ' selected_tab';
-});
-        
- function basicbargraph(tags, value) {
-    var length = 200;
-=======
     var clubsText = '';
->>>>>>> Bar graph
-
     var yAxisText = '';
 
     currentRound == 'all' ? yAxisText = 'Average Distance (yards)' : yAxisText = 'Distance (yards)';
@@ -355,29 +332,6 @@ function getRoundData(clubGroup)
             }
         }
     }
-<<<<<<< HEAD
-    else{
-        for(var i = 0;i < hole.shots.length; i++){
-            var startLat = hole.shots[i].startLatitude;
-            var startLong = hole.shots[i].startLongitude;
-            var aimLat = hole.shots[i].aimLatitude;
-            var aimLong = hole.shots[i].aimLongitude;
-            var endLat = hole.shots[i].endLatitude;
-            var endLong = hole.shots[i].endLongitude;
-            // gets distance
-            var distance = getDistance(startLat, startLong, endLat, endLong);
-            // gets club name
-            var club = getClubName(hole.shots[i].club);
-            shotdis[i]=distance;
-            shotclub[i]=club;
-            shotn[i]='shot'+i+1;
-            /*shotData.push({
-                shot: hole.shots[i].shotNumber,
-                club: club,
-                distance: distance,
-            })*/
-        }  
-=======
 
     var realSeries = [];
 
@@ -389,7 +343,6 @@ function getRoundData(clubGroup)
         }
         if (check != 0) 
             realSeries.push(series[seriesIndex]);
->>>>>>> Bar graph
     }
 
     return realSeries;
