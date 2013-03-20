@@ -5,7 +5,6 @@
  ****************************************************************************/
 var userID = null;
 var user = null;
-var rounds = [];
 var selectedUser = false;
 
 userChange = false;
@@ -254,7 +253,10 @@ function setupPage() {
     //
     //**********************************************************************
     $(document).on('click', '#addGolfer', function () {
-        //Flag for making sure information is validated
+        $('#golferreselect').show();
+		$('#golferselect').hide();
+		
+		//Flag for making sure information is validated
         var validated = false;
 
         //load an empty user form.
@@ -348,7 +350,10 @@ function setupPage() {
     //
     //**********************************************************************
     $(document).on('click', '#deleteRounds', function () {
-        if (getID()) {
+        $('#golferreselect').show();
+		$('#golferselect').hide();
+		
+		if (getID()) {
             user = new User(userID);
             $('#userform').hide();
             $('#roundselect').show();
@@ -358,18 +363,34 @@ function setupPage() {
             tableStr += 'All rounds for ' + user.name;
             tableStr += "</th>";
             tableStr += "<tr>";
-            rounds = new RoundGetAll(user.userID);
-            for (var i = 0; i < rounds.length; i++) {
-                tableStr += "<tr>";
-                tableStr += "<td>";
-                tableStr += '<input type="checkbox" name="rounds" value="' + i + '" />';
-                tableStr += "</td>";
-                tableStr += "<td>";
-                tableStr += rounds[i].startDate;
-                tableStr += "</td>";
-                tableStr += "<tr>";
-            }
-            document.getElementById('roundTable').innerHTML = tableStr;
+            
+			if(user.ID != null)
+			{
+				var roundClass = new RoundGetAll(user.ID);
+				
+				if(roundClass.length > 0)
+				{
+					for (var i = 0; i < roundClass.length; i++) {
+						tableStr += "<tr>";
+						tableStr += "<td>";
+						tableStr += '<input type="checkbox" name="rounds" value="' + i + '" />';
+						tableStr += "</td>";
+						tableStr += "<td>";
+						tableStr += roundClass[i].startDate;
+						tableStr += "</td>";
+						tableStr += "</tr>";
+					}
+				}
+				else
+				{
+					tableStr = "<tr><td>No rounds for this user! ID: " + user.ID + "</td><td>Rounds: " + roundClass.length + "</td></tr>";
+				}
+			}
+			else
+			{
+				tableStr = "<tr><td>Could not get user!</td></tr>";
+			}
+			document.getElementById('roundTable').innerHTML = tableStr;
         }
     });
 	
