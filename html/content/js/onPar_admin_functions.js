@@ -15,6 +15,7 @@ $(document).ready(function () {
     //$('#administrative').hide();
     $('#userform').hide();
     $('#roundselect').hide();
+    $('#golferreselect').hide();
 
     $('#golfer_select').change(function () {
         selectedUser = true;
@@ -51,7 +52,10 @@ function setupPage() {
         if (getID()) {
             $('#userform').show();
             $('#roundselect').hide();
-
+			
+			$('#golferreselect').show();
+			$('#golferselect').hide();
+			
             //Change the title of the form to "Edit Golfer"
             document.getElementById('formheader').innerText = "Edit Golfer";
 
@@ -62,12 +66,17 @@ function setupPage() {
             //Setup the user form to display the user's current information
             document.getElementById('ufname').value = firstName(user.name);
             document.getElementById('ulname').value = lastName(user.name);
+			
             document.getElementById('unickname').value = user.nickname;
             document.getElementById('uemail').value = user.email;
-            document.getElementById('umemID').value = user.memberID;
+			
+            document.getElementById('umemID1').value = getMemIDPart(user.memberID, "1");
+            document.getElementById('umemID2').value = getMemIDPart(user.memberID, "2");
+			
             document.getElementById('ubdatechange').value = user.birthDate;
             document.getElementById('save').value = 'Save Changes';
-            if (user.gender == 'male') {
+            
+			if (user.gender == 'male') {
                 document.getElementById('genderm').checked = true;
             }
             else {
@@ -95,7 +104,11 @@ function setupPage() {
                 userChange = true;
             });
 
-            $('#umemID').change(function () {
+            $('#umemID1').change(function () {
+                userChange = true;
+            });
+			
+			$('#umemID2').change(function () {
                 userChange = true;
             });
 
@@ -141,7 +154,8 @@ function setupPage() {
                     user.email = document.getElementById('uemail').value;
 
                     //Run the new member id through a regex to validate
-                    if (checkmemberID(document.getElementById('umemID').value)) {
+					var cMemID1 = document.getElementById('umemID1').value + "M-" + checkmemberID(document.getElementById('umemID2').value);
+                    if (checkmemberID(cMemID)) {
                         validated = true;
                         user.memberID = document.getElementById('umemID').value;
                     }
@@ -254,7 +268,8 @@ function setupPage() {
         document.getElementById('ulname').value = '';
         document.getElementById('unickname').value = '';
         document.getElementById('uemail').value = '';
-        document.getElementById('umemID').value = '';
+        document.getElementById('umemID1').value = '';
+        document.getElementById('umemID2').value = '';
         document.getElementById('ubdatechange').value = '';
         document.getElementById('save').value = 'Create User';
 
@@ -269,10 +284,11 @@ function setupPage() {
             user.birthDate = document.getElementById('ubdatechange').value;
 
             //Run the new member id through a regex to validate
-            if (checkmemberID(document.getElementById('umemID').value)) {
-                validated = true;
-                user.memberID = document.getElementById('umemID').value;
-            }
+			var cMemID1 = document.getElementById('umemID1').value + "M-" + checkmemberID(document.getElementById('umemID2').value);
+			if (checkmemberID(cMemID)) {
+				validated = true;
+				user.memberID = document.getElementById('umemID').value;
+			}
             else {
                 validated = false;
                 //Throw an error
@@ -333,6 +349,7 @@ function setupPage() {
     //**********************************************************************
     $(document).on('click', '#deleteRounds', function () {
         if (getID()) {
+            user = new User(userID);
             $('#userform').hide();
             $('#roundselect').show();
             var tableStr = '';
@@ -355,6 +372,12 @@ function setupPage() {
             document.getElementById('roundTable').innerHTML = tableStr;
         }
     });
+	
+	$(document).on('click', '#golferreselect', function () {
+        $('#golferreselect').hide();
+		$('#userform').hide();
+		$('#golferselect').show();
+    });
     //*********************************************************************
 }
 
@@ -375,6 +398,20 @@ function firstName(name) {
     var n = name.search(',');
 
     return name.slice(n + 1, user.name.length);
+}
+
+function getMemIDPart(memID, part)
+{
+	if(part == "1")
+	{
+		var n = memID.search('M');
+		return memID.slice(0, n);
+	}
+	else if(part == "2")
+	{
+		var n = memID.search('-');
+		return memID.slice(n + 1, memID.length);
+	}
 }
 
 function checkmemberID(memID) {

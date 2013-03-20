@@ -1,19 +1,19 @@
 <!DOCTYPE html>
 <html>
 <head>
-    <title>onPar - admin</title>
+    <title>onPar - table</title>
     <link rel="icon" type="image/ico" href="http://shadowrealm.cse.msstate.edu/favicon.ico">
-    <link rel="stylesheet" type="text/css" media="screen" href="html/content/css/style2.css">
-    <link rel="stylesheet" type="text/css" media="screen" href="html/content/css/select2.css">
-    <link rel="stylesheet" type="text/css" media="screen" href="html/content/css/smoothness/jquery-ui-1.10.1.custom.min.css" />
-    <link rel="stylesheet" type="text/css" media="screen" href="html/content/css/ui.jqgrid.css" /> 
-    <script type="text/javascript" src="html/content/js/jquery-1.8.3.min.js"></script>
-    <script type="text/javascript" src="html/content/js/select2.min.js"></script>
-    <script type="text/javascript" src="html/content/js/i18n/grid.locale-en.js"></script>
-    <script type="text/javascript" src="html/content/js/jquery.jqGrid.src.js"></script>
-    <script type="text/javascript" src="html/content/js/onPar_SDK.js"></script>
-    <script type="text/javascript" src="html/content/js/onPar_functions.js"></script>
-    <script type="text/javascript" src="html/content/js/onPar_admin_functions.js"></script>
+    <link rel="stylesheet" type="text/css" media="screen" href="{{ get_url('static', path='css/style2.css') }}">
+    <link rel="stylesheet" type="text/css" media="screen" href="{{ get_url('static', path='css/select2.css') }}">
+    <link rel="stylesheet" type="text/css" media="screen" href="{{ get_url('static', path='css/smoothness/jquery-ui-1.10.1.custom.min.css') }}" />
+    <link rel="stylesheet" type="text/css" media="screen" href="{{ get_url('static', path='css/ui.jqgrid.css') }}" /> 
+    <script type="text/javascript" src="{{ get_url('static', path='js/jquery-1.8.3.min.js') }}"></script>
+    <script type="text/javascript" src="{{ get_url('static', path='js/select2.min.js') }}"></script>
+    <script type="text/javascript" src="{{ get_url('static', path='js/i18n/grid.locale-en.js') }}"></script>
+    <script type="text/javascript" src="{{ get_url('static', path='js/jquery.jqGrid.src.js') }}"></script>
+    <script type="text/javascript" src="{{ get_url('static', path='js/onPar_SDK.js') }}"></script>
+    <script type="text/javascript" src="{{ get_url('static', path='js/onPar_functions.js') }}"></script>
+    <script type="text/javascript" src="{{ get_url('static', path='js/onPar_admin_functions.js') }}"></script>
     <style type="text/css">
         .button_example{
         border:1px solid #450111;
@@ -109,8 +109,8 @@
 			<div id="golferseldiv">
                 <div id="golferselect" style=" margin-top: 30px; display: inline-block;">
                     <p class="formheading">Choose a Golfer</p>
-				    <input type="text" class="memid" placeholder="Enter Golfer ID" id="uID" style="width: 300px;" /> or 
-                    <input type="hidden" id="golfer_select" placeholder="Select Golfer..." style="width:250px;"/> 
+				    <input type="hidden" id="golfer_select" placeholder="Select Golfer..." style="width:250px;"/> or 
+                    <input type="text" class="memid" placeholder="Enter Golfer ID" id="uID" style="width: 300px;" />
 				    <p class="formfield">
                     <input type="button" id="editGolfer"   class="button_example" value="Edit Golfer"/>
 				    <input type="button" id="deleteGolfer" class="button_example" value="Delete Golfer"/>   
@@ -118,6 +118,9 @@
                     <input type="button" id="addGolfer" class="button_example" value="Add Golfer" />
 				    </p>
 			    </div>
+				<div id="golferreselect" style=" margin-top: 30px; display: inline-block;">
+					<input type="button" id="showGolferSelect" class="button_example" value="Choose Another Golfer" />
+				</div>
             </div>
 
 			<div id="userform" class="formstyle">
@@ -128,8 +131,11 @@
                         <input type="text"  class="memid" placeholder="Last Name"  name ="lname" id="ulname" style="width: 150px;" />
 					</p>
                     <p class="formfield"><input type="email" class="memid" placeholder="Nickname"   name ="nickname" id="unickname" style="width: 200px;" /></p>
-					<p class="formfield"><input type="email" class="memid" placeholder="E-Mail"     name ="email" id="uemail"       style="width: 200px;" /></p>
-					<p class="formfield"><input type="text"  class="memid" placeholder="Member ID"  name="memberID" id="umemID"     style="width: 200px;" /></p>
+					<p class="formfield"><input type="email" class="memid" placeholder="E-Mail"     name ="email"    id="uemail"    style="width: 200px;" /></p>
+					<p class="formfield">
+						<input type="text" class="memid" placeholder="4Num" name="memberID" id="umemID1" style="width: 50px;" />M-
+						<input type="text" class="memid" placeholder="6Num" n/ame="memberID" id="umemID2" style="width: 75px;" />
+					</p>
 					
                     <p class="formfield">
                     <span id="ubdatechangetext">Enter Birthdate:</span>
