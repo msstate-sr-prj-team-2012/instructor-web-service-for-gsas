@@ -1,3 +1,18 @@
+
+    // imports google font library
+    WebFontConfig = {
+    google: { families: [ 'Open+Sans:300italic,400italic,600italic,700italic,800italic,400,300,600,700,800:latin' ] }
+      };
+      (function() {
+        var wf = document.createElement('script');
+        wf.src = ('https:' == document.location.protocol ? 'https' : 'http') +
+          '://ajax.googleapis.com/ajax/libs/webfont/1/webfont.js';
+        wf.type = 'text/javascript';
+        wf.async = 'true';
+        var s = document.getElementsByTagName('script')[0];
+        s.parentNode.insertBefore(wf, s);
+      })();
+      
 /****************************************************************************
  *
  * Global Variables
@@ -16,6 +31,7 @@ var roundsClass;
 
 $(document).ready(function() { 
     
+  
     $("#golfer_select").change(function(){
         var admin_url = document.location.href;
         admin_url = admin_url.slice(document.location.href.length - 5, document.location.href.length);
@@ -154,16 +170,16 @@ function createNavigationMenu(){
         if(window.location.pathname === (defines.BASE_PATH + '/') || window.location.pathname === (defines.BASE_PATH + '/rounds')){
             document.getElementById("nav").innerHTML=
                 "<ul>\n" +
-                    "<li id='home'><a href=\"" + home + "\">home</a></li>\n" +
-                    "<li id='round'><a href=\"" + round + "\">rounds</a></li>\n" +
+                    "<li id='home'><a href=\"" + home + "\">Home</a></li>\n" +
+                    "<li id='round'><a href=\"" + round + "\">Selection</a></li>\n" +
                 "</ul>\n";
             
             // prints golfer data to page
             if(window.location.pathname === (defines.BASE_PATH + '/rounds')){
                 document.getElementById("currently_viewing").innerHTML= 
-                    "<span>golfer: </span>" + golfer.name + " -- " +
-                    "<span>age: </span>" + getAge(golfer.birthDate) + " -- " +
-                    "<span>sex: </span>" + golfer.gender + " -- " +
+                    "<span>golfer: </span>" + golfer.name + " &nbsp;&nbsp;&nbsp;&nbsp; " +
+                    "<span>age: </span>" + getAge(golfer.birthDate) + " &nbsp;&nbsp;&nbsp;&nbsp; " +
+                    "<span>sex: </span>" + golfer.gender + " &nbsp;&nbsp;&nbsp;&nbsp; " +
                     "<span>hand: </span>" + golfer.hand + "\n";
             }
         }  
@@ -176,23 +192,23 @@ function createNavigationMenu(){
     else{   
         document.getElementById("nav").innerHTML=
             "<ul>\n" +
-                "<li id='home'><a href=\"" + home + "\">home</a></li>\n" +
-                "<li id='round'><a href=\"" + round + "\">rounds</a></li>\n" +
-                "<li id='table'><a href=\"" + table + "\">table</a></li>\n" +
-                "<li id='stats'><a href=\"" + stats + "\">stats</a></li>\n" +
-                "<li id='spread'><a href=\"" + spread + "\">spread</a></li>\n" +
-                "<li id='distance'><a href=\"" + distance + "\">distance</a></li>\n" +
-                "<li id='maps'><a href=\"" + maps + "\">maps</a></li>\n" +
-		"<li id='admin'><a href=\"" + admin + "\">admin</a></li>\n" +
+                "<li id='home'><a href=\"" + home + "\">Home</a></li>\n" +
+                "<li id='round'><a href=\"" + round + "\">Selection</a></li>\n" +
+                "<li id='table'><a href=\"" + table + "\">Table</a></li>\n" +
+                "<li id='maps'><a href=\"" + maps + "\">Maps</a></li>\n" +
+                "<li id='distance'><a href=\"" + distance + "\">Distance</a></li>\n" +
+                "<li id='spread'><a href=\"" + spread + "\">Spread</a></li>\n" +
+                "<li id='stats'><a href=\"" + stats + "\">Statistics</a></li>\n" +   
+		"<li id='admin'><a href=\"" + admin + "\">Admin</a></li>\n" +
             "</ul>\n";
         
         // prints golfer data to page
         if (window.location.pathname !== (defines.BASE_PATH + '/') && window.location.pathname !== (defines.BASE_PATH + '/admin')) {
             document.getElementById("currently_viewing").innerHTML= 
-                "<span>golfer: </span>" + golfer.name + " -- " +
-                "<span>age: </span>" + golfer.age + " -- " +
-                "<span>sex: </span>" + golfer.gender + " -- " +
-                "<span>hand: </span>" + golfer.hand + "\n";
+                "<span>Golfer: </span>" + golfer.name + " &nbsp;&nbsp;&nbsp;&nbsp; " +
+                "<span>Age: </span>" + golfer.age + " &nbsp;&nbsp;&nbsp;&nbsp; " +
+                "<span>Sex: </span>" + golfer.gender + " &nbsp;&nbsp;&nbsp;&nbsp; " +
+                "<span>Hand: </span>" + golfer.hand + "\n";
         }
     }
 } // end createNavigationMenu
