@@ -15,28 +15,29 @@ $(document).ready(function () {
     //$('#administrative').hide();
     $('#userform').hide();
     $('#roundselect').hide();
-    $('#golferreselect').hide();
+	$('#administrative').hide();
 
     $('#golfer_select').change(function () {
         selectedUser = true;
     });
 
-   /* $(document).on('click', '#passbtn', function () {
+   $(document).on('click', '#passbtn', function () {
         var passcode = '12345';
         var entered = document.getElementById('pass').value;
 
-        if (passcode == entered) {*/
+        if (passcode == entered) {
             $('#passwordDiv').hide();
             $('#administrative').show();
+			$('#golferreselect').hide();
 
             //allow admin functions
             setupPage();
-        /*}
+        }
         else {
             $('#errmsg').show();
             document.getElementById('errmsg').innerHTML = "Error: Password entered incorrectly";
         }
-    });*/
+    });
 });
 
 function setupPage() {
@@ -153,10 +154,10 @@ function setupPage() {
                     user.email = document.getElementById('uemail').value;
 
                     //Run the new member id through a regex to validate
-					var cMemID1 = document.getElementById('umemID1').value + "M-" + checkmemberID(document.getElementById('umemID2').value);
+					var cMemID = document.getElementById('umemID1').value + "M-" + document.getElementById('umemID2').value;
                     if (checkmemberID(cMemID)) {
                         validated = true;
-                        user.memberID = document.getElementById('umemID').value;
+                        user.memberID = cMemID;
                     }
                     else {
                         validated = false;
@@ -173,9 +174,16 @@ function setupPage() {
                         validated = false;
                         alert('Not a valid e-mail.  Use format abcd123@efgh.ijk');
                     }
-
-                    user.birthDate = document.getElementById('ubdatechange').value;
-
+					
+					if(checkdate(document.getElementById('ubdatechange').value))
+					{					
+						user.birthDate = document.getElementById('ubdatechange').value;
+					}
+					else {
+                        validated = false;
+                        alert('Use for YYYY-MM-DD for entering dates!');
+                    }
+					
                     //Save the new gender
                     if (document.getElementById('genderm').checked == true) {
                         user.gender = 'male';
@@ -463,6 +471,15 @@ function checkemail(email) {
         return true;
 }
 
+
+function checkdate(date)
+{
+	var redate = /^(19|20)\d\d[- /.](0[1-9]|1[012])[- /.](0[1-9]|[12][0-9]|3[01])$/;
+	if (date.search(redate) == -1)
+        return false;
+    else
+        return true;
+}
 function getID() {
     //load the user data into the form for editing
     if (selectedUser) {

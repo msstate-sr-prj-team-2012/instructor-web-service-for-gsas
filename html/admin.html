@@ -14,7 +14,7 @@
     <script type="text/javascript" src="html/content/js/onPar_SDK.js"></script>
     <script type="text/javascript" src="html/content/js/onPar_functions.js"></script>
 	<script type="text/javascript" src="html/content/js/onPar_admin_functions.js.js"></script>
-     <style type="text/css">
+    <style type="text/css">
         .button_example{
         border:1px solid #450111;
          -webkit-border-radius: 3px; 
@@ -50,7 +50,7 @@
          }
         .memid {
             height: 20px;
-            border-radius: 14px;
+            border-radius: 5px;
             text-align: center;
         }
         .formheading {
@@ -62,7 +62,7 @@
         .formstyle {
             width: 500px; float: none; margin: 0px auto; color: white;
             padding: 10px;
-            border-radius: 10px;
+            border-radius: 5px;
             /* IE10 Consumer Preview */ 
             background-image: -ms-linear-gradient(bottom, #000000 0%, #3A000D 5%, #3A000D 95%, #FFFFFF 100%);
 
@@ -100,8 +100,8 @@
 
 	<div class="content">
         <div id="passwordDiv" style="float: none; position: relative; margin: 120px auto;">
-            Please enter the passcode to continue: <input type="password" class="memid" name="passcode" id="pass" />
-            <input type="button" id="passbtn" value="Submit" /><br />
+            <input type="password" class="memid" name="passcode" placeholder="password" style="width: 250px; height: 25px;" id="pass" /><br/>
+            <input type="button" class="button_example" style="margin-top: 14px;" id="passbtn" value="Submit" /><br />
             <div id="errmsg"></div>
         </div>
 
@@ -133,8 +133,8 @@
                     <p class="formfield"><input type="email" class="memid" placeholder="Nickname"   name ="nickname" id="unickname" style="width: 200px;" /></p>
 					<p class="formfield"><input type="email" class="memid" placeholder="E-Mail"     name ="email"    id="uemail"    style="width: 200px;" /></p>
 					<p class="formfield">
-						<input type="text" class="memid" placeholder="4Num" name="memberID" id="umemID1" style="width: 50px;" />M-
-						<input type="text" class="memid" placeholder="6Num" n/ame="memberID" id="umemID2" style="width: 75px;" />
+						<input type="text" class="memid" placeholder="4Numbers" name="memberID" id="umemID1" style="width: 75px;" />M-
+						<input type="text" class="memid" placeholder="6Numbers" name="memberID" id="umemID2" style="width: 100px;" />
 					</p>
 					
                     <p class="formfield">
