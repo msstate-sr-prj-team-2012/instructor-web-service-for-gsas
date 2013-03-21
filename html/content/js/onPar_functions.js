@@ -271,7 +271,7 @@ Rounds.prototype.output = function(){
         if(i !== 0 && (i%10) === 0){ 
             html += "</div>\n<div class='column'>"; 
         }
-        var d = formatDate(this.roundsObjects.rounds[i].startTime);
+        var d = formatDate(this.roundObjects.rounds[i].startTime);
         html += "<label><input type=\"checkbox\" value='" + this.roundObjects.rounds[i].ID + "'> " +          
                 d.date + " &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; " + d.time + "</label><br/>\n"; 
     }
