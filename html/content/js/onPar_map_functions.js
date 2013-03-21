@@ -269,7 +269,7 @@ function drawAllData(){
 
     // shows message if no data
     if(holeArray.length === 0) {
-        html += '<span class"error"> -- No Data Found --  </span>\n';
+        html += '<text x="260" y="160" font-size="20" fill="red" > -- No Data Found -- </text>\n';
         $('.map_content').css('background', '#fff');
         document.getElementById('par').innerHTML = '';
     }
@@ -321,7 +321,7 @@ function drawData(){
     hole = (round.holes).filter(function(obj) { return (obj.holeNumber == currentHole) })[0];
     // shows message if no data
     if(hole === undefined || hole.shots.length === 0){
-        html += '<span class"error"> -- No Data Found --  </span>\n';
+        html += '<text x="260" y="160" font-size="20" fill="red" > -- No Data Found -- </text>\n';
         $('.map_content').css('background', '#fff');
         document.getElementById('par').innerHTML = '';
     }

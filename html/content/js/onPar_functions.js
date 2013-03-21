@@ -272,8 +272,8 @@ Rounds.prototype.output = function(){
             html += "</div>\n<div class='column'>"; 
         }
         var d = formatDate(this.roundObjects.rounds[i].startTime);
-        html += "<label><input type=\"checkbox\" value='" + this.roundObjects.rounds[i].ID + "'> " +          
-                d.date + " &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; " + d.time + "</label><br/>\n"; 
+        html += "<label><input type=\"checkbox\" value='" + this.roundObjects.rounds[i].ID + "'> &nbsp;" +          
+                d.date + " &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;" + d.time + "</label><br/>\n"; 
     }
     html += "</div>";
     document.getElementById('date_list').innerHTML = html;

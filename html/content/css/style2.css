@@ -407,7 +407,7 @@ nav ul li:hover > a
 .column
 {
     float: left;
-    width: 150px;
+    width: 160px;
     height: 250px;
     display: table;
     margin: 0 6px;
@@ -478,13 +478,6 @@ table{cursor:pointer}
  *
  ****************************************************************************/
 
-.error{
-    position: relative;
-    top: 160px;
-    left: 47%;
-    font-size: 16px;
-    color: #FF0000;
-}
 .map_content li
 { 
     display: block;
