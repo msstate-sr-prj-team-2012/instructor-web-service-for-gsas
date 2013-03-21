@@ -244,7 +244,8 @@ function createRoundTabs(){
     var html = '<ul>\n';
     html += "<li id='all' title='all rounds' class='selected_tab'>all</li>\n";
     for (var i = 0; i < rounds.length; i++){
-        html += "<li id='" + rounds[i].ID + "' title=' Date: " + rounds[i].startTime.split(' ')[0] + "\n Time: " + rounds[i].startTime.split(' ')[1] + "'>" + (i + 1) + "</li>\n";
+        var d = formatDate(rounds[i].startTime);
+        html += "<li id='" + rounds[i].ID + "' title='" + d.date + "\n" + d.time + "'>" + (i + 1) + "</li>\n";
     }
     html += "</ul>\n";
     
@@ -270,8 +271,9 @@ Rounds.prototype.output = function(){
         if(i !== 0 && (i%10) === 0){ 
             html += "</div>\n<div class='column'>"; 
         }
+        var d = formatDate(this.roundsObjects.rounds[i].startTime);
         html += "<label><input type=\"checkbox\" value='" + this.roundObjects.rounds[i].ID + "'> " +          
-            this.roundObjects.rounds[i].startTime + "</label><br/>\n";     
+                d.date + " &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; " + d.time + "</label><br/>\n"; 
     }
     html += "</div>";
     document.getElementById('date_list').innerHTML = html;
@@ -412,4 +414,23 @@ function computeAngle(startLat,startLong,aimLat,aimLong,endLat,endLong){
 
 function enablePowerTip(){
     $('[title]').powerTip({placement: 'ne', smartPlacement: true, mouseOnToPopup: true});
+}
+
+// formats date to a more readable form
+function formatDate(date){
+    var m_names = new Array("Jan", "Feb", "Mar", "Apr", "May", "Jun", "Jul", "Aug", "Sep", "Oct", "Nov", "Dec");       
+    var d = new Date(date);
+    var a_p;
+    var hour = d.getHours();
+    if (hour < 12){ a_p = "am";}
+    else{a_p = "pm";}
+    if (hour == 0){ hour = 12;}
+    if (hour > 12){ hour -= 12;}
+    
+    var new_date = {
+        date: d.getDate() + "-" + m_names[d.getMonth()] + "-" + d.getFullYear(),
+        time: hour + ":" + d.getMinutes() + " " + a_p
+    };
+    
+    return new_date;
 }

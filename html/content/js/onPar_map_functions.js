@@ -350,6 +350,7 @@ function drawData(){
 function drawShape(start, end, club, distance, startTime, holeScore, putts){
     var color;
     var clubName = getClubName(club);
+    var d = formatDate(startTime);
     // draw line between two points
     html += "<line x1='" +start.x+ "' \n\
                    y1='" +start.y+ "' \n\
@@ -357,7 +358,7 @@ function drawShape(start, end, club, distance, startTime, holeScore, putts){
                    y2='" +end.y+ "' \n\
                    stroke='black' \n\
                    stroke-width='3' \n\
-                   title='Date: " + startTime.split(' ')[0] + "<br/> Time: " + startTime.split(' ')[1] + "<br/> Score: " + holeScore + "<br/> Putts: " + putts + "'/>\n";
+                   title='Date: " + d.date + "<br/> Time: " + d.time + "<br/> Score: " + holeScore + "<br/> Putts: " + putts + "'/>\n";
 
     // draw triangle with the appropriate color
     if(club >= 1 && club <= 6){

@@ -430,6 +430,16 @@ button
     margin: 0;
     /*border-radius: 5px;*/
 }
+label{
+    -webkit-transition: color 0.2s ease-in;
+    -moz-transition: color 0.2s ease-in;
+    -o-transition: color 0.2s ease-in;
+    transition: color 0.2s ease-in;
+    cursor: pointer;
+}
+label:hover{
+    color: #660000;
+}
 
 
 
