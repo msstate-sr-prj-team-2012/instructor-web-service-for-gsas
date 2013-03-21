@@ -441,18 +441,24 @@ button
 
 #table_content, #stats_content 
 { 
+    border:none;
+    background:none;
     position:relative;
-    top:80px;
+    top: 75px;
+    padding:0;
     margin: 0 auto;
     display:table;
+    max-width: 900px;
 }
 #table_content .grid
 {
-    display: table;
-    float:bottom;
-    margin-top:7px;
+    margin-top: 125px;
+    display: table-cell;
+    vertical-align:top;
+    padding-right: 45px;
 }
 table{cursor:pointer}
+.ui-jqgrid-title{padding:15px;}
 
 
 
@@ -462,6 +468,13 @@ table{cursor:pointer}
  *
  ****************************************************************************/
 
+.error{
+    position: relative;
+    top: 160px;
+    left: 47%;
+    font-size: 16px;
+    color: #FF0000;
+}
 .map_content li
 { 
     display: block;
@@ -580,9 +593,6 @@ table{cursor:pointer}
     font-size: 12px;
     font-weight: bold;
 }
-svg { opacity: 1}
-svg svg { opacity: .4}
-svg svg:hover { opacity: 1}
 
 
 
