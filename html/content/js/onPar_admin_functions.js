@@ -6,6 +6,7 @@
 var userID = null;
 var user = null;
 var selectedUser = false;
+var roundClass = [];
 
 userChange = false;
 
@@ -19,7 +20,6 @@ $(document).ready(function () {
     $('#golfer_select').change(function () {
         selectedUser = true;
     });
-
 
    /* $(document).on('click', '#passbtn', function () {
         var passcode = '12345';
@@ -362,7 +362,7 @@ function setupPage() {
             tableStr += "<th colspan=2>";
             tableStr += 'All rounds for ' + user.name;
             tableStr += "</th>";
-            tableStr += "<tr>";
+            tableStr += "</tr>";
             
 			if(user.ID != null)
 			{
@@ -373,7 +373,7 @@ function setupPage() {
 					for (var i = 0; i < roundClass.length; i++) {
 						tableStr += "<tr>";
 						tableStr += "<td>";
-						tableStr += '<input type="checkbox" name="rounds" value="' + i + '" />';
+						tableStr += '<input type="checkbox" name="rounds" id="' + roundClass[i].ID + '" value="'+ roundClass[i].startTime.split(' ')[0] + "\n Time: " + roundClass[i].startTime.split(' ')[1] + '/>';
 						tableStr += "</td>";
 						tableStr += "<td>";
 						tableStr += roundClass[i].startDate;
@@ -383,12 +383,23 @@ function setupPage() {
 				}
 				else
 				{
-					tableStr = "<tr><td>No rounds for this user! ID: " + user.ID + "</td><td>Rounds: " + roundClass.length + "</td></tr>";
+					tableStr += "<tr><td colspan='2'>No rounds for this user! ID: " + user.ID + "</td></tr><tr><td colspan='2'>Rounds: " + roundClass.length + "</td></tr>";
 				}
+				
+				$(document).on('click', '#deleteRoundButton', function () {
+					if($("input:checkbox:checked").length === 0){
+						alert("Please select at least one date to continue.");
+						return;
+					}
+					
+					$(":checkbox:checked").each(function(i){
+						roundClass[$(this).val()].del();
+					})
+				});
 			}
 			else
 			{
-				tableStr = "<tr><td>Could not get user!</td></tr>";
+				tableStr += "<tr><td>Could not get user!</td></tr>";
 			}
 			document.getElementById('roundTable').innerHTML = tableStr;
         }
@@ -410,7 +421,6 @@ function setupPage() {
 function lastName(name) {
     //Find the index where the comma in the name string is
     var n = name.search(',');
-
     return name.slice(0, n);
 }
 
@@ -445,7 +455,8 @@ function checkmemberID(memID) {
 
 function checkemail(email) {
 
-    var re = /^([0-9a-zA-Z]([-\.\w]*[0-9a-zA-Z])*@([0-9a-zA-Z][-\w]*[0-9a-zA-Z]\.)+[a-zA-Z]{2,9})$/; ///^[A-Z0-9a-z._%+-]+@[A-Za-z0-9.-]+\\.[A-Za-z]{2,4}$/;  THis was kevins.  Wouldn't work for me
+    var re = /^([0-9a-zA-Z]([-\.\w]*[0-9a-zA-Z])*@([0-9a-zA-Z][-\w]*[0-9a-zA-Z]\.)+[a-zA-Z]{2,9})$/; 
+	// /^[A-Z0-9a-z._%+-]+@[A-Za-z0-9.-]+\\.[A-Za-z]{2,4}$/;  THis was kevins.  Wouldn't work for me
     if (email.search(re) == -1)
         return false;
     else
