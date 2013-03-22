@@ -293,6 +293,7 @@ nav ul li:hover > a
     width: 850px;
     z-index:999;
     font-size: 13px;
+    text-transform: capitalize;
 }
 #currently_viewing span
 {
@@ -436,6 +437,7 @@ label{
     -o-transition: color 0.2s ease-in;
     transition: color 0.2s ease-in;
     cursor: pointer;
+    float:left;
 }
 label:hover{
     color: #660000;
