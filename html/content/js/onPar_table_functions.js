@@ -132,7 +132,7 @@ function getShotData(){
     
     if(shotsHole === undefined || shotsHole.shots.length === 0){
         createShotGrid();
-        $('#shots').setCaption("Shots (Hole " + scoreboard_hole + ")  <span style='color:#FF0000;font-weight:normal;' >  &nbsp;&nbsp; -- No Data Found -- </span>").trigger("reloadGrid");
+        $('#shots').setCaption("Shots (Hole " + scoreboard_hole + ")  <span style='color:#D8D8D8;font-weight:normal;' >  &nbsp;&nbsp; -- No Data Found -- </span>").trigger("reloadGrid");
     }
     else{
         for(var i = 0;i < shotsHole.shots.length; i++){

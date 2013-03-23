@@ -23,8 +23,9 @@ body
 {
     font: 12px/25px 'Open Sans', Century Gothic, 'TeXGyreAdventorRegular', sans-serif;
     font-weight: 500;
-    text-align:center;
-    background: url("../images/low_contrast_linen.png") repeat fixed; 
+    background: url("../images/low_contrast_linen.png") repeat fixed;
+    /*background: -webkit-gradient(linear, left top, left bottom, from(#660000), to(#3B0B0B));*/
+
 }
 #page-wrap 
 {
@@ -44,28 +45,16 @@ body
     border: 1px transparent solid;
     background: #fff;
     box-shadow: 0px 0px 10px #fff ;
-    /*border-radius: 5px;*/
+    margin-bottom: 100px;
 }
 #nav li.selected_tab a, .view_tabs li.selected_tab, .view_tabs li:hover
 {
     color:#660000;
     background: #fff;
-/*    border-top-left-radius: 5px;
-    border-top-right-radius: 5px;*/
 }
 #nav li.selected_tab a, #nav li:hover, #change_golfer li:hover
 { 
     box-shadow: 0px 0px 10px #fff;
-}
-.round_tabs li.selected_tab, .round_tabs li:hover
-{
-/*    border-top-left-radius: 5px;
-    border-bottom-left-radius: 5px;*/
-}
-.hole_tabs li.selected_tab, .hole_tabs li:hover
-{
-/*    border-bottom-left-radius: 5px;
-    border-bottom-right-radius: 5px;*/
 }
 li:hover > a, li:hover 
 {
@@ -90,7 +79,7 @@ header
     height:90px;
     margin-top: 30px;
     margin-bottom:30px;
-    min-width: 1000px;
+    min-width: 1050px;
 }
 header h1 
 {
@@ -101,6 +90,7 @@ header h1
     font-size:55px;
     padding-top:15px;
     font-weight:100;
+    text-shadow: 0 5px 10px #000;
 }
 .site-logo
 {
@@ -134,8 +124,6 @@ footer
 {
     text-align: right;
     color: #fff;
-    position: relative;
-    bottom: -70px;
     margin-right:20px;
     padding-bottom: 30px;
 }
@@ -163,7 +151,6 @@ nav ul
     margin: 0;
     padding: 0;
     font-size:0;
-    /*float:left;*/
     bottom: -84px;
     left: 15px;
 }
@@ -172,7 +159,6 @@ nav ul li
     display: inline-block;
     margin: 1px;
     width: 90px;
-    /*padding: 0 10px;*/
     font-size:12px;
     position:relative;
     z-index: 0;
@@ -189,8 +175,6 @@ nav ul li:hover > a
 {
     color: #660000;
     background: #fff;     
-/*    border-top-left-radius: 5px;
-    border-top-right-radius: 5px;*/
 }
 
 
@@ -200,7 +184,11 @@ nav ul li:hover > a
  * Change Golfer Menu
  *
  ****************************************************************************/
-
+#change{
+    position: absolute;
+    bottom:-72px;
+    right: 30px;
+}
 #change_golfer
 {
     list-style:none;
@@ -244,8 +232,6 @@ nav ul li:hover > a
 {
     color: #660000; 
     background: #fff;
-/*    border-top-left-radius: 5px;
-    border-top-right-radius: 5px;*/
 }
 #change_golfer ul li, #change_golfer ul li:hover
 { 
@@ -253,7 +239,6 @@ nav ul li:hover > a
     border: 1px #bdbdbd solid; 
     background: #fff;
     margin-bottom: 5px;
-    /*border-radius: 5px;*/
 }
 #change_golfer input[type="text"]
 {
@@ -286,7 +271,7 @@ nav ul li:hover > a
 #currently_viewing
 {
     position: relative;
-    bottom: -184px;
+    bottom: -196px;
     margin: 0 auto;
     color: #660000;
     text-align: center;
@@ -351,7 +336,6 @@ nav ul li:hover > a
     margin-bottom: 20px;
     padding-left:10px;
     float:left;
-    /*border-radius: 5px;*/
 }
 .select input[type="hidden"]
 {
@@ -361,8 +345,7 @@ nav ul li:hover > a
     color: #848484;
     float:left;
     padding-left:10px;
-    /*border-radius: 5px;*/
-    box-shadow: 0px 0px 10px #A4A4A4;
+    box-shadow: 0px 0px 10px #000; 
 }
 
 /****************************************************************************
@@ -421,15 +404,13 @@ button
     position: relative;
     bottom: -30px;
     margin: 5px;
-    /*border-radius: 5px;*/
-    box-shadow: 0px 0px 10px #A4A4A4;
+    box-shadow: 0px 0px 10px #000; 
 }
 #date_list input[type='checkbox']
 {
     padding-left:10px;
     padding-right: 0;
     margin: 0;
-    /*border-radius: 5px;*/
 }
 label{
     -webkit-transition: color 0.2s ease-in;
@@ -464,7 +445,7 @@ label:hover{
 }
 #table_content .grid
 {
-    margin-top: 125px;
+    margin: 125px 0;
     display: table-cell;
     vertical-align:top;
     padding-right: 45px;
@@ -496,18 +477,18 @@ table{cursor:pointer}
 {
     color:#fff;
     background:#660000;
+    z-index: 10;
 }
 .map_content
 {
     position: relative;
     border: 3px #660000 solid;
     padding: 0;
-    margin: 125px auto 150px;
+    margin: 100px auto;
     width: 800px;
     height: 350px;
-    box-shadow: 10px 10px 100px #A4A4A4;
+    box-shadow: 0px 0px 10px #000; 
     background: url("../images/holes/hole1_map.PNG");
-    /*border-radius:5px;*/
 }
 #par
 {
@@ -593,7 +574,7 @@ table{cursor:pointer}
 .hole_title
 {
     position: absolute;
-    bottom: -23%;
+    bottom: -22%;
     left: 50%;
     font-size: 12px;
     font-weight: bold;
@@ -612,12 +593,11 @@ table{cursor:pointer}
     position: relative;
     border: 3px #660000 solid;
     padding: 20px;
-    margin: 125px auto;
+    margin: 100px auto;
     width: 850px;
     height: 400px;
     background: transparent;
-    box-shadow: 10px 10px 100px #A4A4A4 ;  
-    /*border-radius: 5px;*/
+    box-shadow: 0px 0px 10px #000; 
 }
 .graph_content li{ color:#660000;}
 .graph_content li:hover 
@@ -630,6 +610,7 @@ table{cursor:pointer}
 {
     color:#fff;
     background:#660000;
+    z-index:10;
 }
 #containerWood, #containerIron, #containerHybrid, #containerWedge 
 {

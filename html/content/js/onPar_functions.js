@@ -338,14 +338,12 @@ function createStatGrid(){
         data: statData,
         colNames:['year', 'GIR %', 'driving accuracy', 'driving distance'],
         colModel:[
-            {name:'year', index: 'year', width: 150},
-            {name:'gir',index:'gir', width:150, align:'center'},
-            {name:'accuracy',index:'accuracy', width:150, align:'center'},
-            {name:'distance',index:'distance', width:150, align:'center'}
+            {name:'year', index: 'year', width: 60},
+            {name:'gir',index:'gir', width:60, align:'center'},
+            {name:'accuracy',index:'accuracy', width:60, align:'center'},
+            {name:'distance',index:'distance', width:60, align:'center'}
         ],
-        rowNum:5,
-        rowList:[5,10],
-        pager: '#pager',
+        rowNum:10,
         sortname: 'year',
         viewrecords: true,
         caption:"Statistics",
