@@ -3,14 +3,14 @@
 <head> 
     <title>onPar - bar graph</title>
     <link rel="icon" type="image/ico" href="http://shadowrealm.cse.msstate.edu/favicon.ico">
-    <link rel="stylesheet" type="text/css" media="screen" href="html/content/css/style2.css">
-    <link rel="stylesheet" type="text/css" media="screen" href="html/content/css/select2.css">
-    <script type="text/javascript" src="html/content/js/jquery-1.8.3.min.js"></script>
-    <script type="text/javascript" src="html/content/js/select2.min.js"></script>
-    <script type="text/javascript" src="html/content/js/highcharts.js"></script>
-    <script type="text/javascript" src="html/content/js/onPar_SDK.js"></script>
-    <script type="text/javascript" src="html/content/js/onPar_functions.js"></script> 
-    <script type="text/javascript" src="html/content/js/bar_graph.js"></script>
+    <link rel="stylesheet" type="text/css" media="screen" href="{{ get_url('static', path='css/style2.css') }}">
+    <link rel="stylesheet" type="text/css" media="screen" href="{{ get_url('static', path='css/select2.css') }}">
+    <script type="text/javascript" src="{{ get_url('static', path='js/jquery-1.8.3.min.js') }}"></script>
+    <script type="text/javascript" src="{{ get_url('static', path='js/select2.min.js') }}"></script>
+    <script type="text/javascript" src="{{ get_url('static', path='js/highcharts.js') }}"></script>
+    <script type="text/javascript" src="{{ get_url('static', path='js/onPar_SDK.js') }}"></script>
+    <script type="text/javascript" src="{{ get_url('static', path='js/onPar_functions.js') }}"></script> 
+    <script type="text/javascript" src="{{ get_url('static', path='js/bar_graph.js') }}"></script>
 </head>
 
 <body>
@@ -22,7 +22,7 @@
 
    <header> 
 
-        <img src="html/content/images/logo.png" alt="" class="site-logo">
+        <img src="{{ get_url('static', path='images/logo.png') }}" alt="" class="site-logo">
         <h1> onPar </h1>
 
 
@@ -64,6 +64,7 @@
 
 
             <div id="graphContainer"></div>
+            <div id="legend"></div>
 
 
         </div>

@@ -21,9 +21,10 @@ var currentRound = 'all';
 function getChart(clubGroup)
 {
     var clubsText = '';
-    var yAxisText = '';
 
-    currentRound == 'all' ? yAxisText = 'Average Distance (yards)' : yAxisText = 'Distance (yards)';
+    var yAxisText = '';
+    var title = '';
+    var categories = [];
 
     if (clubGroup === WOODS) {
         clubsText = 'Woods';
@@ -35,35 +36,56 @@ function getChart(clubGroup)
         clubsText = 'Wedges';
     }
 
+    var series = getRoundData(clubGroup);
+
+    if (currentRound == 'all') {
+        yAxisText = 'Average Distance (yards)';
+        title = '\t\tAverage Distance per Club for ' + clubsText;
+
+        for (var i = 0; i < series.length; i++) {
+            categories.push(series[i].name);
+        }
+
+    } else {
+        yAxisText = 'Distance (yards)';
+        title = '\t\tDistance by hole for ' + clubsText;
+        categories = [
+            'Hole 1',
+            'Hole 2',
+            'Hole 3',
+            'Hole 4',
+            'Hole 5',
+            'Hole 6',
+            'Hole 7',
+            'Hole 8',
+            'Hole 9',
+            'Hole 10',
+            'Hole 11',
+            'Hole 12',
+            'Hole 13',
+            'Hole 14',
+            'Hole 15',
+            'Hole 16',
+            'Hole 17',
+            'Hole 18'
+        ];
+    }
+
+    makeChart(clubsText, yAxisText, title, categories, series);
+}
+
+function makeChart(clubsText, yAxisText, title, categories, series)
+{
     var chart = new Highcharts.Chart({
         chart: {
             renderTo: 'graphContainer',
             type: 'column'
         },
         title: {
-            text: 'Distance by Hole for ' + clubsText
+            text: title
         },
         xAxis: {
-            categories: [
-                'Hole 1',
-                'Hole 2',
-                'Hole 3',
-                'Hole 4',
-                'Hole 5',
-                'Hole 6',
-                'Hole 7',
-                'Hole 8',
-                'Hole 9',
-                'Hole 10',
-                'Hole 11',
-                'Hole 12',
-                'Hole 13',
-                'Hole 14',
-                'Hole 15',
-                'Hole 16',
-                'Hole 17',
-                'Hole 18'
-            ]
+            categories: categories
         },
         yAxis: {
             min: 0,
@@ -71,16 +93,16 @@ function getChart(clubGroup)
                 text: yAxisText
             }
         },
-        legend: {
+        /*legend: {
             layout: 'vertical',
             backgroundColor: '#FFFFFF',
             align: 'left',
             verticalAlign: 'top',
-            x: 100,
-            y: 70,
+            x: 0,
+            y: 100,
             floating: true,
             shadow: true
-        },
+        },*/
         tooltip: {
             formatter: function() {
                 return ''+
@@ -93,8 +115,19 @@ function getChart(clubGroup)
                 borderWidth: 0
             }
         },
-            series: getRoundData(clubGroup)
+        series: series
     });
+
+    var renderer = new Highcharts.Renderer($('#legend')[0], 10, 10);
+
+    for (var i = 0; i < series.length; i++) {
+        renderer.symbol('square', 5, 5, 4)
+        .attr({
+            'stroke-width': 0,
+            fill: chart.series[0].color
+        })
+        .add();
+    }
 }
 
 function getRoundData(clubGroup)
@@ -143,33 +176,33 @@ function getRoundData(clubGroup)
         var distances = [];
 
         if(clubGroup === WOODS) {
-            distances.push({name:'driver',data:[[],[],[],[],[],[],[],[],[],[],[],[],[],[],[],[],[],[]]});
-            distances.push({name:'3 wood',data:[[],[],[],[],[],[],[],[],[],[],[],[],[],[],[],[],[],[]]});
-            distances.push({name:'4 wood',data:[[],[],[],[],[],[],[],[],[],[],[],[],[],[],[],[],[],[]]});
-            distances.push({name:'5 wood',data:[[],[],[],[],[],[],[],[],[],[],[],[],[],[],[],[],[],[]]});
-            distances.push({name:'7 wood',data:[[],[],[],[],[],[],[],[],[],[],[],[],[],[],[],[],[],[]]});
-            distances.push({name:'9 wood',data:[[],[],[],[],[],[],[],[],[],[],[],[],[],[],[],[],[],[]]});
+            distances.push({name:'driver',data:[]});
+            distances.push({name:'3 wood',data:[]});
+            distances.push({name:'4 wood',data:[]});
+            distances.push({name:'5 wood',data:[]});
+            distances.push({name:'7 wood',data:[]});
+            distances.push({name:'9 wood',data:[]});
         } else if(clubGroup === HYBRIDS) {
-            distances.push({name:'2 hybrid',data:[[],[],[],[],[],[],[],[],[],[],[],[],[],[],[],[],[],[]]});
-            distances.push({name:'3 hybrid',data:[[],[],[],[],[],[],[],[],[],[],[],[],[],[],[],[],[],[]]});
-            distances.push({name:'4 hybrid',data:[[],[],[],[],[],[],[],[],[],[],[],[],[],[],[],[],[],[]]});
-            distances.push({name:'5 hybrid',data:[[],[],[],[],[],[],[],[],[],[],[],[],[],[],[],[],[],[]]});
-            distances.push({name:'6 hybrid',data:[[],[],[],[],[],[],[],[],[],[],[],[],[],[],[],[],[],[]]});
+            distances.push({name:'2 hybrid',data:[]});
+            distances.push({name:'3 hybrid',data:[]});
+            distances.push({name:'4 hybrid',data:[]});
+            distances.push({name:'5 hybrid',data:[]});
+            distances.push({name:'6 hybrid',data:[]});
         } else if(clubGroup === IRONS) {
-            distances.push({name:'2 iron',data:[[],[],[],[],[],[],[],[],[],[],[],[],[],[],[],[],[],[]]});
-            distances.push({name:'3 iron',data:[[],[],[],[],[],[],[],[],[],[],[],[],[],[],[],[],[],[]]});
-            distances.push({name:'4 iron',data:[[],[],[],[],[],[],[],[],[],[],[],[],[],[],[],[],[],[]]});
-            distances.push({name:'5 iron',data:[[],[],[],[],[],[],[],[],[],[],[],[],[],[],[],[],[],[]]});
-            distances.push({name:'6 iron',data:[[],[],[],[],[],[],[],[],[],[],[],[],[],[],[],[],[],[]]});
-            distances.push({name:'7 iron',data:[[],[],[],[],[],[],[],[],[],[],[],[],[],[],[],[],[],[]]});
-            distances.push({name:'8 iron',data:[[],[],[],[],[],[],[],[],[],[],[],[],[],[],[],[],[],[]]});
-            distances.push({name:'9 iron',data:[[],[],[],[],[],[],[],[],[],[],[],[],[],[],[],[],[],[]]});
+            distances.push({name:'2 iron',data:[]});
+            distances.push({name:'3 iron',data:[]});
+            distances.push({name:'4 iron',data:[]});
+            distances.push({name:'5 iron',data:[]});
+            distances.push({name:'6 iron',data:[]});
+            distances.push({name:'7 iron',data:[]});
+            distances.push({name:'8 iron',data:[]});
+            distances.push({name:'9 iron',data:[]});
         } else {
-            distances.push({name:'pitching wedge',data:[[],[],[],[],[],[],[],[],[],[],[],[],[],[],[],[],[],[]]});
-            distances.push({name:'approach wedge',data:[[],[],[],[],[],[],[],[],[],[],[],[],[],[],[],[],[],[]]});
-            distances.push({name:'sand wedge',data:[[],[],[],[],[],[],[],[],[],[],[],[],[],[],[],[],[],[]]});
-            distances.push({name:'lob wedge',data:[[],[],[],[],[],[],[],[],[],[],[],[],[],[],[],[],[],[]]});
-            distances.push({name:'high lob wedge',data:[[],[],[],[],[],[],[],[],[],[],[],[],[],[],[],[],[],[]]});
+            distances.push({name:'pitching wedge',data:[]});
+            distances.push({name:'approach wedge',data:[]});
+            distances.push({name:'sand wedge',data:[]});
+            distances.push({name:'lob wedge',data:[]});
+            distances.push({name:'high lob wedge',data:[]});
         }
 
         for (var roundIndex = 0; roundIndex < rounds.length; roundIndex++) {
@@ -181,7 +214,7 @@ function getRoundData(clubGroup)
                             // find the distance and put it in the proper place in the series data
                             for (var distancesIndex = 0; distancesIndex < distances.length; distancesIndex++) {
                                 if (distances[distancesIndex].name == getClubName(rounds[roundIndex].holes[holeIndex].shots[shotIndex].club)) {
-                                    distances[distancesIndex].data[rounds[roundIndex].holes[holeIndex].holeNumber - 1].push(parseFloat(getDistance(
+                                    distances[distancesIndex].data.push(parseFloat(getDistance(
                                         rounds[roundIndex].holes[holeIndex].shots[shotIndex].startLatitude,
                                         rounds[roundIndex].holes[holeIndex].shots[shotIndex].startLongitude,
                                         rounds[roundIndex].holes[holeIndex].shots[shotIndex].endLatitude,
@@ -197,7 +230,7 @@ function getRoundData(clubGroup)
                             // find the distance and put it in the proper place in the series data
                             for (var distancesIndex = 0; distancesIndex < distances.length; distancesIndex++) {
                                 if (distances[distancesIndex].name == getClubName(rounds[roundIndex].holes[holeIndex].shots[shotIndex].club)) {
-                                    distances[distancesIndex].data[rounds[roundIndex].holes[holeIndex].holeNumber - 1].push(parseFloat(getDistance(
+                                    distances[distancesIndex].data.push(parseFloat(getDistance(
                                         rounds[roundIndex].holes[holeIndex].shots[shotIndex].startLatitude,
                                         rounds[roundIndex].holes[holeIndex].shots[shotIndex].startLongitude,
                                         rounds[roundIndex].holes[holeIndex].shots[shotIndex].endLatitude,
@@ -213,7 +246,7 @@ function getRoundData(clubGroup)
                             // find the distance and put it in the proper place in the series data
                             for (var distancesIndex = 0; distancesIndex < distances.length; distancesIndex++) {
                                 if (distances[distancesIndex].name == getClubName(rounds[roundIndex].holes[holeIndex].shots[shotIndex].club)) {
-                                    distances[distancesIndex].data[rounds[roundIndex].holes[holeIndex].holeNumber - 1].push(parseFloat(getDistance(
+                                    distances[distancesIndex].data.push(parseFloat(getDistance(
                                         rounds[roundIndex].holes[holeIndex].shots[shotIndex].startLatitude,
                                         rounds[roundIndex].holes[holeIndex].shots[shotIndex].startLongitude,
                                         rounds[roundIndex].holes[holeIndex].shots[shotIndex].endLatitude,
@@ -229,7 +262,7 @@ function getRoundData(clubGroup)
                             // find the distance and put it in the proper place in the series data
                             for (var distancesIndex = 0; distancesIndex < distances.length; distancesIndex++) {
                                 if (distances[distancesIndex].name == getClubName(rounds[roundIndex].holes[holeIndex].shots[shotIndex].club)) {
-                                    distances[distancesIndex].data[rounds[roundIndex].holes[holeIndex].holeNumber - 1].push(parseFloat(getDistance(
+                                    distances[distancesIndex].data.push(parseFloat(getDistance(
                                         rounds[roundIndex].holes[holeIndex].shots[shotIndex].startLatitude,
                                         rounds[roundIndex].holes[holeIndex].shots[shotIndex].startLongitude,
                                         rounds[roundIndex].holes[holeIndex].shots[shotIndex].endLatitude,
@@ -244,20 +277,44 @@ function getRoundData(clubGroup)
             }
         }
 
+        var realSeries = [];
+
         // loop throught the distances and average the integers in the arrays
         for (distancesIndex = 0; distancesIndex < distances.length; distancesIndex++) {
             // distances index will line up with series index
-            for (dataIndex = 0; dataIndex < distances[distancesIndex].data.length; dataIndex++) {
-                // dataIndex will line up with data index in series
-                if (distances[distancesIndex].data[dataIndex].length != 0) {
-                    var sum = 0;
-                    for (var i = 0; i < distances[distancesIndex].data[dataIndex].length; i++) {
-                        sum += distances[distancesIndex].data[dataIndex][i];
-                    }
-                    series[distancesIndex].data[dataIndex] = parseFloat(sum / distances[distancesIndex].data[dataIndex].length);
+            if (distances[distancesIndex].data.length !== 0) {
+                // average the distances in the data portion of the object
+                var sum = 0;
+                for (var i = 0; i < distances[distancesIndex].data.length; i++) {
+                    sum += distances[distancesIndex].data[i];
                 }
+
+                var newData = [];
+                newData.push(sum / distances[distancesIndex].data.length);
+
+                distances[distancesIndex].data = newData;
+
+                // add this item from the list
+                // because there is data for that club
+                realSeries.push(distances[distancesIndex]);
             }
         }
+
+        // pad the series with 0s so everything shows up in the correct place
+        for (var j = 0; j < realSeries.length; j++) {
+            var data = realSeries[j].data[realSeries[j].data.length - 1];
+            var newData = [];
+            for (var k = 0; k < realSeries.length; k++) {
+                if (k == j) {
+                    newData.push(data);
+                } else {
+                    newData.push(0);
+                }
+            }
+            realSeries[j].data = newData;
+        }
+
+        series = realSeries;
 
     } else {
         // single round
@@ -331,21 +388,23 @@ function getRoundData(clubGroup)
                 }
             }
         }
-    }
 
-    var realSeries = [];
+        var realSeries = [];
 
-    // loop through the series. If any item's data element is all 0s, don't add it to real series
-    for (var seriesIndex = 0; seriesIndex < series.length; seriesIndex++) {
-        var check = 0;
-        for (var i = 0; i < 18; i++) {
-            check += series[seriesIndex].data[i];
+        // loop through the series. If any item's data element is all 0s, don't add it to real series
+        for (var seriesIndex = 0; seriesIndex < series.length; seriesIndex++) {
+            var check = 0;
+            for (var i = 0; i < 18; i++) {
+                check += series[seriesIndex].data[i];
+            }
+            if (check != 0) 
+                realSeries.push(series[seriesIndex]);
         }
-        if (check != 0) 
-            realSeries.push(series[seriesIndex]);
+
+        series = realSeries;
     }
 
-    return realSeries;
+    return series;
 }
 
 /****************************************************************************
