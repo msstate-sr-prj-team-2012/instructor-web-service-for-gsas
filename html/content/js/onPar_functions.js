@@ -419,17 +419,15 @@ function enablePowerTip(){
 // formats date to a more readable form
 function formatDate(date){
     var m_names = new Array("Jan", "Feb", "Mar", "Apr", "May", "Jun", "Jul", "Aug", "Sep", "Oct", "Nov", "Dec");       
-    var d = new Date(date);
     var a_p;
-    var hour = d.getHours();
+    var hour = (date.split(' ')[1]).split(':')[0];
     if (hour < 12){ a_p = "am";}
     else{a_p = "pm";}
     if (hour == 0){ hour = 12;}
     if (hour > 12){ hour -= 12;}
-    
     var new_date = {
-        date: d.getDate() + "-" + m_names[d.getMonth()] + "-" + d.getFullYear(),
-        time: hour + ":" + d.getMinutes() + " " + a_p
+        date: (date.split('-')[2]).split(' ')[0] + "-" + m_names[Math.round(date.split('-')[1])] + "-" + date.split('-')[0],
+        time: hour + ":" + (date.split(' ')[1]).split(':')[1] + " " + a_p
     };
     
     return new_date;
