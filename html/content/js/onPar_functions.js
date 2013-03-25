@@ -321,13 +321,15 @@ var user = new User(localStorage.getItem('userID'));
 
 function getStatData(){   
     statData = [];
-    for(var i = 0;i < 2; i++){
-        statData.push({
-            year: (2012 + i),
-            gir: (user.stats[2012 + i].GIR_percentage).toFixed(2),
-            accuracy: (user.stats[2012 + i].driving_accuracy).toFixed(2),
-            distance: (user.stats[2012 + i].driving_distance).toFixed(2) 
-        })
+    for(var i = 0;i < 2; i++) {
+        if (typeof(user.stats[1012 + i]) != 'undefined') {
+            statData.push({
+                year: (2012 + i),
+                gir: (user.stats[2012 + i].GIR_percentage).toFixed(2),
+                accuracy: (user.stats[2012 + i].driving_accuracy).toFixed(2),
+                distance: (user.stats[2012 + i].driving_distance).toFixed(2) 
+            });
+        }
     }  
     createStatGrid();
 }
