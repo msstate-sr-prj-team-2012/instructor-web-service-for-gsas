@@ -21,9 +21,36 @@ $(document).ready(function () {
 		$(this).addClass('selected');
 	});
 	
+	$("#golfer_select").change(function () {
+        var admin_url = document.location.href;
+        admin_url = admin_url.slice(document.location.href.length - 5, document.location.href.length);
+
+        //Make sure that the user is not on the admin page
+        if (admin_url != 'admin') {
+            localStorage.removeItem('rounds');
+            localStorage.setItem('userID', $("#golfer_select").select2('data').id);
+            document.location.href = defines.BASE_PATH + '/rounds';
+        }
+    });
+	
     $('#golfer_select').change(function () {
         selectedUser = true;
     });
+	
+	$('#golfer_select').select2({
+        data:select2SelectFieldData()
+    });
+	
+	function select2SelectFieldData()
+	{
+		var data = new Array();
+		var users = UserGetAll();
+		for (var i = 0; i < users.length; i++) {
+			var item = { id:users[i].ID, text:users[i].name };
+			data.push(item);
+		}
+		return data;
+	}
 
 	$('#administrative').show();
 	$('#golferreselect').hide();
@@ -361,7 +388,7 @@ function setupPage() {
     //
     //**********************************************************************
     $(document).on('click', '#deleteRounds', function () {
-        /*$('#golferreselect').show();
+        $('#golferreselect').show();
 		$('#golferselect').hide();
 		
 		if (getID()) {
@@ -379,22 +406,22 @@ function setupPage() {
 			{
 				var roundClass = new RoundGetAll(user.ID);
 				
-				if(roundClass.length > 0)
+				if(roundClass.rounds.length > 0)
 				{
-					for (var i = 0; i < roundClass.length; i++) {
+					for (var i = 0; i < roundClass.rounds.length; i++) {
 						tableStr += "<tr>";
 						tableStr += "<td>";
-						tableStr += '<input type="checkbox" name="rounds" id="' + roundClass[i].ID + '" value="'+ roundClass[i].startTime.split(' ')[0] + "\n Time: " + roundClass[i].startTime.split(' ')[1] + '/>';
+						tableStr += '<input type="checkbox" value="'+ roundClass.rounds[i].ID +'" />';
 						tableStr += "</td>";
 						tableStr += "<td>";
-						tableStr += roundClass[i].startDate;
+						tableStr += roundClass.rounds[i].startTime;
 						tableStr += "</td>";
 						tableStr += "</tr>";
 					}
 				}
 				else
 				{
-					tableStr += "<tr><td colspan='2'>No rounds for this user! ID: " + user.ID + "</td></tr><tr><td colspan='2'>Rounds: " + roundClass.length + "</td></tr>";
+					tableStr += "<tr><td colspan='2'>No rounds for this user! ID: " + user.ID + "</td></tr><tr><td colspan='2'>Rounds: " + roundClass.rounds.length + "</td></tr>";
 				}
 				
 				$(document).on('click', '#deleteRoundButton', function () {
@@ -403,8 +430,9 @@ function setupPage() {
 						return;
 					}
 					
-					$(":checkbox:checked").each(function(i){
-						roundClass[$(this).val()].del();
+					$("input:checkbox:checked").each(function(i){
+						//showError($(this).val());
+						roundClass.rounds[$(this).val()].del();
 					})
 				});
 			}
@@ -413,7 +441,7 @@ function setupPage() {
 				tableStr += "<tr><td>Could not get user!</td></tr>";
 			}
 			document.getElementById('roundTable').innerHTML = tableStr;
-        }*/
+        }
     });
 	
 	$(document).on('click', '#golferreselect', function () {
@@ -509,4 +537,15 @@ function showError(error)
 function showConfirmation(message)
 {
 	alert(error);
+}
+
+function select2SelectFieldData()
+{
+    var data = new Array();
+    var users = UserGetAll();
+    for (var i = 0; i < users.length; i++) {
+        var item = { id:users[i].ID, text:users[i].name };
+        data.push(item);
+    }
+    return data;
 }
