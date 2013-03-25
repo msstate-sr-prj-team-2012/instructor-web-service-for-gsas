@@ -81,6 +81,22 @@
             /* W3C Markup, IE10 Release Preview */ 
             background-image: linear-gradient(to top, #000000 0%, #3A000D 5%, #3A000D 95%, #FFFFFF 100%);
          }
+		 .errordiv
+		 {
+			position: absolute; 
+			float: none; 
+			width: 290px; 
+			height: 150px; 
+			display: block; 
+			margin-top: 150px; 
+			margin-left: 457px;  
+			-webkit-border-radius: 3px;
+			box-shadow: 0px 0px 1000px #888;
+			border-style: outset;
+			border-width: 5px;
+			border-radius: 10px;
+			padding: 0px 0px 0px 0px;
+		 }
     </style>
 
 </head>
@@ -99,12 +115,7 @@
 	<!--==============================content================================-->
 
 	<div class="content">
-        <div id="passwordDiv" style="float: none; position: relative; margin: 120px auto;">
-            <input type="password" class="memid" name="passcode" placeholder="password" style="width: 250px; height: 25px;" id="pass" /><br/>
-            <input type="button" class="button_example" style="margin-top: 14px;" id="passbtn" value="Submit" /><br />
-            <div id="errmsg"></div>
-        </div>
-
+		
 		<div id="administrative">
 			<div id="golferseldiv">
                 <div id="golferselect" style=" margin-top: 30px; display: inline-block;">

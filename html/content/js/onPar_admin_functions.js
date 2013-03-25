@@ -11,33 +11,25 @@ var roundClass = [];
 userChange = false;
 
 $(document).ready(function () {
-
-    //$('#administrative').hide();
     $('#userform').hide();
     $('#roundselect').hide();
-	$('#administrative').hide();
-
+	
+	$("#shortthemes a").click(function(e){
+		e.preventDefault();
+		$("link#theme").attr('href',$(this).attr('href'));
+		$("#shortthemes a").removeClass('selected');
+		$(this).addClass('selected');
+	});
+	
     $('#golfer_select').change(function () {
         selectedUser = true;
     });
 
-   $(document).on('click', '#passbtn', function () {
-        var passcode = '12345';
-        var entered = document.getElementById('pass').value;
+	$('#administrative').show();
+	$('#golferreselect').hide();
 
-        if (passcode == entered) {
-            $('#passwordDiv').hide();
-            $('#administrative').show();
-			$('#golferreselect').hide();
-
-            //allow admin functions
-            setupPage();
-        }
-        else {
-            $('#errmsg').show();
-            document.getElementById('errmsg').innerHTML = "Error: Password entered incorrectly";
-        }
-    });
+	//allow admin functions
+	setupPage();
 });
 
 function setupPage() {
@@ -141,7 +133,7 @@ function setupPage() {
             //Code to run when admin click "Save changes" while editing user info
             $(document).on('click', '#save', function () {
                 //Flag for making sure information is validated
-                var validated = false;
+                var validated = true;
 
                 //Make sure the user has changed any data before saving changes to the database
                 if (userChange == true) {
@@ -156,23 +148,22 @@ function setupPage() {
                     //Run the new member id through a regex to validate
 					var cMemID = document.getElementById('umemID1').value + "M-" + document.getElementById('umemID2').value;
                     if (checkmemberID(cMemID)) {
-                        validated = true;
                         user.memberID = cMemID;
                     }
                     else {
                         validated = false;
                         //Throw an error
-                        alert('Error: Use format NNNNM-NNNNNN, where N is any digit 0 - 9.  Example: 1234M-567890');
+						showError('Error: Check MemID');
                     }
 
                     //Run the new email through a regex to validate
                     if (checkemail(document.getElementById('uemail').value)) {
-                        validated = true;
                         user.email = document.getElementById('uemail').value;
                     }
                     else {
                         validated = false;
-                        alert('Not a valid e-mail.  Use format abcd123@efgh.ijk');
+						
+						showError('Not a valid e-mail.  Use format abcd123@efgh.ijk');
                     }
 					
 					if(checkdate(document.getElementById('ubdatechange').value))
@@ -181,7 +172,9 @@ function setupPage() {
 					}
 					else {
                         validated = false;
-                        alert('Use for YYYY-MM-DD for entering dates!');
+						
+						showError('Use for YYYY-MM-DD for entering dates!');
+						
                     }
 					
                     //Save the new gender
@@ -193,7 +186,8 @@ function setupPage() {
                     }
                     else {
                         validated = false;
-                        alert("Alert:  Please select gender!");
+						
+						showError("Please select gender!");
                     }
 
                     //Save the new hand
@@ -205,13 +199,17 @@ function setupPage() {
                     }
                     else {
                         validated = false;
-                        alert("Alert:  Please select gender!");
+						
+						showError("Please select gender!");
                     }
 
                     //Before saving, make sure both email and memberID were correct
                     if (validated) {
                         if (user.save()) {
-                            alert("Changes Saved!");
+							
+							//Modify the message box to show "Change
+							showConfirmation("Changes Saved!");
+						
                             $('#userform').hide();
                         }
                     }
@@ -220,7 +218,9 @@ function setupPage() {
                 }
                     //Alert the admin that no changes were detected
                 else {
-                    alert("No changes have been detected.  Please make changes before saving a user.");
+				
+					//Modify the message box to show "Change
+					showError("No changes have been detected.  Please make changes before saving a user.");
                 }
             });
         }
@@ -248,7 +248,8 @@ function setupPage() {
                 user = new User(userID);
 
                 if (user.del()) {
-                    alert("User was deleted");
+                    //Modify the message box to show "Change
+					showConfirmation("User was deleted!");
                 }
             }
         }
@@ -265,7 +266,7 @@ function setupPage() {
 		$('#golferselect').hide();
 		
 		//Flag for making sure information is validated
-        var validated = false;
+        var validated = true;
 
         //load an empty user form.
         $('#userform').show();
@@ -296,23 +297,24 @@ function setupPage() {
             //Run the new member id through a regex to validate
 			var cMemID1 = document.getElementById('umemID1').value + "M-" + checkmemberID(document.getElementById('umemID2').value);
 			if (checkmemberID(cMemID)) {
-				validated = true;
 				user.memberID = document.getElementById('umemID').value;
 			}
             else {
                 validated = false;
                 //Throw an error
-                alert('Error: Use format NNNNM-NNNNNN, where N is any digit 0 - 9.  Example: 1234M-567890');
+				//Modify the message box to show "Change
+				showError("Error: Use format NNNNM-NNNNNN, where N is any digit 0 - 9.  Example: 1234M-567890");
             }
 
             //Run the new email through a regex to validate
             if (checkemail(document.getElementById('uemail').value)) {
-                validated = true;
                 user.email = document.getElementById('uemail').value;
             }
             else {
                 validated = false;
-                alert('Not a valid e-mail.  Use format abcd123@efgh.ijk');
+				
+				//Modify the message box to show "Change
+				showError("Not a valid e-mail.  Use format abcd123@efgh.ijk");
             }
 
             //Save the new gender
@@ -324,7 +326,7 @@ function setupPage() {
             }
             else {
                 validated = false;
-                alert("Alert:  Please select gender!");
+                showError("Please select gender!");
             }
 
             //Save the new hand
@@ -336,13 +338,14 @@ function setupPage() {
             }
             else {
                 validated = false;
-                alert("Alert:  Please select gender!");
+                showError("Please select gender!");
             }
 
             //Before saving, make sure both email and memberID were correct
             if (validated) {
                 if (user.save()) {
-                    alert("Changes Saved!");
+                    showConfirmation("Changes Saved!");
+					
                     $('#userform').hide();
                 }
             }
@@ -358,7 +361,7 @@ function setupPage() {
     //
     //**********************************************************************
     $(document).on('click', '#deleteRounds', function () {
-        $('#golferreselect').show();
+        /*$('#golferreselect').show();
 		$('#golferselect').hide();
 		
 		if (getID()) {
@@ -396,7 +399,7 @@ function setupPage() {
 				
 				$(document).on('click', '#deleteRoundButton', function () {
 					if($("input:checkbox:checked").length === 0){
-						alert("Please select at least one date to continue.");
+						showError('Please select at least one date to continue.');
 						return;
 					}
 					
@@ -410,7 +413,7 @@ function setupPage() {
 				tableStr += "<tr><td>Could not get user!</td></tr>";
 			}
 			document.getElementById('roundTable').innerHTML = tableStr;
-        }
+        }*/
     });
 	
 	$(document).on('click', '#golferreselect', function () {
@@ -492,8 +495,18 @@ function getID() {
         return true;
     }
     else {
-        alert('Please select a golfer or enter a member ID!');
+		showError('Please select a golfer or enter a member ID!');
         return false;
     }
     //**************************************************
+}
+
+function showError(error)
+{
+	alert(error);
+}
+
+function showConfirmation(message)
+{
+	alert(error);
 }
