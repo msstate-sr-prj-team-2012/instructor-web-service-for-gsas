@@ -388,7 +388,9 @@ function setupPage() {
             $('#userform').hide();
             $('#roundselect').show();
             var tableStr = '';
-			document.getElementById('tablehead').innerHTML = 'All rounds for ' + user.name;;
+			document.getElementById('roundTable').innerHTML = '';
+			document.getElementById('tablehead').innerHTML = 'All rounds for ' + user.name;
+			
 			if(user.ID != null)
 			{
 				var roundClass = new RoundGetAll(user.ID);
@@ -405,24 +407,31 @@ function setupPage() {
 						tableStr += "</td>";
 						tableStr += "</tr>";
 					}
+					
+					document.getElementById('roundTable').innerHTML = tableStr;
+					
+					$(document).on('click', '#deleteRoundButton', function () {
+						if($("input:checkbox:checked").length == 0)
+						{
+							showError('Please select at least one date to continue.');
+							return;
+						}
+						else
+						{
+							$("input:checkbox:checked").each(function(i){
+								//showError($(this).val());
+								roundClass.rounds[$(this).val()].del();
+							});
+						}
+					});
+					
+					$('#deleteRoundButton').show();
 				}
 				else
 				{
-					tableStr += "<tr><td colspan='2'>No rounds for this user!</td></tr>";
+					document.getElementById('tablehead').innerHTML = "No rounds for this user!";
+					$('#deleteRoundButton').hide();
 				}
-				
-				$(document).on('click', '#deleteRoundButton', function () {
-					if($("input:checkbox:checked").length === 0){
-						showError('Please select at least one date to continue.');
-						return;
-					}
-					
-					$("input:checkbox:checked").each(function(i){
-						//showError($(this).val());
-						roundClass.rounds[$(this).val()].del();
-					})
-				});
-				document.getElementById('roundTable').innerHTML = tableStr;
 			}
         }
     });
