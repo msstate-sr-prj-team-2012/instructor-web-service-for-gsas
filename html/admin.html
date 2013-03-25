@@ -102,6 +102,17 @@
 			border-radius: 10px;
 			padding: 0px 0px 0px 0px;
 		 }
+		 
+		 .roundsDel
+		 {
+			width: 50%;
+			margin-left: 18%;
+		 }
+		 .roundsDelcheckboxTd
+		 {
+			text-align: right;
+			width: 100px;
+		 }
     </style>
 
 </head>
@@ -175,7 +186,8 @@
 				</form>
 			</div>
 			<div id="roundselect" class="formstyle">
-				<table id="roundTable">
+				<span style="width: 100%; text-align: center;" id="tablehead"></span>
+				<table id="roundTable" class="roundsDel">
 				</table>
 				<input type="button" class="button_example" id="deleteRoundButton" value="Delete Selected" />
 			</div>

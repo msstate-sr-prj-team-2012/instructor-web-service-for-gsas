@@ -262,23 +262,14 @@ function setupPage() {
     $(document).on('click', '#deleteGolfer', function () {
         if (getID()) {
             //display a warning message.  If confirm, delete user
-            var r = confirm("WARNING: pressing this button results in the selected user being deleted.\nPress OK to continue or cancel to stop the deletion.");
-            if (r == true) {
-                //delete user
-                //load the user data into the form for editing
-                if (document.getElementById('uID').value == '') {
-                    userID = $('#golfer_select').select2('data').id;
-                }
-                else {
-                    userID = document.getElementById('uID').value;
-                }
-                user = new User(userID);
-
-                if (user.del()) {
-                    //Modify the message box to show "Change
-					showConfirmation("User was deleted!");
-                }
-            }
+            smoke.confirm("WARNING: pressing this button results in the selected user being deleted.\nPress OK to continue or cancel to stop the deletion.",
+				function(e){
+					if (e){
+						user = new User(userID);
+						//if (user.del()) {showConfirmation("User was deleted!");}
+					}
+				}
+			);
         }
     });
     //**********************************************************************
@@ -388,20 +379,16 @@ function setupPage() {
     //
     //**********************************************************************
     $(document).on('click', '#deleteRounds', function () {
-        $('#golferreselect').show();
-		$('#golferselect').hide();
-		
+	
 		if (getID()) {
-            user = new User(userID);
+            $('#golferreselect').show();
+			$('#golferselect').hide();
+			
+			user = new User(userID);
             $('#userform').hide();
             $('#roundselect').show();
             var tableStr = '';
-            tableStr += "<tr>";
-            tableStr += "<th colspan=2>";
-            tableStr += 'All rounds for ' + user.name;
-            tableStr += "</th>";
-            tableStr += "</tr>";
-            
+			document.getElementById('tablehead').innerHTML = 'All rounds for ' + user.name;;
 			if(user.ID != null)
 			{
 				var roundClass = new RoundGetAll(user.ID);
@@ -410,7 +397,7 @@ function setupPage() {
 				{
 					for (var i = 0; i < roundClass.rounds.length; i++) {
 						tableStr += "<tr>";
-						tableStr += "<td>";
+						tableStr += '<td  class="roundsDelcheckboxTd">';
 						tableStr += '<input type="checkbox" value="'+ roundClass.rounds[i].ID +'" />';
 						tableStr += "</td>";
 						tableStr += "<td>";
@@ -421,7 +408,7 @@ function setupPage() {
 				}
 				else
 				{
-					tableStr += "<tr><td colspan='2'>No rounds for this user! ID: " + user.ID + "</td></tr><tr><td colspan='2'>Rounds: " + roundClass.rounds.length + "</td></tr>";
+					tableStr += "<tr><td colspan='2'>No rounds for this user!</td></tr>";
 				}
 				
 				$(document).on('click', '#deleteRoundButton', function () {
@@ -435,18 +422,15 @@ function setupPage() {
 						roundClass.rounds[$(this).val()].del();
 					})
 				});
+				document.getElementById('roundTable').innerHTML = tableStr;
 			}
-			else
-			{
-				tableStr += "<tr><td>Could not get user!</td></tr>";
-			}
-			document.getElementById('roundTable').innerHTML = tableStr;
         }
     });
 	
 	$(document).on('click', '#golferreselect', function () {
         $('#golferreselect').hide();
 		$('#userform').hide();
+		$('#roundselect').hide();
 		$('#golferselect').show();
     });
     //*********************************************************************
@@ -531,12 +515,12 @@ function getID() {
 
 function showError(error)
 {
-	alert(error);
+	smoke.alert('<p style="color: red;">' + error + '</p>');
 }
 
 function showConfirmation(message)
 {
-	alert(error);
+	smoke.alert(error);
 }
 
 function select2SelectFieldData()
