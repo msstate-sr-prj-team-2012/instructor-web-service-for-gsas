@@ -177,7 +177,7 @@ function createNavigationMenu(){
             if(window.location.pathname === (defines.BASE_PATH + '/rounds')){
                 document.getElementById("currently_viewing").innerHTML= 
                     "<span>Golfer: </span>" + golfer.name + " &nbsp;&nbsp;&nbsp;&nbsp; " +
-                    "<span>Age: </span>" + golfer.birthDate + " &nbsp;&nbsp;&nbsp;&nbsp; " +
+                    "<span>Age: </span>" + golfer.age + " &nbsp;&nbsp;&nbsp;&nbsp; " +
                     "<span>Sex: </span>" + golfer.gender + " &nbsp;&nbsp;&nbsp;&nbsp; " +
                     "<span>Hand: </span>" + golfer.hand + "\n";
             }
