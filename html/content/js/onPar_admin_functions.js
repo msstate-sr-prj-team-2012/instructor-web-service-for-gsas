@@ -567,7 +567,7 @@ function getID() {
 
 function showError(error)
 {
-	smoke.alert('<p style="color: red;">' + error + '</p>');
+	smoke.alert(error);
 }
 
 function showConfirmation(message)

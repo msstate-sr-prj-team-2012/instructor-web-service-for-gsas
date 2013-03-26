@@ -358,27 +358,67 @@ nav ul li:hover > a
  *
  ****************************************************************************/
 
-.admin
-{
-    position: relative;
-    padding: 0;
-    margin: 50px auto;
-    width: 780px;
-    height: auto;
-    color: #848484;
+.button_example{
+	font: 12px 'Open Sans', Century Gothic, 'TeXGyreAdventorRegular', sans-serif;
+	height: 30px;
+	margin: 5px 3px 5px 3px;
+	padding-left: 4px;
+	padding-right: 4px;
+	box-shadow: 0px 0px 5px #000; 
 }
-.admin h1
-{
-    position: absolute;
-    top: 50px;
-    left: 210px;
-    width: 600px;
-    text-align: left;
-    font-size: 35px;
-    color: #848484;
-    line-height: 50px;
-    font-weight: 100;
+ 
+.memid {
+	height: 20px;
+	border-radius: 5px;
+	text-align: center;
 }
+.formheading {
+	font-size: 20px;
+	display: inline-block; 
+	background-color: #888888; 
+	width: 75%;
+	padding: 10px 10px 10px 10px;
+}
+.formfield {
+	display: inline-block; 
+	padding: 10px 10px 10px 10px; 
+	background-color: #AAAAAA; 
+	width: 75%;
+}
+.admin-button-list {
+	font-size: 20px;
+	display: inline-block; 
+	background-color: #888888; 
+	width: 75%;
+	padding: 10px 10px 10px 10px;
+}
+
+.formstyle {
+	width: 50%; 
+	float: none;
+	margin-top: -30px;
+	margin-left: 25%;
+	color: auto;
+	padding: 10px;
+	background: transparent;
+}
+.golferreselect
+{
+	margin-top: 30px; 
+	margin-bottom: 20px; 
+	display: inline-block;
+}
+ 
+ .roundsDel
+ {
+	width: 50%;
+	margin-left: 18%;
+ }
+ .roundsDelcheckboxTd
+ {
+	text-align: right;
+	width: 100px;
+ }
 
 /****************************************************************************
  *
