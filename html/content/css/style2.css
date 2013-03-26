@@ -24,7 +24,7 @@ body
     font: 12px/25px 'Open Sans', Century Gothic, 'TeXGyreAdventorRegular', sans-serif;
     font-weight: 500;
     background: url("../images/low_contrast_linen.png") repeat fixed;
-    background: url("../images/black-Linen.png") repeat fixed;
+    /*background: url("../images/black-Linen.png") repeat fixed;*/
     /*background: url("../images/golfcourse.jpg") center fixed;*/
     /*background: -webkit-gradient(linear, left top, left bottom, from(#660000), to(#3B0B0B));*/
 
