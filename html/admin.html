@@ -18,7 +18,7 @@
     <script type="text/javascript" src="html/content/js/onPar_functions.js"></script>
     <script type="text/javascript" src="html/content/js/onPar_admin_functions.js"></script>
     <script type="text/javascript" src="html/content/smoke/smoke.min.js"></script>
-    <body>
+  <body>
  <div id="page-wrap">
     <!--==============================header=================================-->
    <header> 
@@ -37,7 +37,10 @@
 		<div id="administrative">
 			<div id="golferseldiv" class="formstyle">
                 <div id="golferselect" style=" margin-top: 30px; display: inline-block;">
-                    <p class="formheading">Choose a Golfer</p>
+                    <div class="formheading">
+						<input type="button" id="addGolfer" class="button_addGolfer" value="Add Golfer" />
+						Choose a Golfer
+					</div>
 				    <span class="formfield">
 						<input type="hidden" id="golfer_select" placeholder="Select Golfer..." style="width:300px;"/><br/> or <br/>
 						<input type="text" class="memid" placeholder="Enter Golfer ID" id="uID" style="width: 300px;" />
@@ -46,7 +49,6 @@
                     <input type="button" id="editGolfer" class="button_example" value="Edit Golfer"/>
 				    <input type="button" id="deleteGolfer" class="button_example" value="Delete Golfer"/>   
                     <input type="button" id="deleteRounds" class="button_example" value="Delete Rounds"/>   
-                    <input type="button" id="addGolfer" class="button_example" value="Add Golfer" />
 				    </p>
 			    </div>
 				<div id="golferreselect" class="golferreselect">
