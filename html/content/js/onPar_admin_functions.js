@@ -253,7 +253,15 @@ function setupPage() {
 							showConfirmation("Changes Saved!");
 						
                             $('#userform').hide();
+							
+							$('#golfer_select').select2({
+								data:select2SelectFieldData()
+							});
                         }
+						else
+						{
+							showConfirmation("An error has occurred while trying to save the changes!");
+						}
                     }
                     //Set the user change flag to zero for another edit
                     userChange = false;
@@ -391,6 +399,11 @@ function setupPage() {
                     showConfirmation("Changes Saved!");
 					
                     $('#userform').hide();
+					
+					//Update the golfer selection box
+					$('#golfer_select').select2({
+						data:select2SelectFieldData()
+					});
                 }
 				else
 				{
