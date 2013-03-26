@@ -1,8 +1,7 @@
-var EARTH_RADIUS_IN_YARDS = 13950131.0 / 2;
 var currentRound = 0;
 var currentHole = 0;
 var currentClub = 0;
-var currentShot = 0;
+var currentShot = 1;
 var selectedHView;
 var selectedHole = 0;
 var html;
@@ -12,9 +11,19 @@ var hole;
 var Shots = 0;
 //var club = 1;
 
+function convertGPStoYards(lat1, long1, lat2, long2)
+{
+    var dLat = (lat2 - lat1)*(Math.PI / 180);
+    var dLong = (long2 - long1)*(Math.PI / 180);
+    var a = Math.pow(Math.sin(dLat/2),2) + Math.cos(lat1) + Math.cos(lat2) + Math.pow(Math.sin(dLong/2),2);
+    var c = 2 * Math.atan(Math.sqrt(a), Math.sqrt(1 - a));
+    
+    return Math.round(6967420.2 * c).toFixed(2);
+}
+
 /****************************************************************************
  *
- * Degree/Radian conversion functions
+ * Draw the Scaled Ending Location of each shot
  *
  ****************************************************************************/
 function drawLine()
@@ -22,37 +31,46 @@ function drawLine()
 
     var shotArray = [];
     var color;
-   // var clubName = getClubName(club);
-
 
     html = "<svg>\n";
 
-    html += "<ellipse cx= '425' cy= '350'  rx= '425' ry='325' stroke= 'black'\n ";
-    html += "stroke-width= '2' fill= '#F4F4F4'>\n";
-    html += "</ellipse>\n\n";
+     html += "<ellipse cx= '283' cy= '350'  rx= '283' ry='325' stroke= 'black'\n ";
+     html += "stroke-width= '2' fill= '#F4F4F4'>\n";
+     html += "</ellipse>\n\n";
 
-    html += "<line x1 = '425'  y1= '25' x2= '425' y2= '350' \n ";
-    html += "stroke='black' stroke-width='3'>\n";
+    html+="<text x=270 y=20 fill=black>AIM</text>";
+
+    html += "<line x1 = '283'  y1= '25' x2= '283' y2= '350' \n ";
+    html += "stroke='black' stroke-width='2'>\n";
     html += "<title> Aim </title>\n";
     html += "</line>\n\n";
 
-    html += "<circle cx= '425' cy= '350' r= '5' stroke= 'black'\n ";
-    html += "stroke-width= '2' fill= 'black'>\n";
-    html += "</circle>\n\n";
+    html += "<line x1 = '283'  y1= '25' x2= '273' y2= '45' \n ";
+    html += "stroke='black' stroke-width='2'>\n";
+    html += "<title> Aim </title>\n";
+    html += "</line>\n\n";
 
-    html += "<circle cx= '425' cy= '25'  r= '3' stroke= 'black'\n ";
-    html += "stroke-width= '2' fill= 'black'>\n";
-    html += "</circle>\n\n";
+    html += "<line x1 = '283'  y1= '25' x2= '293' y2= '45' \n ";
+    html += "stroke='black' stroke-width='2'>\n";
+    html += "<title> Aim </title>\n";
+    html += "</line>\n\n";
 
-
-
+    html += "<line x1 = '566'  y1= '0' x2= '566' y2= '350' \n ";
+    html += "stroke='black' stroke-width='1'>\n";
+    html += "<title> Aim </title>\n";
+    html += "</line>\n\n";
+    
+     html += "<circle cx= '283' cy= '350' r= '5' stroke= 'black'\n ";
+     html += "stroke-width= '2' fill= 'black'>\n";
+     html += "</circle>\n\n";
+     
     for (var i = 0; i < rounds.length; i++) {
 
         var holeObject = (rounds[i].holes).filter(function(obj) {
             return (obj.holeNumber === currentHole);
         })[0];
 
-        if (holeObject !== undefined)/* || holeObject.length !== 0)*/ {
+        if (holeObject !== undefined) {
 
             var shotObject = (holeObject.shots).filter(function(obj) {
                 return (obj.shotNumber === currentShot);
@@ -69,12 +87,15 @@ function drawLine()
         for (var j = 0; j < shotArray.length; j++)
         {
             var club = shotArray[j].club;
+			var clubX;
+            var clubY;
             var color = 'white';
+			
+			var avrgAimDist = 0;
+			var avrgEndDist = 0;
+			
             var startLat = shotArray[j].startLatitude;
             var startLon = shotArray[j].startLongitude;
-            var clubX;
-            var clubY;
-
 
             var aimLon = shotArray[j].aimLongitude;
             var aimLat = shotArray[j].aimLatitude;
@@ -86,88 +107,38 @@ function drawLine()
             var A = ((aimLat * aimLon) ^ 2) ^ (1 / 2);
             var E = ((endLat * endLon) ^ 2) ^ (1 / 2);
             var lowerAE = A * E;
+			
             var angle = Math.acos(upperAE / lowerAE);
 
             var radEndLat = (endLat * Math.PI) / 180;
             var radEndLon = (endLon * Math.PI) / 180;
+			
             var pxEndLat = 5376 * Math.tan(radEndLat / 2);
             var pxEndLon = 5376 * Math.tan(radEndLon / 2);
 
             var radian = (angle * Math.PI) / 180;
             var px = 5376 * Math.tan(radian / 2);
-
+      
+            var aimDistance =  getDistance(startLat, startLon, aimLat, aimLon);
+            var endDistance = getDistance(startLat, startLon, endLat, endLon);
+			
+			avrgAimDist += aimDistance;
+			avrgEndDist += endDistance;
+            
             var slice = px + 425;
             var hash = px - 90;
-
-            //Draw the line
-            if (startLon <= aimLon && startLat < aimLat)//Start South : Aim/End North
-            {
-                if (aimLon > endLon)
-                {
-                    html += "<line x1 = '425'  y1= '350' x2= '" + px + "' y2= '" + px + "' \n ";
-                    html += "stroke='black' stroke-width='2'>\n";
-                    html += "<title> " + px + "</title>\n";
-                    html += "</line>\n\n";
-                    html += "<circle cx= '" + pxEndLon + "' cy= '" + pxEndLat + "' r= '3' stroke= 'black'\n ";
-                    html += "stroke-width= '2' fill= 'black'>\n";
-                    html += "</circle>\n\n";
-                    
-                    clubX=px;
-                    clubY=px;
-                }
-                if (aimLon <= endLon)
-                {
-                    html += "<line x1 = '425'  y1= '350' x2= '" + slice + "' y2= '" + px + "' \n ";
-                    html += "stroke='black' stroke-width='2'>\n";
-                    html += "<title> " + px + "</title>\n";
-                    html += "</line>\n\n";
-                    html += "<circle cx= '" + pxEndLon + "' cy= '" + pxEndLat + "' r= '3' stroke= 'black'\n ";
-                    html += "stroke-width= '2' fill= 'black'>\n";
-                    html += "</circle>\n\n";
-                    
-                    clubX=slice;
-                    clubY=px;
-                }
-            }
-            if (startLon >= aimLon && startLat > aimLat)//Start North : Aim/End South
-            {
-                if (aimLon > endLon)
-                {
-                    html += "<line x1 = '425'  y1= '350' x2= '" + slice + "' y2= '" + px + "' \n ";
-                    html += "stroke='black' stroke-width='2'>\n";
-                    html += "<title> " + px + "</title>\n";
-                    html += "</line>\n\n";
-                    html += "<circle cx= '" + pxEndLon + "' cy= '" + pxEndLat + "' r= '3' stroke= 'black'\n ";
-                    html += "stroke-width= '2' fill= 'black'>\n";
-                    html += "</circle>\n\n";
-                    
-                    clubX=slice;
-                    clubY=px;
-                }
-                if (aimLon <= endLon)
-                {
-                    html += "<line x1 = '425'  y1= '350' x2= '" + px + "' y2= '" + px + "' \n ";
-                    html += "stroke='black' stroke-width='2'>\n";
-                    html += "<title> " + px + "</title>\n";
-                    html += "</line>\n\n";
-                    html += "<circle cx= '" + pxEndLon + "' cy= '" + pxEndLat + "' r= '3' stroke= 'black'\n ";
-                    html += "stroke-width= '2' fill= 'black'>\n";
-                    html += "</circle>\n\n";
-                    
-                    clubX=px;
-                    clubY=px;
-                }
-            }
-            //  var startToAimDistance = Math.sqrt(((startLon - aimLon) ^ 2) + ((startLat - aimLat) ^ 2));
-            //  var startToEndDistance = Math.sqrt(((startLon - endLon) ^ 2) + ((startLat - endLat) ^ 2));
-
-            var distance;
-
-            // draw line between two points
-            //  var html = "<line x1='" + X1 + "' y1='" + Y1 + "' x2='" + X2 + "' y2='" + Y2 + "' stroke='black' stroke-width='2' />\n";
-
+              
+            var clubName = getClubName(club);
+			var clubX = 100;
+			var clubY = 20
+            
+			/****************************************************************************
+			*
+			* Draw All Clubs
+			*
+			****************************************************************************/
             // draw triangle with the appropriate color
-            if (currentClub == '0')
+            if (currentClub === 0)
             {
                 if (club >= 1 && club <= 6)
                 {
@@ -186,8 +157,8 @@ function drawLine()
 
                     // points='topX,topY rightX,rightY leftX,leftY'  
                     // drawn centered on the point with a 6px difference in each direction
-                    html += "<polygon points='" + clubX  + "," + (clubY - 6) + " " + (clubX  + 6) + "," + (clubY + 6) + " " + (clubX  - 6) + "," + (clubY + 6) + "' stroke='" + color + "' stroke-width='2' fill='white' >\n" +
-                            "<title> </title>\n" +
+                    html += "<polygon points='" + clubX + "," + (clubY - 6) + " " + (clubX + 6) + "," + (clubY + 6) + " " + (clubX - 6) + "," + (clubY + 6) + "' stroke='" + color + "' stroke-width='2' fill='white' >\n" +
+                            "<title>aimDistance:"+aimDistance+"<br/>endDistance:"+endDistance+"<br/>angle:"+angle+"<br/>radian:"+radian+"<br/> pixels: "+px+"</title>\n" +
                             "</polygon>\n";
 
                 }
@@ -206,8 +177,8 @@ function drawLine()
                     else if (club === 11)
                         color = 'purple';
 
-                    html += "<rect x='" + clubX  + "' y='" + clubY + "' width='10' height='10' stroke='" + color + "' stroke-width='2' fill='white' >\n" +
-                            "<title> </title>\n" +
+                    html += "<rect x='" + clubX + "' y='" + clubY + "' width='10' height='10' stroke='" + color + "' stroke-width='2' fill='white' >\n" +
+                            "<title>aimDistance:"+aimDistance+"<br/>endDistance:"+endDistance+"<br/>angle:"+angle+"<br/>radian:"+radian+"<br/> pixels: "+px+" </title>\n" +
                             "</rect>\n";
                 }
 
@@ -231,8 +202,8 @@ function drawLine()
                     else if (club === 19)
                         color = 'brown';
 
-                    html += "<circle cx='" + clubX  + "' cy='" + clubY + "' r='5' stroke='" + color + "' stroke-width='2' fill='white' >" +
-                            "<title></title>\n" +
+                    html += "<circle cx='" + clubX + "' cy='" + clubY + "' r='5' stroke='" + color + "' stroke-width='2' fill='white' >" +
+                            "<title>aimDistance:"+aimDistance+"<br/>endDistance:"+endDistance+"<br/>angle:"+angle+"<br/>radian:"+radian+"<br/> pixels: "+px+"</title>\n" +
                             "</circle>\n";
 
                 }
@@ -253,36 +224,46 @@ function drawLine()
 
                     // points='topX,topY rightX,rightY bottomX,bottomY leftX,leftY'
                     // diamond centered on point with 6px difference in each direction
-                    html += "<polygon points='" + clubX  + "," + (clubY - 6) + " " + (clubX  + 6) + "," + clubY + " " + clubX + "," + (clubY + 6) + " " + (clubX  - 6) + "," + clubY + "' stroke='" + color + "' stroke-width='2' fill='white' >\n" +
-                            "<title></title>\n" +
+                    html += "<polygon points='" + clubX + "," + (clubY - 6) + " " + (clubX + 6) + "," + clubY + " " + clubX + "," + (clubY + 6) + " " + (clubX - 6) + "," + clubY + "' stroke='" + color + "' stroke-width='2' fill='white' >\n" +
+                            "<title>aimDistance:"+aimDistance+"<br/>endDistance:"+endDistance+"<br/>angle:"+angle+"<br/>radian:"+radian+"<br/> pixels: "+px+"</title>\n" +
                             "</polygon>\n";
 
                 }
             }
-            else if (currentClub == '1')
+			/****************************************************************************
+			*
+			* Draw Only Drivers
+			*
+			****************************************************************************/
+            else if (currentClub === 1)
             {
-                    if (club === 1)
-                        color = 'red';
-                    else if (club === 2)
-                        color = 'green';
-                    else if (club === 3)
-                        color = 'blue';
-                    else if (club === 4)
-                        color = 'orange';
-                    else if (club === 5)
-                        color = 'purple';
-                    else if (club === 6)
-                        color = 'lightblue';
+                if (club === 1)
+                    color = 'red';
+                else if (club === 2)
+                    color = 'green';
+                else if (club === 3)
+                    color = 'blue';
+                else if (club === 4)
+                    color = 'orange';
+                else if (club === 5)
+                    color = 'purple';
+                else if (club === 6)
+                    color = 'lightblue';
 
-                    // points='topX,topY rightX,rightY leftX,leftY'  
-                    // drawn centered on the point with a 6px difference in each direction
-                    html += "<polygon points='" + clubX  + "," + (clubY - 6) + " " + (clubX + 6) + "," + (clubY + 6) + " " + (clubX  - 6) + "," + (clubY + 6) + "' stroke='" + color + "' stroke-width='2' fill='white' >\n" +
-                            "<title></title>\n" +
-                            "</polygon>\n";
+                // points='topX,topY rightX,rightY leftX,leftY'  
+                // drawn centered on the point with a 6px difference in each direction
+                html += "<polygon points='" + clubX + "," + (clubY - 6) + " " + (clubX + 6) + "," + (clubY + 6) + " " + (clubX - 6) + "," + (clubY + 6) + "' stroke='" + color + "' stroke-width='2' fill='white' >\n" +
+                        "<title>aimDistance:"+aimDistance+"<br/>endDistance:"+endDistance+"<br/>angle:"+angle+"<br/>radian:"+radian+"<br/> pixels: "+px+"</title>\n" +
+                        "</polygon>\n";
 
-                  
+
             }
-            else if (currentClub == '2')
+			/****************************************************************************
+			*
+			* Draw only woods
+			*
+			****************************************************************************/
+            else if (currentClub === 2)
             {
 
                 // draw square with the appropriate color
@@ -299,13 +280,17 @@ function drawLine()
                 else if (club === 11)
                     color = 'purple';
 
-                html += "<rect x='" + clubX  + "' y='" + clubY + "' width='10' height='10' stroke='" + color + "' stroke-width='2' fill='white' >\n" +
-                        "<title> </title>\n" +
+                html += "<rect x='" + clubX + "' y='" + clubY + "' width='10' height='10' stroke='" + color + "' stroke-width='2' fill='white' >\n" +
+                        "<title>aimDistance:"+aimDistance+"<br/>endDistance:"+endDistance+"<br/>angle:"+angle+"<br/>radian:"+radian+"<br/> pixels: "+px+"</title>\n" +
                         "</rect>\n";
             }
 
-           
-            else if (currentClub == '3')
+			/****************************************************************************
+			*
+			* Draw only hybrids
+			*
+			****************************************************************************/
+            else if (currentClub === 3)
             {
                 if (club === 12)
                     color = 'red';
@@ -325,31 +310,36 @@ function drawLine()
                     color = 'brown';
 
                 html += "<circle cx='" + clubX + "' cy='" + clubY + "' r='5' stroke='" + color + "' stroke-width='2' fill='white' >" +
-                        "<title></title>\n" +
+                        "<title>aimDistance:"+aimDistance+"<br/>endDistance:"+endDistance+"<br/>angle:"+angle+"<br/>radian:"+radian+"<br/> pixels: "+px+"</title>\n" +
                         "</circle>\n";
 
             }
-            else if(currentClub == '4')
-                {
-                    if (club === 20)
-                        color = 'red';
-                    else if (club === 21)
-                        color = 'green';
-                    else if (club === 22)
-                        color = 'blue';
-                    else if (club === 23)
-                        color = 'orange';
-                    else if (club === 24)
-                        color = 'purple';
+			/****************************************************************************
+			*
+			* Draw only irons
+			*
+			****************************************************************************/
+            else if (currentClub === 4)
+            {
+                if (club === 20)
+                    color = 'red';
+                else if (club === 21)
+                    color = 'green';
+                else if (club === 22)
+                    color = 'blue';
+                else if (club === 23)
+                    color = 'orange';
+                else if (club === 24)
+                    color = 'purple';
 
-                    // points='topX,topY rightX,rightY bottomX,bottomY leftX,leftY'
-                    // diamond centered on point with 6px difference in each direction
-                    html += "<polygon points='" + clubX + "," + (clubY - 6) + " " + (clubX  + 6) + "," + clubY + " " + clubX  + "," + (clubY + 6) + " " + (clubX  - 6) + "," + clubY + "' stroke='" + color + "' stroke-width='2' fill='white' >\n" +
-                            "<title></title>\n" +
-                            "</polygon>\n";
+                // points='topX,topY rightX,rightY bottomX,bottomY leftX,leftY'
+                // diamond centered on point with 6px difference in each direction
+                html += "<polygon points='" + clubX + "," + (clubY - 6) + " " + (clubX + 6) + "," + clubY + " " + clubX + "," + (clubY + 6)+ " " + (clubX - 6) + "," + clubY + "' stroke='" + color + "' stroke-width='2' fill='white' >\n" +
+                        "<title>aimDistance:"+aimDistance+"<br/>endDistance:"+endDistance+"<br/>angle:"+angle+"<br/>radian:"+radian+"<br/> pixels: "+px+"</title>\n" +
+                        "</polygon>\n";
 
-                
-                }
+
+            }
         } // end draw shape
     }
 
@@ -435,13 +425,13 @@ function createHoleTabs() {
                     {
                         curHole = holeNum;
                         currentHole = holeNum;
-                        html += "<li id = '" + curHole + "h' title=' Hole: " + curHole + "'class='selected_tab'>" + i + "</li>\n";
+                        html += "<li id = '" + curHole + "' title=' Hole: " + curHole + "'class='selected_tab'>" + i + "</li>\n";
 
                     }
                     else if (holeNum > curHole)
                     {
                         curHole = holeNum;
-                        html += "<li id = '" + curHole + "h' title=' Hole: " + curHole + "'>" + i + "</li>\n";
+                        html += "<li id = '" + curHole + "' title=' Hole: " + curHole + "'>" + i + "</li>\n";
                     }
                 }
             }
@@ -449,7 +439,7 @@ function createHoleTabs() {
     }
     html += "</ul>\n";
     document.getElementsByClassName("hole_tabs")[0].innerHTML = html;
-    createShotTabs();
+    //createShotTabs();
 }
 
 
@@ -474,10 +464,10 @@ function changeToShot(shots)
  ****************************************************************************/
 function changeToHole(cHole)
 {
-    document.getElementById(currentHole + "h").className = "";
+    document.getElementById(currentHole).className = "";
     document.getElementById(cHole).className += ' selected_tab';
-    currentHole = parseInt(cHole);
-    // createShotTabs();
+    currentHole = cHole;//parseInt(cHole);
+    //createShotTabs();
 
 }
 
@@ -502,11 +492,13 @@ function changeClubs(club)
 $(document).ready(function()
 {
     createHoleTabs();
+    createShotTabs();
 
     $(".hole_tabs li").click(function()
     {
-        changeToHole($(this).attr('id'));
-        createShotTabs();
+        changeToHole($(this).text());
+		createShotTabs();
+		
     });
     $(".shot_tabs li").click(function()
     {
@@ -517,9 +509,8 @@ $(document).ready(function()
     $(".club_tabs li").click(function()
     {
         changeClubs($(this).attr('id'));
+        drawLine();
 
     });
 }
 );
-
-
