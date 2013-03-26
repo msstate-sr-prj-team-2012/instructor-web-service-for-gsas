@@ -23,7 +23,9 @@ function getChart(clubGroup)
     var clubsText = '';
 
     var yAxisText = '';
+    var xAxisText = '';
     var title = '';
+    var subtitle = '';
     var categories = [];
 
     if (clubGroup === WOODS) {
@@ -39,8 +41,10 @@ function getChart(clubGroup)
     var series = getRoundData(clubGroup);
 
     if (currentRound == 'all') {
-        yAxisText = 'Average Distance (yards)';
-        title = 'Average Distance per Club for ' + clubsText;
+        yAxisText = 'Distance (yards)';
+        xAxisText = 'Clubs';
+        title = 'Average Distance Between All Rounds';
+        subtitle = clubsText;
 
         for (var i = 0; i < series.length; i++) {
             categories.push(series[i].name);
@@ -48,33 +52,35 @@ function getChart(clubGroup)
 
     } else {
         yAxisText = 'Distance (yards)';
-        title = 'Distance by hole for ' + clubsText;
+        xAxisText = 'Holes';
+        title = 'Distance By Hole';
+        subtitle = clubsText;
         categories = [
-            'Hole 1',
-            'Hole 2',
-            'Hole 3',
-            'Hole 4',
-            'Hole 5',
-            'Hole 6',
-            'Hole 7',
-            'Hole 8',
-            'Hole 9',
-            'Hole 10',
-            'Hole 11',
-            'Hole 12',
-            'Hole 13',
-            'Hole 14',
-            'Hole 15',
-            'Hole 16',
-            'Hole 17',
-            'Hole 18'
+            '1',
+            '2',
+            '3',
+            '4',
+            '5',
+            '6',
+            '7',
+            '8',
+            '9',
+            '10',
+            '11',
+            '12',
+            '13',
+            '14',
+            '15',
+            '16',
+            '17',
+            '18'
         ];
     }
 
-    makeChart(clubsText, yAxisText, title, categories, series);
+    makeChart(clubsText, yAxisText, xAxisText, title, subtitle, categories, series);
 }
 
-function makeChart(clubsText, yAxisText, title, categories, series)
+function makeChart(clubsText, yAxisText, xAxisText, title, subtitle, categories, series)
 {
     var chart = new Highcharts.Chart({
         chart: {
@@ -84,7 +90,13 @@ function makeChart(clubsText, yAxisText, title, categories, series)
         title: {
             text: title
         },
+        subtitle:{
+            text: subtitle
+        },
         xAxis: {
+            title: {
+                text: xAxisText
+            },
             categories: categories
         },
         yAxis: {
