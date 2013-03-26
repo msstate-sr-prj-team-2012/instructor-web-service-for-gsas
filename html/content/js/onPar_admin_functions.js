@@ -89,8 +89,16 @@ function setupPage() {
             document.getElementById('unickname').value = user.nickname;
             document.getElementById('uemail').value = user.email;
 			
-            document.getElementById('umemID1').value = getMemIDPart(user.memberID, "1");
-            document.getElementById('umemID2').value = getMemIDPart(user.memberID, "2");
+			if(user.memberID != null)
+			{
+				document.getElementById('umemID1').value = getMemIDPart(user.memberID, "1");
+				document.getElementById('umemID2').value = getMemIDPart(user.memberID, "2");
+			}
+			else
+			{
+				document.getElementById('umemID1').value = "";
+				document.getElementById('umemID2').value = "";
+			}
 			
             document.getElementById('ubdatechange').value = user.birthDate;
             document.getElementById('save').value = 'Save Changes';
