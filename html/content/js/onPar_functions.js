@@ -100,6 +100,7 @@ $(document).ready(function() {
     $('#golfer_select').select2({
         data:select2SelectFieldData()
     });
+    createFooter();
     
     if(window.location.pathname != defines.BASE_PATH + "/admin"){
         createNavigationMenu();
@@ -211,6 +212,12 @@ function createNavigationMenu(){
     }
 } // end createNavigationMenu
 
+function createFooter(){
+    var admin = defines.BASE_PATH + "/admin";
+    document.getElementsByTagName('footer')[0].innerHTML = +
+        " <a> help </a> | <a> about </a> | <a href='" + admin + "' target='_blank'> admin </a> <br>\n" +
+        " 2013 onPar\n";
+}
 
 /****************************************************************************
  *
@@ -248,6 +255,7 @@ function createRoundTabs(){
     html += "</ul>\n";
     
     document.getElementsByClassName("round_tabs")[0].innerHTML = html;
+    enablePowerTip();
 }
 
 
@@ -330,6 +338,7 @@ function getStatData(){
         }
     }  
     createStatGrid();
+    enablePowerTip();
 }
 
 function createStatGrid(){

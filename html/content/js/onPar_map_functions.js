@@ -269,7 +269,7 @@ function drawAllData(){
 
     // shows message if no data
     if(holeArray.length === 0) {
-        html += '<text x="260" y="160" font-size="20" fill="red" > -- No Data Found -- </text>\n';
+        html += '<text x="300" y="160" font-size="17" fill="red" > -- No Data Found -- </text>\n';
         $('.map_content').css('background', '#fff');
         document.getElementById('par').innerHTML = '';
     }
@@ -321,7 +321,7 @@ function drawData(){
     hole = (round.holes).filter(function(obj) { return (obj.holeNumber == currentHole) })[0];
     // shows message if no data
     if(hole === undefined || hole.shots.length === 0){
-        html += '<text x="260" y="160" font-size="20" fill="red" > -- No Data Found -- </text>\n';
+        html += '<text x="300" y="160" font-size="17" fill="red" > -- No Data Found -- </text>\n';
         $('.map_content').css('background', '#fff');
         document.getElementById('par').innerHTML = '';
     }
@@ -374,9 +374,9 @@ function drawShape(start, end, club, distance, startTime, holeScore, putts){
         html += "<polygon points='" +start.x+ "," +(start.y-6)+ " \n\
                                   "+(start.x+6)+","+(start.y+6)+" \n\
                                   "+(start.x-6)+","+(start.y+6)+"' \n\
-                          stroke='" +color+ "' \n\
+                          fill='" +color+ "' \n\
                           stroke-width='2' \n\
-                          fill='white' \n\
+                          stroke='#000' \n\
                           title=' Club: +" +clubName+ " <br/> Distance: " +distance+ " yards' />\n";
     }
 
@@ -392,9 +392,9 @@ function drawShape(start, end, club, distance, startTime, holeScore, putts){
                        y='" +start.y+ "' \n\
                        width='10' \n\
                        height='10' \n\
-                       stroke='" +color+ "' \n\
+                       fill='" +color+ "' \n\
                        stroke-width='2' \n\
-                       fill='white' \n\
+                       stroke='#000' \n\
                        title=' Club: +" +clubName+ " <br/> Distance: " +distance+ " yards' />\n"; 
     }
 
@@ -412,9 +412,9 @@ function drawShape(start, end, club, distance, startTime, holeScore, putts){
         html += "<circle cx='" +start.x+ "' \n\
                          cy='" +start.y+ "' \n\
                          r='5' \n\
-                         stroke='" +color+ "' \n\
+                         fill='" +color+ "' \n\
                          stroke-width='2' \n\
-                         fill='white' \n\
+                         stroke='#000' \n\
                          title=' Club: +" +clubName+ " <br/> Distance: " +distance+ " yards' />\n";
     }
 
@@ -432,9 +432,9 @@ function drawShape(start, end, club, distance, startTime, holeScore, putts){
                                   "+(start.x+6)+","+start.y+" \n\
                                   "+start.x+","+(start.y+6)+" \n\
                                   "+(start.x-6)+","+start.y+"' \n\
-                          stroke='" +color+ "' \n\
+                          fill='" +color+ "' \n\
                           stroke-width='2' \n\
-                          fill='white' \n\
+                          stroke='#000' \n\
                           title=' Club: " +clubName+ " <br/> Distance: " +distance+ " yards'/>";
     }
 } // end draw shape
@@ -508,20 +508,24 @@ function main(latitude, longitude){
 
 $(document).ready(function() {   
     drawData();
+    enablePowerTip();
     
     $(".hole_tabs li").click(function() {
         changeToHole($(this).text());
         drawData(); 
+        enablePowerTip();
     });
 
     $(".round_tabs li").click(function() {
         changeToRound($(this).attr('id'));
         drawData();
+        enablePowerTip();
     });
 
     $(".view_tabs li").click(function() {
         changeView($(this).attr('id'));
         drawData();
+        enablePowerTip();
     });            
 });
 
