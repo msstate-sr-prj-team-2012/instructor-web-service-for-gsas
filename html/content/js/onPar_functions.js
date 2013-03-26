@@ -96,11 +96,14 @@ $(document).ready(function() {
  * Runs Functions Respective To Page Viewed & Sets Navigation Highlight
  *
  ****************************************************************************/
-      
-    createNavigationMenu();
+    
     $('#golfer_select').select2({
         data:select2SelectFieldData()
     });
+    
+    if(window.location.pathname != defines.BASE_PATH + "/admin"){
+        createNavigationMenu();
+    }
 
     if(window.location.pathname == defines.BASE_PATH + "/"){
         document.getElementById('home').className += ' selected_tab'; 
@@ -127,9 +130,6 @@ $(document).ready(function() {
         document.getElementById('stats').className += ' selected_tab'; 
         getStatData();
     }
-    else if(window.location.pathname === defines.BASE_PATH + "/admin"){
-        document.getElementById('admin').className += ' selected_tab'; 
-    }
 });
 
 
@@ -151,7 +151,6 @@ function createNavigationMenu(){
     var distance = defines.BASE_PATH + "/distance";
     var maps = defines.BASE_PATH + "/maps";
     var stats = defines.BASE_PATH + "/stats";
-    var admin = defines.BASE_PATH + "/admin";
     
     if(golfer === null){
         if(window.location.pathname === (defines.BASE_PATH + '/')){
@@ -178,7 +177,7 @@ function createNavigationMenu(){
             if(window.location.pathname === (defines.BASE_PATH + '/rounds')){
                 document.getElementById("currently_viewing").innerHTML= 
                     "<span>Golfer: </span>" + golfer.name + " &nbsp;&nbsp;&nbsp;&nbsp; " +
-                    "<span>Age: </span>" + getAge(golfer.birthDate) + " &nbsp;&nbsp;&nbsp;&nbsp; " +
+                    "<span>Age: </span>" + golfer.birthDate + " &nbsp;&nbsp;&nbsp;&nbsp; " +
                     "<span>Sex: </span>" + golfer.gender + " &nbsp;&nbsp;&nbsp;&nbsp; " +
                     "<span>Hand: </span>" + golfer.hand + "\n";
             }
@@ -198,8 +197,7 @@ function createNavigationMenu(){
                 "<li id='maps'><a href=\"" + maps + "\">Maps</a></li>\n" +
                 "<li id='distance'><a href=\"" + distance + "\">Distance</a></li>\n" +
                 "<li id='spread'><a href=\"" + spread + "\">Spread</a></li>\n" +
-                "<li id='stats'><a href=\"" + stats + "\">Statistics</a></li>\n" +   
-		"<li id='admin'><a href=\"" + admin + "\">Admin</a></li>\n" +
+                "<li id='stats'><a href=\"" + stats + "\">Statistics</a></li>\n" +  
             "</ul>\n";
         
         // prints golfer data to page
