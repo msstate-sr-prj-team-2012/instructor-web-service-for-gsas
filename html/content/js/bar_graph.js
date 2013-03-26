@@ -40,7 +40,7 @@ function getChart(clubGroup)
 
     if (currentRound == 'all') {
         yAxisText = 'Average Distance (yards)';
-        title = '\t\tAverage Distance per Club for ' + clubsText;
+        title = 'Average Distance per Club for ' + clubsText;
 
         for (var i = 0; i < series.length; i++) {
             categories.push(series[i].name);
@@ -48,7 +48,7 @@ function getChart(clubGroup)
 
     } else {
         yAxisText = 'Distance (yards)';
-        title = '\t\tDistance by hole for ' + clubsText;
+        title = 'Distance by hole for ' + clubsText;
         categories = [
             'Hole 1',
             'Hole 2',
