@@ -93,16 +93,6 @@ function makeChart(clubsText, yAxisText, title, categories, series)
                 text: yAxisText
             }
         },
-        /*legend: {
-            layout: 'vertical',
-            backgroundColor: '#FFFFFF',
-            align: 'left',
-            verticalAlign: 'top',
-            x: 0,
-            y: 100,
-            floating: true,
-            shadow: true
-        },*/
         tooltip: {
             formatter: function() {
                 return ''+
@@ -117,17 +107,6 @@ function makeChart(clubsText, yAxisText, title, categories, series)
         },
         series: series
     });
-
-    var renderer = new Highcharts.Renderer($('#legend')[0], 10, 10);
-
-    for (var i = 0; i < series.length; i++) {
-        renderer.symbol('square', 5, 5, 4)
-        .attr({
-            'stroke-width': 0,
-            fill: chart.series[0].color
-        })
-        .add();
-    }
 }
 
 function getRoundData(clubGroup)
