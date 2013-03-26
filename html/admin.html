@@ -63,6 +63,14 @@
         }
         .formfield {
             margin: 10px;
+			display: inline-block; 
+			padding: 5px 5px 5px 5px; 
+			background-color: #a90329; 
+			border-radius: 5px;
+			width: 75%;
+        }
+		.admin-button-list {
+            margin: 10px;
         }
         .formstyle {
             width: 500px; float: none; margin: 0px auto; color: white;
@@ -125,7 +133,6 @@
         <div class="organization-logo">
         </div>
         <nav id="nav">  
-            <ul><li class="selected_tab"><a>Admin</a></li></ul>
         </nav>
    </header>
 
@@ -139,11 +146,11 @@
                     <p class="formheading">Choose a Golfer</p>
 				    <input type="hidden" id="golfer_select" placeholder="Select Golfer..." style="width:250px;"/> or 
                     <input type="text" class="memid" placeholder="Enter Golfer ID" id="uID" style="width: 300px;" />
-				    <p class="formfield">
-                    <input type="button" id="editGolfer"   class="button_example" value="Edit Golfer"/>
-				    <input type="button" id="deleteGolfer" class="button_example" value="Delete Golfer"/>   
-                    <input type="button" id="deleteRounds" class="button_example" value="Delete Rounds"/>   
-                    <input type="button" id="addGolfer" class="button_example" value="Add Golfer" />
+				    <p class="admin-button-list">
+                    <input type="button" id="editGolfer"    value="Edit Golfer"/>
+				    <input type="button" id="deleteGolfer"  value="Delete Golfer"/>   
+                    <input type="button" id="deleteRounds"  value="Delete Rounds"/>   
+                    <input type="button" id="addGolfer"     value="Add Golfer" />
 				    </p>
 			    </div>
 				<div id="golferreselect" style=" margin-top: 30px; display: inline-block;">
@@ -155,12 +162,14 @@
                 <span class="formheading" id="formheader">Edit User Info</span>
 				<form id="userInfo">
 					<p class="formfield">
+						Name
                         <input type="text"  class="memid" placeholder="First Name" name ="fname" id="ufname" style="width: 150px;" />
                         <input type="text"  class="memid" placeholder="Last Name"  name ="lname" id="ulname" style="width: 150px;" />
 					</p>
-                    <p class="formfield"><input type="email" class="memid" placeholder="Nickname"   name ="nickname" id="unickname" style="width: 200px;" /></p>
-					<p class="formfield"><input type="email" class="memid" placeholder="E-Mail"     name ="email"    id="uemail"    style="width: 200px;" /></p>
+                    <p class="formfield">Nickname: <input type="email" class="memid" placeholder="Nickname"   name ="nickname" id="unickname" style="width: 200px;" /></p>
+					<p class="formfield">E-Mail: <input type="email" class="memid" placeholder="E-Mail"     name ="email"    id="uemail"    style="width: 200px;" /></p>
 					<p class="formfield">
+						Member ID
 						<input type="text" class="memid" placeholder="4Numbers" name="memberID" id="umemID1" style="width: 75px;" />M-
 						<input type="text" class="memid" placeholder="6Numbers" name="memberID" id="umemID2" style="width: 100px;" />
 					</p>
@@ -181,7 +190,7 @@
                         <input type="radio" name="hand" id="righth" value="right" />Right-Handed
                     </p>
 
-                    <p class="formfield">
+                    <p class="admin-button-list">
 					<input type="button" class="button_example" id="save" value="Save Changes" />
 					<input type="reset" class="button_example" value="Reset Form" /></p>
 				</form>
@@ -196,7 +205,8 @@
 	</div>
 	<!--==============================footer=================================-->
 	<footer>
-        </footer>
+		2013 onPar 
+	</footer>
 </div>
 </body>
 </html>
