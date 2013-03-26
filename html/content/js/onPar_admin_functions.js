@@ -181,15 +181,22 @@ function setupPage() {
                     user.email = document.getElementById('uemail').value;
 
                     //Run the new member id through a regex to validate
-					var cMemID = document.getElementById('umemID1').value + "M-" + document.getElementById('umemID2').value;
-                    if (checkmemberID(cMemID)) {
-                        user.memberID = cMemID;
-                    }
-                    else {
-                        validated = false;
-                        //Throw an error
-						showError('Error: Check MemID');
-                    }
+					if(document.getElementById('umemID1').value != "" && document.getElementById('umemID2').value)
+					{
+						var cMemID = document.getElementById('umemID1').value + "M-" + document.getElementById('umemID2').value;
+						if (checkmemberID(cMemID)) {
+							user.memberID = cMemID;
+						}
+						else {
+							validated = false;
+							//Throw an error
+							showError('Error: Check MemID');
+						}
+					}
+					else
+					{
+						user.memberID = cMemID;
+					}
 
                     //Run the new email through a regex to validate
                     if (checkemail(document.getElementById('uemail').value)) {
@@ -274,7 +281,12 @@ function setupPage() {
 				function(e){
 					if (e){
 						user = new User(userID);
-						//if (user.del()) {showConfirmation("User was deleted!");}
+						if (user.del()) {showConfirmation("User was deleted!");}
+						
+						//Update the golfer selection box
+						$('#golfer_select').select2({
+							data:select2SelectFieldData()
+						});
 					}
 				}
 			);
@@ -321,16 +333,22 @@ function setupPage() {
             user.birthDate = document.getElementById('ubdatechange').value;
 
             //Run the new member id through a regex to validate
-			var cMemID1 = document.getElementById('umemID1').value + "M-" + checkmemberID(document.getElementById('umemID2').value);
-			if (checkmemberID(cMemID)) {
-				user.memberID = document.getElementById('umemID').value;
+			if(document.getElementById('umemID1').value != "" && document.getElementById('umemID2').value)
+			{
+				var cMemID = document.getElementById('umemID1').value + "M-" + document.getElementById('umemID2').value;
+				if (checkmemberID(cMemID)) {
+					user.memberID = cMemID;
+				}
+				else {
+					validated = false;
+					//Throw an error
+					showError('Error: Check MemID');
+				}
 			}
-            else {
-                validated = false;
-                //Throw an error
-				//Modify the message box to show "Change
-				showError("Error: Use format NNNNM-NNNNNN, where N is any digit 0 - 9.  Example: 1234M-567890");
-            }
+			else
+			{
+				user.memberID = cMemID;
+			}
 
             //Run the new email through a regex to validate
             if (checkemail(document.getElementById('uemail').value)) {
@@ -374,6 +392,10 @@ function setupPage() {
 					
                     $('#userform').hide();
                 }
+				else
+				{
+					showError("An error has occurred");
+				}
             }
             //Set the user change flag to zero for another edit
             userChange = false;
@@ -537,7 +559,7 @@ function showError(error)
 
 function showConfirmation(message)
 {
-	smoke.alert(error);
+	smoke.alert(message);
 }
 
 function select2SelectFieldData()
