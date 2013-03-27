@@ -588,7 +588,7 @@ table{cursor:pointer}
 }
 #par span { color: #660000; }
 #par li:hover{background: transparent; color:#000; cursor: default;}
-.view_tabs
+.view_tabs, .hole_tabs2
 {
     position: absolute;
     top: -29px;
@@ -600,13 +600,13 @@ table{cursor:pointer}
     left: 10px;
     bottom: -33px;
 }
-.round_tabs
+.round_tabs, .round_tabs2
 {
     position: absolute;
     left: -34px;
     top: 10px;
 }
-.view_tabs ul, .hole_tabs ul, .round_tabs ul
+.view_tabs ul, .hole_tabs ul, .round_tabs ul, .hole_tabs2 ul, .round_tabs2 ul
 {
     list-style-type:none;
     overflow:hidden;  
@@ -621,14 +621,14 @@ table{cursor:pointer}
     width: 160px;
     font-size:12px;
 }
-.hole_tabs li
+.hole_tabs li, .hole_tabs2 li
 {
     display: inline-block;
     width: 30px;
     margin: 1px;
     font-size:12px;
 }
-.round_tabs li
+.round_tabs li .round_tabs2 li
 {
     width: 30px;
     margin: 1px;
@@ -670,11 +670,17 @@ table{cursor:pointer}
     position: relative;
     border: 3px #660000 solid;
     padding: 20px;
-    margin: 100px auto;
+    margin: 150px auto 100px;
     width: 850px;
-    height: 410px;
+    height: 400px;
     background: transparent;
     box-shadow: 0px 0px 10px #000; 
+}
+.graph_content .graph_title{
+    position: absolute;
+    font: 100 20px 'Open Sans';
+    top: -80px;
+    left: 20px;
 }
 .graph_content li{ color:#660000;}
 .graph_content li:hover 
