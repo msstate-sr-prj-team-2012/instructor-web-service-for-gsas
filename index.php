@@ -50,6 +50,18 @@ function() use ($app)
 	$app->render('admin.html');
 });
 
+$app->get('/help',
+function() use ($app)
+{
+	$app->render('help.html');
+});
+
+$app->get('/about',
+function() use ($app)
+{
+	$app->render('about.html');
+});
+
 $app->run();
 
 ?>
