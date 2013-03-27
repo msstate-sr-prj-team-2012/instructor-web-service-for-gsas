@@ -295,6 +295,7 @@ $(document).ready(function () {
         document.getElementById('umemID2').value = '';
         document.getElementById('ubdatechange').value = '';
         document.getElementById('save').value = 'Create User';
+		$('input[type="radio"]').prop('checked', false);
 		
 		userChange = false;
 		
