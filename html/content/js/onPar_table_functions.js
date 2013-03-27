@@ -7,7 +7,6 @@ var scoreboard_hole = 1;
 
 $(document).ready(function () {
     getRoundData();
-    enablePowerTip();
 });
 
 function getRoundData(){
@@ -38,7 +37,6 @@ function getRoundData(){
     }
     createRoundGrid();
     roundData = []; // clearing memory after its been used
-    enablePowerTip(); // enables tooltips after grid is loaded
     getHoleData();
 }
 
@@ -91,7 +89,6 @@ function getHoleData(){
     }
     createHoleGrid();
     holeData = []; // clearing memory after its been used
-    enablePowerTip(); // enables tooltips after grid is loaded
     $("#shots").jqGrid("GridUnload").trigger("reloadGrid");
     getShotData();
 }
@@ -153,7 +150,6 @@ function getShotData(){
         createShotGrid();
     }
     shotData = []; // clearing memory after its been used
-    enablePowerTip(); // enables tooltips after grid is loaded
 }
 
 function createShotGrid(){

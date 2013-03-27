@@ -214,8 +214,8 @@ function createNavigationMenu(){
 
 function createFooter(){
     var admin = defines.BASE_PATH + "/admin";
-    document.getElementsByTagName('footer')[0].innerHTML = +
-        " <a> help </a> | <a> about </a> | <a href='" + admin + "' target='_blank'> admin </a> <br>\n" +
+    document.getElementsByTagName('footer')[0].innerHTML = 
+        " <a> help </a> | <a> about </a> | <a href=\"" + admin + "\"' target=\"_blank\"> admin </a> <br>\n" +
         " 2013 onPar\n";
 }
 
@@ -255,7 +255,6 @@ function createRoundTabs(){
     html += "</ul>\n";
     
     document.getElementsByClassName("round_tabs")[0].innerHTML = html;
-    enablePowerTip();
 }
 
 
@@ -338,7 +337,6 @@ function getStatData(){
         }
     }  
     createStatGrid();
-    enablePowerTip();
 }
 
 function createStatGrid(){
@@ -417,10 +415,6 @@ function computeAngle(startLat,startLong,aimLat,aimLong,endLat,endLong){
     var mag2 = Math.pow((endLat * endLat + endLong + endLong), .5);
     
     return (Math.acos(scalar / (mag1 * mag2))*(180 / Math.PI)).toFixed(2);	
-}
-
-function enablePowerTip(){
-    $('[title]').powerTip({placement: 'ne', smartPlacement: true, mouseOnToPopup: true});
 }
 
 // formats date to a more readable form

@@ -508,24 +508,20 @@ function main(latitude, longitude){
 
 $(document).ready(function() {   
     drawData();
-    enablePowerTip();
     
     $(".hole_tabs li").click(function() {
         changeToHole($(this).text());
         drawData(); 
-        enablePowerTip();
     });
 
     $(".round_tabs li").click(function() {
         changeToRound($(this).attr('id'));
         drawData();
-        enablePowerTip();
     });
 
     $(".view_tabs li").click(function() {
         changeView($(this).attr('id'));
         drawData();
-        enablePowerTip();
     });            
 });
 
