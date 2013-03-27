@@ -102,11 +102,11 @@ $(document).ready(function() {
     });
     createFooter();
     
-    if(window.location.pathname !== defines.BASE_PATH + "/admin"){
+    if(window.location.pathname != defines.BASE_PATH + "/admin"){
         createNavigationMenu();
     }
 
-    if(window.location.pathname === defines.BASE_PATH + "/"){
+    if(window.location.pathname == defines.BASE_PATH + "/"){
         document.getElementById('home').className += ' selected_tab'; 
     }
     else if(window.location.pathname === defines.BASE_PATH + "/rounds"){     
@@ -255,21 +255,6 @@ function createRoundTabs(){
     html += "</ul>\n";
     
     document.getElementsByClassName("round_tabs")[0].innerHTML = html;
-    
-    if(window.location.pathname === defines.BASE_PATH + '/distance'){
-
-        html = '<ul>\n';
-        d = formatDate(rounds[0].startTime);
-        html += "<li id='" + rounds[0].ID + "_2' title='" + d.date + "\n" + d.time + "'>" + 1 + "</li>\n";
-        for (i = 1; i < rounds.length; i++){
-                d = formatDate(rounds[i].startTime);
-                html += "<li id='" + rounds[i].ID + "_2' title='" + d.date + "\n" + d.time + "'>" + (i + 1) + "</li>\n";
-        }
-        html += "</ul>\n";
-
-        document.getElementsByClassName("round_tabs2")[0].innerHTML = html;
-    }
-        
 }
 
 
