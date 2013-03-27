@@ -32,7 +32,7 @@ function getData(){
     var currentHoleObject = (currentRoundObject.holes).filter(function(obj) { return (obj.holeNumber == currentHole)})[0]; 
     
     if(currentHoleObject.length == 0){
-        var html = '<text x="330" y="160" font-size="17" fill="red" > -- No Data Found -- </text>\n';
+        var html = '<text x="350" y="160" font-size="17" fill="red" > -- No Data Found -- </text>\n';
         document.getElementById('container').innerHTML = '';
     }
     
