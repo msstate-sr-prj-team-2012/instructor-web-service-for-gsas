@@ -328,7 +328,7 @@ $(document).ready(function () {
 					for (var i = 0; i < roundClass.rounds.length; i++) {
 						tableStr += "<tr>";
 						tableStr += '<td  class="roundsDelcheckboxTd">';
-						tableStr += '<input type="checkbox" value="'+ roundClass.rounds[i].ID +'" />';
+						tableStr += '<input type="checkbox" value="'+ i +'" />';
 						tableStr += "</td>";
 						tableStr += "<td>";
 						tableStr += roundClass.rounds[i].startTime;
@@ -346,17 +346,21 @@ $(document).ready(function () {
 						}
 						else
 						{
+							var deletedRounds = true;
 							$("input:checkbox:checked").each(function(i){
 								//showError($(this).val());
-								roundClass.rounds[$(this).val()].del();
+								if(!roundClass.rounds[$(this).val()].del())
+									deletedRounds = false;
 							});
+							if(deletedRounds)
+								showError("Selected rounds were successfully deleted!");
 						}
 					});
 					
 					$('#deleteRoundButton').show();
 				}
 				else
-				{
+				{ 
 					document.getElementById('tablehead').innerHTML = "No rounds for this user!";
 					$('#deleteRoundButton').hide();
 				}
