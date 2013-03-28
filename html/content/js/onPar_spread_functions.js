@@ -48,6 +48,7 @@ function getData(){
         } // end holes loop       
 
         series.push({
+            type: 'scatter',
             name: getClubName(clubIDs[x]),
             data: data
         })
