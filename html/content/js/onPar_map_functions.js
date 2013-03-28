@@ -298,7 +298,7 @@ function drawAllData(){
         document.getElementById('par').innerHTML =
             "<ul>\n" +
                 "<li>par: <span>" + hole.par + "</span></li>\n" +
-                "<li> average score: <span>" + (score / holeArray.length).toFixed(1) + "</span></li>\n" +
+                "<li> average score: <span>" + parseFloat(score / holeArray.length).toFixed(1) + "</span></li>\n" +
             "</ul>\n";
     }
     
@@ -377,7 +377,7 @@ function drawShape(start, end, club, distance, startTime, holeScore, putts){
                           fill='" +color+ "' \n\
                           stroke-width='2' \n\
                           stroke='#000' \n\
-                          title=' Club: " +clubName+ " \n Distance: " +distance+ " yards' />\n";
+                          title='" +clubName+ " \n" +distance+ " yards' />\n";
     }
 
     // draw square with the appropriate color
@@ -395,7 +395,7 @@ function drawShape(start, end, club, distance, startTime, holeScore, putts){
                        fill='" +color+ "' \n\
                        stroke-width='2' \n\
                        stroke='#000' \n\
-                       title=' Club: " +clubName+ " \n Distance: " +distance+ " yards' />\n"; 
+                       title='" +clubName+ " \n" +distance+ " yards' />\n"; 
     }
 
     // draw circle with the appropriate color
@@ -415,7 +415,7 @@ function drawShape(start, end, club, distance, startTime, holeScore, putts){
                          fill='" +color+ "' \n\
                          stroke-width='2' \n\
                          stroke='#000' \n\
-                         title=' Club: " +clubName+ " \n Distance: " +distance+ " yards' />\n";
+                         title='" +clubName+ " \n" +distance+ " yards' />\n";
     }
 
     // draw diamond with the approriate color
@@ -435,7 +435,7 @@ function drawShape(start, end, club, distance, startTime, holeScore, putts){
                           fill='" +color+ "' \n\
                           stroke-width='2' \n\
                           stroke='#000' \n\
-                          title=' Club: " +clubName+ " \n Distance: " +distance+ " yards'/>";
+                          title='" +clubName+ " \n" +distance+ " yards'/>";
     }
 } // end draw shape
 

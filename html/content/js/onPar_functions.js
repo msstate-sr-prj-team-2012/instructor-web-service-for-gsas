@@ -143,7 +143,8 @@ $(document).ready(function() {
  ****************************************************************************/
 
 function createNavigationMenu(){
-    var golfer = new User(localStorage.getItem('userID'));
+    var userID = localStorage.getItem('userID');
+    var golfer = new User(userID);
     var rounds = localStorage.getObject('rounds');
     
     var home = defines.BASE_PATH + "/";
@@ -154,7 +155,7 @@ function createNavigationMenu(){
     var maps = defines.BASE_PATH + "/maps";
     var stats = defines.BASE_PATH + "/stats";
     
-    if(golfer === null){
+    if(userID === null){
         if(window.location.pathname === (defines.BASE_PATH + '/')){
             document.getElementById("nav").innerHTML=
             "<ul>\n" +
@@ -203,7 +204,7 @@ function createNavigationMenu(){
             "</ul>\n";
         
         // prints golfer data to page
-        if (window.location.pathname !== (defines.BASE_PATH + '/') && window.location.pathname !== (defines.BASE_PATH + '/admin')) {
+        if (window.location.pathname !== (defines.BASE_PATH + '/')) {
             document.getElementById("currently_viewing").innerHTML= 
                 "<span>Golfer: </span>" + golfer.name + " &nbsp;&nbsp;&nbsp;&nbsp; " +
                 "<span>Age: </span>" + golfer.age + " &nbsp;&nbsp;&nbsp;&nbsp; " +
