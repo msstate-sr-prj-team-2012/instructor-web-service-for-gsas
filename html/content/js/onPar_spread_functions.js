@@ -122,7 +122,7 @@ function createScatterChart(){
             },
             xAxis: {
                 title: {
-                    text: 'Angle (°)'
+                    text: 'Angle (degrees)'
                 },
                 min: -70,
                 max: +70
@@ -155,7 +155,7 @@ function createScatterChart(){
                     },
                     tooltip: {
                         headerFormat: '<b>{series.name}</b><br>',
-                        pointFormat: '{point.y} yards <br> {point.x} °'
+                        pointFormat: '{point.y} yards <br> {point.x} degrees'
                     }
                 }
             },
@@ -206,7 +206,7 @@ function createPolarChart(){
 	        max: 90,
 	        labels: {
                     formatter: function () {
-                            return this.value + '°';
+                            return this.value;
                     }
 	        }
 	    },
@@ -239,7 +239,7 @@ function createPolarChart(){
                     },
                     tooltip: {
                         headerFormat: '<b>{series.name}</b><br>',
-                        pointFormat: '{point.y} yards <br> {point.x}°'
+                        pointFormat: '{point.y} yards <br> {point.x} degrees'
                     }
                 }
             },
