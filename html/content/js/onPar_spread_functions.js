@@ -4,6 +4,7 @@
  *
  ****************************************************************************/
 
+var rounds = localStorage.getObject('rounds');
 var currentRound = 'all';
 var clubSelection = 'All';
 var clubIDs = [];
@@ -58,7 +59,7 @@ function getData(){
 } // end function
 
 
-function getAllData(){ console.log('getAllData executed');
+function getAllData(){ 
     
     for(var v = 0; v < clubIDs.length; v++){
         data = [];
