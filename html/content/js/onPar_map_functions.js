@@ -256,7 +256,7 @@ function changeView(view) {
 
 // draws all shot data for a hole for every round
 function drawAllData(){
-    html = "<svg>\n";
+    html = "<svg width='800' height='350' viewBox='0 0 800 350'>\n";
     
     // creates array of hole objects for currentHole
     var holeArray = [];
@@ -269,7 +269,7 @@ function drawAllData(){
 
     // shows message if no data
     if(holeArray.length === 0) {
-        html += '<text x="300" y="160" font-size="17" fill="red" > -- No Data Found -- </text>\n';
+        html += '<text x="350" y="160" font-size="17" fill="red" > -- No Data Found -- </text>\n';
         $('.map_content').css('background', '#fff');
         document.getElementById('par').innerHTML = '';
     }
@@ -279,7 +279,7 @@ function drawAllData(){
         // iterates through objects of hole array
         for(i = 0; i < holeArray.length; i++){
             hole = holeArray[i];
-            html += "<svg>\n";
+            html += "<svg width='800' height='350' viewBox='0 0 800 350'>\n";
             // iterates through shots of current hole
             for(var x = 0; x < hole.shots.length; x++){ 
                 var startLocationXY = main(hole.shots[x].startLatitude, hole.shots[x].startLongitude); 
@@ -316,12 +316,12 @@ function drawData(){
        return     
     }
     
-    html = "<svg>\n"; 
+    html = "<svg width='800' height='350' viewBox='0 0 800 350'>\n"; 
     // filters round object for currentHole
     hole = (round.holes).filter(function(obj) { return (obj.holeNumber == currentHole) })[0];
     // shows message if no data
     if(hole === undefined || hole.shots.length === 0){
-        html += '<text x="300" y="160" font-size="17" fill="red" > -- No Data Found -- </text>\n';
+        html += '<text x="350" y="160" font-size="17" fill="red" > -- No Data Found -- </text>\n';
         $('.map_content').css('background', '#fff');
         document.getElementById('par').innerHTML = '';
     }
@@ -358,7 +358,7 @@ function drawShape(start, end, club, distance, startTime, holeScore, putts){
                    y2='" +end.y+ "' \n\
                    stroke='black' \n\
                    stroke-width='3' \n\
-                   title='Date: " + d.date + "<br/> Time: " + d.time + "<br/> Score: " + holeScore + "<br/> Putts: " + putts + "'/>\n";
+                   title='Date: " + d.date + "\n Time: " + d.time + "\n Score: " + holeScore + "\n Putts: " + putts + "'/>\n";
 
     // draw triangle with the appropriate color
     if(club >= 1 && club <= 6){
@@ -377,7 +377,7 @@ function drawShape(start, end, club, distance, startTime, holeScore, putts){
                           fill='" +color+ "' \n\
                           stroke-width='2' \n\
                           stroke='#000' \n\
-                          title=' Club: +" +clubName+ " <br/> Distance: " +distance+ " yards' />\n";
+                          title=' Club: " +clubName+ " \n Distance: " +distance+ " yards' />\n";
     }
 
     // draw square with the appropriate color
@@ -395,7 +395,7 @@ function drawShape(start, end, club, distance, startTime, holeScore, putts){
                        fill='" +color+ "' \n\
                        stroke-width='2' \n\
                        stroke='#000' \n\
-                       title=' Club: +" +clubName+ " <br/> Distance: " +distance+ " yards' />\n"; 
+                       title=' Club: " +clubName+ " \n Distance: " +distance+ " yards' />\n"; 
     }
 
     // draw circle with the appropriate color
@@ -415,7 +415,7 @@ function drawShape(start, end, club, distance, startTime, holeScore, putts){
                          fill='" +color+ "' \n\
                          stroke-width='2' \n\
                          stroke='#000' \n\
-                         title=' Club: +" +clubName+ " <br/> Distance: " +distance+ " yards' />\n";
+                         title=' Club: " +clubName+ " \n Distance: " +distance+ " yards' />\n";
     }
 
     // draw diamond with the approriate color
@@ -435,7 +435,7 @@ function drawShape(start, end, club, distance, startTime, holeScore, putts){
                           fill='" +color+ "' \n\
                           stroke-width='2' \n\
                           stroke='#000' \n\
-                          title=' Club: " +clubName+ " <br/> Distance: " +distance+ " yards'/>";
+                          title=' Club: " +clubName+ " \n Distance: " +distance+ " yards'/>";
     }
 } // end draw shape
 
