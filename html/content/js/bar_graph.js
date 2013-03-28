@@ -109,7 +109,7 @@ function makeChart(clubsText, yAxisText, xAxisText, title, subtitle, categories,
             formatter: function() {
                 if (this.x > 0 && this.x < 19) {
                     // hole number - find the club
-                    return '' + this.series[this.x - 1].name + ': ' + this.y + ' yards';
+                    return '' + this.series.name + ': ' + this.y + ' yards';
                 } else {
                     return '' + this.x + ': ' + this.y + ' yards';
                 }
