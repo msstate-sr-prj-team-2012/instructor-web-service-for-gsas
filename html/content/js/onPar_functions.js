@@ -213,8 +213,8 @@ function createNavigationMenu(){
 } // end createNavigationMenu
 
 function createFooter(){
-    var help = defines.BASE_PATH + "/admin";
-    var about = defines.BASE_PATH + "/admin";
+    var help = defines.BASE_PATH + "/help";
+    var about = defines.BASE_PATH + "/about";
     var admin = defines.BASE_PATH + "/admin";
     document.getElementsByTagName('footer')[0].innerHTML = 
         " <a href=\"" + help + "\"' target=\"_blank\"> help </a> | <a href=\"" + about + "\"' target=\"_blank\"> about </a> | <a href=\"" + admin + "\"' target=\"_blank\"> admin </a> <br>\n" +
