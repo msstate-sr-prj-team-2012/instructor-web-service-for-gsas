@@ -431,7 +431,7 @@ function formatDate(date){
     if (hour == 0){ hour = 12;}
     if (hour > 12){ hour -= 12;}
     var new_date = {
-        date: (date.split('-')[2]).split(' ')[0] + "-" + m_names[Math.round(date.split('-')[1])] + "-" + date.split('-')[0],
+        date: (date.split('-')[2]).split(' ')[0] + "-" + m_names[Math.round(date.split('-')[1])-1] + "-" + date.split('-')[0],
         time: hour + ":" + (date.split(' ')[1]).split(':')[1] + " " + a_p
     };
     
