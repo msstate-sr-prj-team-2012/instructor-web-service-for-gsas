@@ -100,7 +100,8 @@ function createChart(){
             chart: {
                 renderTo: 'container',
                 type: 'scatter',
-                zoomType: 'xy'
+                zoomType: 'xy',
+                polar: true
             },
             title: {
                 text: 'Spread'
@@ -119,7 +120,7 @@ function createChart(){
             },
             xAxis: {
                 title: {
-                    text: 'Angle (degrees)'
+                    text: 'Angle (°)'
                 },
                 min: -70,
                 max: +70
@@ -152,7 +153,7 @@ function createChart(){
                     },
                     tooltip: {
                         headerFormat: '<b>{series.name}</b><br>',
-                        pointFormat: '{point.y} yards <br> {point.x} degrees'
+                        pointFormat: '{point.y} yards <br> {point.x} °'
                     }
                 }
             },
