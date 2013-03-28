@@ -122,6 +122,7 @@ $(document).ready(function() {
     }
     else if(window.location.pathname === defines.BASE_PATH + "/spread"){
         document.getElementById('spread').className += ' selected_tab';
+        createRoundTabs();
     }
     else if(window.location.pathname === defines.BASE_PATH + "/distance"){
         document.getElementById('distance').className += ' selected_tab';
