@@ -55,7 +55,7 @@ function getData(){
 
     } // end clubs loop
     
-    createChart();
+    createPolarChart();
 } // end function
 
 
@@ -79,13 +79,14 @@ function getAllData(){
         } // end rounds loop
         
         series.push({
+            type: 'scatter',
             name: getClubName(clubIDs[v]),
             data: data
         })
 
     } // end clubs loop
     
-    createChart();
+    createPolarChart();
 } // end function
 
 
@@ -95,7 +96,7 @@ function getAllData(){
  *
  ****************************************************************************/
 
-function createChart(){
+function createScatterChart(){
          var chart1 = new Highcharts.Chart({
             chart: {
                 renderTo: 'container',
@@ -165,6 +166,90 @@ function createChart(){
     data = [];
     clubIDs = [];
     
+}
+
+
+/****************************************************************************
+ *
+ * Create Polar Chart
+ *
+ ****************************************************************************/
+
+function createPolarChart(){
+    var chart1 = new Highcharts.Chart({
+	    chart: {
+                renderTo: 'container',
+	        polar: true
+	    },
+	    title: {
+	        text: 'Spread'
+	    },
+            subtitle: {
+                text: clubSelection
+            },
+	    pane: {
+	        startAngle: -90,
+	        endAngle: 90
+	    },
+            legend: {
+                layout: 'vertical',
+                align: 'right',
+                verticalAlign: 'top',
+                x: 10,
+                y: 50,
+                borderWidth: 0
+            },
+	    xAxis: {
+	        tickInterval: 15,
+	        min: -90,
+	        max: 90,
+	        labels: {
+                    formatter: function () {
+                            return this.value + '°';
+                    }
+	        }
+	    },
+	    yAxis: {
+	        min: 0,
+                max: 500,
+                labels: {
+                    formatter: function () {
+                            return '';
+                    }
+                }
+	    },
+	    plotOptions: {
+                scatter: {
+                    marker: {
+                        radius: 5,
+                        states: {
+                            hover: {
+                                enabled: true,
+                                lineColor: 'rgb(100,100,100)'
+                            }
+                        }
+                    },
+                    states: {
+                        hover: {
+                            marker: {
+                                enabled: false
+                            }
+                        }
+                    },
+                    tooltip: {
+                        headerFormat: '<b>{series.name}</b><br>',
+                        pointFormat: '{point.y} yards <br> {point.x}°'
+                    }
+                }
+            },
+	  
+	    series: series
+	});
+        
+    // clearing global memory after graph is created
+    series = [];
+    data = [];
+    clubIDs = [];
 }
 
 /****************************************************************************
