@@ -102,11 +102,11 @@ $(document).ready(function() {
     });
     createFooter();
     
-    if(window.location.pathname != defines.BASE_PATH + "/admin"){
+    if(window.location.pathname !== defines.BASE_PATH + "/admin"){
         createNavigationMenu();
     }
 
-    if(window.location.pathname == defines.BASE_PATH + "/"){
+    if(window.location.pathname === defines.BASE_PATH + "/"){
         document.getElementById('home').className += ' selected_tab'; 
     }
     else if(window.location.pathname === defines.BASE_PATH + "/rounds"){     
@@ -213,9 +213,11 @@ function createNavigationMenu(){
 } // end createNavigationMenu
 
 function createFooter(){
+    var help = defines.BASE_PATH + "/admin";
+    var about = defines.BASE_PATH + "/admin";
     var admin = defines.BASE_PATH + "/admin";
     document.getElementsByTagName('footer')[0].innerHTML = 
-        " <a> help </a> | <a> about </a> | <a href=\"" + admin + "\"' target=\"_blank\"> admin </a> <br>\n" +
+        " <a href=\"" + help + "\"' target=\"_blank\"> help </a> | <a href=\"" + about + "\"' target=\"_blank\"> about </a> | <a href=\"" + admin + "\"' target=\"_blank\"> admin </a> <br>\n" +
         " 2013 onPar\n";
 }
 
@@ -254,7 +256,7 @@ function createRoundTabs(){
     }
     html += "</ul>\n";
     
-    document.getElementsByClassName("round_tabs")[0].innerHTML = html;
+    document.getElementsByClassName("round_tabs")[0].innerHTML = html;     
 }
 
 

@@ -1,84 +1,82 @@
 <!DOCTYPE html>
 <html>
-    <head>
-        <title>onPar - spread</title>
-        <link rel="icon" type="image/ico" href="http://shadowrealm.cse.msstate.edu/favicon.ico">
-        <link rel="stylesheet" type="text/css" media="screen" href="html/content/css/style2.css">
-        <link rel="stylesheet" type="text/css" media="screen" href="html/content/css/vector.css">
-        <script type="text/javascript" src="html/content/js/jquery-1.8.3.min.js"></script>
-	<script type="text/javascript" src="html/content/js/select2.min.js"></script>
-        <script type="text/javascript" src="html/content/js/onPar_SDK.js"></script>
-        <script type="text/javascript" src="html/content/js/onPar_functions.js"></script>
-        <script type="text/javascript" src="html/content/js/graphFunctions.js"></script>
-        <script type="text/javascript" src="html/content/js/vector_graph.js"></script>
+<head> 
+    <title>onPar - spread</title>
+    <link rel="icon" type="image/ico" href="http://shadowrealm.cse.msstate.edu/favicon.ico">
+    <link rel="stylesheet" type="text/css" media="screen" href="html/content/css/style2.css">
+    <link rel="stylesheet" type="text/css" media="screen" href="html/content/css/select2.css">
+    <script type="text/javascript" src="html/content/js/jquery-1.8.3.min.js"></script>  
+    <script type="text/javascript" src="html/content/js/highcharts.js"></script> 
+    <script type="text/javascript" src="html/content/js/select2.min.js"></script>
+    <script type="text/javascript" src="html/content/js/onPar_SDK.js"></script>
+    <script type="text/javascript" src="html/content/js/onPar_functions.js"></script> 
+    <script type="text/javascript" src="html/content/js/onPar_spread_functions.js"></script>
+</head>
 
-    </head>
+<body>
 
-    <body>
+<div id="page-wrap">
 
-        <div id="page-wrap">
+    
+    <!--==============================header=================================-->
 
+   <header> 
 
-            <!--==============================header=================================-->
-
-            <header> 
-
-                <img src="html/content/images/logo.png" alt="" class="site-logo">
-                <h1> onPar </h1>
-
-
-                <div class="organization-logo">
-                </div>
-
-                <nav id="nav">  
-                </nav>
+        <img src="html/content/images/logo.png" alt="" class="site-logo">
+        <h1> onPar </h1>
 
 
+        <div class="organization-logo">
+        </div>
 
-                <div id="change">                   
-                       <input type="hidden" id="golfer_select" placeholder="change golfer?" style="width:230px;"/>                
-                </div>
-
-                <div id="currently_viewing"></div>
-
-
-            </header>
+        <nav id="nav"> 
+        </nav>
 
 
-            <!--==============================content================================-->
-   <div class="content">
-                <div class="graph_content">
+         <div id="change">                   
+                <input type="hidden" id="golfer_select" placeholder="change golfer?" style="width:230px;"/>                
+         </div>
+
+            <div id="currently_viewing"></div>
 
 
+   </header>
+       
+    
+    <!--==============================content================================-->
+    
+    <div class="content">
+        <div class="graph_content">
 
-                    <div class="hole_title">holes</div>
-                    <div class="hole_tabs"> 
-                    </div>
-
-                    <div class = "shot_title">shots</div>
-                    <div class = "shot_tabs">
-                    </div>
-
-                    <div class ="club_title">clubs</div>
-                    <div class = "club_tabs">
-                        <ul>
-                            <li id ="0c" class="selected_tab">all</li>
-                            <li id ="1c">driver</li>
-                            <li id ="2c">wood</li>
-                            <li id ="3c">hybrid</li>
-                            <li id ="4c">iron</li>
-                        </ul>
-                    </div>
-                    <div class ="vector_graph">   
-                    </div>
-                </div>
+            <div class="view_tabs">
+                <ul>
+                    <li id="All" class="selected_tab">all</li>
+                    <li id="Woods">wood</li>
+                    <li id="Hybrids">hybrid</li>
+                    <li id="Irons">iron</li>
+                    <li id="Wedges">wedge</li>           
+                </ul>      
+            </div>
+            
+            <div class="round_title">rounds</div>
+            
+            <div class="round_tabs">
             </div>
 
-            <!--==============================footer=================================-->
 
-            <footer>
-            </footer>  
+            <div id="container"></div>
+
 
         </div>
-    </body>
+    </div>
+    
+    
+    <!--==============================footer=================================-->
+
+    <footer>
+    </footer>  
+
+</div>
+
+</body>
 </html>
