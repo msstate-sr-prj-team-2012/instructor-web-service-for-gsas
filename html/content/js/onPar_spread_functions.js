@@ -1,3 +1,4 @@
+
 /****************************************************************************
  *
  * Global Variables
@@ -48,7 +49,6 @@ function getData(){
         } // end holes loop       
 
         series.push({
-            type: 'scatter',
             name: getClubName(clubIDs[x]),
             data: data
         })
@@ -56,7 +56,7 @@ function getData(){
 
     } // end clubs loop
     
-    createPolarChart();
+    createScatterChart();
 } // end function
 
 
@@ -80,14 +80,13 @@ function getAllData(){
         } // end rounds loop
         
         series.push({
-            type: 'scatter',
             name: getClubName(clubIDs[v]),
             data: data
         })
-
+        
     } // end clubs loop
     
-    createPolarChart();
+    createScatterChart();
 } // end function
 
 
@@ -102,8 +101,7 @@ function createScatterChart(){
             chart: {
                 renderTo: 'container',
                 type: 'scatter',
-                zoomType: 'xy',
-                polar: true
+                zoomType: 'xy'
             },
             title: {
                 text: 'Spread'
@@ -158,7 +156,7 @@ function createScatterChart(){
                         pointFormat: '{point.y} yards <br> {point.x} degrees'
                     }
                 }
-            },
+            }, 
             series: series
         });
         
@@ -176,11 +174,14 @@ function createScatterChart(){
  *
  ****************************************************************************/
 
-function createPolarChart(){
+function createPolarChart(){ 
     var chart1 = new Highcharts.Chart({
 	    chart: {
                 renderTo: 'container',
-	        polar: true
+                type: 'scatter',
+	        polar: true,
+                backgroundColor: 'transparent', 
+                marginTop: 10
 	    },
 	    title: {
 	        text: 'Spread'
@@ -194,11 +195,9 @@ function createPolarChart(){
 	    },
             legend: {
                 layout: 'vertical',
-                align: 'right',
                 verticalAlign: 'top',
-                x: 10,
-                y: 50,
-                borderWidth: 0
+                borderWidth: 0,
+                x: 350
             },
 	    xAxis: {
 	        tickInterval: 15,
@@ -212,7 +211,7 @@ function createPolarChart(){
 	    },
 	    yAxis: {
 	        min: 0,
-                max: 500,
+                max: 350,
                 labels: {
                     formatter: function () {
                             return '';
