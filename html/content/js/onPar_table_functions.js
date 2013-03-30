@@ -102,7 +102,7 @@ function createHoleGrid(){
                 {name:'hole',index:'hole', width:60, sorttype: 'int', align:'center'},
                 {name:'par',index:'par', width:60, align:'center'},
                 {name:'shots',index:'shots', width:60, align:'center'},
-                {name:'shots',index:'putts', width:60, align:'center'},
+                {name:'putts',index:'putts', width:60, align:'center'},
                 {name:'score',index:'score', width:60, align:'center'}
             ],
             rowNum:20,
