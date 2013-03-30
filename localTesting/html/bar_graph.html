@@ -7,9 +7,10 @@
     <link rel="stylesheet" type="text/css" media="screen" href="{{ get_url('static', path='css/select2.css') }}">
     <script type="text/javascript" src="{{ get_url('static', path='js/jquery-1.8.3.min.js') }}"></script>
     <script type="text/javascript" src="{{ get_url('static', path='js/select2.min.js') }}"></script>
+    <script type="text/javascript" src="{{ get_url('static', path='js/highcharts.js') }}"></script>
     <script type="text/javascript" src="{{ get_url('static', path='js/onPar_SDK.js') }}"></script>
     <script type="text/javascript" src="{{ get_url('static', path='js/onPar_functions.js') }}"></script> 
-    <script type="text/javascript" src="{{ get_url('static', path='js/bar_graph.js') }}"></script>
+    <script type="text/javascript" src="{{ get_url('static', path='js/onPar_bargraph_functions.js') }}"></script>
 </head>
 
 <body>
@@ -32,20 +33,11 @@
         </nav>
 
 
-         <ul id="change_golfer">
-            <li><a>change golfer ?</a>
-              <ul>
-                  <li> 
-                        <input type="text" id="input_field" placeholder="enter user id, member id, or email..." >
-                  </li>
-                  <li>                       
-                        <input type="hidden" id="golfer_select" placeholder="Select Golfer..." style="width:250px;"/>
-                  </li>
-              </ul>
-            </li>
-        </ul>
+         <div id="change">                   
+                <input type="hidden" id="golfer_select" placeholder="change golfer?" style="width:230px;"/>                
+         </div>
 
-            <div id="map_image"></div>
+            <div id="currently_viewing"></div>
 
 
    </header>
@@ -72,6 +64,7 @@
 
 
             <div id="graphContainer"></div>
+            <div id="legend"></div>
 
 
         </div>
@@ -81,7 +74,6 @@
     <!--==============================footer=================================-->
 
     <footer>
-        2013 onPar 
     </footer>  
 
 </div>

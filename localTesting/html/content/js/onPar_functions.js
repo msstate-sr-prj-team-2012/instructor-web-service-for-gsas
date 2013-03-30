@@ -1,3 +1,18 @@
+
+// imports google font library
+WebFontConfig = {
+google: { families: [ 'Open+Sans:300italic,400italic,600italic,700italic,800italic,400,300,600,700,800:latin' ] }
+};
+    (function() {
+    var wf = document.createElement('script');
+    wf.src = ('https:' == document.location.protocol ? 'https' : 'http') +
+      '://ajax.googleapis.com/ajax/libs/webfont/1/webfont.js';
+    wf.type = 'text/javascript';
+    wf.async = 'true';
+    var s = document.getElementsByTagName('script')[0];
+    s.parentNode.insertBefore(wf, s);
+})();
+      
 /****************************************************************************
  *
  * Global Variables
@@ -16,10 +31,17 @@ var roundsClass;
 
 $(document).ready(function() { 
     
+  
     $("#golfer_select").change(function(){
-        localStorage.removeItem('rounds');
-        localStorage.setItem('userID', $("#golfer_select").select2('data').id);
-        document.location.href = defines.BASE_PATH + '/rounds';
+        var admin_url = document.location.href;
+        admin_url = admin_url.slice(document.location.href.length - 5, document.location.href.length);
+
+        //Make sure that the user is not on the admin page
+        if (admin_url != 'admin') {
+            localStorage.removeItem('rounds');
+            localStorage.setItem('userID', $("#golfer_select").select2('data').id);
+            document.location.href = defines.BASE_PATH + '/rounds';
+        }
     });
     
     $("#input_field").keypress(function(e) {
@@ -74,13 +96,17 @@ $(document).ready(function() {
  * Runs Functions Respective To Page Viewed & Sets Navigation Highlight
  *
  ****************************************************************************/
-      
-    createNavigationMenu();
+    
     $('#golfer_select').select2({
         data:select2SelectFieldData()
     });
+    createFooter();
+    
+    if(window.location.pathname !== defines.BASE_PATH + "/admin"){
+        createNavigationMenu();
+    }
 
-    if(window.location.pathname == defines.BASE_PATH + "/"){
+    if(window.location.pathname === defines.BASE_PATH + "/"){
         document.getElementById('home').className += ' selected_tab'; 
     }
     else if(window.location.pathname === defines.BASE_PATH + "/rounds"){     
@@ -96,6 +122,7 @@ $(document).ready(function() {
     }
     else if(window.location.pathname === defines.BASE_PATH + "/spread"){
         document.getElementById('spread').className += ' selected_tab';
+        createRoundTabs();
     }
     else if(window.location.pathname === defines.BASE_PATH + "/distance"){
         document.getElementById('distance').className += ' selected_tab';
@@ -104,9 +131,6 @@ $(document).ready(function() {
     else if(window.location.pathname === defines.BASE_PATH + "/stats"){
         document.getElementById('stats').className += ' selected_tab'; 
         getStatData();
-    }
-    else if(window.location.pathname === defines.BASE_PATH + "/admin"){
-        document.getElementById('admin').className += ' selected_tab'; 
     }
 });
 
@@ -119,7 +143,8 @@ $(document).ready(function() {
  ****************************************************************************/
 
 function createNavigationMenu(){
-    var golfer = new User(localStorage.getItem('userID'));
+    var userID = localStorage.getItem('userID');
+    var golfer = new User(userID);
     var rounds = localStorage.getObject('rounds');
     
     var home = defines.BASE_PATH + "/";
@@ -129,9 +154,8 @@ function createNavigationMenu(){
     var distance = defines.BASE_PATH + "/distance";
     var maps = defines.BASE_PATH + "/maps";
     var stats = defines.BASE_PATH + "/stats";
-    var admin = defines.BASE_PATH + "/admin";
     
-    if(golfer === null){
+    if(userID === null){
         if(window.location.pathname === (defines.BASE_PATH + '/')){
             document.getElementById("nav").innerHTML=
             "<ul>\n" +
@@ -148,17 +172,17 @@ function createNavigationMenu(){
         if(window.location.pathname === (defines.BASE_PATH + '/') || window.location.pathname === (defines.BASE_PATH + '/rounds')){
             document.getElementById("nav").innerHTML=
                 "<ul>\n" +
-                    "<li id='home'><a href=\"" + home + "\">home</a></li>\n" +
-                    "<li id='round'><a href=\"" + round + "\">rounds</a></li>\n" +
+                    "<li id='home'><a href=\"" + home + "\">Home</a></li>\n" +
+                    "<li id='round'><a href=\"" + round + "\">Selection</a></li>\n" +
                 "</ul>\n";
             
             // prints golfer data to page
             if(window.location.pathname === (defines.BASE_PATH + '/rounds')){
                 document.getElementById("currently_viewing").innerHTML= 
-                    "<span>golfer: </span>" + golfer.name + " -- " +
-                    "<span>age: </span>" + getAge(golfer.birthDate) + " -- " +
-                    "<span>sex: </span>" + golfer.gender + " -- " +
-                    "<span>hand: </span>" + golfer.hand + "\n";
+                    "<span>Golfer: </span>" + golfer.name + " &nbsp;&nbsp;&nbsp;&nbsp; " +
+                    "<span>Age: </span>" + golfer.age + " &nbsp;&nbsp;&nbsp;&nbsp; " +
+                    "<span>Sex: </span>" + golfer.gender + " &nbsp;&nbsp;&nbsp;&nbsp; " +
+                    "<span>Hand: </span>" + golfer.hand + "\n";
             }
         }  
         // redirects to rounds page if rounds are not selected
@@ -170,27 +194,34 @@ function createNavigationMenu(){
     else{   
         document.getElementById("nav").innerHTML=
             "<ul>\n" +
-                "<li id='home'><a href=\"" + home + "\">home</a></li>\n" +
-                "<li id='round'><a href=\"" + round + "\">rounds</a></li>\n" +
-                "<li id='table'><a href=\"" + table + "\">table</a></li>\n" +
-                "<li id='stats'><a href=\"" + stats + "\">stats</a></li>\n" +
-                "<li id='spread'><a href=\"" + spread + "\">spread</a></li>\n" +
-                "<li id='distance'><a href=\"" + distance + "\">distance</a></li>\n" +
-                "<li id='maps'><a href=\"" + maps + "\">maps</a></li>\n" +
-		"<li id='admin'><a href=\"" + admin + "\">admin</a></li>\n" +
+                "<li id='home'><a href=\"" + home + "\">Home</a></li>\n" +
+                "<li id='round'><a href=\"" + round + "\">Selection</a></li>\n" +
+                "<li id='table'><a href=\"" + table + "\">Scores</a></li>\n" +
+                "<li id='maps'><a href=\"" + maps + "\">Maps</a></li>\n" +
+                "<li id='distance'><a href=\"" + distance + "\">Distance</a></li>\n" +
+                "<li id='spread'><a href=\"" + spread + "\">Spread</a></li>\n" +
+                "<li id='stats'><a href=\"" + stats + "\">Statistics</a></li>\n" +  
             "</ul>\n";
         
         // prints golfer data to page
-        if (window.location.pathname !== (defines.BASE_PATH + '/') && window.location.pathname !== (defines.BASE_PATH + '/admin')) {
+        if (window.location.pathname !== (defines.BASE_PATH + '/')) {
             document.getElementById("currently_viewing").innerHTML= 
-                "<span>golfer: </span>" + golfer.name + " -- " +
-                "<span>age: </span>" + golfer.age + " -- " +
-                "<span>sex: </span>" + golfer.gender + " -- " +
-                "<span>hand: </span>" + golfer.hand + "\n";
+                "<span>Golfer: </span>" + golfer.name + " &nbsp;&nbsp;&nbsp;&nbsp; " +
+                "<span>Age: </span>" + golfer.age + " &nbsp;&nbsp;&nbsp;&nbsp; " +
+                "<span>Sex: </span>" + golfer.gender + " &nbsp;&nbsp;&nbsp;&nbsp; " +
+                "<span>Hand: </span>" + golfer.hand + "\n";
         }
     }
 } // end createNavigationMenu
 
+function createFooter(){
+    var help = defines.BASE_PATH + "/help";
+    var about = defines.BASE_PATH + "/about";
+    var admin = defines.BASE_PATH + "/admin";
+    document.getElementsByTagName('footer')[0].innerHTML = 
+        " <a href=\"" + help + "\"' target=\"_blank\"> help </a> | <a href=\"" + about + "\"' target=\"_blank\"> about </a> | <a href=\"" + admin + "\"' target=\"_blank\"> admin </a> <br>\n" +
+        " 2013 onPar\n";
+}
 
 /****************************************************************************
  *
@@ -222,11 +253,12 @@ function createRoundTabs(){
     var html = '<ul>\n';
     html += "<li id='all' title='all rounds' class='selected_tab'>all</li>\n";
     for (var i = 0; i < rounds.length; i++){
-        html += "<li id='" + rounds[i].ID + "' title=' Date: " + rounds[i].startTime.split(' ')[0] + "\n Time: " + rounds[i].startTime.split(' ')[1] + "'>" + (i + 1) + "</li>\n";
+        var d = formatDate(rounds[i].startTime);
+        html += "<li id='" + rounds[i].ID + "' title='" + d.date + "\n" + d.time + "'>" + (i + 1) + "</li>\n";
     }
     html += "</ul>\n";
     
-    document.getElementsByClassName("round_tabs")[0].innerHTML = html;
+    document.getElementsByClassName("round_tabs")[0].innerHTML = html;     
 }
 
 
@@ -248,8 +280,9 @@ Rounds.prototype.output = function(){
         if(i !== 0 && (i%10) === 0){ 
             html += "</div>\n<div class='column'>"; 
         }
-        html += "<label><input type=\"checkbox\" value='" + this.roundObjects.rounds[i].ID + "'> " +          
-            this.roundObjects.rounds[i].startTime + "</label><br/>\n";     
+        var d = formatDate(this.roundObjects.rounds[i].startTime);
+        html += "<label><input type=\"checkbox\" value='" + this.roundObjects.rounds[i].ID + "'> &nbsp;" +          
+                d.date + " &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;" + d.time + "</label><br/>\n"; 
     }
     html += "</div>";
     document.getElementById('date_list').innerHTML = html;
@@ -297,13 +330,15 @@ var user = new User(localStorage.getItem('userID'));
 
 function getStatData(){   
     statData = [];
-    for(var i = 0;i < 2; i++){
-        statData.push({
-            year: (2012 + i),
-            gir: (user.stats[2012 + i].GIR_percentage).toFixed(2),
-            accuracy: (user.stats[2012 + i].driving_accuracy).toFixed(2),
-            distance: (user.stats[2012 + i].driving_distance).toFixed(2) 
-        })
+    for(var i = 0;i < 2; i++) {
+        if (typeof(user.stats[2012 + i]) != 'undefined') {
+            statData.push({
+                year: (2012 + i),
+                gir: (user.stats[2012 + i].GIR_percentage).toFixed(2),
+                accuracy: (user.stats[2012 + i].driving_accuracy).toFixed(2),
+                distance: (user.stats[2012 + i].driving_distance).toFixed(2) 
+            });
+        }
     }  
     createStatGrid();
 }
@@ -314,14 +349,12 @@ function createStatGrid(){
         data: statData,
         colNames:['year', 'GIR %', 'driving accuracy', 'driving distance'],
         colModel:[
-            {name:'year', index: 'year', width: 150},
-            {name:'gir',index:'gir', width:150, align:'center'},
-            {name:'accuracy',index:'accuracy', width:150, align:'center'},
-            {name:'distance',index:'distance', width:150, align:'center'}
+            {name:'year', index: 'year', width: 60, align:'center'},
+            {name:'gir',index:'gir', width:60, align:'center'},
+            {name:'accuracy',index:'accuracy', width:120, align:'center'},
+            {name:'distance',index:'distance', width:120, align:'center'}
         ],
-        rowNum:5,
-        rowList:[5,10],
-        pager: '#pager',
+        rowNum:10,
         sortname: 'year',
         viewrecords: true,
         caption:"Statistics",
@@ -386,4 +419,21 @@ function computeAngle(startLat,startLong,aimLat,aimLong,endLat,endLong){
     var mag2 = Math.pow((endLat * endLat + endLong + endLong), .5);
     
     return (Math.acos(scalar / (mag1 * mag2))*(180 / Math.PI)).toFixed(2);	
+}
+
+// formats date to a more readable form
+function formatDate(date){
+    var m_names = new Array("Jan", "Feb", "Mar", "Apr", "May", "Jun", "Jul", "Aug", "Sep", "Oct", "Nov", "Dec");       
+    var a_p;
+    var hour = (date.split(' ')[1]).split(':')[0];
+    if (hour < 12){ a_p = "am";}
+    else{a_p = "pm";}
+    if (hour == 0){ hour = 12;}
+    if (hour > 12){ hour -= 12;}
+    var new_date = {
+        date: (date.split('-')[2]).split(' ')[0] + "-" + m_names[Math.round(date.split('-')[1])-1] + "-" + date.split('-')[0],
+        time: hour + ":" + (date.split(' ')[1]).split(':')[1] + " " + a_p
+    };
+    
+    return new_date;
 }

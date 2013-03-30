@@ -1,12 +1,14 @@
 <!DOCTYPE html>
 <html>
 <head>
-    <title>onPar - table</title>
+    <title>onPar - spread</title>
     <link rel="icon" type="image/ico" href="http://shadowrealm.cse.msstate.edu/favicon.ico">
     <link rel="stylesheet" type="text/css" media="screen" href="{{ get_url('static', path='css/style2.css') }}">
     <link rel="stylesheet" type="text/css" media="screen" href="{{ get_url('static', path='css/select2.css') }}">
-    <link rel="stylesheet" type="text/css" media="screen" href="{{ get_url('static', path='css/smoothness/jquery-ui-1.10.1.custom.min.css') }}" />
-    <link rel="stylesheet" type="text/css" media="screen" href="{{ get_url('static', path='css/ui.jqgrid.css') }}" /> 
+    <link rel="stylesheet" type="text/css" media="screen" href="{{ get_url('static', path='css/smoothness/jquery-ui-1.10.1.custom.min.css') }}"> 
+    <link rel="stylesheet" type="text/css" media="screen" href="{{ get_url('static', path='css/ui.jqgrid.css') }}">
+    <link rel="stylesheet" type="text/css" media="screen" href="{{ get_url('static', path='smoke/smoke.css') }}">
+    <link rel="stylesheet" type="text/css" media="screen" href="{{ get_url('static', path='smoke/themes/onPar.css') }}">
     <script type="text/javascript" src="{{ get_url('static', path='js/jquery-1.8.3.min.js') }}"></script>
     <script type="text/javascript" src="{{ get_url('static', path='js/select2.min.js') }}"></script>
     <script type="text/javascript" src="{{ get_url('static', path='js/i18n/grid.locale-en.js') }}"></script>
@@ -14,29 +16,14 @@
     <script type="text/javascript" src="{{ get_url('static', path='js/onPar_SDK.js') }}"></script>
     <script type="text/javascript" src="{{ get_url('static', path='js/onPar_functions.js') }}"></script>
     <script type="text/javascript" src="{{ get_url('static', path='js/onPar_admin_functions.js') }}"></script>
-	<script type="text/javascript">
-
-        function addYears()
-        {
-            var x = document.getElementById("birthyear");
-
-            for (var i = 2013; i >= 1900; i--) {
-                var option = document.createElement("option");
-                option.text = i;
-                option.value = i;
-                try {
-                    x.add(option, x.options[null]);
-                }
-                catch (e) {
-                    x.add(option, null);
-                }
-            }
-        }
-
-    </script>
+    <script type="text/javascript" src="{{ get_url('static', path='smoke/smoke.min.js') }}"></script>
 </head>
+
 <body>
- <div id="page-wrap">
+
+<div id="page-wrap">
+
+    
     <!--==============================header=================================-->
    <header> 
         <img src="{{ get_url('static', path='images/logo.png') }}" alt="" class="site-logo">
@@ -44,62 +31,87 @@
         <div class="organization-logo">
         </div>
         <nav id="nav">  
+      <ul><li class="selected_tab"><a>Admin</a></li></ul>
         </nav>
    </header>
-
-	<!--==============================content================================-->
-
-	<div class="content">
-        <div id="passwordDiv" style="float: none; position: relative; margin: 120px auto;">
-            Please enter the passcode to continue: <input type="password" name="passcode" id="pass" />
-            <input type="button" id="passbtn" value="Submit" /><br />
-            <div id="errmsg"></div>
-        </div>
-
-		<div id="administrative">
-			<div id="golferseldiv">
-                <div id="golferselect" style="float: none; margin: 0px auto">
-				    Enter Golfer ID: <input type="text" id="uID" /><br/>
-				
-				    <input type="button" id="editGolfer" value="Edit"/>
-				    <input type="button" id="deleteGolfer" value="Delete"/>
-			    </div>
-			    <div id="golferadd" style="float: none; margin: 0px auto">
-				    <input type="button" id="addGolfer" value="Add Golfer"/>
-			    </div>
+       
+    
+    <!--==============================content================================-->
+    
+    <div class="content">
+    
+      <div id="administrative">
+        <div id="golferseldiv" class="formstyle">
+                  <div id="golferselect" style=" margin-top: 30px; display: inline-block;">
+                      <div class="formheading">
+              <input type="button" id="addGolfer" class="button_addGolfer" value="Add Golfer" />
+              Choose a Golfer
             </div>
+              <span class="formfield">
+              <input type="hidden" id="golfer_select" placeholder="Select Golfer..." style="width:300px;"/><br/> or <br/>
+              <input type="text" class="memid" placeholder="Enter Golfer ID" id="uID" style="width: 300px;" />
+            </span>
+              <p class="admin-button-list">
+                      <input type="button" id="editGolfer" class="button_example" value="Edit Golfer"/>
+              <input type="button" id="deleteGolfer" class="button_example" value="Delete Golfer"/>   
+                      <input type="button" id="deleteRounds" class="button_example" value="Delete Rounds"/>   
+              </p>
+            </div>
+          <div id="golferreselect" class="golferreselect">
+            <input type="button" id="showGolferSelect" class="button_example" value="Choose Another Golfer" />
+          </div>
+              </div>
 
-			<div id="userform" style="width: 750px; float: none; margin: 0px auto; background-color: black; color: white;">
-				<form id="userInfo">
-					<input type="text"  placeholder="First Name" name="firstname" id="ufname" />
-					<input type="text"  placeholder="Last Name"  name="lastname" id="ulname" /><br/>
+        <div id="userform" class="formstyle">
+                  <span class="formheading" id="formheader">Edit User Info</span>
+          <form id="userInfo">
+            <p class="formfield">
+              Name
+                          <input type="text"  class="memid" placeholder="First Name" name ="fname" id="ufname" style="width: 150px;" />
+                          <input type="text"  class="memid" placeholder="Last Name"  name ="lname" id="ulname" style="width: 150px;" />
+            </p>
+                      <p class="formfield">Nickname: <input type="email" class="memid" placeholder="Nickname"   name ="nickname" id="unickname" style="width: 200px;" /></p>
+            <p class="formfield">E-Mail: <input type="email" class="memid" placeholder="E-Mail"     name ="email"    id="uemail"    style="width: 200px;" /></p>
+            <p class="formfield">
+              Member ID
+              <input type="text" class="memid" placeholder="4Numbers" name="memberID" id="umemID1" style="width: 75px;" />M-
+              <input type="text" class="memid" placeholder="6Numbers" name="memberID" id="umemID2" style="width: 100px;" />
+            </p>
+            
+                      <p class="formfield">
+                      <span id="ubdatechangetext">Enter Birthdate:</span>
+                      <input type="date" name="changebirthdate" id="ubdatechange" /></p>
+                      
+                      <p class="formfield">
+                          Gender: 
+                <input type="radio" name="gender" id="genderm" value="male" />Male
+                          <input type="radio" name="gender" id="genderf" value="female" />Female
+                      </p>
 
-					<input type="email" placeholder="E-Mail"     name ="email" id="uemail" /><br/>
-					<input type="text"  placeholder="Member ID"  name="memberID" id="umemID" /><br/>
-					
-                    Birth Year:
-                    <select name="birthyear" id="birthyear">
-                        <option value="">Select birth year...</option>
-                    </select><br />
-                    <script>addYears();</script>
+                      <p class="formfield">
+                          Hand: 
+                <input type="radio" name="hand" id="lefth" value="left" />Left-Handed
+                          <input type="radio" name="hand" id="righth" value="right" />Right-Handed
+                      </p>
 
-                    Gender: 
-					<input type="radio" name="gender" value="Male" />Male
-                    <input type="radio" name="gender" value="Female" />Female<br />
-
-					<input type="button" id="save" value="Save Changes" />
-					<input type="reset" value="Reset Form" />
-				</form>
-			</div>
-			<div id="roundselect" style="width: 200px; background-color: black">
-				
-			</div>
-		</div>
-	</div>
-	<!--==============================footer=================================-->
-	<footer>
-		2013 onPar 
-	</footer>
+                      <p class="admin-button-list">
+            <input type="button" class="button_example" id="save" value="Save Changes" />
+            <input type="reset" class="button_example" value="Reset Form" /></p>
+          </form>
+        </div>
+        <div id="roundselect" class="formstyle">
+          <span style="width: 100%; text-align: center;" id="tablehead"></span>
+          <table id="roundTable" class="roundsDel">
+          </table>
+          <input type="button" class="button_example" id="deleteRoundButton" value="Delete Selected" />
+        </div>
+      </div>
+    </div>
+    
+    
+    <!--==============================footer=================================-->
+    <footer>
+    </footer>  
 </div>
 </body>
 </html>

@@ -27,22 +27,24 @@ Version: 3.3.1 Timestamp: Wed Feb 20 09:57:22 PST 2013
           box-sizing: border-box; /* css3 */
 }
 
+#change .select2-container .select2-choice {
+    height: 24px;
+    line-height: 24px;
+}
 .select2-container .select2-choice {
     display: block;
-    height: 26px;
+    height: 29px;
     padding: 0 0 0 8px;
     overflow: hidden;
     position: relative;
 
     border: 1px solid #aaa;
     white-space: nowrap;
-    line-height: 26px;
+    line-height: 29px;
     color: #444;
     text-decoration: none;
 
-    -webkit-border-radius: 4px;
-       -moz-border-radius: 4px;
-            border-radius: 4px;
+
 
     -webkit-background-clip: padding-box;
        -moz-background-clip: padding;
@@ -68,9 +70,7 @@ Version: 3.3.1 Timestamp: Wed Feb 20 09:57:22 PST 2013
 .select2-container.select2-drop-above .select2-choice {
     border-bottom-color: #aaa;
 
-    -webkit-border-radius:0 0 4px 4px;
-       -moz-border-radius:0 0 4px 4px;
-            border-radius:0 0 4px 4px;
+    
 
     background-image: -webkit-gradient(linear, left bottom, left top, color-stop(0, #eeeeee), color-stop(0.9, white));
     background-image: -webkit-linear-gradient(center bottom, #eeeeee 0%, white 90%);
@@ -134,9 +134,7 @@ Version: 3.3.1 Timestamp: Wed Feb 20 09:57:22 PST 2013
     border: 1px solid #aaa;
     border-top: 0;
 
-    -webkit-border-radius: 0 0 4px 4px;
-       -moz-border-radius: 0 0 4px 4px;
-            border-radius: 0 0 4px 4px;
+  
 
     -webkit-box-shadow: 0 4px 5px rgba(0, 0, 0, .15);
        -moz-box-shadow: 0 4px 5px rgba(0, 0, 0, .15);
@@ -148,9 +146,7 @@ Version: 3.3.1 Timestamp: Wed Feb 20 09:57:22 PST 2013
     border-top: 1px solid #aaa;
     border-bottom: 0;
 
-    -webkit-border-radius: 4px 4px 0 0;
-       -moz-border-radius: 4px 4px 0 0;
-            border-radius: 4px 4px 0 0;
+   
 
     -webkit-box-shadow: 0 -4px 5px rgba(0, 0, 0, .15);
        -moz-box-shadow: 0 -4px 5px rgba(0, 0, 0, .15);
@@ -166,9 +162,7 @@ Version: 3.3.1 Timestamp: Wed Feb 20 09:57:22 PST 2013
     top: 0;
 
     border-left: 1px solid #aaa;
-    -webkit-border-radius: 0 4px 4px 0;
-       -moz-border-radius: 0 4px 4px 0;
-            border-radius: 0 4px 4px 0;
+ 
 
     -webkit-background-clip: padding-box;
        -moz-background-clip: padding;
@@ -220,7 +214,7 @@ Version: 3.3.1 Timestamp: Wed Feb 20 09:57:22 PST 2013
 
     outline: 0;
     font-family: sans-serif;
-    font-size: 1em;
+    font-size: 13px;
 
     border: 1px solid #aaa;
     -webkit-border-radius: 0;
@@ -499,9 +493,7 @@ disabled look for disabled choices in the results dropdown
     cursor: default;
     border: 1px solid #aaaaaa;
 
-    -webkit-border-radius: 3px;
-       -moz-border-radius: 3px;
-            border-radius: 3px;
+    
 
     -webkit-box-shadow: 0 0 2px #ffffff inset, 0 1px 0 rgba(0,0,0,0.05);
        -moz-box-shadow: 0 0 2px #ffffff inset, 0 1px 0 rgba(0,0,0,0.05);

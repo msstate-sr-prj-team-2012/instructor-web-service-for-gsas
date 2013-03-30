@@ -52,6 +52,14 @@ def stats():
 def admin():
 	return bottle.template('./html/admin.html', get_url=app.get_url)
 
+@app.route('/gsas/help')
+def admin():
+    return bottle.template('./html/help.html', get_url=app.get_url)
+
+@app.route('/gsas/about')
+def admin():
+    return bottle.template('./html/about.html', get_url=app.get_url)
+
 ############################
 #
 # API
