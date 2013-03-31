@@ -83,7 +83,7 @@ function getAllData(){
         
         if (data.length !== 0) {
             series.push({
-                name: getClubName(clubIDs[x]),
+                name: getClubName(clubIDs[v]),
                 data: data
             });
         }
