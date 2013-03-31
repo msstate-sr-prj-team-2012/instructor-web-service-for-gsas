@@ -81,10 +81,12 @@ function getAllData(){
             } // end holes loop       
         } // end rounds loop
         
-        series.push({
-            name: getClubName(clubIDs[v]),
-            data: data
-        })
+        if (data.length !== 0) {
+            series.push({
+                name: getClubName(clubIDs[x]),
+                data: data
+            });
+        }
         
     } // end clubs loop
     
