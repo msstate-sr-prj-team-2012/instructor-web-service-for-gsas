@@ -47,18 +47,17 @@ function getData(){
 
                 } // end shots loop        
         } // end holes loop       
-
-        if (data.length !== 0) {
-            series.push({
-                name: getClubName(clubIDs[x]),
-                data: data
-            });
-        }
+		if (data.length !== 0) {
+			series.push({
+				name: getClubName(clubIDs[x]),
+				data: data
+			})
+		}
 
 
     } // end clubs loop
     
-    createScatterChart();
+    createPolarChart();
 } // end function
 
 
@@ -80,17 +79,16 @@ function getAllData(){
                     } // end shots loop        
             } // end holes loop       
         } // end rounds loop
-        
-        if (data.length !== 0) {
-            series.push({
-                name: getClubName(clubIDs[v]),
-                data: data
-            });
-        }
+        if (data.length !== 0) { 
+			series.push({
+				name: getClubName(clubIDs[v]),
+				data: data
+			})
+		}
         
     } // end clubs loop
     
-    createScatterChart();
+    createPolarChart();
 } // end function
 
 
@@ -100,76 +98,76 @@ function getAllData(){
  *
  ****************************************************************************/
 
-function createScatterChart(){
-         var chart1 = new Highcharts.Chart({
-            chart: {
-                renderTo: 'container',
-                type: 'scatter',
-                zoomType: 'xy'
-            },
-            title: {
-                text: 'Spread'
-            },
-            subtitle: {
-                text: clubSelection
-            },
-            yAxis: {
-                title: {
-                    enabled: true,
-                    text: 'Distance (yards)'
-                },
-                startOnTick: true,
-                endOnTick: true,
-                showLastLabel: true
-            },
-            xAxis: {
-                title: {
-                    text: 'Angle (degrees)'
-                },
-                min: -70,
-                max: +70
-            },
-            legend: {
-                layout: 'vertical',
-                align: 'right',
-                verticalAlign: 'top',
-                x: 10,
-                y: 10,
-                borderWidth: 0
-            },
-            plotOptions: {
-                scatter: {
-                    marker: {
-                        radius: 5,
-                        states: {
-                            hover: {
-                                enabled: true,
-                                lineColor: 'rgb(100,100,100)'
-                            }
-                        }
-                    },
-                    states: {
-                        hover: {
-                            marker: {
-                                enabled: false
-                            }
-                        }
-                    },
-                    tooltip: {
-                        headerFormat: '<b>{series.name}</b><br>',
-                        pointFormat: '{point.y} yards <br> {point.x} degrees'
-                    }
-                }
-            }, 
-            series: series
-        });
-        
-    // clearing global memory after graph is created
-    series = [];
-    data = [];
-    clubIDs = [];
-    
-}
+//function createScatterChart(){
+//         var chart1 = new Highcharts.Chart({
+//            chart: {
+//                renderTo: 'container',
+//                type: 'scatter',
+//                zoomType: 'xy'
+//            },
+//            title: {
+//                text: 'Spread'
+//            },
+//            subtitle: {
+//                text: clubSelection
+//            },
+//            yAxis: {
+//                title: {
+//                    enabled: true,
+//                    text: 'Distance (yards)'
+//                },
+//                startOnTick: true,
+//                endOnTick: true,
+//                showLastLabel: true
+//            },
+//            xAxis: {
+//                title: {
+//                    text: 'Angle (degrees)'
+//                },
+//                min: -70,
+//                max: +70
+//            },
+//            legend: {
+//                layout: 'vertical',
+//                align: 'right',
+//                verticalAlign: 'top',
+//                x: 10,
+//                y: 10,
+//                borderWidth: 0
+//            },
+//            plotOptions: {
+//                scatter: {
+//                    marker: {
+//                        radius: 5,
+//                        states: {
+//                            hover: {
+//                                enabled: true,
+//                                lineColor: 'rgb(100,100,100)'
+//                            }
+//                        }
+//                    },
+//                    states: {
+//                        hover: {
+//                            marker: {
+//                                enabled: false
+//                            }
+//                        }
+//                    },
+//                    tooltip: {
+//                        headerFormat: '<b>{series.name}</b><br>',
+//                        pointFormat: '{point.y} yards <br> {point.x} degrees'
+//                    }
+//                }
+//            }, 
+//            series: series
+//        });
+//        
+//    // clearing global memory after graph is created
+//    series = [];
+//    data = [];
+//    clubIDs = [];
+//    
+//}
 
 
 /****************************************************************************
@@ -183,9 +181,10 @@ function createPolarChart(){
 	    chart: {
                 renderTo: 'container',
                 type: 'scatter',
-	        polar: true,
+				polar: true,
                 backgroundColor: 'transparent', 
-                marginTop: 10
+                marginTop: 10, 
+				paddingBottom: 20
 	    },
 	    title: {
 	        text: 'Spread'
