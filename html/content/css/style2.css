@@ -516,8 +516,7 @@ label:hover{
     position:relative;
     top: 75px;
     padding:0;
-	padding-bottom: 50px;
-    margin: 0 auto;
+    margin: 0 auto 50px;
     display:table;
     max-width: 900px;
 }
