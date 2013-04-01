@@ -275,7 +275,7 @@ function drawAllData(){
     }
     // collects data
     else{
-        var score;
+        var score = 0;
         // iterates through objects of hole array
         for(i = 0; i < holeArray.length; i++){
             hole = holeArray[i];
@@ -290,15 +290,15 @@ function drawAllData(){
                 // passing all shot information to drawing function
                 drawShape(startLocationXY, endLocationXY, hole.shots[x].club, distance, startTime, hole.holeScore, hole.putts);
                 // being used to calculate an average score
-                score += hole.holeScore; 
             }
+			score += hole.holeScore; 
             html += "</svg>\n";
         }
-        
+       
         document.getElementById('par').innerHTML =
             "<ul>\n" +
                 "<li>par: <span>" + hole.par + "</span></li>\n" +
-                "<li> average score: <span>" + parseFloat(score / holeArray.length).toFixed(1) + "</span></li>\n" +
+                "<li> average score: <span>" + (score / holeArray.length).toFixed(1) + "</span></li>\n" +
             "</ul>\n";
     }
     
@@ -358,7 +358,9 @@ function drawShape(start, end, club, distance, startTime, holeScore, putts){
                    y2='" +end.y+ "' \n\
                    stroke='black' \n\
                    stroke-width='3' \n\
-                   title='Date: " + d.date + "\n Time: " + d.time + "\n Score: " + holeScore + "\n Putts: " + putts + "'/>\n";
+                   title='Date: " + d.date + "\n Time: " + d.time + "\n Score: " + holeScore + "\n Putts: " + putts + "'> \n\
+                   <title> Date: " + d.date + "\n Time: " + d.time + "\n Score: " + holeScore + "\n Putts: " + putts + " </title> \n\
+            </line> \n";
 
     // draw triangle with the appropriate color
     if(club >= 1 && club <= 6){
@@ -377,7 +379,9 @@ function drawShape(start, end, club, distance, startTime, holeScore, putts){
                           fill='" +color+ "' \n\
                           stroke-width='2' \n\
                           stroke='#000' \n\
-                          title='" +clubName+ " \n" +distance+ " yards' />\n";
+                          title=' " +clubName+ " \n" +distance+ " yards'> \n\
+                          <title>" +clubName+ " \n" +distance+ " yards </title> \n\
+                </polygon>\n";
     }
 
     // draw square with the appropriate color
@@ -395,7 +399,9 @@ function drawShape(start, end, club, distance, startTime, holeScore, putts){
                        fill='" +color+ "' \n\
                        stroke-width='2' \n\
                        stroke='#000' \n\
-                       title='" +clubName+ " \n" +distance+ " yards' />\n"; 
+                       title=' " +clubName+ " \n" +distance+ " yards'> \n\
+                       <title>" +clubName+ " \n" +distance+ " yards </title> \n\
+                </rect>\n"; 
     }
 
     // draw circle with the appropriate color
@@ -415,7 +421,9 @@ function drawShape(start, end, club, distance, startTime, holeScore, putts){
                          fill='" +color+ "' \n\
                          stroke-width='2' \n\
                          stroke='#000' \n\
-                         title='" +clubName+ " \n" +distance+ " yards' />\n";
+                         title=' " +clubName+ " \n" +distance+ " yards'> \n\
+                         <title>" +clubName+ " \n" +distance+ " yards </title> \n\
+                </circle>\n";
     }
 
     // draw diamond with the approriate color
@@ -435,7 +443,9 @@ function drawShape(start, end, club, distance, startTime, holeScore, putts){
                           fill='" +color+ "' \n\
                           stroke-width='2' \n\
                           stroke='#000' \n\
-                          title='" +clubName+ " \n" +distance+ " yards'/>";
+                          title=' " +clubName+ " \n" +distance+ " yards'> \n\
+                          <title>" +clubName+ " \n" +distance+ " yards </title> \n\
+                </polygon>\n";
     }
 } // end draw shape
 
