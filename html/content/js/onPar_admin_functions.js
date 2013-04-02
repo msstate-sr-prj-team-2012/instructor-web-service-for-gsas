@@ -70,7 +70,7 @@ $(document).ready(function () {
 	$('#genderm').change(function () { userChange = true; });
 	$('#genderf').change(function () { userChange = true; });
 	$('#lefth').change(function () { userChange = true; });
-	$('righth').change(function () { userChange = true; });
+	$('#righth').change(function () { userChange = true; });
 
 	//**********************************************************************
     //
