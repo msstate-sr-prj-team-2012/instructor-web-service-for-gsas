@@ -346,7 +346,7 @@ $(document).ready(function () {
 							if(deletedRounds)
 							{
 								showError("Selected rounds were successfully deleted!");
-								reselectGolfer();
+								//reselectGolfer();
 								
 								//Update the table
 								roundClass = new RoundGetAll(user.ID);
