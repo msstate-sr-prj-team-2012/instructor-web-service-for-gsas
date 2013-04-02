@@ -230,7 +230,14 @@ $(document).ready(function () {
 			
             //Change the title of the form to "Edit Golfer"
             document.getElementById('formheader').innerText = "Edit Golfer";
-
+			if(document.all)
+			{
+				 document.getElementById('formheader').innerText = "Edit Golfer";
+			} 
+			else
+			{
+				document.getElementById('formheader').textContent = "Edit Golfer";
+			}
             //Get User data from the database
             user = new User(userID);
             //*********
@@ -281,8 +288,17 @@ $(document).ready(function () {
         $('#userform').show();
         $('#roundselect').hide();
 
-        document.getElementById('formheader').innerText = "Add Golfer";
-
+		//Change the title of the form to "Edit Golfer"
+		document.getElementById('formheader').innerText = "Add Golfer";
+		if(document.all)
+		{
+			 document.getElementById('formheader').innerText = "Add Golfer";
+		} 
+		else
+		{
+			document.getElementById('formheader').textContent = "Add Golfer";
+		}
+			
         user = new User();
         document.getElementById('ufname').value = '';
         document.getElementById('ulname').value = '';
