@@ -130,7 +130,7 @@ $(document).ready(function() {
     }
     else if(window.location.pathname === defines.BASE_PATH + "/stats"){
         document.getElementById('stats').className += ' selected_tab'; 
-        getStatData();
+        createRoundTabs();
     }
 });
 
@@ -248,17 +248,44 @@ function select2SelectFieldData()
  ****************************************************************************/
 
 function createRoundTabs(){
-    var rounds = localStorage.getObject('rounds');
-    
-    var html = '<ul>\n';
-    html += "<li id='all' title='all rounds' class='selected_tab'>all</li>\n";
-    for (var i = 0; i < rounds.length; i++){
-        var d = formatDate(rounds[i].startTime);
-        html += "<li id='" + rounds[i].ID + "' title='" + d.date + "\n" + d.time + "'>" + (i + 1) + "</li>\n";
+
+    if(window.location.pathname !== defines.BASE_PATH + "/stats") {
+        var rounds = localStorage.getObject('rounds');
+        
+        var html = '<ul>\n';
+        html += "<li id='all' title='all rounds' class='selected_tab'>all</li>\n";
+        for (var i = 0; i < rounds.length; i++){
+            var d = formatDate(rounds[i].startTime);
+            html += "<li id='" + rounds[i].ID + "' title='" + d.date + "\n" + d.time + "'>" + (i + 1) + "</li>\n";
+        }
+        html += "</ul>\n";
+        
+        document.getElementsByClassName("round_tabs")[0].innerHTML = html;  
+    } else {
+        var user = new User(localStorage.getItem('userID'));
+
+        var selected = false;
+
+        var html = '<ul>\n';
+        // not doing an all tab for stats
+        // not in scope
+        for (var i = 0; i < 5; i++) {
+            if (typeof(user.stats[2012 + i]) !== 'undefined') {
+                var year = 2012 + i;
+                html += "<li id='" + year + "' title='" + year + "'";
+                
+                if (!selected) {
+                    html += " class='selected_tab'";
+                    selected = true;
+                }
+
+                html += ">" + year + "</li>\n";
+            }
+        }
+        html += "</ul>\n";
+
+        document.getElementsByClassName("view_tabs")[0].innerHTML = html; 
     }
-    html += "</ul>\n";
-    
-    document.getElementsByClassName("round_tabs")[0].innerHTML = html;     
 }
 
 
@@ -315,51 +342,6 @@ Storage.prototype.setObject = function(key, value) {
 Storage.prototype.getObject = function(key) {
     var value = this.getItem(key);
     return value && JSON.parse(value);
-}
-
-
-
-/****************************************************************************
- *
- * Creates Statistics Table
- *
- ****************************************************************************/
-
-var statData;
-var user = new User(localStorage.getItem('userID'));
-
-function getStatData(){   
-    statData = [];
-    for(var i = 0;i < 2; i++) {
-        if (typeof(user.stats[2012 + i]) != 'undefined') {
-            statData.push({
-                year: (2012 + i),
-                gir: (user.stats[2012 + i].GIR_percentage).toFixed(2),
-                accuracy: (user.stats[2012 + i].driving_accuracy).toFixed(2),
-                distance: (user.stats[2012 + i].driving_distance).toFixed(2) 
-            });
-        }
-    }  
-    createStatGrid();
-}
-
-function createStatGrid(){
-    $("#statistics").jqGrid({
-        datatype: "local",
-        data: statData,
-        colNames:['year', 'GIR %', 'driving accuracy', 'driving distance'],
-        colModel:[
-            {name:'year', index: 'year', width: 60, align:'center'},
-            {name:'gir',index:'gir', width:60, align:'center'},
-            {name:'accuracy',index:'accuracy', width:120, align:'center'},
-            {name:'distance',index:'distance', width:120, align:'center'}
-        ],
-        rowNum:10,
-        sortname: 'year',
-        viewrecords: true,
-        caption:"Statistics",
-        height: "auto"
-    });
 }
 
 
