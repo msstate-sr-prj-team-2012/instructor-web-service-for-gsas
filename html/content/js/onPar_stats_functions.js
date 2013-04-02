@@ -47,19 +47,24 @@ function drawChart()
                 series.push({
                     type:'pie',
                     name:'GIR',
-                    data:[['Green Hit',user.stats[2012 + i].GIR_percentage],['Green Miss',100-user.stats[2012 + i].GIR_percentage]],
+                    data:[['Hit',user.stats[2012 + i].GIR_percentage],['Miss',100-user.stats[2012 + i].GIR_percentage]],
                     center: [45, 50],
                     size: 80,
                     showInLegend: true,
-                    dataLabels: {enabled: false}
+                    dataLabels: {enabled: false},
+					events: {
+						 legendItemClick: function(event) {
+							return false;
+						 }
+					}					
                 });
                 series.push({
                     type:'pie',
                     name:'FIR',
-                    data:[['Fairway Hit',user.stats[2012 + i].driving_accuracy],['Fairway Miss',100-user.stats[2012 + i].driving_accuracy]],
+                    data:[['Hit',user.stats[2012 + i].driving_accuracy],['Miss',100-user.stats[2012 + i].driving_accuracy]],
                     center: [700, 170],
                     size: 80,
-                    showInLegend: true,
+                    showInLegend: false,
                     dataLabels: {enabled: false}
                 });
             }
