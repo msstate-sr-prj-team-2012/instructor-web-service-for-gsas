@@ -487,12 +487,12 @@ function getID() {
 
 function showError(error)
 {
-	smoke.alert(error);
+	alert(error);
 }
 
 function showConfirmation(message)
 {
-	smoke.alert(message);
+	alert(message);
 }
 
 function select2SelectFieldData()
