@@ -48,8 +48,8 @@ function drawChart()
                     type:'pie',
                     name:'GIR',
                     data:[['Green Hit',user.stats[2012 + i].GIR_percentage],['Green Miss',100-user.stats[2012 + i].GIR_percentage]],
-                    center: [65, 70],
-                    size: 100,
+                    center: [45, 50],
+                    size: 80,
                     showInLegend: true,
                     dataLabels: {enabled: false}
                 });
@@ -57,8 +57,8 @@ function drawChart()
                     type:'pie',
                     name:'FIR',
                     data:[['Fairway Hit',user.stats[2012 + i].driving_accuracy],['Fairway Miss',100-user.stats[2012 + i].driving_accuracy]],
-                    center: [700, 180],
-                    size: 100,
+                    center: [700, 170],
+                    size: 80,
                     showInLegend: true,
                     dataLabels: {enabled: false}
                 });
@@ -115,8 +115,8 @@ function makeChart(drivingDistanceYears, series, yMin)
             items: [{
                 html: 'FIR %',
                 style: {
-                    left: '685px',
-                    top: '235px',
+                    left: '710px',
+                    top: '245px',
                     color: 'black'
                 }
             },
