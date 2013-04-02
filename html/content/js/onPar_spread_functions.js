@@ -182,6 +182,7 @@ function createPolarChart(){
                 renderTo: 'container',
                 type: 'scatter',
 				polar: true,
+				zoom: 'xy',
                 backgroundColor: 'transparent', 
                 marginTop: 10, 
 				paddingBottom: 20
@@ -208,7 +209,7 @@ function createPolarChart(){
 	        max: 90,
 	        labels: {
                     formatter: function () {
-                            return this.value;
+                            return this.value + '°';
                     }
 	        }
 	    },
@@ -241,7 +242,7 @@ function createPolarChart(){
                     },
                     tooltip: {
                         headerFormat: '<b>{series.name}</b><br>',
-                        pointFormat: '{point.y} yards <br> {point.x} degrees'
+                        pointFormat: '{point.y} yards <br> {point.x} °'
                     }
                 }
             },
