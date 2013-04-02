@@ -66,7 +66,7 @@ function drawChart()
         }
     } 
 
-    series.push({type:'line',name:'Driving Distance',data:drivingDistances});
+    series.push({type:'line',color:'blue',name:'Driving Distance',data:drivingDistances});
 
     makeChart(drivingDistanceYears, series, yMin);
 }
@@ -106,9 +106,8 @@ function makeChart(drivingDistanceYears, series, yMin)
             }
         },
         plotOptions: {
-            column: {
-                pointPadding: 0.2,
-                borderWidth: 0
+            pie: {
+                colors: ['green', 'red']
             }
         },
         labels: {
