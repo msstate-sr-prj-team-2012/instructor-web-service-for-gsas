@@ -51,12 +51,7 @@ function drawChart()
                     center: [45, 50],
                     size: 80,
                     showInLegend: true,
-                    dataLabels: {enabled: false},
-					events: {
-						 legendItemClick: function(event) {
-							return false;
-						 }
-					}					
+                    dataLabels: {enabled: false}			
                 });
                 series.push({
                     type:'pie',
@@ -112,7 +107,14 @@ function makeChart(drivingDistanceYears, series, yMin)
         },
         plotOptions: {
             pie: {
-                colors: ['green', 'red']
+                colors: ['green', 'red'],
+				point: {
+                events: {
+                    legendItemClick: function () {
+                        return false; // <== returning false will cancel the default action
+                    }
+                }
+            },
             }
         },
         labels: {
