@@ -67,7 +67,7 @@ function drawChart()
     } 
 
     series.push({type:'line',name:'Driving Distance',data:drivingDistances});
-    console.log(yMin);
+
     makeChart(drivingDistanceYears, series, yMin);
 }
 
