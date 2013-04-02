@@ -252,21 +252,18 @@ $(document).ready(function () {
         if (getID()) 
 		{
             //display a warning message.  If confirm, delete user
-            smoke.confirm("WARNING: pressing this button results in the selected user being deleted.\nPress OK to continue or cancel to stop the deletion.",
-				function(e)
-				{
-					if (e)
-					{
-						user = new User(userID);
-						if (user.del()) {showConfirmation("User was deleted!");}
-						
-						//Update the golfer selection box
-						$('#golfer_select').select2({
-							data:select2SelectFieldData()
-						});
-					}
-				}
-			);
+            var r = confirm("WARNING: pressing this button results in the selected user being deleted.\nPress OK to continue or cancel to stop the deletion.");			
+			if (r)
+			{
+				user = new User(userID);
+				if (user.del()) {showConfirmation("User was deleted!");}
+				
+				//Update the golfer selection box
+				$('#golfer_select').select2({
+					data:select2SelectFieldData()
+				});
+			}
+			
         }
     });
     //**********************************************************************
@@ -322,8 +319,6 @@ $(document).ready(function () {
 			if(user.ID != null)
 			{
 				var roundClass = new RoundGetAll(user.ID);
-				
-				
 				
 				if(roundClass.rounds.length > 0)
 				{	
