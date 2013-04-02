@@ -315,7 +315,7 @@ $(document).ready(function () {
 			user = new User(userID);
             $('#userform').hide();
             $('#roundselect').show();
-            var tableStr = '';
+            
 			document.getElementById('roundTable').innerHTML = '';
 			document.getElementById('tablehead').innerHTML = 'All rounds for ' + user.name;
 			
@@ -323,20 +323,11 @@ $(document).ready(function () {
 			{
 				var roundClass = new RoundGetAll(user.ID);
 				
+				
+				
 				if(roundClass.rounds.length > 0)
-				{
-					for (var i = 0; i < roundClass.rounds.length; i++) {
-						tableStr += "<tr>";
-						tableStr += '<td  class="roundsDelcheckboxTd">';
-						tableStr += '<input type="checkbox" value="'+ i +'" />';
-						tableStr += "</td>";
-						tableStr += "<td>";
-						tableStr += roundClass.rounds[i].startTime;
-						tableStr += "</td>";
-						tableStr += "</tr>";
-					}
-					
-					document.getElementById('roundTable').innerHTML = tableStr;
+				{	
+					printRounds(roundClass);
 					
 					$(document).on('click', '#deleteRoundButton', function () {
 						if($("input:checkbox:checked").length == 0)
@@ -348,12 +339,31 @@ $(document).ready(function () {
 						{
 							var deletedRounds = true;
 							$("input:checkbox:checked").each(function(i){
-								//showError($(this).val());
 								if(!roundClass.rounds[$(this).val()].del())
 									deletedRounds = false;
 							});
+							
 							if(deletedRounds)
+							{
 								showError("Selected rounds were successfully deleted!");
+								reselectGolfer();
+								
+								//Update the table
+								roundClass = new RoundGetAll(user.ID);
+								
+								if(roundClass.rounds.length > 0)
+								{
+									printRounds(roundClass);
+									$('#deleteRoundButton').show();
+									document.getElementById('tablehead').innerHTML = 'All rounds for ' + user.name;
+								}
+								else
+								{
+									document.getElementById('tablehead').innerHTML = "No rounds for this user!";
+									document.getElementById('roundTable').innerHTML = '';
+									$('#deleteRoundButton').hide();
+								}
+							}
 						}
 					});
 					
@@ -369,11 +379,7 @@ $(document).ready(function () {
     });
 	
 	$(document).on('click', '#golferreselect', function () {
-        $('#golferreselect').hide();
-		$('#userform').hide();
-		$('#roundselect').hide();
-		$('#golferselect').show();
-		editForm = false;
+		reselectGolfer();
     });
     //*********************************************************************
 });
@@ -387,6 +393,35 @@ function lastName(name) {
     //Find the index where the comma in the name string is
     var n = name.search(',');
     return name.slice(0, n);
+}
+
+
+function printRounds(roundClass)
+{
+	var tableStr = '';
+	
+	for (var i = 0; i < roundClass.rounds.length; i++) 
+	{
+		tableStr += "<tr>";
+		tableStr += '<td  class="roundsDelcheckboxTd">';
+		tableStr += '<input type="checkbox" value="'+ i +'" />';
+		tableStr += "</td>";
+		tableStr += "<td>";
+		tableStr += roundClass.rounds[i].startTime;
+		tableStr += "</td>";
+		tableStr += "</tr>";
+	}
+	
+	document.getElementById('roundTable').innerHTML = tableStr;
+}
+	
+function reselectGolfer()
+{
+	$('#golferreselect').hide();
+	$('#userform').hide();
+	$('#roundselect').hide();
+	$('#golferselect').show();
+	editForm = false;
 }
 
 function firstName(name) {
