@@ -19,7 +19,8 @@ google: { families: [ 'Open+Sans:300italic,400italic,600italic,700italic,800ital
  *
  ****************************************************************************/
 
-var EARTH_RADIUS_IN_YARDS = 13950131.0 / 2; 
+//var EARTH_RADIUS_IN_YARDS = 13950131.0 / 2; 
+var EARTH_RADIUS_IN_YARDS = 6967840;
 var roundsClass;
 
    
