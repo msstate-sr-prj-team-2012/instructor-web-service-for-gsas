@@ -107,7 +107,7 @@ function makeChart(drivingDistanceYears, series, yMin)
         },
         plotOptions: {
             pie: {
-                colors: ['green', 'red'],
+                colors: ['#088A08', '#585858'],
 				point: {
                 events: {
                     legendItemClick: function () {
