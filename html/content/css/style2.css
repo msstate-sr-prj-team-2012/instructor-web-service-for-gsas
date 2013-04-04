@@ -594,12 +594,12 @@ table{cursor:pointer}
 {
     position: relative;
     border: 3px #660000 solid;
-    padding: 0;
+    padding: 15px;
     margin: 100px auto;
     width: 800px;
     height: 350px;
     box-shadow: 0px 0px 10px #000; 
-    background: url("../images/holes/hole1_map.PNG");
+    background: url("../images/holes/hole1_map.PNG") center no-repeat;
 }
 #par
 {

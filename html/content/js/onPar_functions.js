@@ -19,7 +19,6 @@ google: { families: [ 'Open+Sans:300italic,400italic,600italic,700italic,800ital
  *
  ****************************************************************************/
 
-//var EARTH_RADIUS_IN_YARDS = 13950131.0 / 2; 
 var EARTH_RADIUS_IN_YARDS = 6967840;
 var roundsClass;
 
@@ -131,7 +130,7 @@ $(document).ready(function() {
     }
     else if(window.location.pathname === defines.BASE_PATH + "/stats"){
         document.getElementById('stats').className += ' selected_tab'; 
-        createRoundTabs();
+        createStatsTabs();
     }
 });
 
@@ -244,51 +243,46 @@ function select2SelectFieldData()
 
 /****************************************************************************
  *
- * Creates Round Tabs 
+ * Dynamically Created Tabs
  *
  ****************************************************************************/
 
 function createRoundTabs(){
+    var rounds = localStorage.getObject('rounds');
 
-    if(window.location.pathname !== defines.BASE_PATH + "/stats") {
-        var rounds = localStorage.getObject('rounds');
-        
-        var html = '<ul>\n';
-        html += "<li id='all' title='all rounds' class='selected_tab'>all</li>\n";
-        for (var i = 0; i < rounds.length; i++){
-            var d = formatDate(rounds[i].startTime);
-            html += "<li id='" + rounds[i].ID + "' title='" + d.date + "\n" + d.time + "'>" + (i + 1) + "</li>\n";
-        }
-        html += "</ul>\n";
-        
-        document.getElementsByClassName("round_tabs")[0].innerHTML = html;  
-    } else {
-        var user = new User(localStorage.getItem('userID'));
-
-        var selected = false;
-
-        var html = '<ul>\n';
-        // not doing an all tab for stats
-        // not in scope
-        for (var i = 0; i < 5; i++) {
-            if (typeof(user.stats[2012 + i]) !== 'undefined') {
-                var year = 2012 + i;
-                html += "<li id='" + year + "' title='" + year + "'";
-                
-                if (!selected) {
-                    html += " class='selected_tab'";
-                    selected = true;
-                }
-
-                html += ">" + year + "</li>\n";
-            }
-        }
-        html += "</ul>\n";
-
-        document.getElementsByClassName("view_tabs")[0].innerHTML = html; 
+    var html = '<ul>\n';
+    html += "<li id='all' title='all rounds' class='selected_tab'>all</li>\n";
+    for (var i = 0; i < rounds.length; i++){
+        var d = formatDate(rounds[i].startTime);
+        html += "<li id='" + rounds[i].ID + "' title='" + d.date + "\n" + d.time + "'>" + (i + 1) + "</li>\n";
     }
+    html += "</ul>\n";
+
+    document.getElementsByClassName("round_tabs")[0].innerHTML = html;  
 }
 
+function createStatsTabs(){
+    var user = new User(localStorage.getItem('userID'));
+    var selected = false;
+    
+    var html = '<ul>\n';
+    for (var i = 0; i < 5; i++) {
+        if (typeof(user.stats[2012 + i]) !== 'undefined') {
+            var year = 2012 + i;
+            html += "<li id='" + year + "' title='" + year + "'";
+
+            if (!selected) {
+                html += " class='selected_tab'";
+                selected = true;
+            }
+
+            html += ">" + year + "</li>\n";
+        }
+    }
+    html += "</ul>\n";
+
+    document.getElementsByClassName("view_tabs")[0].innerHTML = html; 
+}
 
 
 /****************************************************************************
