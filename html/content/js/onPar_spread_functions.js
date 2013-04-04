@@ -188,6 +188,22 @@ function createPolarChart(){
 				paddingBottom: 20,
 				height: 850
 	    },
+		colors: [
+		   '#2f7ed8', 
+		   '#0d233a', 
+		   '#8bbc21', 
+		   '#910000', 
+		   '#1aadce', 
+		   '#492970',
+		   '#f28f43', 
+		   '#77a1e5', 
+		   '#c42525', 
+		   '#a6c96a',
+		   '#D6D30C',
+		   '#9A0F0F',
+		   '#6ABE90',
+		   '#224715'
+		],
 	    title: {
 	        text: 'Spread'
 	    },
@@ -198,12 +214,12 @@ function createPolarChart(){
 	        startAngle: -90,
 	        endAngle: 90
 	    },
-            legend: {
-                layout: 'vertical',
-                verticalAlign: 'top',
-                borderWidth: 0,
-                x: 350
-            },
+        legend: {
+            layout: 'vertical',
+            verticalAlign: 'top',
+            borderWidth: 0,
+            x: 350
+        },
 	    xAxis: {
 	        tickInterval: 15,
 	        min: -90,
