@@ -97,15 +97,16 @@ $(document).ready(function() {
  *
  ****************************************************************************/
     
-    $('#golfer_select').select2({
-        data:select2SelectFieldData()
-    });
     createFooter();
-    
-    if(window.location.pathname !== defines.BASE_PATH + "/admin"){
-        createNavigationMenu();
-    }
-
+    if(window.location.pathname !== defines.BASE_PATH + "/help" && 
+       window.location.pathname !== defines.BASE_PATH + "/about" && 
+       window.location.pathname !== defines.BASE_PATH + "/admin"){
+       
+       createNavigationMenu();
+        $('#golfer_select').select2({
+            data:select2SelectFieldData()
+        });
+    } 
     if(window.location.pathname === defines.BASE_PATH + "/"){
         document.getElementById('home').className += ' selected_tab'; 
     }
