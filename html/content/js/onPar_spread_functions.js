@@ -185,7 +185,8 @@ function createPolarChart(){
 				zoom: 'xy',
                 backgroundColor: 'transparent', 
                 marginTop: 10, 
-				paddingBottom: 20
+				paddingBottom: 20,
+				height: 850
 	    },
 	    title: {
 	        text: 'Spread'
