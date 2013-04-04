@@ -599,7 +599,9 @@ table{cursor:pointer}
     width: 800px;
     height: 350px;
     box-shadow: 0px 0px 10px #000; 
-    background: url("../images/holes/hole1_map.PNG") center no-repeat;
+    background: url("../images/holes/hole1_map.PNG");
+	background-position: center;
+	background-repeat: no-repeat;
 }
 #par
 {
