@@ -34,7 +34,7 @@ defines.HLW = 24;
 function ajaxErrorHandler(f, data, textStatus, xhr)
 {
 	// eventually send an email to report the error
-	alert('Unknown error from function ' + f + ' that returned status code: ' + xhr.status + '. Email Kevin and report this error');
+	alert('An unknown error occured.s');
 }
 
 /****************************************************************************
