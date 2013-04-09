@@ -281,6 +281,7 @@ function drawAllData(){
     // collects data
     else{
         var score = 0;
+		var putts = 0;
         // iterates through objects of hole array
         for(i = 0; i < holeArray.length; i++){
             hole = holeArray[i];
