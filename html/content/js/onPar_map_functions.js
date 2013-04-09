@@ -135,7 +135,11 @@ function angleOfRotation(TeeXY, CenterXY, TeeLLRad, CenterLLRad){
     var sinRotation = Math.asin(sinRot); 
     var cosRotation = Math.acos(cosRot); 
     
-    var temp = {sinRot: sinRotation, cosRot: cosRotation}; 
+	if(currentHole == 1 || currentHole == 7 || currentHole == 12 || currentHole == 15 || currentHole == 17){
+		var temp = {sinRot: -sinRotation, cosRot: cosRotation}; 
+	} else {
+		var temp = {sinRot: sinRotation, cosRot: cosRotation}; 
+	}
     return temp;
 }
 
