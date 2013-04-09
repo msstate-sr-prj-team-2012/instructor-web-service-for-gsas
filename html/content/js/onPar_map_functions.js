@@ -135,10 +135,11 @@ function angleOfRotation(TeeXY, CenterXY, TeeLLRad, CenterLLRad){
     var sinRotation = Math.asin(sinRot); 
     var cosRotation = Math.acos(cosRot); 
     
+	//var temp = {sinRot: sinRot, cosRot: cosRot}; 
 	if(currentHole == 1 || currentHole == 7 || currentHole == 12 || currentHole == 15 || currentHole == 17){
-		var temp = {sinRot: -sinRotation, cosRot: cosRotation}; 
+		var temp = {sinRot: -sinRot, cosRot: cosRot}; 
 	} else {
-		var temp = {sinRot: sinRotation, cosRot: cosRotation}; 
+		var temp = {sinRot: sinRot, cosRot: cosRot}; 
 	}
     return temp;
 }
@@ -160,8 +161,8 @@ function convertXY0toXY1(xy, height){
 
 function convertXY1toXY2(xy, angle){
     var temp = {
-            x: (xy.x * Math.cos(angle.cosRot) - xy.y * Math.sin(angle.sinRot)),
-            y: (xy.x * Math.sin(angle.sinRot) + xy.y * Math.cos(angle.cosRot))
+            x: (xy.x * angle.cosRot - xy.y * angle.sinRot),
+            y: (xy.x * angle.sinRot + xy.y * angle.cosRot)
     };
     return temp;
 }
@@ -182,10 +183,10 @@ function scaleConvert(locationLL, CenterXY, CenterLLRadFlat, scaleFlat){
 }    
 
 function convertXY2toXY1(xy, angle){
-	var x = (xy.x * Math.cos(angle.cosRot) + xy.y * Math.sin(angle.sinRot)) / (Math.pow(Math.cos(angle.cosRot),2) + Math.pow(Math.sin(angle.sinRot),2));
+	var x = (xy.x * angle.cosRot + xy.y * angle.sinRot) / (Math.pow(angle.cosRot,2) + Math.pow(angle.sinRot,2));
     var temp = {
             x: x,
-            y: (xy.y - x * Math.sin(angle.sinRot)) / Math.cos(angle.cosRot)
+            y: (xy.y - x * angle.sinRot) / angle.cosRot
     };
     return temp;
 }
@@ -296,13 +297,15 @@ function drawAllData(){
                 // being used to calculate an average score
             }
 			score += hole.holeScore; 
+			putts += hole.putts;
             html += "</svg>\n";
         }
        
         document.getElementById('par').innerHTML =
             "<ul>\n" +
                 "<li>par: <span>" + hole.par + "</span></li>\n" +
-                "<li> average score: <span>" + (score / holeArray.length).toFixed(1) + "</span></li>\n" +
+                "<li>average score: <span>" + (score / holeArray.length).toFixed(1) + "</span></li>\n" +
+				"<li>average putts: <span>" + (putts / holeArray.length).toFixed(1) + "</span></li>\n" +
             "</ul>\n";
     }
     
@@ -344,6 +347,7 @@ function drawData(){
             "<ul>\n" +
                 "<li>par: <span>" + hole.par + "</span></li>\n" +
                 "<li>score: <span>" + hole.holeScore + "</span></li>\n" +
+				"<li>putts: <span>" + hole.putts + "</span></li>\n" +
             "</ul>\n";
     }
     
