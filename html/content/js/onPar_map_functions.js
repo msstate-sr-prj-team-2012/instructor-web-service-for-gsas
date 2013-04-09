@@ -156,8 +156,8 @@ function convertXY0toXY1(xy, height){
 
 function convertXY1toXY2(xy, angle){
     var temp = {
-            x: (xy.x * Math.cos(angle.sinRot) - xy.y * Math.sin(angle.cosRot)),
-            y: (xy.x * Math.sin(angle.sinRot) - xy.y * Math.cos(angle.cosRot))
+            x: (xy.x * Math.cos(angle.cosRot) - xy.y * Math.sin(angle.sinRot)),
+            y: (xy.x * Math.sin(angle.sinRot) + xy.y * Math.cos(angle.cosRot))
     };
     return temp;
 }
@@ -178,10 +178,10 @@ function scaleConvert(locationLL, CenterXY, CenterLLRadFlat, scaleFlat){
 }    
 
 function convertXY2toXY1(xy, angle){
-    var y = ((Math.sin(angle.sinRot)*xy.x) - (Math.cos(angle.sinRot)*xy.y)) / ((Math.cos(angle.sinRot)*Math.cos(angle.cosRot)) - (Math.sin(angle.cosRot)*Math.sin(angle.sinRot)));
+	var x = (xy.x * Math.cos(angle.cosRot) + xy.y * Math.sin(angle.sinRot)) / (Math.pow(Math.cos(angle.cosRot),2) + Math.pow(Math.sin(angle.sinRot),2));
     var temp = {
-            x: ((xy.x + (y * Math.sin(angle.cosRot))) / Math.cos(angle.sinRot)),
-            y: y
+            x: x,
+            y: (xy.y - x * Math.sin(angle.sinRot)) / Math.cos(angle.cosRot)
     };
     return temp;
 }
