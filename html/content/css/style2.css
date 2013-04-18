@@ -107,11 +107,11 @@ header h1
 .organization-logo
 {
     position: absolute;
-    padding: 10px;
-    top: 20px;
+    padding: 0;
+    top: 0;
     right: 0;
-    width: 270px;
-    height: 72px;
+    width: 345px;
+    height: 115px;
     background: url('../images/2008_MSU_logo_web_text_whiteontrans.png') no-repeat center;
 }
 
