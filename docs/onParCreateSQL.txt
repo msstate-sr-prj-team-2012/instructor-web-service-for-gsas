@@ -1,0 +1,191 @@
+--
+-- Database: `onPar`
+--
+
+-- --------------------------------------------------------
+
+--
+-- Table structure for table `course`
+--
+
+CREATE TABLE IF NOT EXISTS `course` (
+  `courseID` bigint(20) unsigned NOT NULL AUTO_INCREMENT,
+  `name` text NOT NULL,
+  `location` text NOT NULL,
+  PRIMARY KEY (`courseID`)
+) ENGINE=InnoDB  DEFAULT CHARSET=utf8 AUTO_INCREMENT=5 ;
+
+-- --------------------------------------------------------
+
+--
+-- Table structure for table `hole`
+--
+
+CREATE TABLE IF NOT EXISTS `hole` (
+  `holeID` bigint(20) unsigned NOT NULL AUTO_INCREMENT,
+  `roundID` bigint(20) unsigned NOT NULL,
+  `holeNumber` int(11) NOT NULL,
+  `holeScore` int(11) NOT NULL,
+  `FIR` tinyint(1) NOT NULL,
+  `GIR` tinyint(1) NOT NULL,
+  `putts` int(11) NOT NULL,
+  PRIMARY KEY (`holeID`),
+  KEY `roundID` (`roundID`)
+) ENGINE=InnoDB  DEFAULT CHARSET=utf8 AUTO_INCREMENT=25 ;
+
+-- --------------------------------------------------------
+
+--
+-- Table structure for table `holeDefinition`
+--
+
+CREATE TABLE IF NOT EXISTS `holeDefinition` (
+  `courseID` bigint(20) unsigned NOT NULL,
+  `holeNumber` int(11) NOT NULL,
+  `teeID` int(11) NOT NULL,
+  `distance` int(11) NOT NULL,
+  PRIMARY KEY (`holeNumber`,`teeID`,`courseID`),
+  KEY `courseID` (`courseID`)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+
+-- --------------------------------------------------------
+
+--
+-- Table structure for table `holeReference`
+--
+
+CREATE TABLE IF NOT EXISTS `holeReference` (
+  `courseID` bigint(20) unsigned NOT NULL,
+  `holeNumber` int(11) NOT NULL,
+  `firstRefLat` double NOT NULL,
+  `firstRefLong` double NOT NULL,
+  `secondRefLat` double NOT NULL,
+  `secondRefLong` double NOT NULL,
+  `thirdRefLat` double NOT NULL,
+  `thirdRefLong` double NOT NULL,
+  `firstRefX` double NOT NULL,
+  `firstRefY` double NOT NULL,
+  `secondRefX` double NOT NULL,
+  `secondRefY` double NOT NULL,
+  `thirdRefX` double NOT NULL,
+  `thirdRefY` double NOT NULL,
+  PRIMARY KEY (`courseID`,`holeNumber`)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+
+
+-- --------------------------------------------------------
+
+--
+-- Table structure for table `round`
+--
+
+CREATE TABLE IF NOT EXISTS `round` (
+  `roundID` bigint(20) unsigned NOT NULL AUTO_INCREMENT,
+  `userID` bigint(20) unsigned NOT NULL,
+  `courseID` bigint(20) unsigned NOT NULL,
+  `teeID` int(11) NOT NULL,
+  `totalScore` int(11) NOT NULL,
+  `startTime` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP,
+  PRIMARY KEY (`roundID`),
+  KEY `userID` (`userID`),
+  KEY `courseID` (`courseID`)
+) ENGINE=InnoDB  DEFAULT CHARSET=utf8 AUTO_INCREMENT=5 ;
+
+-- --------------------------------------------------------
+
+--
+-- Table structure for table `shot`
+--
+
+CREATE TABLE IF NOT EXISTS `shot` (
+  `shotID` bigint(20) unsigned NOT NULL AUTO_INCREMENT,
+  `holeID` bigint(20) unsigned NOT NULL,
+  `club` int(11) NOT NULL,
+  `shotNumber` int(11) NOT NULL,
+  `aimLatitude` double NOT NULL,
+  `aimLongitude` double NOT NULL,
+  `startLatitude` double NOT NULL,
+  `startLongitude` double NOT NULL,
+  `endLatitude` double NOT NULL,
+  `endLongitude` double NOT NULL,
+  PRIMARY KEY (`shotID`),
+  KEY `holeID` (`holeID`)
+) ENGINE=InnoDB  DEFAULT CHARSET=utf8 AUTO_INCREMENT=35 ;
+
+-- --------------------------------------------------------
+
+--
+-- Table structure for table `user`
+--
+
+CREATE TABLE IF NOT EXISTS `user` (
+  `userID` bigint(20) unsigned NOT NULL AUTO_INCREMENT,
+  `username` varchar(30) NOT NULL,
+  `password` text NOT NULL,
+  `name` text NOT NULL,
+  `email` text,
+  `roles` int(10) unsigned NOT NULL DEFAULT '0',
+  PRIMARY KEY (`userID`),
+  UNIQUE KEY `username` (`username`)
+) ENGINE=InnoDB  DEFAULT CHARSET=utf8 AUTO_INCREMENT=23 ;
+
+-- --------------------------------------------------------
+
+--
+-- Table structure for table `userStats`
+--
+
+CREATE TABLE IF NOT EXISTS `userStats` (
+  `userID` bigint(20) unsigned NOT NULL,
+  `year` int(11) NOT NULL,
+  `drivingDistance` double NOT NULL,
+  `GIRPercentage` double NOT NULL,
+  `drivingAccuracy` double NOT NULL,
+  PRIMARY KEY (`userID`,`year`),
+  KEY `userID` (`userID`)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+
+--
+-- Constraints for dumped tables
+--
+
+--
+-- Constraints for table `hole`
+--
+ALTER TABLE `hole`
+  ADD CONSTRAINT `hole_ibfk_1` FOREIGN KEY (`roundID`) REFERENCES `round` (`roundID`) ON DELETE CASCADE ON UPDATE NO ACTION;
+
+--
+-- Constraints for table `holeDefinition`
+--
+ALTER TABLE `holeDefinition`
+  ADD CONSTRAINT `holeDefinition_ibfk_1` FOREIGN KEY (`courseID`) REFERENCES `course` (`courseID`) ON DELETE CASCADE ON UPDATE NO ACTION;
+
+--
+-- Constraints for table `holeReference`
+--
+ALTER TABLE `holeReference`
+  ADD CONSTRAINT `holeReference_ibfk_1` FOREIGN KEY (`courseID`) REFERENCES `course` (`courseID`) ON DELETE CASCADE ON UPDATE NO ACTION;
+
+--
+-- Constraints for table `round`
+--
+ALTER TABLE `round`
+  ADD CONSTRAINT `round_ibfk_2` FOREIGN KEY (`courseID`) REFERENCES `course` (`courseID`) ON DELETE CASCADE ON UPDATE NO ACTION,
+  ADD CONSTRAINT `round_ibfk_1` FOREIGN KEY (`userID`) REFERENCES `user` (`userID`) ON DELETE CASCADE ON UPDATE NO ACTION;
+
+--
+-- Constraints for table `shot`
+--
+ALTER TABLE `shot`
+  ADD CONSTRAINT `shot_ibfk_1` FOREIGN KEY (`holeID`) REFERENCES `hole` (`holeID`) ON DELETE CASCADE ON UPDATE NO ACTION;
+
+--
+-- Constraints for table `userStats`
+--
+ALTER TABLE `userStats`
+  ADD CONSTRAINT `userStats_ibfk_1` FOREIGN KEY (`userID`) REFERENCES `user` (`userID`) ON DELETE CASCADE ON UPDATE NO ACTION;
+
+/*!40101 SET CHARACTER_SET_CLIENT=@OLD_CHARACTER_SET_CLIENT */;
+/*!40101 SET CHARACTER_SET_RESULTS=@OLD_CHARACTER_SET_RESULTS */;
+/*!40101 SET COLLATION_CONNECTION=@OLD_COLLATION_CONNECTION */;
