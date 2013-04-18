@@ -731,11 +731,11 @@ table{cursor:pointer}
     height: 100%;
     z-index:1000; 
 }
-.help_title{
+.help_title, .about_title{
 	font-size: 20px;
 	color: #660000;
 }
-.help_container{
+.help_container, .about_container{
 	text-align:left;
 	padding-left:30px;
 }
