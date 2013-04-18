@@ -1,0 +1,67 @@
+Manual installation instructions
+
+1. Copy OnPar files to /gsas on the web server file system structure.
+For example, the UniServer Apache distribution stores files in /UniServer/www/. 
+Place OnPar files in /UniServer/www/gsas.
+	
+2. Set up the database
+In order to use OnPar, a MySQL database must be set up and configured 
+in such a way that it is accessible to the web and mobile client apps.
+	
+The simplest manner is to use the mysql commands to set up the database. 
+Let's start by creating the database and the username / password inside MySQL first:
+
+  # mysql -u root -p
+  Enter password: <Enter root user password>
+  mysql> create database gsas;
+  Query OK, 1 row affected (0.00 sec)
+
+  mysql> grant all privileges on gsas.* to gsas identified by 'pQMzSYAp';
+  Query OK, 0 rows affected (0.00 sec)
+
+  mysql> flush privileges;
+  Query OK, 0 rows affected (0.00 sec)
+
+  mysql> exit
+  Bye
+  #
+
+Under certain curcumstances, you may need to run variations of the "grant"
+command:
+mysql> grant all privileges on gsas.* to gsas@localhost identified by 'pQMzSYAp';
+   OR
+mysql> grant all privileges on gsas.* to gsas@'%' identified by 'pQMzSYAp';
+
+This has created an empty database called 'gsas', created a user named 
+'gsas' with a password of 'pQMzSYAp', and given the 'gsas' user total 
+permission over the 'gsas' database. 
+
+3. Install the schema for the database
+
+While the database is now set up, it isn't populated with the required internal 
+formatting to be used with OnPar. To do so, execute the following command:
+
+  # mysql -u root -p
+  Enter password: <Enter root user password>
+  mysql> use database gsas;
+  Query OK, 1 row affected (0.00 sec)
+
+  mysql> source gsas.sql
+  Query OK, 6 rows affected (0.00 sec)
+
+  mysql> flush privileges;
+  Query OK, 0 rows affected (0.00 sec)
+
+  mysql> exit
+  Bye
+  #
+
+While the output may vary, as long as "Query OK" is in the response,
+the operation will be a success. With the source command, it may be
+necessary to specify the full filepath where "gsas.sql" is stored.
+
+4. You're finished!
+Some web stack packages (like UniServer), are set up to prevent
+non-localhost access to the web server by default. Please refer
+to the documentation for your web server software on how to
+adjust this to enable non-localhost access.
